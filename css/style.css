@@ -1,0 +1,91 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+}
+
+.navbar{
+    background-color:#E38B3D;
+    padding:20px 40px;
+}
+
+.container-fluid{
+    display:flex;
+    align-items:center;
+}
+
+.navbar-brand{
+    display:flex;
+    align-items:center;
+}
+
+.navbar-brand img{
+    width:250px;
+}
+
+.navbar-collapse{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    width:100%;
+}
+
+.navbar-nav{
+    display:flex;
+    gap:20px;
+    margin:0 auto;
+}
+
+.navbar-nav .nav-link{
+    font-family:"Jockey One", sans-serif;
+    font-weight:bold;
+    font-size:32px;
+    color:#FFF0C3;
+    text-shadow:-2px 1px 2px #009598;
+    transition:transform 0.2s ease;
+}
+
+.navbar-nav .nav-link:hover{
+    transform:translateY(-5px);
+}
+
+.form-control{
+    color:#FFF0C3;
+}
+
+.btnPesquisar{
+    border:none;
+    background:none;
+    padding:0;
+    cursor:pointer;
+    transition:transform 0.2s ease;
+}
+
+.btnPesquisar:hover{
+    transform:translateY(-5px);
+}
+
+.btnPesquisar img{
+    width:40px;
+    display:block;
+}
+
+footer{
+    background-color:#009598;
+}
+
+footer a{
+    color:#FFF0C3;
+}
+
+footer a i{
+    color:#FFF0C3;
+}
+
+footer p{
+    color:#FFF0C3;
+}
