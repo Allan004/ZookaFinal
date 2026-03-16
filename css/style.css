@@ -53,10 +53,6 @@ body{
     transform:translateY(-5px);
 }
 
-.form-control{
-    color:#FFF0C3;
-}
-
 .btnPesquisar{
     border:none;
     background:none;
@@ -72,6 +68,13 @@ body{
 .btnPesquisar img{
     width:40px;
     display:block;
+}
+
+.cliente-pesquisar{
+    width:300px;
+    padding:8px;
+    border-radius:6px;
+    border:1px solid #ccc;
 }
 
 footer{
