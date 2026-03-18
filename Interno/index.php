@@ -7,6 +7,14 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <?php
+        include "../php/funcoes_ladingpage.php";
+
+
+        $pdo=conectar();
+        $baixo_estoque=verifica_baixo_estoque();
+        
+    ?>
   <header>
     <div class="brand">
       <div class="logo">🐶</div>
@@ -40,7 +48,7 @@
         </div>
         <div class="card">
           <h4>Estoque baixo</h4>
-          <div class="value">8 <span class="badge warn">atenção</span></div>
+          <div class="value"><?php echo $baixo_estoque ?> <span class="badge warn">atenção</span></div>
         </div>
         <div class="card">
           <h4>Faturamento (hoje)</h4>

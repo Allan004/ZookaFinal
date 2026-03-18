@@ -17,4 +17,4 @@ function conectar(){
             echo "Erro ao conectar: " . $e->getMenssage();
         };
 }
->?
+?>
