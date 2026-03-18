@@ -1,8 +1,8 @@
 :root{
       --primary:#1abc9c; /* verde água */
-      --primary-700:#14967e;
+      --primary-700:black;
       --bg:#f7f9fb;
-      --surface:#ffffff;
+      --surface:black;
       --text:#2c3e50;
       --muted:#6b7a89;
       --danger:#e74c3c;
