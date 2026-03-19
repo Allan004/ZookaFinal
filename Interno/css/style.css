@@ -1,8 +1,8 @@
 :root{
       --primary:#1abc9c; /* verde água */
-      --primary-700:black;
+      --primary-700:#14967e;
       --bg:#f7f9fb;
-      --surface:black;
+      --surface:#fffff;
       --text:#2c3e50;
       --muted:#6b7a89;
       --danger:#e74c3c;
@@ -38,15 +38,16 @@
       letter-spacing:.2px
     }
     .logo{
-      width:36px; 
-      height:36px; 
-      border-radius:10px; 
-      background:var(--primary);
+      width:50px; 
+      height:50px; 
       display:grid; 
       place-items:center; 
       color:#fff; 
       font-size:20px;
-      box-shadow: inset 0 -3px 0 rgba(0,0,0,.08);
+    }
+    .imagel{
+      max-width: 100%;
+      height: auto;
     }
     .user-area{
       display:flex; 

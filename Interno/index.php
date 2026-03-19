@@ -13,11 +13,13 @@
 
         $pdo=conectar();
         $baixo_estoque=verifica_baixo_estoque();
-        
+        $agenda_hoje=agenda_hoje();
+        $faturamento=faturamentoh();
+        $lista_agenda_hoje= listar_proximos_atendimentos();
     ?>
   <header>
     <div class="brand">
-      <div class="logo">🐶</div>
+      <div class="logo"><img src="Assets/logo_ico.png" class="imagel" alt=""></div>
       <div>Zooka • Sistema Interno</div>
     </div>
     <div class="user-area">
@@ -40,7 +42,7 @@
       <div class="cards">
         <div class="card">
           <h4>Atendimentos do dia</h4>
-          <div class="value">12</div>
+          <div class="value"><?php echo $agenda_hoje; ?></div>
         </div>
         <div class="card">
           <h4>Agendamentos pendentes</h4>
@@ -48,21 +50,22 @@
         </div>
         <div class="card">
           <h4>Estoque baixo</h4>
-          <div class="value"><?php echo $baixo_estoque ?> <span class="badge warn">atenção</span></div>
+          <div class="value"><?php echo $baixo_estoque; ?> <span class="badge warn">atenção</span></div>
         </div>
         <div class="card">
           <h4>Faturamento (hoje)</h4>
-          <div class="value">R$ 1.320,00</div>
+          <div class="value"><?php echo $faturamento ?></div>
         </div>
       </div>
 
       <div class="two-col">
         <div class="list">
           <h3>Próximos atendimentos</h3>
-          <div class="item"><span>10:00 • Banho – Thor (Labrador)</span><span class="badge">#A-102</span></div>
-          <div class="item"><span>11:00 • Tosa • Luna (Poodle)</span><span class="badge">#A-103</span></div>
-          <div class="item"><span>13:30 • Vacina • Max (SRD)</span><span class="badge">#A-104</span></div>
-          <div class="item"><span>15:00 • Banho • Nina (Shih-tzu)</span><span class="badge">#A-105</span></div>
+          <?php
+            foreach ($lista_agenda_hoje as $linha){
+              echo '<div class="item"><span>'.$linha[1].' • '.$linha[2].' – ('.$linha[0].')</span><span class="badge">#A-102</span></div>';
+            }
+          ?>
         </div>
         <div class="list">
           <h3>Últimos clientes</h3>
