@@ -1,3 +1,15 @@
+<?php
+include "../php/funcoes_ladingpage.php";
+
+if (isset($_GET['logout'])) {
+    logout();
+    header("Location: index.php");
+    exit;
+}
+
+$logado = usuario_logado();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -10,14 +22,17 @@
     <?php
         include "../php/funcoes_ladingpage.php";
 
-
+        $logado = usuario_logado();
         $pdo=conectar();
         $baixo_estoque=verifica_baixo_estoque();
         $agenda_hoje=agenda_hoje();
         $faturamento=faturamentoh();
         $lista_agenda_hoje= listar_proximos_atendimentos();
+        $listar_ultimos_atendimentos=listar_ultimos_clientes();
     ?>
+<div id="conteudo" class="<?= !$logado ? 'blur' : '' ?>">
   <header>
+    
     <div class="brand">
       <div class="logo"><img src="Assets/logo_ico.png" class="imagel" alt=""></div>
       <div>Zooka • Sistema Interno</div>
@@ -69,12 +84,47 @@
         </div>
         <div class="list">
           <h3>Últimos clientes</h3>
-          <div class="item"><span>Felipe • Thor</span><span>Banho</span></div>
-          <div class="item"><span>Marina • Mel</span><span>Tosa</span></div>
-          <div class="item"><span>Júlia • Simba</span><span>Vacina</span></div>
-          <div class="item"><span>Rafael • Bob</span><span>Banho</span></div>
+          <?php foreach($listar_ultimos_atendimentos as $linha) {
+          echo '<div class="item"><span>'.$linha[1].' • '.$linha[0].'</span><span>Banho</span></div>';
+          };
+          ?>
         </div>
       </div>
+</div>
+      
+
+<?php if (!$logado): ?>
+<div class="login-overlay">
+    <form class="login-card" method="post" action="login.php">
+        
+        <div class="login-brand">
+            <div class="logo" style="background:var(--primary)">Z</div>
+            <div>
+                <strong>Zooka</strong>
+                <div class="muted">Sistema Interno</div>
+            </div>
+        </div>
+
+        <h2>Acesso ao sistema</h2>
+
+        <div class="field">
+            <label>Usuário</label>
+            <input type="text" name="usuario" required>
+        </div>
+
+        <div class="field">
+            <label>Senha</label>
+            <input type="password" name="senha" required>
+        </div>
+
+        <button class="btn btn-block">Entrar</button>
+
+        <?php if (isset($_GET['erro'])): ?>
+            <div class="login-error">Usuário ou senha inválidos</div>
+        <?php endif; ?>
+    </form>
+</div>
+<?php endif; ?>
     </section>
   </main>
 </body>

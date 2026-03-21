@@ -1,4 +1,43 @@
 <?php
+
+        
+        if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+        }
+
+
+
+function usuario_logado(): bool
+{
+    return isset($_SESSION['usuario']);
+}
+
+
+function login(string $usuario, string $senha): bool
+{   
+        $pdo=conectar();
+        $sql = "SELECT usuario, senha FROM login WHERE usuario = :usuario LIMIT 1";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':usuario', $usuario);
+        $stmt->execute();
+
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user && password_verify($senha, $user['senha'])) {
+                $_SESSION['usuario'] = $user['usuario'];
+                return true;
+        }
+
+        return false;
+}
+
+
+function logout(): void
+{
+    session_destroy();
+}
+
+
     include "conexao.php";
     date_default_timezone_set('America/Sao_Paulo');
 
@@ -36,7 +75,7 @@ function faturamentoh(){
 
 function listar_proximos_atendimentos(){
 
-
+        $data=date('Y-m-d');
         $pdo=conectar();
         $comando="SELECT
                     p.nome,
@@ -45,10 +84,31 @@ function listar_proximos_atendimentos(){
                     FROM agendamento a 
                     INNER JOIN pet p on a.id_pet = p.id
                     INNER JOIN servico s on a.id_servico = s.id
-                    ORDER BY a.hora asc";
+                    WHERE a.dataagendamento ='$data'
+                    ORDER BY a.hora asc"
+                    ;
         $total=$pdo->query($comando);
         return $total;
 }
+
+function listar_ultimos_clientes(){
+
+        $data=date('Y-m-d');
+        $pdo=conectar();
+        $comando="SELECT
+                    p.nome,
+                    c.nome
+                    FROM agendamento a 
+                    INNER JOIN pet p on a.id_pet = p.id
+                    INNER JOIN cliente c on a.id_servico = c.id
+                    WHERE a.dataagendamento ='$data' AND LOWER(a.statusagendamento)='confirmado'
+                    ORDER BY a.hora asc"
+                    ;
+        $total=$pdo->query($comando);
+        return $total;
+}
+
+
 
 
 ?>
