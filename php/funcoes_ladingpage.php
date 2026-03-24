@@ -23,7 +23,7 @@ function login(string $usuario, string $senha): bool
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($user && password_verify($senha, $user['senha'])) {
+        if ($user['senha']==$senha) {
                 $_SESSION['usuario'] = $user['usuario'];
                 return true;
         }

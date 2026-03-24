@@ -1,11 +1,13 @@
 <?php
 include "../php/funcoes_ladingpage.php";
 
-if (isset($_GET['logout'])) {
+
+if (isset($_POST['logout'])) {
     logout();
     header("Location: index.php");
     exit;
 }
+
 $logado = usuario_logado();
 
 ?>
@@ -36,8 +38,13 @@ $logado = usuario_logado();
       <div>Zooka • Sistema Interno</div>
     </div>
     <div class="user-area">
-      <span>Olá, Allan</span>
-      <button class="btn">Sair</button>
+      <span>Olá, <?php echo $_SESSION['usuario'] ?></span>
+      
+<form method="post" style="margin:0">
+    <button name="logout" class="btn">Sair</button>
+</form>
+
+    
     </div>
   </header>
 
@@ -93,7 +100,7 @@ $logado = usuario_logado();
 
 <?php if (!$logado): ?>
 <div class="login-overlay">
-  <form method="post" action="/ZookaFinal/Interno/php/login.php">
+  <form method="post" action="/ZookaFinal/php/login.php">
         
         <div class="login-brand">
             <div class="logo" style="background:var(--primary)">Z</div>
