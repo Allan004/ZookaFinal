@@ -52,6 +52,7 @@ $logado = usuario_logado();
     <nav>
       <a class="nav-item active" href="#"><span>🏠</span> Início</a>
       <a class="nav-item" href="#"><span>🐕</span> Clientes & Pets</a>
+      <a class="nav-item" href="pages/agendamento.php"><span>📅</span> Agendamento</a>
       <a class="nav-item" href="#"><span>✂️</span> Serviços</a>
       <a class="nav-item" href="#"><span>🛍️</span> Produtos</a>
       <a class="nav-item" href="#"><span>📦</span> Estoque</a>

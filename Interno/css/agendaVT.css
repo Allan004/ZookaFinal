@@ -1,0 +1,322 @@
+/* RESET PADRÃO */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* CABEÇALHO */
+.cabecario {
+    padding: 15px;
+    text-align: center;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+}
+
+/* ESTRUTURA PRINCIPAL */
+.container {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    height: calc(100vh - 65px); /* Desconta a altura do cabeçalho */
+}
+
+/* COLUNA ESQUERDA (MENU) */
+.esquerda {
+    background-color: #f8f9fa;
+    border-right: 1px solid #ddd;
+    padding: 20px;
+}
+
+/* COLUNA DIREITA (FILTROS + AGENDA) */
+.direita {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* FILTROS TOPO */
+.parte-de-cima {
+    background-color: white;
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.grupo-filtros {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    width: 100%;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 160px;
+}
+
+.campo label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #666;
+    text-transform: uppercase;
+}
+
+.campo select, .btn-obs-form {
+    padding: 10px 12px;
+    border: 1px solid #dce1e7;
+    border-radius: 8px;
+    background-color: #fff;
+    outline: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+    transition: all 0.2s;
+}
+
+.btn-obs-form {
+    font-weight: 600;
+    text-align: left;
+    background-color: #f9f9f9;
+}
+
+.campo select:focus, .btn-obs-form:hover {
+    border-color: #007bff;
+    background-color: #fff;
+}
+
+/* BOTÃO DE SELEÇÃO DIA / SEMANA */
+.semanas {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dias-semanas {
+    display: flex;
+    background: #eeeeee;
+    padding: 4px;
+    border-radius: 10px;
+    gap: 4px;
+}
+
+.btn-toggle {
+    padding: 6px 15px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 6px;
+    color: #6c757d;
+    transition: all 0.2s ease;
+}
+
+.btn-toggle:hover {
+    background: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.btn-toggle.active {
+    background-color: #ffffff;
+    color: #007bff;
+    font-weight: 700;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* ÁREA DA GRADE DA AGENDA */
+.agenda-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
+    background-color: #f3f4f6;
+}
+
+.agenda-header {
+    display: grid;
+    grid-template-columns: 60px repeat(6, 1fr);
+    background: #f8f9fa;
+    position: sticky;
+    top: -20px;
+    z-index: 10;
+    border-bottom: 2px solid #ddd;
+}
+
+.dia-col {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 0;
+    border-right: 1px solid #eee;
+}
+
+.nome-dia {
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+.num-dia {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.dia-col.hoje {
+    background-color: #e6f2ff;
+}
+
+.dia-col.hoje .num-dia {
+    background-color: #007bff;
+    color: white;
+}
+
+.agenda-corpo {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    background: white;
+    border-left: 1px solid #eee;
+}
+
+.coluna-horas {
+    display: grid;
+    grid-template-rows: repeat(13, 60px);
+    border-right: 1px solid #eee;
+}
+
+.coluna-horas span {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+    color: #888;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.grade-slots {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(13, 60px);
+}
+
+.slot-hora {
+    border-right: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    height: 60px;
+}
+
+/* ==========================================================
+   MEU SISTEMA LINDOOOOOOO DO MINI-FORMULÁRIO FLUTUANTE (MODAL) (ARRASEI TÁ)
+   ========================================================== */
+
+.modal {
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Fundo preto transparente */
+    backdrop-filter: blur(4px); /* Embaça o fundo */
+}
+
+.modal-content {
+    background-color: #ffffff;
+    margin: 8% auto;
+    padding: 25px;
+    border-radius: 12px;
+    width: 500px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    animation: surgindo 0.3s ease-out;
+}
+
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.modal-header h2 {
+    font-size: 18px;
+    color: #333;
+}
+
+.close {
+    font-size: 24px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close:hover {
+    color: #d9534f;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.campo-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+.campo-modal label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #555;
+    text-transform: uppercase;
+}
+
+.campo-modal input, .campo-modal textarea {
+    padding: 10px;
+    border: 1px solid #dce1e7;
+    border-radius: 8px;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.campo-modal input:focus, .campo-modal textarea:focus {
+    border-color: #007bff;
+}
+
+.campo-modal textarea {
+    resize: vertical;
+}
+
+.modal-footer {
+    margin-top: 25px;
+}
+
+.btn-salvar {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+   
+}
+
+.btn-salvar:hover {
+    background-color: #0056b3;
+}
