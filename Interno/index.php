@@ -6,8 +6,8 @@ if (isset($_GET['logout'])) {
     header("Location: index.php");
     exit;
 }
-
 $logado = usuario_logado();
+
 ?>
 
 <!DOCTYPE html>
@@ -20,10 +20,8 @@ $logado = usuario_logado();
 </head>
 <body>
     <?php
-        include "../php/funcoes_ladingpage.php";
 
-        $logado = usuario_logado();
-        $pdo=conectar();
+        
         $baixo_estoque=verifica_baixo_estoque();
         $agenda_hoje=agenda_hoje();
         $faturamento=faturamentoh();
@@ -95,7 +93,7 @@ $logado = usuario_logado();
 
 <?php if (!$logado): ?>
 <div class="login-overlay">
-    <form class="login-card" method="post" action="login.php">
+  <form method="post" action="/ZookaFinal/Interno/php/login.php">
         
         <div class="login-brand">
             <div class="logo" style="background:var(--primary)">Z</div>
