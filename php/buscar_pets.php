@@ -22,7 +22,7 @@ $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 if (!$resultados) {
     echo "<p class='muted'>Nenhum pet encontrado</p>";
     exit;
-}
+};
 
 foreach ($resultados as $pet) {
     echo "
@@ -31,5 +31,4 @@ foreach ($resultados as $pet) {
             <span>{$pet['dono']}</span>
         </div>
     ";
-}
-``
+};
