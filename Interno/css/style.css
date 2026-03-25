@@ -107,13 +107,31 @@
       flex-direction:column;
       gap:24px
     }
+    .content2{
+      display:flex; 
+      flex-direction:column;
+      gap:24px
+    }
+    
     .cards{
       display:grid; 
       grid-template-columns:
       repeat(4, minmax(0,1fr)); 
       gap:18px
     }
+     .cards2{
+      display:grid; 
+      grid-template-columns:
+      repeat(2, minmax(0,1fr)); 
+      gap:18px
+    }
     .card{
+      background:var(--surface); 
+      border-radius: var(--radius); 
+      box-shadow:var(--shadow); 
+      padding:16px;
+    }
+    .card2{
       background:var(--surface); 
       border-radius: var(--radius); 
       box-shadow:var(--shadow); 
@@ -127,10 +145,36 @@
       text-transform:uppercase; 
       letter-spacing:.8px
     }
+
+     .card2 h4{
+      margin:0 0 6px 0; 
+      font-size:14px; 
+      color:var(--muted); 
+      font-weight:700; 
+      text-transform:uppercase; 
+      letter-spacing:.8px
+    }
+
+
     .card .value{
       font-size:28px; 
       font-weight:800
     }
+
+    .card2 .value{
+      font-size:28px; 
+      font-weight:800
+    }
+
+     .card2 input[type="text"] {
+        border: none;
+        border-bottom: 2px solid #ccc;
+        padding: 10px;
+        outline: none;
+        transition: 0.3s;
+        width: 100%;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
     .two-col{
       display:grid; 
       grid-template-columns: 1fr 1fr; 
