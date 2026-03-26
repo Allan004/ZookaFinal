@@ -60,6 +60,16 @@ function agenda_hoje(){
         return $total;
 }
 
+function agenda_pendente(){
+        $data=date('Y-m-d');
+        $pdo=conectar();
+        $comando="SELECT COUNT(*) FROM agendamento WHERE statusagendamento='pendente'";
+        $stmt=$pdo->prepare($comando);
+        $stmt->execute();
+        $total=$stmt->fetchColumn();
+        return $total;
+}
+
 function faturamentoh(){
 
         $datai=date('Y-m-d 00:00:00');

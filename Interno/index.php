@@ -29,6 +29,7 @@ $logado = usuario_logado();
         $faturamento=faturamentoh();
         $lista_agenda_hoje= listar_proximos_atendimentos();
         $listar_ultimos_atendimentos=listar_ultimos_clientes();
+        $agenda_pendente=agenda_pendente();
     ?>
 <div id="conteudo" class="<?= !$logado ? 'blur' : '' ?>">
   <header>
@@ -67,7 +68,7 @@ $logado = usuario_logado();
         </div>
         <div class="card">
           <h4>Agendamentos pendentes</h4>
-          <div class="value">5</div>
+          <div class="value"><?php echo $agenda_pendente ?></div>
         </div>
         <div class="card">
           <h4>Estoque baixo</h4>
@@ -89,7 +90,8 @@ $logado = usuario_logado();
           ?>
         </div>
         <div class="list">
-          <h3>Últimos clientes</h3>
+          <h3>Últimos Atemdimentos
+          </h3>
           <?php foreach($listar_ultimos_atendimentos as $linha) {
           echo '<div class="item"><span>'.$linha[1].' • '.$linha[0].'</span><span>Banho</span></div>';
           };
