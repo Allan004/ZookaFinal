@@ -125,6 +125,8 @@
       repeat(2, minmax(0,1fr)); 
       gap:18px
     }
+    
+   
     .card{
       background:var(--surface); 
       border-radius: var(--radius); 
@@ -234,7 +236,7 @@
   user-select: none;
 }
 
-/* OVERLAY */
+/* MODAL DO LOGIN */
 .login-overlay {
   position: fixed;
   inset: 0;
@@ -248,6 +250,94 @@
 /* CARD DE LOGIN */
 .login-card {
   width: 360px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* BRAND */
+.login-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.login-brand .logo_modal img {
+  width: 70px;
+  height: auto;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  color: #fff;
+}
+
+.login-brand .muted {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* TÍTULO */
+.login-card h2 {
+  margin: 6px 0 10px;
+  font-size: 18px;
+  color: var(--text);
+}
+
+/* CAMPOS */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.field input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #e3e8ef;
+  font-size: 14px;
+  outline: none;
+  transition: 0.15s;
+}
+
+.field input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(26,188,156,.15);
+}
+
+/* BOTÃO */
+.btn-block {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* ERRO */
+.login-error {
+  background: rgba(231, 76, 60, .12);
+  color: var(--danger);
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  text-align: center;
+  font-weight: 600;
+}
+
+
+/*CARD DE EDIÇÃO*/ 
+
+.editarpet-card {
+  width: 600px;
   background: var(--surface);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
@@ -331,5 +421,259 @@
   font-weight: 600;
 }
 
+/* MODAL DE EDITAR/CADASTRAR CLIENTE */
 
-/*AGENDAMENTO*/ 
+
+.editar-cliente-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(247, 249, 251, 0.75);
+  backdrop-filter: blur(2px);
+  display: grid;
+  place-items: center;
+  z-index: 999;
+}
+
+/* CARD DE LOGIN */
+.editar-cliente-card {
+  width: 500px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* BRAND */
+.editar-cliente-brand {
+  display: flex;
+  grid-template-columns: 50% 50%;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  justify-content: space-between;
+}
+
+.editar-cliente-brand .logo-modal img {
+  width: 70px;
+  height: auto;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  color: #fff;
+}
+
+.editar-cliente-brand .muted {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* TÍTULO */
+.editar-cliente-card h2 {
+  margin: 6px 0 10px;
+  font-size: 18px;
+  color: var(--text);
+}
+
+/* CAMPOS */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.field input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #e3e8ef;
+  font-size: 14px;
+  outline: none;
+  transition: 0.15s;
+}
+
+.field input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(26,188,156,.15);
+}
+
+/* BOTÃO */
+.btn-block {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* ERRO */
+.editar-cliente-error {
+  background: rgba(231, 76, 60, .12);
+  color: var(--danger);
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  text-align: center;
+  font-weight: 600;
+}
+
+
+/*CARD DE EDIÇÃO*/ 
+
+
+/* BRAND */
+.editar-cliente-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.editar-cliente-brand .logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  color: #fff;
+}
+
+.editar-cliente-brand .muted {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* TÍTULO */
+.editar-cliente-card h2 {
+  margin: 6px 0 10px;
+  font-size: 18px;
+  color: var(--text);
+}
+
+/* CAMPOS */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.field input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #e3e8ef;
+  font-size: 14px;
+  outline: none;
+  transition: 0.15s;
+}
+
+.field input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(26,188,156,.15);
+}
+
+/* BOTÃO */
+.btn-block {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* ERRO */
+.editar-cliente-error {
+  background: rgba(231, 76, 60, .12);
+  color: var(--danger);
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.editar-cliente-container{
+
+  display: flex;
+  grid-template-columns: 50% 50%;
+  justify-content: space-around;
+}
+
+.logo-cliente-container{
+
+  display: grid;
+  grid-template-columns: 50% 50%;
+  justify-content: space-between;
+
+}
+
+:root{
+  --surface:#ffffff; /* corrigido */
+}
+ 
+
+ 
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Cabeçalho */
+.table thead th {
+  padding: 12px;
+  text-align: left;
+  font-weight: 700;
+  color: var(--muted);
+  border-bottom: 2px solid #eee;
+}
+
+/* Linhas */
+.table tbody td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+}
+
+/* ✅ Alinhamentos específicos */
+.table th:nth-child(2),
+.table td:nth-child(2) {
+  text-align: right; /* preço */
+}
+
+.table th:nth-child(3),
+.table td:nth-child(3) {
+  text-align: center; /* código de barras */
+}
+
+.table th:nth-child(4),
+.table td:nth-child(4) {
+  text-align: center; /* ações */
+}
+
+/* Botões não quebram linha */
+.table td button {
+  white-space: nowrap;
+}
+
+ 
+/* BOTÕES MENORES */
+.btn-sm {
+  padding: 6px 10px;
+  font-size: 12px;
+}
+ 
+.btn.danger {
+  background: var(--danger);
+}
+ 
+.btn.danger:hover {
+  background: #c0392b;
+}

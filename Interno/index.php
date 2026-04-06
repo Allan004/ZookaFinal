@@ -54,10 +54,10 @@ $logado = usuario_logado();
       <a class="nav-item active" href="#"><span>🏠</span> Início</a>
       <a class="nav-item" href="pages/clientes_e_pets.php"><span>🐕</span> Clientes & Pets</a>
       <a class="nav-item" href="pages/agendamento.php"><span>📅</span> Agendamento</a>
-      <a class="nav-item" href="#"><span>✂️</span> Serviços</a>
-      <a class="nav-item" href="#"><span>🛍️</span> Produtos</a>
-      <a class="nav-item" href="#"><span>📦</span> Estoque</a>
-      <a class="nav-item" href="#"><span>💰</span> Caixa</a>
+      <a class="nav-item" href="pages/servicos.php"><span>✂️</span> Serviços</a>
+      <a class="nav-item" href="pages/produto.php"><span>🛍️</span> Produtos</a>
+      <a class="nav-item" href="pages/estoque.php"><span>📦</span> Estoque</a>
+      <a class="nav-item" href="pages/caixa.php"><span>💰</span> Caixa</a>
     </nav>
 
     <section class="content">

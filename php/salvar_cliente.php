@@ -1,42 +1,46 @@
-<?php
-include "conexao.php"
+
+<?php 
+
+    require_once "conexao.php";
 
 
-function buscar_clientes(string $termo): array
-{
+   
+function atualizar_cliente($dados){
     $pdo = conectar();
 
-    $sql = "SELECT id, nome, telefone
-            FROM cliente
-            WHERE nome LIKE :termo
-            ORDER BY nome
-            LIMIT 10";
+    $sql = "
+        UPDATE cliente SET
+            nome       = :nome,
+            telefone   = :telefone,
+            email      = :email,
+            cpf        = :cpf,
+            nascimento = :nascimento,
+            rua        = :rua,
+            numero     = :numero,
+            bairro     = :bairro,
+            cidade     = :cidade,
+            estado     = :estado,
+            cep        = :cep,
+            updated_at = NOW()
+        WHERE id = :id
+    ";
 
     $stmt = $pdo->prepare($sql);
-    $like = "%$termo%";
-    $stmt->bindParam(':termo', $like);
-    $stmt->execute();
 
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+    $stmt->bindValue(':id',        (int)$dados['id'], PDO::PARAM_INT);
+    $stmt->bindValue(':nome',      $dados['nome']);
+    $stmt->bindValue(':telefone',  $dados['telefone']);
+    $stmt->bindValue(':email',     $dados['email']);
+    $stmt->bindValue(':cpf',       $dados['cpf']);
+    $stmt->bindValue(':nascimento',$dados['nascimento']);
+    $stmt->bindValue(':rua',       $dados['rua']);
+    $stmt->bindValue(':numero',    $dados['numero']);
+    $stmt->bindValue(':bairro',    $dados['bairro']);
+    $stmt->bindValue(':cidade',    $dados['cidade']);
+    $stmt->bindValue(':estado',    $dados['estado']);
+    $stmt->bindValue(':cep',       $dados['cep']);
 
 
-$termo = $_GET['termo'] ?? '';
+    return $stmt->execute();
 
-$resultados = buscar_clientes($termo);
-
-if (!$resultados) {
-    echo "<p class='muted'>Nenhum cliente encontrado</p>";
-    exit;
-}
-
-foreach ($resultados as $cliente) {
-    echo "
-        <div class='item'>
-            <span>{$cliente['nome']}</span>
-            <span>{$cliente['telefone']}</span>
-        </div>
-    ";
-}
-
-?>
+};
