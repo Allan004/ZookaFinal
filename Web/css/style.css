@@ -125,23 +125,67 @@ body {
     color: var(--text-light);
 }
  
+/* 1. O CONTAINER PAI (UL) */
 .category-nav ul {
     display: flex;
     justify-content: center;
     list-style: none;
-    gap: 25px;
-    padding: 20px 0;
+    
+    /* REDUZIDO: Diminuí o espaço entre os itens para as palavras ficarem mais juntas */
+    gap: 12px; 
+    
+    padding: 15px 0;
+    align-items: center;
 }
- 
+
+/* 2. O ITEM DA LISTA (LI) */
 .category-nav li {
-    font-size: 12px;
-    font-weight: 600;
+    position: relative;
+    display: flex;
+    align-items: center;
+    
+    /* REDUZIDO: Diminuí a fonte para 11px para ajudar a caber tudo */
+    font-size: 11px; 
+    font-weight: 700;
+    text-transform: uppercase; /* Deixa tudo em maiúsculo igual à Cobasi */
     cursor: pointer;
-    color: var(--text-light);
+    color: #555;
     transition: 0.3s;
+    
+    /* AJUSTADO: Espaço reservado para o cachorro (reduzi um pouco) */
+    padding-left: 28px; 
 }
- 
-.category-nav li:hover { color: var(--primary); }
+
+/* 3. A IMAGEM DO ANIMAL */
+.category-nav li img {
+    display: none;
+    position: absolute;
+    left: 0;                /* Cola o cachorro no início do padding-left */
+    
+    /* REDUZIDO: Caixa um pouco menor para economizar espaço horizontal */
+    width: 25px;            
+    height: 25px;           
+    
+    object-fit: contain;
+    transform: scale(2.2);  /* ZOOM: Aumente aqui se o cachorro ficar pequeno */
+    transform-origin: center;
+    pointer-events: none;
+}
+
+/* 4. COMPORTAMENTO NO HOVER */
+.category-nav li:hover { 
+    color: #f15a24; /* Cor laranja */
+}
+
+.category-nav li:hover img { 
+    display: block;
+}
+
+/* 5. SEGURANÇA PARA O TICKER ABAIXO */
+.scrolling-ticker {
+    clear: both;
+    position: relative;
+}
  
 /* --- HERO BANNER (DONA E CACHORRO) --- */
 .hero-banner {

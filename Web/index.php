@@ -37,17 +37,18 @@
         
         <nav class="category-nav">
             <ul>
-                <li>cachorros</li>
-                <li>gatos</li>
-                <li>pássaros</li>
-                <li>peixes</li>
-                <li>roedores</li>
-                <li>farmácia</li>
-                <li>higiene</li>
-                <li>brinquedos</li>
-                <li>camas</li>
-                <li>promoções</li>
-                <li>assinatura</li>
+               <li><img src="Assets/cachorro1.png"> cachorros</li>
+                <li><li><img src="Assets/gato1.png">gatos</li>
+                <li><li><img src="Assets/passaros1.png">pássaros</li>
+                <li><li><img src="Assets/peixe2.png">peixes</li>
+                <li><li><img src="Assets/roedor1.png">roedores</li>
+                <li><li><img src="Assets/farmacia2.png">farmácia</li>
+                <li><li><img src="Assets/higiene1.png">higiene</li>
+                <li><li><img src="Assets/brinquedos1.png">brinquedos</li>
+                <li><li><img src="Assets/camas1.png">camas</li>
+                <li><li><img src="Assets/promocoes1.png">promoções</li>
+                <li><li><img src="Assets/assinatura1.png">assinatura</li>
+                <li><li><img src="Assets/adocao2.png">Adoção</li>
             </ul>
         </nav>
     </header>
@@ -55,20 +56,20 @@
  
     <div class="scrolling-ticker">
     <div class="ticker-content">
-        <span>Frete grátis</span> <img src="icone-pata.png" alt="pata">
-        <span>Brindes exclusivos</span> <img src="icone-pata.png" alt="pata">
-        <span>15% a 25% OFF</span> <img src="icone-pata.png" alt="pata">
-        <span>Frete grátis</span> <img src="icone-pata.png" alt="pata">
-        <span>Brindes exclusivos</span> <img src="icone-pata.png" alt="pata">
-        <span>15% a 25% OFF</span> <img src="icone-pata.png" alt="pata">
-        <span>Frete grátis</span> <img src="icone-pata.png" alt="pata">
-        <span>Brindes exclusivos</span> <img src="icone-pata.png" alt="pata">
-        <span>15% a 25% OFF</span> <img src="icone-pata.png" alt="pata">
+        <span>Frete grátis</span> <img src="Assets/patinhas1.png" alt="pata">
+        <span>Brindes exclusivos</span> <img src="Assets/coroa1.png" alt="pata">
+        <span>15% a 25% OFF</span> <img src="Assets/patinhas1.png" alt="pata">
+        <span>Frete grátis</span> <img src="Assets/coroa1.png" alt="pata">
+        <span>Brindes exclusivos</span> <img src="Assets/patinhas1.png" alt="pata">
+        <span>15% a 25% OFF</span> <img src="Assets/coroa1.png" alt="pata">
+        <span>Frete grátis</span> <img src="Assets/patinhas1.png" alt="pata">
+        <span>Brindes exclusivos</span> <img src="Assets/coroa1.png" alt="pata">
+        <span>15% a 25% OFF</span> <img src="Assets/patinhas1.png" alt="pata">
     </div>
 </div>
  
     <section class="hero-banner">
-        <img src="Assets/Zooka2.png" class="banner-media" alt="Banner Pet Shop">
+        <img src="Assets/zooka2.png" class="banner-media" alt="Banner Pet Shop">
         <div class="hero-content">
             <span class="tagline">exclusivo zookapet</span>
             <h1>Cuidado e Amor em cada detalhe</h1>
@@ -86,7 +87,7 @@
         <div class="shelf-container">
             <div class="product-card">
                 <div class="product-image">
-                    <img src="img/How to Prevent Cancer in Dogs and Cats (1).jpeg" alt="Produto">
+                    <img src="">
                     <span class="wishlist-icon">♡</span>
                 </div>
                 <div class="product-info">
