@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_c'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_p'])) {
 
     $dados = [
-        'id'          => $_POST['id_pet'],
+        'id_pet'          => $_POST['id_pet'],
         'nome'        => trim($_POST['nome']),
         'nascimento'  => $_POST['nascimento'] ?: null,
         'tipoIdade'   => $_POST['tipoIdade'],
@@ -114,8 +114,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_p'])) {
 
   <main class="layout">
      <nav>
-      <a class="nav-item active" href="#"><span>🏠</span> Início</a>
-      <a class="nav-item" href="clientes_e_pets.php"><span>🐕</span> Clientes & Pets</a>
+      <a class="nav-item" href="../index.php"><span>🏠</span> Início</a>
+      <a class="nav-item active" href="clientes_e_pets.php"><span>🐕</span> Clientes & Pets</a>
       <a class="nav-item" href="agendamento.php"><span>📅</span> Agendamento</a>
       <a class="nav-item" href="servicos.php"><span>✂️</span> Serviços</a>
       <a class="nav-item" href="produtos.php"><span>🛍️</span> Produtos</a>

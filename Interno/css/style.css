@@ -316,6 +316,32 @@
   box-shadow: 0 0 0 3px rgba(26,188,156,.15);
 }
 
+.field select {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #e3e8ef;
+  font-size: 14px;
+  outline: none;
+  transition: 0.15s;
+}
+
+.field option {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #e3e8ef;
+  font-size: 14px;
+  outline: none;
+  transition: 0.15s;
+}
+
+.field select:focus {
+  appearance: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(26,188,156,.15);
+}
+
+
+
 /* BOTÃO */
 .btn-block {
   width: 100%;
@@ -661,6 +687,7 @@
 /* Botões não quebram linha */
 .table td button {
   white-space: nowrap;
+  margin-top: 2px;
 }
 
  
