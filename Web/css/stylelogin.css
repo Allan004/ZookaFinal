@@ -1,4 +1,19 @@
 /* ELEN <>*/
+
+/* style do data do cadastro web */
+.login-access input[type="date"] {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+  font-size: 14px;
+  outline: none;
+}
+
+input:invalid {
+  border: 2px solid red;
+}
 .ambiente-container {
     display: flex;
     justify-content: flex-end;
@@ -68,6 +83,7 @@
 }
 
 .login-access input[type="email"],
+.login-access input[type="text"],
 .login-access input[type="password"] {
   width: 100%;
   padding: 10px 15px;
@@ -80,6 +96,7 @@
 }
 
 .login-access input[type="email"]:focus,
+.login-access input[type="text"]:focus,
 .login-access input[type="password"]:focus {
   border-color: #004a99;
 }
@@ -210,17 +227,6 @@ body {
     overflow-x: hidden;
 }
  
-/* --- HEADER CLEAN --- */
-.top-promo {
-    background-color: #fff;
-    text-align: center;
-    padding: 8px;
-    font-size: 11px;
-    letter-spacing: 1px;
-    border-bottom: 1px solid #eee;
-    text-transform: uppercase;
-}
- 
 .header-top {
     display: flex;
     justify-content: space-between; /* Distribui os 3 blocos */
@@ -230,90 +236,12 @@ body {
     padding: 10px 0;
 }
 
-/* Garante que a logo e o menu tenham o mesmo peso visual */
-.logo-container, 
-.user-menu {
-    flex: 1; 
-    display: flex;
-}
-
-/* Alinha o menu de usuário totalmente à direita */
-.user-menu {
-    justify-content: flex-end;
-    gap: 15px; /* Espaço entre 'meus pets', 'entrar' e o carrinho */
-    font-size: 14px;
-}
-
-.user-menu a {
-    text-decoration: none;
-    color: #333;
-}
-
-/* Estiliza a busca no centro */
-.search-container {
-    flex: 2; /* Dá mais espaço para a barra de busca */
-    display: flex;
-    justify-content: center;
-}
-
-.search-container input {
-    width: 100%;
-    max-width: 450px;
-    padding: 8px 15px;
-    border-radius: 20px;
-    border: 1px solid #ccc;
-    outline: none;
-}
-
 /* Ajuste da imagem da logo */
 .banner-topo {
     height: 50px; /* Ajuste conforme necessário */
     width: auto;
 }
 
-/* 2. O CONTAINER DE PESQUISA fica centralizado */
-.search-center-container {
-    flex: 1; /* Ocupa todo o espaço disponível no meio */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centraliza a barra e os links horizontalmente */
-    gap: 10px; /* Espaço entre a barra e os links debaixo */
-}
-
-/* Ajuste da barra de busca para não ficar gigante */
-.search-center-container input {
-    width: 100%;
-    max-width: 500px; /* Limita o tamanho da barra de busca */
-    padding: 10px 20px;
-    border-radius: 20px;
-    border: 1px solid #ddd;
-}
-
-/* 3. ESPAÇO FANTASMA (Importante!) */
-/* Para que a busca fique REALMENTE no centro da tela, 
-   precisamos que o lado direito tenha o mesmo peso que o lado da logo */
-.header-top::after {
-    content: "";
-    flex: 0 1 auto;
-    width: 150px; /* Deve ser aproximadamente o mesmo tamanho da sua logo */
-}
- 
-.search-container input {
-    width: 450px;
-    padding: 12px 25px;
-    border-radius: 25px;
-    border: none;
-    background-color: #f2f2f2;
-    font-size: 14px;
-}
- 
-.user-menu {
-    display: flex;
-    gap: 20px;
-    font-size: 14px;
-    color: var(--text-light);
-}
- 
 .category-nav ul {
     display: flex;
     justify-content: center;
@@ -332,148 +260,7 @@ body {
  
 .category-nav li:hover { color: var(--primary); }
  
-/* --- HERO BANNER (DONA E CACHORRO) --- */
-.hero-banner {
-    position: relative;
-    width: 100%;
-    height: 70vh;
-    min-height: 500px;
-    display: flex;
-    align-items: center;
-    background-color: var(--nude-bg);
-}
- 
-.banner-media {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-   
-    z-index: 1;
-}
- 
-.hero-content {
-    position: relative;
-    z-index: 2;
-    margin-left: 8%;
-    max-width: 400px;
-}
- 
-.hero-content h1 {
-    font-size: 48px;
-    font-weight: 600;
-    line-height: 1.1;
-    margin-bottom: 20px;
-}
- 
-.btn-primary {
-    display: inline-block;
-    background-color: #fff;
-    color: var(--dark);
-    padding: 12px 35px;
-    border-radius: 25px;
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    transition: 0.3s;
-}
- 
-.btn-primary:hover { transform: scale(1.05); }
- 
-/* --- VITRINE DE PRODUTOS (IGUAL AO PRINT DA NATURA) --- */
-.product-shelf {
-    padding: 60px 5%;
-    max-width: 1400px;
-    margin: 0 auto;
-}
- 
-.shelf-title {
-    text-align: center;
-    font-size: 20px;
-    margin-bottom: 40px;
-    font-weight: 600;
-}
- 
-.shelf-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-}
- 
-.product-card {
-    padding: 10px;
-    transition: 0.3s;
-}
- 
-.product-image {
-    position: relative;
-    background: #f9f9f9;
-    border-radius: var(--radius-sm);
-    margin-bottom: 15px;
-    overflow: hidden;
-}
- 
-.product-image img {
-    width: 100%;
-    display: block;
-}
- 
-.product-info .brand { font-size: 12px; color: #999; }
-.product-info .name { font-size: 14px; font-weight: 600; margin: 5px 0 10px; height: 40px; }
-.product-info .new-price { font-size: 16px; font-weight: bold; }
- 
-.btn-add {
-    width: 100%;
-    background: transparent;
-    border: 1px solid #e0e0e0;
-    padding: 10px;
-    border-radius: 25px;
-    margin-top: 15px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: 0.3s;
-}
- 
-.btn-add:hover { border-color: var(--primary); color: var(--primary); }
- 
-/* --- SEÇÃO DE VÍDEO (RELEITURA NATURA) --- */
-.video-section {
-    padding: 40px 5%;
-}
- 
-.video-container {
-    position: relative;
-    width: 100%;
-    height: 450px;
-    border-radius: var(--radius-lg); /* Bordas grandes do print da Natura */
-    overflow: hidden;
-}
- 
-.bg-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
- 
-.video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to right, rgba(0,0,0,0.4), transparent);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-left: 8%;
-    color: #fff;
-}
- 
-.video-overlay h2 { font-size: 32px; margin-bottom: 10px; font-weight: 600; }
-.video-overlay p { max-width: 400px; font-size: 14px; opacity: 0.9; }
- 
+
 /* --- FOOTER --- */
 .main-footer {
     background: #fff;
@@ -488,101 +275,7 @@ body {
     max-width: 1400px;
     margin: 0 auto;
 }
-/* CARROSSEL DE PRODUTOS */
-.carousel-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    max-width: 1400px;
-    margin: 0 auto;
-}
- 
-.carousel-btn {
-    background: #fff;
-    border: 1px solid #eee;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    font-size: 18px;
-    z-index: 10;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
- 
-.shelf-container {
-    display: flex;
-    overflow-x: hidden; /* No JS você controla o scroll */
-    gap: 20px;
-    padding: 20px;
-}
- 
-.product-card {
-    min-width: 280px;
-    background: #fff;
-    text-align: left;
-}
- 
-.wishlist-icon {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 20px;
-    color: #999;
-    cursor: pointer;
-}
- 
-.product-info .installments {
-    font-size: 12px;
-    color: #777;
-    margin-top: 5px;
-}
- 
-/* NEWSLETTER FOOTER (ESTILO IMAGEM 10) */
-.newsletter-section {
-    background: #f9f9f9;
-    padding: 60px 5%;
-    text-align: center;
-}
- 
-.newsletter-form {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin: 30px 0;
-    flex-wrap: wrap;
-}
- 
-.input-group {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-}
- 
-.input-group label {
-    font-size: 12px;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
- 
-.input-group input {
-    width: 280px;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 20px;
-    outline: none;
-}
- 
-.btn-send {
-    padding: 0 60px;
-    height: 45px;
-    margin-top: 22px;
-    background: transparent;
-    border: 1px solid var(--primary);
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: bold;
-}
- 
+
 /* GRID DE LINKS DO FOOTER */
 .footer-links-container {
     padding: 60px 5%;
@@ -611,136 +304,7 @@ body {
     list-style: none;
     cursor: pointer;
 }
-.scrolling-ticker {
-    background-color: #c37b45; /* Roxo extraído da sua imagem do banner */
-    color: white;
-    overflow: hidden; /* Esconde o texto que sai da tela */
-    white-space: nowrap; /* Impede o texto de quebrar linha */
-    padding: 12px 0;
-    display: flex;
-    align-items: center;
-    border-top: 1px solid rgba(255,255,255,0.1);
-}
- 
-.ticker-content {
-    display: inline-block;
-    padding-left: 100%; /* Começa fora da tela à direita */
-    animation: marquee 50s linear infinite; /* Movimento contínuo */
-}
- 
-.ticker-content span {
-    font-size: 14px;
-    font-weight: 800;
-    text-transform: uppercase;
-    margin: 0 30px; /* Espaçamento entre os textos */
-    letter-spacing: 1px;
-}
- 
-.ticker-content img {
-    width: 20px; /* Tamanho do ícone da mãozinha/pata */
-    vertical-align: middle;
-}
-/* Container externo para dar respiro */
-.newsletter-container {
-    padding: 100px 5%;
-    background-color: #fff;
-    display: flex;
-    justify-content: center;
-}
- 
-/* O Card branco central */
-.newsletter-card {
-    background: #f9f9f9;
-    border-radius: 30px; /* Bordas arredondadas estilo Natura/Zooka */
-    display: flex;
-    align-items: center;
-    max-width: 1100px;
-    width: 100%;
-    padding: 40px 60px;
-    position: relative; /* Necessário para posicionar a imagem */
-}
- 
-/* A Imagem do Cachorro */
-.newsletter-image {
-    flex: 1;
-    position: relative;
-}
- 
-.newsletter-image img {
-    width: 350px; /* Ajuste o tamanho conforme sua foto */
-    position: absolute;
-    bottom: -40px; /* Faz ela "sair" para baixo do card */
-    left: -80px;   /* Faz ela "sair" para a esquerda */
-    filter: drop-shadow(10px 10px 20px rgba(0,0,0,0.1)); /* Sombra suave no pet */
-}
- 
-/* Conteúdo do texto e inputs */
-.newsletter-content {
-    flex: 2;
-    padding-left: 50px;
-}
- 
-.newsletter-content h3 {
-    font-size: 22px;
-    font-weight: 800;
-    margin-bottom: 10px;
-    color: var(--dark);
-}
- 
-.newsletter-content p {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 25px;
-}
- 
-/* Alinhamento dos inputs em linha */
-.input-row {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 20px;
-}
- 
-.newsletter-form-pro .input-group {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
- 
-.newsletter-form-pro label {
-    font-size: 11px;
-    font-weight: bold;
-    margin-bottom: 5px;
-    text-transform: lowercase;
-}
- 
-.newsletter-form-pro input {
-    padding: 12px 20px;
-    border: 1px solid #ddd;
-    border-radius: 25px;
-    font-size: 13px;
-    outline: none;
-    background: #fff;
-}
- 
-/* Botão Enviar Largo embaixo dos inputs */
-.btn-newsletter {
-    width: 100%;
-    padding: 14px;
-    background: transparent;
-    border: 1px solid var(--primary);
-    color: var(--primary);
-    border-radius: 25px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    text-transform: lowercase;
-}
- 
-.btn-newsletter:hover {
-    background: var(--primary);
-    color: #fff;
-}
- 
+
 .disclaimer {
     margin-top: 15px;
     font-size: 10px !important;
@@ -754,17 +318,4 @@ body {
     .input-row { flex-direction: column; }
     .newsletter-content { padding-left: 0; }
 }
-/* A Mágica da Animação */
-@keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-}
- 
-/* Pausa o movimento quando o mouse passa por cima (Opcional - Bom UX) */
-.scrolling-ticker:hover .ticker-content {
-    animation-play-state: paused;
-}
-.footer-column h3 { font-size: 14px; text-transform: uppercase; margin-bottom: 20px; }
-.footer-column ul { list-style: none; }
-.footer-column li { font-size: 13px; color: #777; margin-bottom: 10px; }
- 
+

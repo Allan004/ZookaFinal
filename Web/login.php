@@ -1,3 +1,34 @@
+<?php
+session_start();
+
+require __DIR__ . '/../../php/conexao.php';
+$pdo = conectar();
+
+$erro = "";
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $usuario = $_POST['email'] ?? '';
+    $senha   = $_POST['senha'] ?? '';
+
+    $stmt = $pdo->prepare("SELECT * FROM loginweb WHERE usuario = ?");
+    $stmt->execute([$usuario]);
+
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user && password_verify($senha, $user['senha'])) {
+
+        $_SESSION['usuario_id'] = $user['id'];
+        $_SESSION['usuario_nome'] = $user['usuario'];
+
+        header("Location: index.php");
+        exit;
+
+    } else {
+        $erro = "Login inválido!";
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -32,25 +63,26 @@
     <!-- Bloco Acesse sua conta -->
     <section class="login-access">
       <h3>Acesse sua conta</h3>
-      <form>
+      <form method="POST">
         <label for="email">E-mail ou CPF/CNPJ</label>
-        <input type="email" id="email" name="email" placeholder="Digite seu e-mail ou CPF/CNPJ" required value="elenrayasenai@gmail.com">
-<label for="senha">Senha</label>
-<div class="senha-wrapper">
-  <input type="password" id="senha" placeholder="Digite sua senha">
-
-</div>
+        <input type="text" id="email" name="email" placeholder="Digite seu usuário ou CPF/CNPJ">
+        <label for="senha">Senha</label>
+        <div class="senha-wrapper">
+            <input type="password" id="senha" name="senha" placeholder="Digite sua senha">
+        </div>
 
         <a href="#" class="forgot-password">Esqueci a senha</a>
-
+<?php if($erro): ?>
+    <p style="color:red;"><?php echo $erro; ?></p>
+<?php endif; ?>
         <button type="submit" class="btn-login">ENTRAR</button>
       </form>
     </section>
     <!-- Bloco Criar conta -->
     <section class="login-create">
       <h3>Criar uma conta é rápido, fácil e gratuito!</h3>
-      <p>Com a sua conta da Petz você tem acesso a Ofertas exclusivas, descontos, pode criar e gerenciar a sua Assinatura Petz, acompanhar os seus pedidos e muito mais!</p>
-      <button class="btn-create-account">Criar minha conta</button>
+      <p>Com a sua conta da Zooka você tem acesso a Ofertas exclusivas, descontos, pode criar e gerenciar a sua Assinatura Petz, acompanhar os seus pedidos e muito mais!</p>
+      <button class="btn-create-account" onclick="window.location.href='cadastro.php'">Criar minha conta</button>
     </section>
   
   </div>
