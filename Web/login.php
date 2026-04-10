@@ -89,37 +89,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </header>
 
 <footer class="main-footer">
-
-    <div class="footer-links-container">
-        <div class="logo-footer">zookapet</div>
-        <div class="footer-grid">
-            <div class="footer-column">
-                <h4>a zookapet</h4>
-                <ul>
-                    <li>bem estar bem</li>
-                    <li>sustentabilidade</li>
-                    <li>nossa história</li>
-                    <li>trabalhe conosco</li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>atendimento</h4>
-                <ul>
-                    <li>encontre a zooka</li>
-                    <li>ajuda e contato</li>
-                    <li>ouvidoria</li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>suporte</h4>
-                <ul>
-                    <li>aviso de privacidade</li>
-                    <li>política de cookies</li>
-                    <li>trocas e devoluções</li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    <p>Copyright© 2026 Zooka Petshop e Clínica Veterinária S/A<br>
+    Todos os direitos reservados</p>
 </footer>
 </body>
 </html>

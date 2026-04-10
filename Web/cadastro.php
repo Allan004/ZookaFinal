@@ -260,9 +260,8 @@ acompanhar pedidos e muito mais!
 </header>
 
 <footer class="main-footer">
-<div class="footer-links-container">
-    <div class="logo-footer">zookapet</div>
-</div>
+    <p>Copyright© 2026 Zooka Petshop e Clínica Veterinária S/A<br>
+    Todos os direitos reservados</p>
 </footer>
 <script>
 
