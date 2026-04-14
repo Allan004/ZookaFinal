@@ -8,7 +8,7 @@ $pdo = conectar();
 $sql = "SELECT id, nome, cpf
         FROM cliente
         WHERE nome LIKE :termo
-        ORDER BY nome
+        ORDER BY id
         LIMIT 10";
 
 $stmt = $pdo->prepare($sql);
@@ -42,12 +42,12 @@ if (!$resultados) {
                             <th scope='row'>".$cliente['id']."</th>
                             <td>".$cliente['nome']."</td>
                             <td>".$cliente['cpf']."</td>
-                            <td> 
-                            <form method='POST'> 
-                            <input type='hidden' name='id_cliente_editar' value='".$cliente['id']."'</input>
-                            <button class='btn btn-block' name='editar_cliente'>EDITAR</button>
-                            </form></td>
-                            </tr>";
+                            <td>
+                            <a class='btn btn-block' href='clientes_e_pets.php?editar_cliente=1&id_cliente_editar={$cliente['id']}'>
+                            Editar
+                            </a>
+                        </td>
+                        </tr>";
                         
                     }; 
 

@@ -46,10 +46,10 @@ $servicos = [
 
 <main class="layout">
     <nav>
-      <a class="nav-item active" href="#"><span>🏠</span> Início</a>
+      <a class="nav-item " href="../index.php"><span>🏠</span> Início</a>
       <a class="nav-item" href="clientes_e_pets.php"><span>🐕</span> Clientes & Pets</a>
       <a class="nav-item" href="agendamento.php"><span>📅</span> Agendamento</a>
-      <a class="nav-item" href="servicos.php"><span>✂️</span> Serviços</a>
+      <a class="nav-item active" href="servicos.php"><span>✂️</span> Serviços</a>
       <a class="nav-item" href="produtos.php"><span>🛍️</span> Produtos</a>
       <a class="nav-item" href="estoque.php"><span>📦</span> Estoque</a>
       <a class="nav-item" href="caixa.php"><span>💰</span> Caixa</a>

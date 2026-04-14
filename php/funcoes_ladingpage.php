@@ -94,8 +94,8 @@ function listar_proximos_atendimentos(){
                     FROM agendamento a 
                     INNER JOIN pet p on a.id_pet = p.id
                     INNER JOIN servico s on a.id_servico = s.id
-                    WHERE a.dataagendamento ='$data'
-                    ORDER BY a.hora asc"
+                    WHERE a.dataagendamento = CURDATE()
+                    ORDER BY a.hora; asc"
                     ;
         $total=$pdo->query($comando);
         return $total;
@@ -111,7 +111,7 @@ function listar_ultimos_clientes(){
                     FROM agendamento a 
                     INNER JOIN pet p on a.id_pet = p.id
                     INNER JOIN cliente c on a.id_servico = c.id
-                    WHERE a.dataagendamento ='$data' AND LOWER(a.statusagendamento)='confirmado'
+                    WHERE a.dataagendamento <= CURDATE() AND LOWER(a.statusagendamento)='concluido'
                     ORDER BY a.hora asc"
                     ;
         $total=$pdo->query($comando);

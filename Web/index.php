@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -28,11 +31,24 @@
             <input type="text" placeholder="o que seu pet precisa hoje?">
         </div>
 
-        <div class="user-menu">
-            <a href="#">meus pets</a>
-            <a href="#">entrar</a>
-            <span class="cart-icon">🛒</span>
+    <div class="user-menu">
+    <a href="#" class="user-link">Meus Pets</a>
+
+    <?php if(isset($_SESSION['usuario_nome'])): ?>
+        
+        <div class="user-info">
+            <span class="user-name">Olá, <?php echo $_SESSION['usuario_nome']; ?>!</span>
+            <a href="logout.php" class="logout-link">Sair</a>
         </div>
+
+    <?php else: ?>
+
+        <a href="login.php" class="user-link">Entrar ou <br>Cadastrar</a>
+
+    <?php endif; ?>
+
+    <span class="cart-icon">🛒</span>
+    </div>
 
     </div>
 </header>
@@ -52,6 +68,7 @@
                 <li><a href="#">Coleiras e Guias <span>&rsaquo;</span></a></li>
                 <li><a href="#">Camas e Cobertores <span>&rsaquo;</span></a></li>
             </ul>
+<<<<<<< HEAD
         </li>
 
         <li><img src="Assets/gato1.png"> gatos</li>
@@ -69,6 +86,10 @@
 </nav>
  
  
+=======
+        </nav>
+  
+>>>>>>> 76002e9c72f02239f794c3a5329ff91a3e64ba43
     <div class="scrolling-ticker">
     <div class="ticker-content">
         <span>Frete grátis</span> <img src="Assets/patinhas1.png" alt="pata">
@@ -159,10 +180,29 @@
     <div class="newsletter-section">
         <h3>quer receber nossas novidades e ofertas exclusivas?</h3>
         <p>cadastre-se e aproveite um cupom na sua primeira compra!</p>
+<<<<<<< HEAD
         <form method="POST" class="newsletter-form">
     <div class="input-group">
         <label>nome: (*)</label>
         <input type="text" name="nome" placeholder="insira seu nome:" required>
+=======
+        <form class="newsletter-form">
+            <div class="input-group">
+                <label>nome: (*)</label>
+                <input type="text" placeholder="insira seu nome:">
+            </div>
+            <div class="input-group">
+                <label>email: (*)</label>
+                <input type="email" placeholder="insira seu email:">
+            </div>
+            <div class="input-group">
+                <label>celular: (*)</label>
+                <input type="tel" placeholder="insira seu celular:">
+            </div>
+            <button type="submit" class="btn-send">enviar</button>
+        </form>
+        <p class="disclaimer">ao se cadastrar, você concorda em receber comunicações ZookaPet de acordo com nossa <a href="index.php">política de privacidade</a>.</p>
+>>>>>>> 76002e9c72f02239f794c3a5329ff91a3e64ba43
     </div>
     <div class="input-group">
         <label>email: (*)</label>
