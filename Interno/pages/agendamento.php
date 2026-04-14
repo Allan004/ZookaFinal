@@ -202,7 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </button>
     </div>
 </form>
-    <!-- LISTA DE AGENDAMENTOS -->
+    
     <div class="card">
       <h4>Agendamentos</h4>
 

@@ -40,17 +40,19 @@ if (!$resultados) {
 
                     foreach($resultados as $pet){
 
-                        echo"
-                            <tr>
-                            <th scope='row'>".$pet['id']."</th>
-                            <td>".$pet['pet']."</td>
-                            <td>".$pet['dono']."</td>
-                            <td>
-                            <form method='POST'> 
-                            <input type='hidden' name='id_pet_editar' value='".$pet['id']."'</input>
-                            <button class='btn btn-block' name='editar_pet'>EDITAR</button>
-                            </form></td>
-                            </tr>";
+                        
+                        echo "
+                        <tr>
+                        <th>{$pet['id']}</th>
+                        <td>{$pet['pet']}</td>
+                        <td>{$pet['dono']}</td>
+                        <td>
+                            <a class='btn btn-block' href='clientes_e_pets.php?editar_pet=1&id_pet_editar={$pet['id']}'>
+                            Editar
+                            </a>
+                        </td>
+                        </tr>";
+
                         
                     }; 
 
