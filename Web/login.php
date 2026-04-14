@@ -43,19 +43,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="header-top">
         
         <div class="logo-container">
-            <a href="#" class="logo">
+            <a href="index.php" class="logo">
                 <img src="Assets/logo.png" class="banner-topo" alt="Zooka">
             </a>
         </div>
-            <div class="ambiente-container">
-                <div class="ambiente">
+
+        <div class="ambiente-container">
+            <div class="ambiente">
                 <span class="texto-ambiente">|</span>
                 <img src="Assets/ambiente.png" class="banner-seguro" alt="Ambiente Seguro">
                 <span class="texto-ambiente">Ambiente Seguro</span>
             </div>
         </div>    
+
     </div>
-    <main class="login-container">
+</header> 
+
+<main class="login-container">
   <h2>Acessar ou criar conta</h2>
   
   <div class="login-wrapper">
@@ -63,6 +67,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- Bloco Acesse sua conta -->
     <section class="login-access">
       <h3>Acesse sua conta</h3>
+      <?php if(isset($_SESSION['sucesso'])): ?>
+    <p class="msg-sucesso">
+      <?php echo $_SESSION['sucesso']; unset($_SESSION['sucesso']); ?>
+    </p>
+  <?php endif; ?>
       <form method="POST">
         <label for="email">E-mail ou CPF/CNPJ</label>
         <input type="text" id="email" name="email" placeholder="Digite seu usuário ou CPF/CNPJ">
@@ -73,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <a href="#" class="forgot-password">Esqueci a senha</a>
 <?php if($erro): ?>
-    <p style="color:red;"><?php echo $erro; ?></p>
+    <p class="msg-erro"><?php echo $erro; ?></p>
 <?php endif; ?>
         <button type="submit" class="btn-login">ENTRAR</button>
       </form>
@@ -81,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- Bloco Criar conta -->
     <section class="login-create">
       <h3>Criar uma conta é rápido, fácil e gratuito!</h3>
-      <p>Com a sua conta da Zooka você tem acesso a Ofertas exclusivas, descontos, pode criar e gerenciar a sua Assinatura Petz, acompanhar os seus pedidos e muito mais!</p>
+      <p>Com a sua conta da Zooka você tem acesso a Ofertas exclusivas, acompanhar os seus pedidos e muito mais!</p>
       <button class="btn-create-account" onclick="window.location.href='cadastro.php'">Criar minha conta</button>
     </section>
   

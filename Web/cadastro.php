@@ -56,7 +56,9 @@ $stmt->execute([
     $id_login
 ]);
 
-    $sucesso = "Conta criada com sucesso!";
+    $_SESSION['sucesso'] = "Conta criada com sucesso! Faça login para continuar.";
+header("Location: login.php");
+exit;
 }
 
     }
@@ -77,7 +79,9 @@ $stmt->execute([
 <div class="header-top">
 
     <div class="logo-container">
-        <a href="#"><img src="Assets/logo.png" class="banner-topo"></a>
+    <a href="index.php">
+        <img src="Assets/logo.png" class="banner-topo" alt="Zooka">
+    </a>
     </div>
 
     <div class="ambiente-container">
@@ -228,9 +232,9 @@ $stmt->execute([
 <label style="margin-top:10px; font-size:12px;">
   <input type="checkbox" name="termos">
   Concordo com os 
-  <a href="#" style="color:#004a99; font-weight:600; text-decoration:none;">
-    termos e condições
-  </a>
+<a href="#" class="link-termos">
+  termos e condições
+</a>
 </label>
 
 <?php if($erro): ?>

@@ -1,5 +1,22 @@
 /* ELEN <>*/
+.msg-erro {
+  background: #ffe6e6;
+  border: 1px solid red;
+  color: #a30000;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+.link-termos {
+  color: #176668;
+  font-weight: 600;
+  text-decoration: none;
+}
 
+.link-termos:hover {
+  text-decoration: underline;
+}
 /* style do data do cadastro web */
 .login-access input[type="date"] {
   width: 100%;
@@ -186,7 +203,7 @@ input:invalid {
 .btn-create-account {
   padding: 12px 25px;
   border-radius: 6px;
-  border: 1.5px solid #333;
+  border: 1.5px solid #ca7e4c;
   background: transparent;
   font-weight: 700;
   cursor: pointer;
@@ -231,11 +248,10 @@ body {
     background-color: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     display: flex;
-    justify-content: space-between; /* Distribui os 3 blocos */
-    align-items: center;            /* Alinha todos verticalmente ao centro */
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 10px 0;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;             
+    padding: 10px 40px;       
 }
 
 /* Ajuste da imagem da logo */
@@ -323,3 +339,36 @@ body {
     .newsletter-content { padding-left: 0; }
 }
 
+/* Placeholder menor para senha */
+input[name="senha"]::placeholder,
+input[name="confirma"]::placeholder {
+  font-size: 12px;
+  color: #999;
+}
+.msg-sucesso {
+  background: #e6f9f5;
+  border: 1px solid #2eaeb0;
+  color: #176668;
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+}
+
+/* Ícone */
+.msg-sucesso::before {
+  content: "✔";
+  background: #2eaeb0;
+  color: white;
+  font-size: 12px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}

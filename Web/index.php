@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -26,11 +29,24 @@
             <input type="text" placeholder="o que seu pet precisa hoje?">
         </div>
 
-        <div class="user-menu">
-            <a href="#">meus pets</a>
-            <a href="#">entrar</a>
-            <span class="cart-icon">🛒</span>
+    <div class="user-menu">
+    <a href="#" class="user-link">Meus Pets</a>
+
+    <?php if(isset($_SESSION['usuario_nome'])): ?>
+        
+        <div class="user-info">
+            <span class="user-name">Olá, <?php echo $_SESSION['usuario_nome']; ?>!</span>
+            <a href="logout.php" class="logout-link">Sair</a>
         </div>
+
+    <?php else: ?>
+
+        <a href="login.php" class="user-link">Entrar ou <br>Cadastrar</a>
+
+    <?php endif; ?>
+
+    <span class="cart-icon">🛒</span>
+    </div>
 
     </div>
 </header>
@@ -51,9 +67,7 @@
                 <li><li><img src="Assets/adocao2.png">Adoção</li>
             </ul>
         </nav>
-    </header>
- 
- 
+  
     <div class="scrolling-ticker">
     <div class="ticker-content">
         <span>Frete grátis</span> <img src="Assets/patinhas1.png" alt="pata">
@@ -159,7 +173,7 @@
             </div>
             <button type="submit" class="btn-send">enviar</button>
         </form>
-        <p class="disclaimer">ao se cadastrar, você concorda em receber comunicações ZookaPet de acordo com nossa <a href="#">política de privacidade</a>.</p>
+        <p class="disclaimer">ao se cadastrar, você concorda em receber comunicações ZookaPet de acordo com nossa <a href="index.php">política de privacidade</a>.</p>
     </div>
  
     <div class="footer-links-container">

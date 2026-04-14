@@ -1,3 +1,60 @@
+.user-info:hover .user-name {
+  color: #ca7e4c;
+}
+/* Container do usuário */
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+/* Hover suave */
+.user-info:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Nome */
+.user-name {
+  font-weight: 600;
+  color: #333;
+}
+
+.logout-link {
+  font-size: 11px;
+  color: #2eaeb0; /* VERDE padrão do seu site */
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.logout-link:hover {
+  color: #176668; /* verde mais escuro no hover */
+  text-decoration: underline;
+}
+
+/* Link estilo padrão do menu do usuário */
+.user-link {
+  font-size: 12px;
+  color: #333;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+/* Hover igual ao usuário */
+.user-link:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #ca7e4c;
+}
+.search-container {
+  margin: 0 20px;
+}
 /* --- CONFIGURAÇÕES GERAIS --- */
 :root {
     --nude-bg: #f5f2ed; /* Cor de fundo inspirada na Natura */
