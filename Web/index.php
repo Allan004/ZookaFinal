@@ -6,8 +6,10 @@
     <title>ZookaPet - O melhor para o seu melhor amigo</title>
     <link rel="stylesheet" href="css/style.css">
     
+    
 </head>
 <body>
+   
  
     <div class="top-promo">
         10% OFF na primeira compra com o cupom <strong>BEMVINDOAUAU</strong>
@@ -35,23 +37,36 @@
     </div>
 </header>
         
-        <nav class="category-nav">
-            <ul>
-               <li><img src="Assets/cachorro1.png"> cachorros</li>
-                <li><li><img src="Assets/gato1.png">gatos</li>
-                <li><li><img src="Assets/passaros1.png">pássaros</li>
-                <li><li><img src="Assets/peixe2.png">peixes</li>
-                <li><li><img src="Assets/roedor1.png">roedores</li>
-                <li><li><img src="Assets/farmacia2.png">farmácia</li>
-                <li><li><img src="Assets/higiene1.png">higiene</li>
-                <li><li><img src="Assets/brinquedos1.png">brinquedos</li>
-                <li><li><img src="Assets/camas1.png">camas</li>
-                <li><li><img src="Assets/promocoes1.png">promoções</li>
-                <li><li><img src="Assets/assinatura1.png">assinatura</li>
-                <li><li><img src="Assets/adocao2.png">Adoção</li>
+       <nav class="category-nav">
+    <ul>
+        <li class="has-dropdown">
+            <div class="category-item">
+                <img src="Assets/cachorro1.png"> cachorros
+            </div>
+            
+            <ul class="submenu">
+                <li><a href="#">Ração <span>&rsaquo;</span></a></li>
+                <li><a href="#">Petiscos e Ossos <span>&rsaquo;</span></a></li>
+                <li><a href="#">Farmácia <span>&rsaquo;</span></a></li>
+                <li><a href="#">Brinquedos <span>&rsaquo;</span></a></li>
+                <li><a href="#">Coleiras e Guias <span>&rsaquo;</span></a></li>
+                <li><a href="#">Camas e Cobertores <span>&rsaquo;</span></a></li>
             </ul>
-        </nav>
-    </header>
+        </li>
+
+        <li><img src="Assets/gato1.png"> gatos</li>
+        <li><img src="Assets/passaros1.png"> pássaros</li>
+        <li><img src="Assets/peixe2.png"> peixes</li>
+        <li><img src="Assets/roedor1.png"> roedores</li>
+        <li><img src="Assets/farmacia2.png"> farmácia</li>
+        <li><img src="Assets/higiene1.png"> higiene</li>
+        <li><img src="Assets/brinquedos1.png"> brinquedos</li>
+        <li><img src="Assets/camas1.png"> camas</li>
+        <li><img src="Assets/promocoes1.png"> promoções</li>
+        <li><img src="Assets/assinatura1.png"> assinatura</li>
+        <li><img src="Assets/adocao2.png"> <a href="adocao.php">Adoção</a></li>
+    </ul>
+</nav>
  
  
     <div class="scrolling-ticker">
@@ -144,23 +159,21 @@
     <div class="newsletter-section">
         <h3>quer receber nossas novidades e ofertas exclusivas?</h3>
         <p>cadastre-se e aproveite um cupom na sua primeira compra!</p>
-        <form class="newsletter-form">
-            <div class="input-group">
-                <label>nome: (*)</label>
-                <input type="text" placeholder="insira seu nome:">
-            </div>
-            <div class="input-group">
-                <label>email: (*)</label>
-                <input type="email" placeholder="insira seu email:">
-            </div>
-            <div class="input-group">
-                <label>celular: (*)</label>
-                <input type="tel" placeholder="insira seu celular:">
-            </div>
-            <button type="submit" class="btn-send">enviar</button>
-        </form>
-        <p class="disclaimer">ao se cadastrar, você concorda em receber comunicações ZookaPet de acordo com nossa <a href="#">política de privacidade</a>.</p>
+        <form method="POST" class="newsletter-form">
+    <div class="input-group">
+        <label>nome: (*)</label>
+        <input type="text" name="nome" placeholder="insira seu nome:" required>
     </div>
+    <div class="input-group">
+        <label>email: (*)</label>
+        <input type="email" name="email" placeholder="insira seu email:" required>
+    </div>
+    <div class="input-group">
+        <label>celular: (*)</label>
+        <input type="tel" name="celular" placeholder="insira seu celular:" required>
+    </div>
+    <button type="submit" class="btn-send">enviar</button>
+</form>
  
     <div class="footer-links-container">
         <div class="logo-footer">zookapet</div>
@@ -193,3 +206,62 @@
         </div>
     </div>
 </footer>
+<script type="module">
+  import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@0/dist/web.js'
+
+  Typebot.initBubble({
+    typebot: "lead-generation-yz0zgkk",
+    theme: {
+      button: { backgroundColor: "#2eaeb0" },
+      chatWindow: { backgroundColor: "#020202" },
+      
+    },
+  });
+</script>
+
+<?php
+
+
+if($_POST) {
+$email = $_POST['email'] ?? '';
+$nome  = $_POST['nome'] ?? '';
+$celular  = $_POST['celular'] ?? '';
+ 
+require_once 'PHPMailer/src/PHPMailer.php';
+require_once 'PHPMailer/src/SMTP.php';
+require_once 'PHPMailer/src/Exception.php';
+ 
+$mail = new PHPMailer\PHPMailer\PHPMailer(true);
+ 
+try {
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->SMTPAuth = true;
+    $mail->Username = 'ZookaPetshop@gmail.com';
+    $mail->Password = 'juky tzsz dshp oncx';
+    $mail->SMTPSecure = 'tls';
+    $mail->Port = 587;
+ 
+    $mail->setFrom('ZookaPetshop@gmail.com', 'Zooka');
+    $mail->addAddress($email);
+ 
+    $mail->isHTML(true);
+    $mail->Subject = 'Verification code';
+    $mail->Body = "
+        <h2>Bem-vindo ao Quimera 🚀</h2>
+        <p>Seu código de verificação é:</p>
+        <h1 style='color:red;'>ok</h1>
+    ";
+ 
+    $mail->send();
+ 
+
+ 
+} catch (Exception $e) {
+    echo "Erro: {$mail->ErrorInfo}";
+}
+ 
+}
+ 
+?>
+</body>
