@@ -14,7 +14,7 @@ function conectar(){
 
             
         } catch (PDOException $e) {
-            echo "Erro ao conectar: " . $e->getMenssage();
+            echo "Erro ao conectar: " . $e->getMessage();
         };
 }
 ?>

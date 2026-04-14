@@ -1,5 +1,22 @@
 /* ELEN <>*/
+.msg-erro {
+  background: #ffe6e6;
+  border: 1px solid red;
+  color: #a30000;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+.link-termos {
+  color: #176668;
+  font-weight: 600;
+  text-decoration: none;
+}
 
+.link-termos:hover {
+  text-decoration: underline;
+}
 /* style do data do cadastro web */
 .login-access input[type="date"] {
   width: 100%;
@@ -70,7 +87,7 @@ input:invalid {
 
 .login-access h3 {
   font-size: 20px;
-  color: #004a99;
+  color: #ca7e4c;
   margin-bottom: 20px;
   font-weight: 700;
 }
@@ -98,7 +115,7 @@ input:invalid {
 .login-access input[type="email"]:focus,
 .login-access input[type="text"]:focus,
 .login-access input[type="password"]:focus {
-  border-color: #004a99;
+  border-color: #ca7e4c;
 }
 
 .forgot-password {
@@ -106,7 +123,7 @@ input:invalid {
   text-align: right;
   font-size: 12px;
   margin-bottom: 20px;
-  color: #004a99;
+  color: #ca7e4c;
   text-decoration: none;
   font-weight: 600;
 }
@@ -116,7 +133,7 @@ input:invalid {
 }
 
 .btn-login {
-  background-color: #004a99;
+  background-color: #2eaeb0;
   color: white;
   font-weight: 700;
   border: none;
@@ -129,7 +146,7 @@ input:invalid {
 }
 
 .btn-login:hover {
-  background-color: #003366;
+  background-color: #176668;
 }
 
 .login-access hr {
@@ -159,14 +176,14 @@ input:invalid {
 }
 
 .btn-quick-access:hover {
-  background-color: #004a99;
+  background-color: #ca7e4c;
   color: white;
 }
 
 .login-create {
   flex: 1 1 400px;
   min-width: 320px;
-  color: #004a99;
+  color: #ca7e4c;
 }
 
 .login-create h3 {
@@ -186,7 +203,7 @@ input:invalid {
 .btn-create-account {
   padding: 12px 25px;
   border-radius: 6px;
-  border: 1.5px solid #333;
+  border: 1.5px solid #ca7e4c;
   background: transparent;
   font-weight: 700;
   cursor: pointer;
@@ -198,7 +215,7 @@ input:invalid {
 }
 
 .btn-create-account:hover {
-  background-color: #004a99;
+  background-color: #ca7e4c;
   color: white;
 }
 /* ELEN </>*/
@@ -206,7 +223,7 @@ input:invalid {
 
 /* --- CONFIGURAÇÕES GERAIS --- */
 :root {
-    --nude-bg: #f5f2ed; /* Cor de fundo inspirada na Natura */
+    --nude-bg: #f5f5f5;; /* Cor de fundo inspirada na Natura */
     --primary: #f48120;
     --dark: #333;
     --text-light: #666;
@@ -222,18 +239,19 @@ input:invalid {
 }
  
 body {
-    background-color: #fff;
+    background-color: var(--nude-bg);
     color: var(--dark);
     overflow-x: hidden;
 }
  
 .header-top {
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     display: flex;
-    justify-content: space-between; /* Distribui os 3 blocos */
-    align-items: center;            /* Alinha todos verticalmente ao centro */
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 10px 0;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;             
+    padding: 10px 40px;       
 }
 
 /* Ajuste da imagem da logo */
@@ -263,9 +281,11 @@ body {
 
 /* --- FOOTER --- */
 .main-footer {
-    background: #fff;
+    font-weight: bold;
     border-top: 1px solid #eee;
-    padding: 60px 5% 30px;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 12px;
 }
  
 .footer-container {
@@ -319,3 +339,36 @@ body {
     .newsletter-content { padding-left: 0; }
 }
 
+/* Placeholder menor para senha */
+input[name="senha"]::placeholder,
+input[name="confirma"]::placeholder {
+  font-size: 12px;
+  color: #999;
+}
+.msg-sucesso {
+  background: #e6f9f5;
+  border: 1px solid #2eaeb0;
+  color: #176668;
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+}
+
+/* Ícone */
+.msg-sucesso::before {
+  content: "✔";
+  background: #2eaeb0;
+  color: white;
+  font-size: 12px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
