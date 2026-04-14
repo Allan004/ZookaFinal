@@ -19,14 +19,18 @@ function atualizar_pet($dados){
 
     $stmt = $pdo->prepare($sql);
 
-    $stmt->bindValue(':id', (int)$dados['id'], PDO::PARAM_INT);
-    $stmt->bindValue(':nome', $dados['nome']);
-    $stmt->bindValue(':nascimento', $dados['nascimento']);
-    $stmt->bindValue(':tipoIdade', $dados['tipoIdade']);
-    $stmt->bindValue(':idadeaprox', $dados['idadeaprox'] ?: null);
-    $stmt->bindValue(':especie', $dados['especie']);
-    $stmt->bindValue(':raca', $dados['raca']);
-    $stmt->bindValue(':observacao', $dados['observacao']);
+   
+
+$stmt->bindValue(':id', (int)$dados['id_pet'], PDO::PARAM_INT);
+$stmt->bindValue(':nome', $dados['nome']);
+$stmt->bindValue(':nascimento', $dados['nascimento']);
+$stmt->bindValue(':tipoIdade', strtoupper($dados['tipoIdade'])); 
+$stmt->bindValue(':idadeaprox', $dados['idadeaprox'] ?: null, PDO::PARAM_INT);
+$stmt->bindValue(':especie', $dados['especie']);
+$stmt->bindValue(':raca', $dados['raca']);
+$stmt->bindValue(':observacao', $dados['observacao'] ?? null);
+
+
 
     return $stmt->execute();
 }

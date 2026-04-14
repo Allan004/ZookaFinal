@@ -15,23 +15,19 @@ if (isset($_POST['logout'])) {
 $logado = usuario_logado();
 $modalAberto = null;
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+/* EDITAR PET */
+if (isset($_GET['editar_pet']) && isset($_GET['id_pet_editar'])) {
+    $modalAberto = "pet";
+    $consulta_pet = abrir_pet((int)$_GET['id_pet_editar']);
+}
 
-    if (isset($_POST['editar_pet'])) {
-        $modalAberto = "pet";
-        $consulta_pet = abrir_pet($_POST['id_pet_editar']);
-    }
+/* EDITAR CLIENTE */
+if (isset($_GET['editar_cliente']) && isset($_GET['id_cliente_editar'])) {
+    $modalAberto = "cliente";
+    $consulta_cliente = abrir_cliente((int)$_GET['id_cliente_editar']);
+}
 
-    if (isset($_POST['editar_cliente'])) {
-        $modalAberto = "cliente";
-        $consulta_cliente = abrir_cliente($_POST['id_cliente_editar']);
-    }
-    
-    else{
-      $modalAberto= null;
-    };
-};
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_c'])) {
@@ -54,6 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_c'])) {
 
     if (atualizar_cliente($dados)) {
        
+header("Location: clientes_e_pets.php?sucesso=cliente");
+    exit;
+
     } else {
         echo "Erro ao atualizar cliente.";
     }
@@ -63,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_c'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_p'])) {
 
     $dados = [
-        'id_pet'          => $_POST['id_pet'],
+        'id_pet'      => $_POST['id_pet'],
         'nome'        => trim($_POST['nome']),
         'nascimento'  => $_POST['nascimento'] ?: null,
         'tipoIdade'   => $_POST['tipoIdade'],
@@ -73,8 +72,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_p'])) {
         'observacao'  => trim($_POST['observacao'])
     ];
 
-    if (atualizar_pet($dados)) {
-        echo "Pet atualizado com sucesso!";
+    
+if (atualizar_pet($dados)) {
+        header("Location: clientes_e_pets.php?sucesso=pet");
+        exit;
+
     } else {
         echo "Erro ao atualizar pet.";
     }
@@ -196,9 +198,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_p'])) {
                 <div class="muted">Editar conta</div>
             </div>
             </div>
-            <div class="esquerdo">
-              <button>X</button>
-            </div>
+           <div class="esquerdo">
+                <a href="clientes_e_pets.php" class="btn">X</a>
+                </div>
         </div>
 
         <h2>Editar usuário</h2>
@@ -272,10 +274,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_p'])) {
 
 <?php if ($modalAberto==="pet"): ?>
 <div class="editar-cliente-overlay">
-  <form method="post"  class="editar-cliente-card">
-        
-
-        <div class="editar-cliente-brand">
+  
+<form method="post" class="editar-cliente-card">
+    <div class="editar-cliente-brand">
             <div class="direito">
             <div class="logo-modal" ><img src="../Assets/logo_ico.png" alt=""></div>
             <div>
@@ -283,53 +284,62 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_p'])) {
                 <div class="muted">Editar conta</div>
             </div>
             </div>
-            <div class="esquerdo">
-              <button>X</button>
-            </div>
+           <div class="esquerdo">
+                <a href="clientes_e_pets.php" class="btn">X</a>
+                </div>
         </div>
 
         <h2>Editar usuário</h2>
         <div class="editar-cliente-container">
         <div class="editar-cliente-direito">
-        <div class="field">
-            <label>Nome</label>
-            <input type="text" value=<?php echo'"'.$consulta_pet[1].'"'; ?> name="nome" required>
-        </div>
 
-        <div class="field">
-            <label>Nascimento</label>
-            <input type="date" value=<?php echo'"'.$consulta_pet[2].'"'; ?>  name="nascimento">
-        </div>
+<input type="hidden" name="id_pet" value="<?= $consulta_pet[0]; ?>">
 
-        <div class="field">
-            <label>Tipo Idade</label>
-            <select name="tipo_idade" required>
-                <option value="exata" <?php echo (strtolower($consulta_pet[3])=="exata") ? "selected":"" ;?>> exata </option>
-                <option value="aproximada" <?php echo (strtolower($consulta_pet[3])=="aproximada") ? "selected":""; ?>>aproximada</option>
-            </select>
-        </div>
-        </div>
-        <div class="editar-cliente-direito">
-        <div class="field">
-            <label>Idade</label>
-            <input type="int" value=<?php echo'"'.$consulta_pet[4].'"'; ?>  name="idade" required>
-        </div>
+<div class="field">
+  <label>Nome</label>
+  <input type="text" name="nome" value="<?= $consulta_pet[1]; ?>">
+</div>
 
-        <div class="field">
-            <label>Especie</label>
-            <input type="text"  value=<?php echo'"'.$consulta_pet[5].'"'; ?>  name="especie" required>
-        </div>
+<div class="field">
+  <label>Nascimento</label>
+  <input type="date" name="nascimento" value="<?= $consulta_pet[2]; ?>">
+</div>
 
-         <div class="field">
-            <label>Raça</label>
-            <input type="text" value=<?php echo'"'.$consulta_pet[7].'"'; ?>   name="raca" required>
-        </div>
-        </div>
-        <input type="hidden" name="id_cliente" value="<?= $consulta_pet[0]; ?>">
+<div class="field">
+  <label>Tipo Idade</label>
+  <select name="tipoIdade">
+    <option value="EXATA" <?= $consulta_pet[3]=='Exata'?'selected':'' ?>>Exata</option>
+    <option value="APROXIMADA" <?= $consulta_pet[3]=='Aproximada'?'selected':'' ?>>Aproximada</option>
+  </select>
+</div>
 
-        <button class="btn btn-block" name='salvar_p'> Editar conta</button>
+<div class="field">
+  <label>Idade aproximada</label>
+  <input type="number" name="idadeaprox" value="<?= $consulta_pet[4]; ?>">
+</div>
+</div>
+<div class="editar-cliente-esquerdo">
+<div class="field">
+  <label>Espécie</label>
+  <input type="text" name="especie" value="<?= $consulta_pet[5]; ?>">
+</div>
 
-    </form>
+<div class="field">
+  <label>Raça</label>
+  <input type="text" name="raca" value="<?= $consulta_pet[7]; ?>">
+</div>
+
+<div class="field">
+  <label>Observações</label>
+  <input type="text" name="observacao" >
+</div>
+
+
+<button class="btn btn-block" name="salvar_p">Salvar</button>
+</div>
+
+</form>
+
 </div>
 <?php endif; ?>
 
