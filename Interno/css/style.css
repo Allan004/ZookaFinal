@@ -64,6 +64,7 @@
       background:var(--primary); 
       color:#fff; 
       transition:.2s;
+      text-decoration: none;
     }
     .btn:hover{
       background:#E38B3D
