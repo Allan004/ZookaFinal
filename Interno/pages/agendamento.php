@@ -8,12 +8,22 @@ if (isset($_POST['logout'])) {
     exit;
 }
 
-$buscaPet=busca_pet_cliente();
-$buscaServico=busca_servico();
-$buscaFuncionario=busca_funcionario();
+$buscaPet = busca_pet_cliente();
+$buscaServico = busca_servico();
+$buscaFuncionario = busca_funcionario();
 $logado = usuario_logado();
-$buscaAgendamento= busca_agendamento();
-$controleinputs=false;
+$buscaAgendamento = busca_agendamento();
+$controleinputs = false;
+$formErrors = [];
+$formValues = [
+    'id_pet' => '',
+    'id_servico' => '',
+    'id_funcionario' => '',
+    'data' => '',
+    'hora' => '',
+    'status' => '',
+];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     /* AÇÕES DE EDITAR / EXCLUIR */
@@ -27,31 +37,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($_POST['acao'] === 'editar') {
             $controleinputs = true;
-            $buscaAgendamentoEspecifico =
-                busca_agendamento_especifico($_POST['id_edi_exclu']);
+            $buscaAgendamentoEspecifico = busca_agendamento_especifico($_POST['id_edi_exclu']);
+            $formValues = [
+                'id_pet' => $buscaAgendamentoEspecifico['id_pet'],
+                'id_servico' => $buscaAgendamentoEspecifico['id_servico'],
+                'id_funcionario' => $buscaAgendamentoEspecifico['id_funcionario'],
+                'data' => $buscaAgendamentoEspecifico['dataagendamento'],
+                'hora' => $buscaAgendamentoEspecifico['hora'],
+                'status' => $buscaAgendamentoEspecifico['statusagendamento'],
+            ];
         }
     }
 
-    
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_agendamento'])) {
+    if (isset($_POST['salvar_agendamento'])) {
+        $id = $_POST['id_agendamento'] ?? null;
+        $formValues = [
+            'id_pet' => $_POST['id_pet'] ?? '',
+            'id_servico' => $_POST['id_servico'] ?? '',
+            'id_funcionario' => $_POST['id_funcionario'] ?? '',
+            'data' => $_POST['data'] ?? '',
+            'hora' => $_POST['hora'] ?? '',
+            'status' => $_POST['status'] ?? '',
+        ];
 
-    $id = $_POST['id_agendamento'] ?? null;
+        $dados = [
+            'id_agendamento' => !empty($id) ? (int)$id : null,
+            'id_pet' => $formValues['id_pet'],
+            'id_servico' => $formValues['id_servico'],
+            'id_funcionario' => $formValues['id_funcionario'],
+            'dataagendamento' => $formValues['data'],
+            'hora' => $formValues['hora'],
+            'statusagendamento' => $formValues['status'],
+        ];
 
-    $dados = [
-        'id_agendamento'    => !empty($id) ? (int)$id : null,
-        'id_pet'            => $_POST['id_pet'],
-        'id_servico'        => $_POST['id_servico'],
-        'id_funcionario'    => $_POST['id_funcionario'],
-        'dataagendamento'   => $_POST['data'],
-        'hora'              => $_POST['hora'],
-        'statusagendamento' => $_POST['status']
-    ];
+        $result = inserir_agendamento($dados);
 
-    inserir_agendamento($dados);
+        if (!empty($result['success'])) {
+            header("Location: agendamento.php?salvo=1");
+            exit;
+        }
 
-    header("Location: agendamento.php?salvo=1");
-    exit;
-}
+        $formErrors = $result['errors'] ?? ['Não foi possível salvar o agendamento.'];
+    }
 }
 
 
@@ -101,100 +128,80 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="card">
       <h4>Novo agendamento</h4>
 
+      <?php if (!empty($formErrors)): ?>
+      <div class="alert alert-danger">
+        <ul>
+          <?php foreach ($formErrors as $error): ?>
+            <li><?= htmlspecialchars($error) ?></li>
+          <?php endforeach; ?>
+        </ul>
+      </div>
+      <?php endif; ?>
+
       <div class="two-col">
 
         <div class="field">
           <label>Pet</label>
-          <select name='id_pet'>
-            
-            <?php 
-                 if($controleinputs===true){
-                   echo "<option value='".$buscaAgendamentoEspecifico[7]."'>".$buscaAgendamentoEspecifico[1]." | ".$buscaAgendamentoEspecifico[3]."</option>";
-
-                  }else{
-                    echo '<option>Selecione o pet</option>';
-                  foreach($buscaPet as $busca){
-                    echo "<option value='".$busca[2]."'>".$busca[0]." | ".$busca[1]."</option>";
-                  };
-                  };
-            ?>
+          <select name="id_pet">
+            <option value="">Selecione o pet</option>
+            <?php foreach ($buscaPet as $busca): ?>
+              <option value="<?= htmlspecialchars($busca['id'] ?? $busca[2]) ?>"<?= ((string)($formValues['id_pet'] ?? '') === (string)($busca['id'] ?? $busca[2])) ? ' selected' : '' ?>>
+                <?= htmlspecialchars(($busca['nome'] ?? $busca[0]) . ' | ' . ($busca['cpf'] ?? $busca[1])) ?>
+              </option>
+            <?php endforeach; ?>
           </select>
         </div>
 
         <div class="field">
           <label>Serviço</label>
-          <select name='id_servico'>
-          
-            <?php 
-                 if($controleinputs===true){
-                   echo "<option value='".$buscaAgendamentoEspecifico[8]."'>".$buscaAgendamentoEspecifico[2]."</option>";
-                  foreach($buscaServico as $busca){
-                   echo "<option value='".$busca[1]."'>".$busca[0]."</option>";
-                  };
-                  }else{
-                    echo '<option>Selecione o Serviço</option>';
-                   foreach($buscaServico as $busca){
-                   echo "<option value='".$busca[1]."'>".$busca[0]."</option>";
-                  };
-                   };
-            ?>
-            
-            
-        
+          <select name="id_servico">
+            <option value="">Selecione o serviço</option>
+            <?php foreach ($buscaServico as $busca): ?>
+              <option value="<?= htmlspecialchars($busca['id'] ?? $busca[1]) ?>"<?= ((string)($formValues['id_servico'] ?? '') === (string)($busca['id'] ?? $busca[1])) ? ' selected' : '' ?>>
+                <?= htmlspecialchars($busca['nome'] ?? $busca[0]) ?>
+              </option>
+            <?php endforeach; ?>
           </select>
         </div>
 
         <div class="field">
           <label>Funcionário</label>
-          <select name='id_funcionario'>
-            
-
-             <?php 
-             
-                 if($controleinputs===true){
-                   echo "<option value='".$buscaAgendamentoEspecifico[9]."'>".$buscaAgendamentoEspecifico[3]."</option>";
-                  foreach($buscaFuncionario as $busca){
-                  echo "<option value='".$busca[2]."'>".$busca[0]." | ".$busca[1]."</option>";
-                  } ;
-                  }else{
-                    echo '<option>Selecione</option>';
-                  foreach($buscaFuncionario as $busca){
-              echo "<option value='".$busca[2]."'>".$busca[0]." | ".$busca[1]."</option>";
-              } ;
-                   };
-            ?>
-             
+          <select name="id_funcionario">
+            <option value="">Selecione o funcionário</option>
+            <?php foreach ($buscaFuncionario as $busca): ?>
+              <option value="<?= htmlspecialchars($busca['id'] ?? $busca[2]) ?>"<?= ((string)($formValues['id_funcionario'] ?? '') === (string)($busca['id'] ?? $busca[2])) ? ' selected' : '' ?> >
+                <?= htmlspecialchars(($busca['nome'] ?? $busca[0]) . ' | ' . ($busca['cargo'] ?? $busca[1])) ?>
+              </option>
+            <?php endforeach; ?>
           </select>
         </div>
 
         <div class="field">
           <label>Data</label>
-          <input type="date" name="data" value=<?php if($controleinputs===true){echo "'".$buscaAgendamentoEspecifico[4]."'";} ?> name='data'>
+          <input type="date" name="data" value="<?= htmlspecialchars($formValues['data']) ?>">
         </div>
 
         <div class="field">
           <label>Hora</label>
-          <input type="time" name="hora" value=<?php if($controleinputs===true){echo "'".$buscaAgendamentoEspecifico[5]."'";} ?> name='hora'>
+          <input type="time" name="hora" value="<?= htmlspecialchars($formValues['hora']) ?>">
         </div>
 
         <div class="field">
           <label>Status</label>
-          <select name='status'>
-            <?php 
-            
-            if($controleinputs===true){echo "<option value='".$buscaAgendamentoEspecifico[6]."'>".$buscaAgendamentoEspecifico[6]."</option>";};
-            ?>
-            <option>Agendado</option>
-            <option>Pendente</option>
-            <option>Concluído</option>
-            <option>Cancelado</option>
+          <select name="status">
+            <option value="">Selecione o status</option>
+            <?php foreach (['Agendado','Pendente','Concluído','Cancelado'] as $status): ?>
+              <option value="<?= htmlspecialchars($status) ?>"<?= ($formValues['status'] === $status) ? ' selected' : '' ?>>
+                <?= htmlspecialchars($status) ?>
+              </option>
+            <?php endforeach; ?>
           </select>
         </div>
 
       </div>
       
       <input type="hidden" name="id_agendamento"
-       value="<?= $buscaAgendamentoEspecifico['id_agendamento'] ?? '' ?>">
+       value="<?= htmlspecialchars($_POST['id_agendamento'] ?? $buscaAgendamentoEspecifico['id_agendamento'] ?? '') ?>">
 
 
       <button class="btn btn-block" name="salvar_agendamento" style="margin-top:16px">

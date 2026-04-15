@@ -5,6 +5,7 @@ require __DIR__ . '/../../php/conexao.php';
 $pdo = conectar();
 
 $erro = "";
+$erro_usuario = false;
 $sucesso = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -14,19 +15,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuario = $_POST['usuario'] ?? '';
     $telefone = $_POST['telefone'] ?? '';
     $cpf      = $_POST['cpf'] ?? '';
-    $senha    = $_POST['senha'] ?? '';
-    $confirma = $_POST['confirma'] ?? '';
+    $nascimento = $_POST['nascimento'] ?? '';
+    $senha    = trim($_POST['senha'] ?? '');
+    $confirma = trim($_POST['confirma'] ?? '');
+    $cep = $_POST['cep'] ?? '';
 
-    if (empty($nome) || empty($email) || empty($senha) || empty($usuario)) {
-        $erro = "Preencha os campos obrigatórios!";
-    } elseif ($senha !== $confirma) {
-        $erro = "As senhas não coincidem!";
-    } else {
+    $cpf = preg_replace('/\D/', '', $cpf);
+    $telefone = preg_replace('/\D/', '', $telefone);
+    $cep = preg_replace('/\D/', '', $cep);
+
+    if (empty($nome) || empty($email) || empty($senha) || empty($usuario) || empty($nascimento)) {
+    $erro = "Preencha os campos obrigatórios!";
+
+} elseif ($senha !== $confirma) {
+    $erro = "As senhas não coincidem!";
+
+} elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/', $senha)) {
+    $erro = "A senha não atende aos requisistos mínimos.";
+
+} elseif (empty($_POST['termos'])) {
+    $erro = "Você precisa aceitar os termos e condições!";
+} elseif (strtotime($nascimento) > strtotime('-18 years')) {
+    $erro = "Você precisa ter pelo menos 18 anos para se cadastrar!";
+} else {
             $stmt = $pdo->prepare("SELECT id FROM loginweb WHERE usuario = ?");
             $stmt->execute([$usuario]);
+            // VERIFICA EMAIL
+            $stmtEmail = $pdo->prepare("SELECT id FROM clienteweb WHERE email = ?");
+            $stmtEmail->execute([$email]);
+            // VERIFICA CPF
+            $stmtCpf = $pdo->prepare("SELECT id FROM clienteweb WHERE cpf = ?");
+            $stmtCpf->execute([$cpf]);
 
-if ($stmt->rowCount() > 0) {
+if ($stmtEmail->rowCount() > 0) {
+    $erro = "E-mail já cadastrado!";
+
+} elseif ($stmtCpf->rowCount() > 0) {
+    $erro = "CPF já cadastrado!";
+
+} elseif ($stmt->rowCount() > 0) {
     $erro = "Usuário já existe!";
+    $erro_usuario = true;
+
 } else {
 
     $hash = password_hash($senha, PASSWORD_DEFAULT);
@@ -46,13 +76,13 @@ $stmt->execute([
     $telefone,
     $email,
     $cpf,
-    $_POST['nascimento'] ?? '',
+    $nascimento,
     $_POST['rua'] ?? '',
     $_POST['numero'] ?? '',
     $_POST['bairro'] ?? '',
     $_POST['cidade'] ?? '',
     $_POST['estado'] ?? '',
-    $_POST['cep'] ?? '',
+    $cep,
     $id_login
 ]);
 
@@ -99,93 +129,94 @@ exit;
 
 <div class="login-wrapper">
 
-<!-- FORM CADASTRO -->
 <section class="login-access">
 
 <form method="POST">
 
-<!-- Tipo -->
-<div style="display:flex; gap:20px; margin-bottom:10px;">
-
-  <label style="display:flex; align-items:center; gap:5px;">
-    <input type="radio" name="tipo" value="pf" checked>
-    Pessoa Física
-  </label>
-
-  <label style="display:flex; align-items:center; gap:5px;">
-    <input type="radio" name="tipo" value="pj">
-    Pessoa Jurídica
-  </label>
-
-</div>
-
-<hr>
-
 <label>Nome e sobrenome</label>
-<input type="text" name="nome" placeholder="Digite seu nome completo">
+<input type="text" name="nome"
+value="<?= htmlspecialchars($nome ?? '') ?>"
+placeholder="Digite seu nome completo">
 
-<label>E-mail</label>
-<input type="text" name="email" placeholder="Digite seu e-mail">
+<input type="text" name="email"
+value="<?= htmlspecialchars($email ?? '') ?>"
+placeholder="Digite seu e-mail">
 
-<label>Usuário</label>
-<input type="text" name="usuario" placeholder="Crie seu usuário de login">
+<input type="text" name="usuario"
+value="<?= htmlspecialchars($usuario ?? '') ?>"
+placeholder="Crie seu usuário de login"
+class="<?= $erro_usuario ? 'input-erro' : '' ?>">
 
-<label>Celular</label>
-<input type="text" name="telefone" placeholder="DDD + Celular">
+<input type="text" name="telefone"
+value="<?= htmlspecialchars($telefone ?? '') ?>"
+placeholder="DDD + Celular">
 
-<label>CPF</label>
-<input type="text" name="cpf" placeholder="Digite seu CPF">
+<input type="text" name="cpf"
+value="<?= htmlspecialchars($cpf ?? '') ?>"
+placeholder="Digite seu CPF">
 
-<label>Data de nascimento</label>
-<input type="date" name="nascimento">
+<input type="date" name="nascimento"
+value="<?= htmlspecialchars($_POST['nascimento'] ?? '') ?>"
+max="<?= date('Y-m-d', strtotime('-18 years')) ?>">
 
 <hr>
 
 <label>CEP</label>
-<input type="text" name="cep" placeholder="Digite seu CEP">
+<input type="text" id="cep" name="cep"
+value="<?= htmlspecialchars($_POST['cep'] ?? '') ?>"
+placeholder="Digite seu CEP" onblur="pesquisacep(this.value);">
 
 <label>Rua</label>
-<input type="text" name="rua" placeholder="Digite sua rua">
+<input type="text" id="rua" name="rua"
+value="<?= htmlspecialchars($_POST['rua'] ?? '') ?>"
+placeholder="Digite sua rua">
 
 <label>Número</label>
-<input type="text" name="numero" placeholder="Número">
+<input type="text" name="numero"
+value="<?= htmlspecialchars($_POST['numero'] ?? '') ?>"
+placeholder="Número">
 
 <label>Bairro</label>
-<input type="text" name="bairro" placeholder="Bairro">
+<input type="text" id="bairro" name="bairro"
+value="<?= htmlspecialchars($_POST['bairro'] ?? '') ?>"
+placeholder="Bairro">
 
 <label>Cidade</label>
-<input type="text" name="cidade" placeholder="Cidade">
+<input type="text" id="cidade" name="cidade"
+value="<?= htmlspecialchars($_POST['cidade'] ?? '') ?>"
+placeholder="Cidade">
 
 <label>Estado</label>
-<select name="estado" style="width:100%; padding:10px 15px; border-radius:6px; border:1px solid #ccc; margin-bottom:15px; font-size:14px;">
+<select id="uf" name="estado" style="width:100%; padding:10px 15px; border-radius:6px; border:1px solid #ccc; margin-bottom:15px; font-size:14px;">
   <option value="">Selecione o estado</option>
-  <option value="AC">AC</option>
-  <option value="AL">AL</option>
-  <option value="AP">AP</option>
-  <option value="AM">AM</option>
-  <option value="BA">BA</option>
-  <option value="CE">CE</option>
-  <option value="DF">DF</option>
-  <option value="ES">ES</option>
-  <option value="GO">GO</option>
-  <option value="MA">MA</option>
-  <option value="MT">MT</option>
-  <option value="MS">MS</option>
-  <option value="MG">MG</option>
-  <option value="PA">PA</option>
-  <option value="PB">PB</option>
-  <option value="PR">PR</option>
-  <option value="PE">PE</option>
-  <option value="PI">PI</option>
-  <option value="RJ">RJ</option>
-  <option value="RN">RN</option>
-  <option value="RS">RS</option>
-  <option value="RO">RO</option>
-  <option value="RR">RR</option>
-  <option value="SC">SC</option>
-  <option value="SP">SP</option>
-  <option value="SE">SE</option>
-  <option value="TO">TO</option>
+
+  <option value="AC" <?= (($_POST['estado'] ?? '') == 'AC') ? 'selected' : '' ?>>AC</option>
+  <option value="AL" <?= (($_POST['estado'] ?? '') == 'AL') ? 'selected' : '' ?>>AL</option>
+  <option value="AP" <?= (($_POST['estado'] ?? '') == 'AP') ? 'selected' : '' ?>>AP</option>
+  <option value="AM" <?= (($_POST['estado'] ?? '') == 'AM') ? 'selected' : '' ?>>AM</option>
+  <option value="BA" <?= (($_POST['estado'] ?? '') == 'BA') ? 'selected' : '' ?>>BA</option>
+  <option value="CE" <?= (($_POST['estado'] ?? '') == 'CE') ? 'selected' : '' ?>>CE</option>
+  <option value="DF" <?= (($_POST['estado'] ?? '') == 'DF') ? 'selected' : '' ?>>DF</option>
+  <option value="ES" <?= (($_POST['estado'] ?? '') == 'ES') ? 'selected' : '' ?>>ES</option>
+  <option value="GO" <?= (($_POST['estado'] ?? '') == 'GO') ? 'selected' : '' ?>>GO</option>
+  <option value="MA" <?= (($_POST['estado'] ?? '') == 'MA') ? 'selected' : '' ?>>MA</option>
+  <option value="MT" <?= (($_POST['estado'] ?? '') == 'MT') ? 'selected' : '' ?>>MT</option>
+  <option value="MS" <?= (($_POST['estado'] ?? '') == 'MS') ? 'selected' : '' ?>>MS</option>
+  <option value="MG" <?= (($_POST['estado'] ?? '') == 'MG') ? 'selected' : '' ?>>MG</option>
+  <option value="PA" <?= (($_POST['estado'] ?? '') == 'PA') ? 'selected' : '' ?>>PA</option>
+  <option value="PB" <?= (($_POST['estado'] ?? '') == 'PB') ? 'selected' : '' ?>>PB</option>
+  <option value="PR" <?= (($_POST['estado'] ?? '') == 'PR') ? 'selected' : '' ?>>PR</option>
+  <option value="PE" <?= (($_POST['estado'] ?? '') == 'PE') ? 'selected' : '' ?>>PE</option>
+  <option value="PI" <?= (($_POST['estado'] ?? '') == 'PI') ? 'selected' : '' ?>>PI</option>
+  <option value="RJ" <?= (($_POST['estado'] ?? '') == 'RJ') ? 'selected' : '' ?>>RJ</option>
+  <option value="RN" <?= (($_POST['estado'] ?? '') == 'RN') ? 'selected' : '' ?>>RN</option>
+  <option value="RS" <?= (($_POST['estado'] ?? '') == 'RS') ? 'selected' : '' ?>>RS</option>
+  <option value="RO" <?= (($_POST['estado'] ?? '') == 'RO') ? 'selected' : '' ?>>RO</option>
+  <option value="RR" <?= (($_POST['estado'] ?? '') == 'RR') ? 'selected' : '' ?>>RR</option>
+  <option value="SC" <?= (($_POST['estado'] ?? '') == 'SC') ? 'selected' : '' ?>>SC</option>
+  <option value="SP" <?= (($_POST['estado'] ?? '') == 'SP') ? 'selected' : '' ?>>SP</option>
+  <option value="SE" <?= (($_POST['estado'] ?? '') == 'SE') ? 'selected' : '' ?>>SE</option>
+  <option value="TO" <?= (($_POST['estado'] ?? '') == 'TO') ? 'selected' : '' ?>>TO</option>
 </select>
 
 <hr>
@@ -211,13 +242,10 @@ exit;
     
     <div style="display:flex; gap:40px;">
       
-      <!-- COLUNA ESQUERDA -->
       <ul style="padding-left:14px; margin:0;">
         <li>Mínimo 8 caracteres</li>
         <li>Letra Minúscula</li>
       </ul>
-
-      <!-- COLUNA DIREITA -->
       <ul style="padding-left:14px; margin:0;">
         <li>Letra Maiúscula</li>
         <li>Números</li>
@@ -228,11 +256,10 @@ exit;
 
 </div>
 
-
 <label style="margin-top:10px; font-size:12px;">
-  <input type="checkbox" name="termos">
+  <input type="checkbox" name="termos" required>
   Concordo com os 
-<a href="#" class="link-termos">
+<a href="#" class="link-termos" onclick="abrirModal(event)">
   termos e condições
 </a>
 </label>
@@ -250,7 +277,6 @@ exit;
 </form>
 </section>
 
-<!-- LADO DIREITO (REUTILIZADO) -->
 <section class="login-create">
 <h3>Criar uma conta é rápido, fácil e gratuito</h3>
 <p>
@@ -267,43 +293,153 @@ acompanhar pedidos e muito mais!
     <p>Copyright© 2026 Zooka Petshop e Clínica Veterinária S/A<br>
     Todos os direitos reservados</p>
 </footer>
+
+<!-- MÁSCARAS -->
 <script>
+document.addEventListener('DOMContentLoaded', function(){
 
-/* TELEFONE (11) 99999-9999 */
-document.querySelector('input[name="telefone"]').addEventListener('input', function(e){
-  let v = e.target.value.replace(/\D/g,'').slice(0,11); // limita 11 números
+  /* TELEFONE */
+  const telefone = document.querySelector('input[name="telefone"]');
+  if (telefone) {
+    telefone.addEventListener('input', function(e){
+      let v = e.target.value.replace(/\D/g,'').slice(0,11);
 
-  if (v.length > 10) {
-    v = v.replace(/^(\d{2})(\d{5})(\d{0,4})$/, '($1) $2-$3');
-  } else {
-    v = v.replace(/^(\d{2})(\d{4})(\d{0,4})$/, '($1) $2-$3');
+      if (v.length > 10) {
+        v = v.replace(/^(\d{2})(\d{5})(\d{0,4})$/, '($1) $2-$3');
+      } else {
+        v = v.replace(/^(\d{2})(\d{4})(\d{0,4})$/, '($1) $2-$3');
+      }
+
+      e.target.value = v.trim();
+    });
   }
 
-  e.target.value = v.trim();
+  /* CPF */
+  const cpf = document.querySelector('input[name="cpf"]');
+  if (cpf) {
+    cpf.addEventListener('input', function(e){
+      let v = e.target.value.replace(/\D/g,'').slice(0,11);
+
+      v = v.replace(/^(\d{3})(\d)/, '$1.$2');
+      v = v.replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3');
+      v = v.replace(/\.(\d{3})(\d)/, '.$1-$2');
+
+      e.target.value = v;
+    });
+  }
+
+  /* CEP */
+  const cep = document.querySelector('input[name="cep"]');
+  if (cep) {
+    cep.addEventListener('input', function(e){
+      let v = e.target.value.replace(/\D/g,'').slice(0,8);
+      v = v.replace(/^(\d{5})(\d)/, '$1-$2');
+      e.target.value = v;
+    });
+  }
+
 });
+</script>
 
+<!-- API VIA CEP -->
+<script>
+function limpa_formulario_cep() {
+    document.getElementById('rua').value = "";
+    document.getElementById('bairro').value = "";
+    document.getElementById('cidade').value = "";
+    document.getElementById('uf').value = "";
+}
 
-/* CPF 000.000.000-00 */
-document.querySelector('input[name="cpf"]').addEventListener('input', function(e){
-  let v = e.target.value.replace(/\D/g,'').slice(0,11); // limita 11
+function meu_callback(conteudo) {
+    if (!("erro" in conteudo)) {
+        document.getElementById('rua').value = conteudo.logradouro;
+        document.getElementById('bairro').value = conteudo.bairro;
+        document.getElementById('cidade').value = conteudo.localidade;
+        document.getElementById('uf').value = conteudo.uf;
+    } else {
+        limpa_formulario_cep();
+        alert("CEP não encontrado.");
+    }
+}
 
-  v = v.replace(/^(\d{3})(\d)/, '$1.$2');
-  v = v.replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3');
-  v = v.replace(/\.(\d{3})(\d)/, '.$1-$2');
+function pesquisacep(valor) {
+    var cep = valor.replace(/\D/g, '');
 
-  e.target.value = v;
-});
+    if (cep !== "") {
+        var validacep = /^[0-9]{8}$/;
 
+        if (validacep.test(cep)) {
 
-/* CEP 00000-000 */
-document.querySelector('input[name="cep"]').addEventListener('input', function(e){
-  let v = e.target.value.replace(/\D/g,'').slice(0,8); // limita 8
+            document.getElementById('rua').value = "...";
+            document.getElementById('bairro').value = "...";
+            document.getElementById('cidade').value = "...";
+            document.getElementById('uf').value = "...";
 
-  v = v.replace(/^(\d{5})(\d)/, '$1-$2');
+            var script = document.createElement('script');
+            script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
 
-  e.target.value = v;
-});
+            document.body.appendChild(script);
 
+        } else {
+            limpa_formulario_cep();
+            alert("CEP inválido");
+        }
+    } else {
+        limpa_formulario_cep();
+    }
+}
+</script>
+<!-- MODAL TERMOS -->
+<div id="modal-termos" class="modal-termos">
+  <div class="modal-conteudo">
+
+    <span class="fechar" onclick="fecharModal()">&times;</span>
+
+    <h3>Termos e Condições</h3>
+
+    <div class="termos-texto">
+
+      <p>
+        A Zooka coleta algumas informações para melhorar sua experiência no site.
+      </p>
+
+      <ul>
+        <li>Seus dados são armazenados com segurança e não são vendidos</li>
+        <li>Podem ser usados por parceiros apenas para entrega e pagamento</li>
+        <li>Utilizamos cookies para personalizar conteúdos</li>
+        <li>Você pode desativar cookies no navegador</li>
+        <li>Você pode cancelar comunicações a qualquer momento</li>
+      </ul>
+
+      <p>
+        A Zooka protege seus dados, mas é importante manter sua senha segura.
+      </p>
+
+      <p class="termos-final">
+        Estes termos podem ser atualizados a qualquer momento.
+      </p>
+
+    </div>
+
+  </div>
+</div>
+<script>
+function abrirModal(e) {
+  e.preventDefault();
+  document.getElementById('modal-termos').style.display = 'block';
+}
+
+function fecharModal() {
+  document.getElementById('modal-termos').style.display = 'none';
+}
+
+// fechar clicando fora
+window.onclick = function(event) {
+  const modal = document.getElementById('modal-termos');
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
 </script>
 </body>
 </html>
