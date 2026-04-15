@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -8,88 +5,184 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZookaPet - O melhor para o seu melhor amigo</title>
     <link rel="stylesheet" href="css/style.css">
-    
-    
+   
+    <script src="ZookaWeb.js" defer></script>
+   
+   
 </head>
 <body>
    
  
-    <div class="top-promo">
+    <div class="top-promo">  
         10% OFF na primeira compra com o cupom <strong>BEMVINDOAUAU</strong>
     </div>
  
    <header class="main-header">
     <div class="header-top">
-        
+       
         <div class="logo-container">
             <a href="#" class="logo">
                 <img src="Assets/logo.png" class="banner-topo" alt="Zooka">
             </a>
         </div>
-
+ 
         <div class="search-container">
             <input type="text" placeholder="o que seu pet precisa hoje?">
         </div>
-
-    <div class="user-menu">
-    <a href="#" class="user-link">Meus Pets</a>
-
-    <?php if(isset($_SESSION['usuario_nome'])): ?>
-        
-        <div class="user-info">
-            <span class="user-name">Olá, <?php echo $_SESSION['usuario_nome']; ?>!</span>
-            <a href="logout.php" class="logout-link">Sair</a>
+ 
+        <div class="user-menu">
+            <a href="#">meus pets</a>
+            <a href="#">entrar</a>
+           
+             <a href="CarrinhoZooka.html" class="btn-continue">🛒</a>
+           
         </div>
-
-    <?php else: ?>
-
-        <a href="login.php" class="user-link">Entrar ou <br>Cadastrar</a>
-
-    <?php endif; ?>
-
-    <span class="cart-icon">🛒</span>
-    </div>
-
+ 
     </div>
 </header>
-        
+       
        <nav class="category-nav">
-    <ul>
-        <li class="has-dropdown">
-            <div class="category-item">
-                <img src="Assets/cachorro1.png"> cachorros
-            </div>
-            
-            <ul class="submenu">
-                <li><a href="#">Ração <span>&rsaquo;</span></a></li>
-                <li><a href="#">Petiscos e Ossos <span>&rsaquo;</span></a></li>
-                <li><a href="#">Farmácia <span>&rsaquo;</span></a></li>
-                <li><a href="#">Brinquedos <span>&rsaquo;</span></a></li>
-                <li><a href="#">Coleiras e Guias <span>&rsaquo;</span></a></li>
-                <li><a href="#">Camas e Cobertores <span>&rsaquo;</span></a></li>
-            </ul>
-<<<<<<< HEAD
-        </li>
-
-        <li><img src="Assets/gato1.png"> gatos</li>
-        <li><img src="Assets/passaros1.png"> pássaros</li>
-        <li><img src="Assets/peixe2.png"> peixes</li>
-        <li><img src="Assets/roedor1.png"> roedores</li>
-        <li><img src="Assets/farmacia2.png"> farmácia</li>
-        <li><img src="Assets/higiene1.png"> higiene</li>
-        <li><img src="Assets/brinquedos1.png"> brinquedos</li>
-        <li><img src="Assets/camas1.png"> camas</li>
-        <li><img src="Assets/promocoes1.png"> promoções</li>
-        <li><img src="Assets/assinatura1.png"> assinatura</li>
-        <li><img src="Assets/adocao2.png"> <a href="adocao.php">Adoção</a></li>
-    </ul>
+<ul>
+ 
+    <!-- CACHORROS -->
+    <li class="has-dropdown">
+        <div class="category-item">
+            <img src="Assets/cachorro1.png"> cachorros
+        </div>
+        <ul class="submenu">
+            <li><a href="#">Ração</a></li>
+            <li><a href="#">Petiscos</a></li>
+            <li><a href="#">Farmácia</a></li>
+            <li><a href="#">Brinquedos</a></li>
+        </ul>
+    </li>
+ 
+    <!-- GATOS -->
+    <li class="has-dropdown">
+        <div class="category-item">
+            <img src="Assets/gato1.png"> gatos
+        </div>
+        <ul class="submenu">
+            <li><a href="#">Ração</a></li>
+            <li><a href="#">Areia</a></li>
+            <li><a href="#">Brinquedos</a></li>
+            <li><a href="#">Arranhadores</a></li>
+        </ul>
+    </li>
+ 
+    <!-- PÁSSAROS -->
+    <li class="has-dropdown">
+        <div class="category-item">
+            <img src="Assets/passaros1.png"> pássaros
+        </div>
+        <ul class="submenu">
+            <li><a href="#">Sementes</a></li>
+            <li><a href="#">Gaiolas</a></li>
+            <li><a href="#">Acessórios</a></li>
+        </ul>
+    </li>
+ 
+    <!-- PEIXES -->
+    <li class="has-dropdown">
+        <div class="category-item">
+            <img src="Assets/peixe2.png"> peixes
+        </div>
+        <ul class="submenu">
+            <li><a href="#">Ração</a></li>
+            <li><a href="#">Aquários</a></li>
+            <li><a href="#">Filtros</a></li>
+        </ul>
+    </li>
+ 
+    <!-- ROEDORES -->
+    <li class="has-dropdown">
+        <div class="category-item">
+            <img src="Assets/roedor1.png"> roedores
+        </div>
+        <ul class="submenu">
+            <li><a href="#">Ração</a></li>
+            <li><a href="#">Gaiolas</a></li>
+            <li><a href="#">Brinquedos</a></li>
+        </ul>
+    </li>
+ 
+    <!-- FARMÁCIA -->
+    <li class="has-dropdown">
+        <div class="category-item">
+            <img src="Assets/farmacia2.png"> farmácia
+        </div>
+        <ul class="submenu">
+            <li><a href="#">Antipulgas</a></li>
+            <li><a href="#">Vermífugos</a></li>
+            <li><a href="#">Vitaminas</a></li>
+        </ul>
+    </li>
+ 
+    <!-- HIGIENE -->
+    <li class="has-dropdown">
+        <div class="category-item">
+            <img src="Assets/higiene1.png"> higiene
+        </div>
+        <ul class="submenu">
+            <li><a href="#">Shampoo</a></li>
+            <li><a href="#">Tapetes</a></li>
+            <li><a href="#">Escovas</a></li>
+        </ul>
+    </li>
+ 
+    <!-- BRINQUEDOS -->
+    <li class="has-dropdown">
+        <div class="category-item">
+            <img src="Assets/brinquedos1.png"> brinquedos
+        </div>
+        <ul class="submenu">
+            <li><a href="#">Mordedores</a></li>
+            <li><a href="#">Bolinhas</a></li>
+        </ul>
+    </li>
+ 
+    <!-- CAMAS -->
+    <li class="has-dropdown">
+        <div class="category-item">
+            <img src="Assets/camas1.png"> camas
+        </div>
+        <ul class="submenu">
+            <li><a href="#">Camas</a></li>
+            <li><a href="#">Cobertores</a></li>
+        </ul>
+    </li>
+ 
+    <!-- PROMOÇÕES -->
+    <li class="has-dropdown">
+        <div class="category-item">
+            <img src="Assets/promocoes1.png"> promoções
+        </div>
+        <ul class="submenu">
+            <li><a href="#">Ofertas do dia</a></li>
+        </ul>
+    </li>
+ 
+    <!-- ASSINATURA -->
+    <li class="has-dropdown">
+        <div class="category-item">
+            <img src="Assets/assinatura1.png"> assinatura
+        </div>
+        <ul class="submenu">F
+            <li><a href="#">Planos</a></li>
+        </ul>
+    </li>
+ 
+    <!-- ADOÇÃO -->
+    <li>
+    <a href="adocao.php" class="category-item">
+        <img src="Assets/adocao2.png"> adoção
+    </a>
+</li>
+ 
+</ul>
 </nav>
  
  
-=======
-        </nav>
-  
->>>>>>> 76002e9c72f02239f794c3a5329ff91a3e64ba43
     <div class="scrolling-ticker">
     <div class="ticker-content">
         <span>Frete grátis</span> <img src="Assets/patinhas1.png" alt="pata">
@@ -116,10 +209,10 @@ session_start();
  
     <section class="product-shelf">
     <h2 class="shelf-title">presentes favoritos para surpreender</h2>
-    
+   
     <div class="carousel-wrapper">
         <button class="carousel-btn prev">❮</button>
-        
+       
         <div class="shelf-container">
             <div class="product-card">
                 <div class="product-image">
@@ -135,10 +228,10 @@ session_start();
                     <button class="btn-add">adicionar à sacola</button>
                 </div>
             </div>
-            
+           
             <div class="product-card">
                 <div class="product-image">
-                    <img src="img/Cat and Dog Hormones_ The Ultimate Guide.jpeg" alt="Produto">
+                    <img src="" alt="Produto">
                     <span class="wishlist-icon">♡</span>
                 </div>
                 <div class="product-info">
@@ -150,12 +243,12 @@ session_start();
                     <button class="btn-add">adicionar à sacola</button>
                 </div>
             </div>
-            
+           
             </div>
  
         <button class="carousel-btn next">❯</button>
     </div>
-    
+   
     <div class="carousel-dots">
         <span class="dot active"></span>
         <span class="dot"></span>
@@ -180,29 +273,10 @@ session_start();
     <div class="newsletter-section">
         <h3>quer receber nossas novidades e ofertas exclusivas?</h3>
         <p>cadastre-se e aproveite um cupom na sua primeira compra!</p>
-<<<<<<< HEAD
         <form method="POST" class="newsletter-form">
     <div class="input-group">
         <label>nome: (*)</label>
         <input type="text" name="nome" placeholder="insira seu nome:" required>
-=======
-        <form class="newsletter-form">
-            <div class="input-group">
-                <label>nome: (*)</label>
-                <input type="text" placeholder="insira seu nome:">
-            </div>
-            <div class="input-group">
-                <label>email: (*)</label>
-                <input type="email" placeholder="insira seu email:">
-            </div>
-            <div class="input-group">
-                <label>celular: (*)</label>
-                <input type="tel" placeholder="insira seu celular:">
-            </div>
-            <button type="submit" class="btn-send">enviar</button>
-        </form>
-        <p class="disclaimer">ao se cadastrar, você concorda em receber comunicações ZookaPet de acordo com nossa <a href="index.php">política de privacidade</a>.</p>
->>>>>>> 76002e9c72f02239f794c3a5329ff91a3e64ba43
     </div>
     <div class="input-group">
         <label>email: (*)</label>
@@ -248,20 +322,20 @@ session_start();
 </footer>
 <script type="module">
   import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@0/dist/web.js'
-
+ 
   Typebot.initBubble({
     typebot: "lead-generation-yz0zgkk",
     theme: {
       button: { backgroundColor: "#2eaeb0" },
       chatWindow: { backgroundColor: "#020202" },
-      
+     
     },
   });
 </script>
-
+ 
 <?php
-
-
+ 
+ 
 if($_POST) {
 $email = $_POST['email'] ?? '';
 $nome  = $_POST['nome'] ?? '';
@@ -295,7 +369,7 @@ try {
  
     $mail->send();
  
-
+ 
  
 } catch (Exception $e) {
     echo "Erro: {$mail->ErrorInfo}";
