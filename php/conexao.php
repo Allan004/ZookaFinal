@@ -1,7 +1,7 @@
 <?php
 
 function conectar(){
-    $host = "10.37.44.29:3306";
+    $host = "localhost";
     $db = "zookaheva";
     $usuario = "root";
     $senha = "";
@@ -14,7 +14,8 @@ function conectar(){
 
             
         } catch (PDOException $e) {
-            echo "Erro ao conectar: " . $e->getMessage();
+            error_log("Erro ao conectar: " . $e->getMessage());
+            return false;
         };
 }
 ?>

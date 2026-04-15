@@ -308,8 +308,8 @@ if (atualizar_pet($dados)) {
 <div class="field">
   <label>Tipo Idade</label>
   <select name="tipoIdade">
-    <option value="EXATA" <?= $consulta_pet[3]=='Exata'?'selected':'' ?>>Exata</option>
-    <option value="APROXIMADA" <?= $consulta_pet[3]=='Aproximada'?'selected':'' ?>>Aproximada</option>
+    <option value="EXATA" <?= strtoupper($consulta_pet[3] ?? '') === 'EXATA' ? 'selected' : '' ?>>Exata</option>
+    <option value="APROXIMADA" <?= strtoupper($consulta_pet[3] ?? '') === 'APROXIMADA' ? 'selected' : '' ?>>Aproximada</option>
   </select>
 </div>
 
