@@ -1,7 +1,7 @@
 <?php
 
 function conectar(){
-    $host = "localhost";
+    $host = "10.37.44.29:3306";
     $db = "zookaheva";
     $usuario = "root";
     $senha = "";
