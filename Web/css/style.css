@@ -7,6 +7,69 @@
     --radius-lg: 30px; /* Bordas bem arredondadas da Natura */
     --radius-sm: 15px;
 }
+.user-info:hover .user-name {
+  color: #ca7e4c;
+}
+/* Container do usuário */
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+ 
+/* Hover suave */
+.user-info:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+ 
+/* Nome */
+.user-name {
+  font-weight: 600;
+  color: #333;
+}
+ 
+.logout-link {
+  font-size: 11px;
+  color: #2eaeb0; /* VERDE padrão do seu site */
+  text-decoration: none;
+  transition: 0.2s;
+}
+ 
+.logout-link:hover {
+  color: #176668; /* verde mais escuro no hover */
+  text-decoration: underline;
+}
+ 
+.user-link {
+  display: flex;          
+  align-items: center;      
+  justify-content: center;    
+ 
+  font-size: 12px;
+  color: #333;
+  text-decoration: none;
+  font-weight: 600;
+ 
+  padding: 8px 12px;      
+  min-height: 36px;        
+ 
+  border-radius: 6px;
+  transition: 0.2s;
+}
+ 
+/* Hover igual ao usuário */
+.user-link:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #ca7e4c;
+}
+.search-container {
+  margin: 0 20px;
+}
  
 * {
     margin: 0;
@@ -46,20 +109,27 @@ body {
 .user-menu {
     flex: 1;
     display: flex;
-}
- 
-/* Alinha o menu de usuário totalmente à direita */
-.user-menu {
     justify-content: flex-end;
-    gap: 15px; /* Espaço entre 'meus pets', 'entrar' e o carrinho */
+    align-items: center; /* 🔥 ESSA LINHA resolve o "Meus Pets" alto */
+    gap: 15px;
     font-size: 14px;
 }
  
 .user-menu a {
-    text-decoration: none;
-    color: #333;
-}
+  display: flex;
+  align-items: center;
+  justify-content: center;
  
+  height: 36px;
+  min-width: 110px;
+ 
+  padding: 0 15px;
+ 
+  font-size: 12px;
+  font-weight: 600;
+ 
+  border-radius: 6px;
+}
 /* Estiliza a busca no centro */
 .search-container {
     flex: 2; /* Dá mais espaço para a barra de busca */
@@ -177,7 +247,66 @@ body {
 .category-item:hover {
     color: #ca7e4c;
 }
- 
+/* 1. ESTADO INICIAL: ESCONDE A IMAGEM E O SUBMENU */
+.has-dropdown .category-item img, 
+.has-dropdown .submenu {
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s ease; /* Transição suave */
+}
+
+/* 2. AJUSTE DO SUBMENU (POSICIONAMENTO) */
+.submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.1);
+    z-index: 1000;
+    list-style: none;
+    padding: 10px 0;
+    display: block; /* Mantemos block para a transição de opacity funcionar */
+}
+
+/* 3. AO PASSAR O MOUSE NO LI: MOSTRA A IMAGEM E O SUBMENU */
+.has-dropdown:hover .category-item img,
+.has-dropdown:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 4. GARANTE QUE O TEXTO FIQUE SEMPRE VISÍVEL */
+.category-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #333; /* Cor do texto sempre visível */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* OPCIONAL: Mudar a cor do texto no hover para destacar */
+.has-dropdown:hover .category-item {
+    color: #ca7e4c;
+}
+/* AJUSTE O TAMANHO AQUI */
+.category-item img {
+    width: 55px;      /* Largura da imagem */
+    height: 25px;     /* Altura da imagem */
+    object-fit: contain; /* Garante que a imagem não fique esticada */
+    
+    /* Mantendo as regras de esconder que fizemos antes */
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s ease;
+}
+
+/* Quando passar o mouse, a imagem aparece com o tamanho definido acima */
+.has-dropdown:hover .category-item img {
+    opacity: 1;
+    visibility: visible;
+}
 /* SUBMENU */
 .submenu {
     display: none;

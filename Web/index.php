@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -31,8 +34,21 @@
         </div>
  
         <div class="user-menu">
-            <a href="#">meus pets</a>
-            <a href="#">entrar</a>
+           <a href="#" class="user-link">Meus Pets</a>
+ 
+    <?php if(isset($_SESSION['usuario_nome'])): ?>
+       
+        <div class="user-info">
+            <span class="user-name">Olá, <?php echo $_SESSION['usuario_nome']; ?>!</span>
+            <a href="logout.php" class="logout-link">Sair</a>
+        </div>
+ 
+    <?php else: ?>
+ 
+        <a href="login.php" class="user-link">Entrar ou <br>Cadastrar</a>
+ 
+    <?php endif; ?>
+ 
            
              <a href="CarrinhoZooka.html" class="btn-continue">🛒</a>
            
@@ -52,7 +68,6 @@
         <ul class="submenu">
             <li><a href="#">Ração</a></li>
             <li><a href="#">Petiscos</a></li>
-            <li><a href="#">Farmácia</a></li>
             <li><a href="#">Brinquedos</a></li>
         </ul>
     </li>
@@ -167,7 +182,7 @@
         <div class="category-item">
             <img src="Assets/assinatura1.png"> assinatura
         </div>
-        <ul class="submenu">F
+        <ul class="submenu">
             <li><a href="#">Planos</a></li>
         </ul>
     </li>
@@ -334,48 +349,93 @@
 </script>
  
 <?php
- 
- 
+
 if($_POST) {
-$email = $_POST['email'] ?? '';
-$nome  = $_POST['nome'] ?? '';
-$celular  = $_POST['celular'] ?? '';
- 
-require_once 'PHPMailer/src/PHPMailer.php';
-require_once 'PHPMailer/src/SMTP.php';
-require_once 'PHPMailer/src/Exception.php';
- 
-$mail = new PHPMailer\PHPMailer\PHPMailer(true);
- 
-try {
-    $mail->isSMTP();
-    $mail->Host = 'smtp.gmail.com';
-    $mail->SMTPAuth = true;
-    $mail->Username = 'ZookaPetshop@gmail.com';
-    $mail->Password = 'juky tzsz dshp oncx';
-    $mail->SMTPSecure = 'tls';
-    $mail->Port = 587;
- 
-    $mail->setFrom('ZookaPetshop@gmail.com', 'Zooka');
-    $mail->addAddress($email);
- 
-    $mail->isHTML(true);
-    $mail->Subject = 'Verification code';
-    $mail->Body = "
-        <h2>Bem-vindo ao Quimera 🚀</h2>
-        <p>Seu código de verificação é:</p>
-        <h1 style='color:red;'>ok</h1>
-    ";
- 
-    $mail->send();
- 
- 
- 
-} catch (Exception $e) {
-    echo "Erro: {$mail->ErrorInfo}";
+    $email = $_POST['email'] ?? '';
+    $nome  = $_POST['nome'] ?? '';
+    $celular = $_POST['celular'] ?? '';
+
+    require_once 'PHPMailer/src/PHPMailer.php';
+    require_once 'PHPMailer/src/SMTP.php';
+    require_once 'PHPMailer/src/Exception.php';
+
+    $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+
+    try {
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'ZookaPetshop@gmail.com';
+        $mail->Password = 'juky tzsz dshp oncx'; // Lembre-se de manter esta senha segura
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = 587;
+        $mail->CharSet = 'UTF-8'; // Garante acentuação correta
+
+        $mail->setFrom('ZookaPetshop@gmail.com', 'Zooka Petshop');
+        $mail->addAddress($email);
+
+        $mail->isHTML(true);
+        $mail->Subject = 'Bem-vindo à Zooka, ' . $nome . '!';
+
+        // MONTAGEM DO CORPO DO E-MAIL (ESTILO PETSHOP)
+        $mail->Body = "
+        <div style='background-color: #f4f4f4; padding: 20px; font-family: Arial, sans-serif;'>
+            <table align='center' border='0' cellpadding='0' cellspacing='0' width='600' style='background-color: #ffffff; border-radius: 10px; overflow: hidden; border-collapse: collapse;'>
+                
+                <tr>
+                    <td align='center'>
+                        <img src='Assets/Banner  Zooka Email.png' alt='Bem-vindo à Zooka' width='600' style='display: block; width: 100%;'>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style='padding: 30px; text-align: center;'>
+                        <h2 style='color: #ca7e4c; margin-bottom: 10px;'>Olá, $nome!</h2>
+                        <p style='color: #666; font-size: 16px; line-height: 1.6;'>
+                            Ficamos muito felizes com seu interesse! Recebemos seus dados e em breve nossa equipe entrará em contato através do número <strong>$celular</strong>.
+                        </p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style='padding: 0 20px 30px 20px;'>
+                        <table width='100%' border='0' cellspacing='0' cellpadding='0'>
+                            <tr>
+                                <td align='center' width='33%'>
+                                    <img src='https://seusite.com/Assets/cachorro1.png' width='50' style='display:block; margin-bottom:5px;'>
+                                    <span style='font-size:12px; font-weight:bold; color:#333;'>Cachorros</span>
+                                </td>
+                                <td align='center' width='33%'>
+                                    <img src='https://seusite.com/Assets/gato1.png' width='50' style='display:block; margin-bottom:5px;'>
+                                    <span style='font-size:12px; font-weight:bold; color:#333;'>Gatos</span>
+                                </td>
+                                <td align='center' width='33%'>
+                                    <img src='https://seusite.com/Assets/peixe2.png' width='50' style='display:block; margin-bottom:5px;'>
+                                    <span style='font-size:12px; font-weight:bold; color:#333;'>Peixes</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style='background-color: #ca7e4c; padding: 15px; text-align: center;'>
+                        <a href='https://seusite.com' style='color: #ffffff; text-decoration: none; font-weight: bold;'>VISITAR NOSSA LOJA</a>
+                    </td>
+                </tr>
+            </table>
+            <p style='text-align: center; color: #999; font-size: 12px; margin-top: 20px;'>
+                Zooka Petshop © 2026 - Todos os direitos reservados.
+            </p>
+        </div>
+        ";
+
+        $mail->send();
+        echo "E-mail enviado com sucesso!";
+
+    } catch (Exception $e) {
+        echo "Erro: {$mail->ErrorInfo}";
+    }
 }
- 
-}
- 
 ?>
 </body>
