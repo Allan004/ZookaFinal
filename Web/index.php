@@ -33,26 +33,34 @@ session_start();
             <input type="text" placeholder="o que seu pet precisa hoje?">
         </div>
  
-        <div class="user-menu">
-           <a href="#" class="user-link">Meus Pets</a>
- 
-    <?php if(isset($_SESSION['usuario_nome'])): ?>
-       
-        <div class="user-info">
-            <span class="user-name">Olá, <?php echo $_SESSION['usuario_nome']; ?>!</span>
-            <a href="logout.php" class="logout-link">Sair</a>
+<div class="user-menu">
+
+<?php if(isset($_SESSION['usuario_nome'])): ?>
+
+    <div class="user-dropdown">
+        <span class="user-name">
+            Olá, <?php echo $_SESSION['usuario_nome']; ?>!
+        </span>
+
+        <div class="dropdown-menu">
+            <a href="#">Meus pedidos</a>
+            <a href="#">Meus pets</a>
+            <a href="#">Meus dados</a>
+            <a href="logout.php">Sair</a>
         </div>
- 
-    <?php else: ?>
- 
-        <a href="login.php" class="user-link">Entrar ou <br>Cadastrar</a>
- 
-    <?php endif; ?>
- 
-           
-             <a href="CarrinhoZooka.html" class="btn-continue">🛒</a>
-           
-        </div>
+    </div>
+
+<?php else: ?>
+
+    <a href="login.php" class="user-link">
+        Entrar ou <br>Cadastrar
+    </a>
+
+<?php endif; ?>
+
+<a href="CarrinhoZooka.html" class="btn-continue">🛒</a>
+
+</div>
  
     </div>
 </header>

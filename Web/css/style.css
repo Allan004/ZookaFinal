@@ -1,27 +1,86 @@
 /* --- CONFIGURAÇÕES GERAIS --- */
 :root {
-    --nude-bg: #f5f2ed; /* Cor de fundo inspirada na Natura */
+    --nude-bg: #f5f2ed; 
     --primary: #f48120;
     --dark: #333;
     --text-light: #666;
-    --radius-lg: 30px; /* Bordas bem arredondadas da Natura */
+    --radius-lg: 30px; 
     --radius-sm: 15px;
 }
 .user-info:hover .user-name {
   color: #ca7e4c;
 }
-/* Container do usuário */
+
+/* ELEN 16/04 */
+/* CONTAINER DO USER */
+.user-dropdown {
+    position: relative;
+    cursor: pointer;
+}
+
+/* TEXTO OLÁ */
+.user-name {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 12px;
+    display: block;
+}
+
+/* MENU ESCONDIDO */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+
+    background: #fff;
+    min-width: 180px;
+
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+
+    display: none;
+    flex-direction: column;
+    z-index: 999;
+}
+
+/* ITENS */
+.dropdown-menu a {
+    padding: 12px 15px;
+    text-decoration: none;
+    color: #555;
+    font-size: 13px;
+    border-bottom: 1px solid #eee;
+}
+
+/* HOVER ITEM */
+.dropdown-menu a:hover {
+    background: #f9f9f9;
+    color: #ca7e4c;
+}
+
+/* MOSTRAR NO HOVER */
+.user-dropdown:hover .dropdown-menu {
+    display: flex;
+}
+/* ELEN 16/04 */
+
 .user-info {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
+  align-items: center;
+  justify-content: center;
+
+  height: 36px;
+  padding: 0 12px;
+
   font-size: 12px;
-  padding: 6px 10px;
+  font-weight: 600;
+
   border-radius: 6px;
   transition: 0.2s;
 }
- 
+ .user-name {
+  white-space: nowrap;
+}
 /* Hover suave */
 .user-info:hover {
   background: rgba(0, 0, 0, 0.05);
@@ -35,13 +94,13 @@
  
 .logout-link {
   font-size: 11px;
-  color: #2eaeb0; /* VERDE padrão do seu site */
+  color: #2eaeb0;
   text-decoration: none;
   transition: 0.2s;
 }
  
 .logout-link:hover {
-  color: #176668; /* verde mais escuro no hover */
+  color: #176668;
   text-decoration: underline;
 }
  
@@ -97,20 +156,19 @@ body {
  
 .header-top {
     display: flex;
-    justify-content: space-between; /* Distribui os 3 blocos */
-    align-items: center;            /* Alinha todos verticalmente ao centro */
+    justify-content: space-between; 
+    align-items: center;            
     max-width: 1400px;
     margin: 0 auto;
     padding: 10px 0;
 }
  
-/* Garante que a logo e o menu tenham o mesmo peso visual */
 .logo-container,
 .user-menu {
     flex: 1;
     display: flex;
     justify-content: flex-end;
-    align-items: center; /* 🔥 ESSA LINHA resolve o "Meus Pets" alto */
+    align-items: center;
     gap: 15px;
     font-size: 14px;
 }
@@ -130,9 +188,8 @@ body {
  
   border-radius: 6px;
 }
-/* Estiliza a busca no centro */
 .search-container {
-    flex: 2; /* Dá mais espaço para a barra de busca */
+    flex: 2; 
     display: flex;
     justify-content: center;
 }
