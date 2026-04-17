@@ -375,62 +375,53 @@ if($_POST) {
         $mail->addAddress($email);
 
         $mail->isHTML(true);
-        $mail->Subject = 'Bem-vindo à Zooka, ' . $nome . '!';
+    $mail->CharSet = 'UTF-8';
+    $mail->Subject = 'Bem-vindo à Zooka, ' . $nome . '!';
 
-        // MONTAGEM DO CORPO DO E-MAIL (ESTILO PETSHOP)
-        $mail->Body = "
-        <div style='background-color: #f4f4f4; padding: 20px; font-family: Arial, sans-serif;'>
-            <table align='center' border='0' cellpadding='0' cellspacing='0' width='600' style='background-color: #ffffff; border-radius: 10px; overflow: hidden; border-collapse: collapse;'>
-                
-                <tr>
-                    <td align='center'>
-                        <img src='Assets/Banner  Zooka Email.png' alt='Bem-vindo à Zooka' width='600' style='display: block; width: 100%;'>
-                    </td>
-                </tr>
+    $mail->Body = "
+    <div style='background-color: #f4f4f4; padding: 20px; font-family: Arial, sans-serif;'>
+        <table align='center' border='0' cellpadding='0' cellspacing='0' width='600' style='background-color: #ffffff; border-radius: 10px; overflow: hidden; border-collapse: collapse; box-shadow: 0 4px 10px rgba(0,0,0,0.1);'>
+            
+            <tr>
+                <td align='center'>
+                    <img src='https://i.postimg.cc/ZqDLJqbQ/Banner-Zooka-Email.png' 
+                         alt='Zooka Petshop' 
+                         width='600' 
+                         style='display: block; width: 100%; max-width: 600px; border: 0;'>
+                </td>
+            </tr>
 
-                <tr>
-                    <td style='padding: 30px; text-align: center;'>
-                        <h2 style='color: #ca7e4c; margin-bottom: 10px;'>Olá, $nome!</h2>
-                        <p style='color: #666; font-size: 16px; line-height: 1.6;'>
-                            Ficamos muito felizes com seu interesse! Recebemos seus dados e em breve nossa equipe entrará em contato através do número <strong>$celular</strong>.
-                        </p>
-                    </td>
-                </tr>
+            <tr>
+                <td style='padding: 30px; text-align: center;'>
+                    <h2 style='color: #ca7e4c; margin: 0 0 10px 0;'>Olá, $nome!</h2>
+                    <p style='color: #666; font-size: 16px; line-height: 1.6;'>
+                        Ficamos muito felizes com seu interesse! Recebemos seus dados e em breve nossa equipe entrará em contato através do número <strong>$celular</strong>.
+                    </p>
+                </td>
+            </tr>
 
-                <tr>
-                    <td style='padding: 0 20px 30px 20px;'>
-                        <table width='100%' border='0' cellspacing='0' cellpadding='0'>
-                            <tr>
-                                <td align='center' width='33%'>
-                                    <img src='https://seusite.com/Assets/cachorro1.png' width='50' style='display:block; margin-bottom:5px;'>
-                                    <span style='font-size:12px; font-weight:bold; color:#333;'>Cachorros</span>
-                                </td>
-                                <td align='center' width='33%'>
-                                    <img src='https://seusite.com/Assets/gato1.png' width='50' style='display:block; margin-bottom:5px;'>
-                                    <span style='font-size:12px; font-weight:bold; color:#333;'>Gatos</span>
-                                </td>
-                                <td align='center' width='33%'>
-                                    <img src='https://seusite.com/Assets/peixe2.png' width='50' style='display:block; margin-bottom:5px;'>
-                                    <span style='font-size:12px; font-weight:bold; color:#333;'>Peixes</span>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
+            <tr>
+                <td align='center' style='padding-bottom: 30px;'>
+                    <table border='0' cellpadding='0' cellspacing='0'>
+                        <tr>
+                            <td align='center' bgcolor='#ca7e4c' style='border-radius: 5px;'>
+                                <a href='https://seusite.com' style='padding: 15px 25px; color: #ffffff; text-decoration: none; font-weight: bold; display: inline-block;'>ACESSAR NOSSA LOJA</a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
 
-                <tr>
-                    <td style='background-color: #ca7e4c; padding: 15px; text-align: center;'>
-                        <a href='https://seusite.com' style='color: #ffffff; text-decoration: none; font-weight: bold;'>VISITAR NOSSA LOJA</a>
-                    </td>
-                </tr>
-            </table>
-            <p style='text-align: center; color: #999; font-size: 12px; margin-top: 20px;'>
-                Zooka Petshop © 2026 - Todos os direitos reservados.
-            </p>
-        </div>
-        ";
+            <tr>
+                <td style='background-color: #333333; color: #ffffff; padding: 15px; text-align: center; font-size: 12px;'>
+                    Zooka Petshop © 2026 - Todos os direitos reservados.
+                </td>
+            </tr>
+        </table>
+    </div>
+    ";
 
-        $mail->send();
+    $mail->send();
         echo "E-mail enviado com sucesso!";
 
     } catch (Exception $e) {
