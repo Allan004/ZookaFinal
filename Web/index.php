@@ -8,8 +8,8 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZookaPet - O melhor para o seu melhor amigo</title>
     <link rel="stylesheet" href="css/style.css">
-   
     <script src="ZookaWeb.js" defer></script>
+    <script src="script.js" defer></script>
    
    
 </head>
@@ -29,10 +29,10 @@ session_start();
             </a>
         </div>
  
-        <div class="search-container">
-            <input type="text" placeholder="o que seu pet precisa hoje?">
-        </div>
- 
+      <div class="search-container">
+    <input type="text" class="search-input" placeholder="o que seu pet precisa hoje?">
+</div>
+
 <div class="user-menu">
 
 <?php if(isset($_SESSION['usuario_nome'])): ?>
@@ -234,43 +234,64 @@ session_start();
     <h2 class="shelf-title">presentes favoritos para surpreender</h2>
    
     <div class="carousel-wrapper">
-        <button class="carousel-btn prev">❮</button>
-       
-        <div class="shelf-container">
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="">
-                    <span class="wishlist-icon">♡</span>
-                </div>
-                <div class="product-info">
-                    <p class="brand">Zooka Care</p>
-                    <p class="name">Presente Pet Conforto - Cama e Manta</p>
-                    <p class="old-price">R$ 189,90</p>
-                    <p class="new-price">R$ 159,90 <span class="discount">-15%</span></p>
-                    <p class="installments">ou 3x de R$ 53,30 sem juros</p>
-                    <button class="btn-add">adicionar à sacola</button>
-                </div>
+    <button class="carousel-btn prev">❮</button>
+    
+    <div class="shelf-container">
+        <div class="product-card">
+            <div class="product-image">
+                <img src="Assets/racao (1).png" alt="Ração Golden Special">
+                <span class="wishlist-icon">♡</span>
             </div>
-           
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="" alt="Produto">
-                    <span class="wishlist-icon">♡</span>
-                </div>
-                <div class="product-info">
-                    <p class="brand">Zooka Food</p>
-                    <p class="name">Ração Natural de Frango e Vegetais 3kg</p>
-                    <p class="old-price">R$ 120,00</p>
-                    <p class="new-price">R$ 84,00 <span class="discount">-30%</span></p>
-                    <p class="installments">ou 2x de R$ 42,00 sem juros</p>
-                    <button class="btn-add">adicionar à sacola</button>
-                </div>
+            <div class="product-info">
+                <p class="brand">Zooka Care</p>
+                <p class="name">Ração Golden Special Adulto 10,1kg</p>
+                <p class="old-price">R$ 189,90</p>
+                <p class="new-price">R$ 159,90 <span class="discount">-15%</span></p>
+                <p class="installments">ou 3x de R$ 53,30 sem juros</p>
+                <button class="btn-add">adicionar à sacola</button>
             </div>
-           
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">
+                <img src="Assets/racao (2).png" alt="Escova Removedora">
+                <span class="wishlist-icon">♡</span>
             </div>
- 
-        <button class="carousel-btn next">❯</button>
+            <div class="product-info">
+                <p class="brand">Zooka Food</p>
+                <p class="name">Escova Removedora de Pelos</p>
+                <p class="old-price">R$ 70,00</p>
+                <p class="new-price">R$ 21,00 <span class="discount">-30%</span></p>
+                <p class="installments">ou 2x de R$ 10.50 sem juros</p>
+                <button class="btn-add">adicionar à sacola</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">
+                <img src="Assets/antipulgas.jpg" alt="Simparic">
+                <span class="wishlist-icon">♡</span>
+            </div>
+            <div class="product-info">
+                <p class="brand">Zooka Food</p>
+                <p class="name">Antipulgas Simparic 10–20kg</p>
+                <p class="new-price">R$ 113,00</p>
+                <p class="installments">ou 2x de R$ 56,50 sem juros</p>
+                <button class="btn-add">adicionar à sacola</button>
+            </div>
+        </div>
     </div>
+
+    <button class="carousel-btn next">❯</button>
+</div>
+
+<div class="carousel-dots">
+    <span class="dot active" onclick="currentSlide(0)"></span>
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+</div>
+           
+          
    
     <div class="carousel-dots">
         <span class="dot active"></span>
@@ -291,6 +312,10 @@ session_start();
         </div>
     </div>
 </section>
+
+
+
+
  
 <footer class="main-footer">
     <div class="newsletter-section">
@@ -392,10 +417,11 @@ if($_POST) {
             
             <tr>
                 <td align='center'>
-                    <img src='https://i.postimg.cc/ZqDLJqbQ/Banner-Zooka-Email.png' 
-                         alt='Zooka Petshop' 
-                         width='600' 
-                         style='display: block; width: 100%; max-width: 600px; border: 0;'>
+                    <img 
+  src='https://res.cloudinary.com/dggprgzoj/image/upload/Banner_Zooka_Email_mf2l0n.png' 
+  alt='Zooka Petshop' 
+  width='600' 
+  style='display:block; width:100%; max-width:600px; border:0;'
                 </td>
             </tr>
 
@@ -437,4 +463,34 @@ if($_POST) {
     }
 }
 ?>
+
+<div id="modal-carrinho" class="modal-overlay">
+    <div class="modal-content">
+        <button id="fechar-modal" class="close-btn">&times;</button>
+        
+        <div id="carrinho-vazio" class="cart-state">
+            <h2>Sacola</h2>
+            <div class="empty-content">
+                <p>Você ainda não tem produtos adicionados à sacola.</p>
+                <div class="icon-bag">🛍️<span class="badge">0</span></div>
+                <p>Escolha tudo que o seu pet precisa e adicione à sacola para comprar.</p>
+                <button class="btn-entendi" onclick="toggleModal()">Entendi</button>
+            </div>
+        </div>
+
+        <div id="carrinho-com-itens" class="cart-state" style="display: none;">
+            <h2>Confira sua compra</h2>
+            <div class="items-list">
+                </div>
+            <div class="cart-footer">
+                <div class="subtotal">
+                    <span>Subtotal</span>
+                    <span id="valor-subtotal">R$ 0,00</span>
+                </div>
+                <button class="btn-primary-modal">Ir para sacola</button>
+                <button class="btn-back" onclick="toggleModal()">Voltar</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
