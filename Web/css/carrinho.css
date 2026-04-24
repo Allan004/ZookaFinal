@@ -1,0 +1,207 @@
+/* 4. CONTEÚDO CENTRAL (SACOLA VAZIA) */
+.empty-content {
+    flex: 1; /* Faz ocupar o meio do modal */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    text-align: center;
+}
+ 
+.empty-content p {
+    color: #666;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 10px 0;
+}
+ 
+/* Ícone da Sacola com Badge */
+.icon-bag {
+    font-size: 55px;
+    margin: 25px 0;
+    position: relative;
+}
+ 
+.badge {
+    position: absolute;
+    top: 5px;
+    right: -5px;
+    background: #d93025;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #fff;
+}
+ 
+/* 5. RODAPÉ FIXO (BOTÕES) */
+.cart-footer {
+    padding: 25px;
+    border-top: 1px solid #f5f5f5;
+}
+ 
+.subtotal {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+ 
+/* Botão Azul "Fofinho" */
+.btn-entendi, .btn-primary-modal {
+    background-color: #1a65bb;
+    color: white;
+    border: none;
+    padding: 18px;
+    width: 100%;
+    border-radius: 15px; /* Bordas bem redondas */
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+ 
+.btn-entendi:hover, .btn-primary-modal:hover {
+    background-color: #15549a;
+    transform: translateY(-2px);
+}
+ 
+.btn-back {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    color: #1a65bb;
+    font-weight: bold;
+    margin-top: 15px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+/* Layout Geral */
+.checkout-container {
+    background-color: #f8f9fa;
+    padding: 40px 5%;
+    min-height: 100vh;
+    font-family: sans-serif;
+}
+ 
+.checkout-content {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+ 
+/* Cards Brancos Estilo Petz */
+.card-white {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+ 
+.page-title { font-size: 24px; margin-bottom: 20px; color: #333; }
+ 
+/* Lista de Pagamento */
+.payment-list { list-style: none; padding: 0; }
+.payment-list li {
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+.payment-list li.active { border-color: #1a65bb; background: #f0f6ff; }
+ 
+/* Inputs fofinhos */
+.input-group { margin-bottom: 15px; }
+.input-group label { display: block; font-size: 13px; color: #666; margin-bottom: 5px; }
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+ 
+/* Sidebar e Botões */
+.btn-pay {
+    background: #1a65bb;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+ 
+.blue-link { color: #1a65bb; text-decoration: none; font-size: 14px; font-weight: bold; background: none; border: none; cursor: pointer; }
+ 
+/* MODAL DE ENDEREÇO */
+.modal-overlay-address {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none; /* Escondido */
+    justify-content: center;
+    align-items: center;
+    z-index: 20000;
+}
+ 
+.modal-card-address {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    animation: popUp 0.3s ease;
+}
+ 
+@keyframes popUp {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+ 
+.row { display: flex; gap: 10px; margin-bottom: 10px; }
+.close-modal { position: absolute; top: 15px; right: 15px; border: none; background: none; font-size: 24px; cursor: pointer; }
+
+.modal-overlay-address {
+    display: none; /* Começa escondido */
+    position: fixed;
+    z-index: 9999; /* Garante que fica na frente de tudo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo escurecido */
+    
+    /* As linhas abaixo centralizam o modal na tela */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Garanta que o card do endereço tenha um fundo visível */
+.modal-card-address {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+}

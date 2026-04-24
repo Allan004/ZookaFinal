@@ -496,32 +496,76 @@ body {
  
 .shelf-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    /* Ajustado para garantir que os cards mantenham um tamanho bom no grid */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
     gap: 20px;
 }
- 
+
 .product-card {
-    padding: 10px;
+    padding: 15px;
+    background: #fff; /* Garante fundo branco */
+    border: 1px solid #eee; /* Uma borda leve para separar os cards */
+    border-radius: 12px;
     transition: 0.3s;
+    
+    /* Faz o card ser um flexbox vertical para alinhar o conteúdo */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
- 
+
+.product-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
 .product-image {
     position: relative;
     background: #f9f9f9;
-    border-radius: var(--radius-sm);
+    border-radius: 8px;
     margin-bottom: 15px;
     overflow: hidden;
+    
+    /* AJUSTE DE TAMANHO DA IMAGEM */
+    height: 200px; /* Altura fixa para todas as fotos */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
- 
+
 .product-image img {
-    width: 100%;
+    /* Faz a imagem ocupar o máximo de espaço sem distorcer */
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; 
     display: block;
+    padding: 10px; /* Respiro para a imagem */
 }
- 
-.product-info .brand { font-size: 12px; color: #999; }
-.product-info .name { font-size: 14px; font-weight: 600; margin: 5px 0 10px; height: 40px; }
-.product-info .new-price { font-size: 16px; font-weight: bold; }
- 
+
+.product-info .brand { 
+    font-size: 12px; 
+    color: #999; 
+    text-transform: uppercase;
+}
+
+.product-info .name { 
+    font-size: 14px; 
+    font-weight: 600; 
+    margin: 5px 0 10px; 
+    
+    /* Garante que o nome ocupe sempre 2 linhas para alinhar os preços */
+    height: 40px; 
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.product-info .new-price { 
+    font-size: 16px; 
+    font-weight: bold; 
+    color: #333;
+}
+
 .btn-add {
     width: 100%;
     background: transparent;
@@ -532,9 +576,16 @@ body {
     cursor: pointer;
     font-weight: 600;
     transition: 0.3s;
+    
+    /* Garante que o botão fique na base do card */
+    align-self: flex-end; 
 }
- 
-.btn-add:hover { border-color: var(--primary); color: var(--primary); }
+
+.btn-add:hover { 
+    border-color: #00bcd4; /* Troque pela sua cor primária */
+    color: #00bcd4; 
+    background-color: rgba(0, 188, 212, 0.05);
+}
  
 /* --- SEÇÃO DE VÍDEO (RELEITURA NATURA) --- */
 .video-section {
@@ -935,4 +986,202 @@ a {
 .cart-icon {
     font-size: 1.2rem; /* Ajusta o tamanho do emoji */
     cursor: pointer;
+}
+
+/* Lupinha de cachorro */
+.search-input {
+    width: 100%;
+    /* Invertemos o padding: 45px agora fica na direita para o texto não sobrepor a lupa */
+    padding: 10px 45px 10px 15px; 
+    border-radius: 25px;
+    border: 1px solid #ddd;
+    outline: none;
+    background-color: #f5f5f5;
+    
+    background-image: url('../Assets/lupa.png'); 
+    background-repeat: no-repeat;
+    
+    /* Alteramos de '15px center' para 'right 15px center' */
+    background-position: right 15px center; 
+    background-size: 20px; 
+}
+
+/* modal lateral */
+
+
+/* 1. FUNDO DO MODAL (OVERLAY) */
+.modal-overlay {
+    display: none; /* Ativado pelo JS */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* Escurecimento suave */
+    z-index: 10000;
+    display: none; /* Começa escondido */
+    justify-content: flex-end; /* ALINHA O CONTEÚDO À DIREITA */
+    align-items: stretch;
+}
+
+/* 2. O CORPO DO MODAL (LATERAL E FOFO) */
+.modal-content {
+    background: #ffffff;
+    width: 100%;
+    max-width: 400px; /* Largura da barra lateral */
+    height: 100vh;    /* Altura total da tela */
+    display: flex;
+    flex-direction: column;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+    
+    /* BORDAS ARREDONDADAS APENAS NO LADO ESQUERDO PARA DAR O TOQUE FOFO */
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    
+    /* ANIMAÇÃO PARA DESLIZAR DA DIREITA */
+    animation: slideInRight 0.4s ease-out;
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+/* 3. CABEÇALHO (Título e X) */
+.cart-state h2 {
+    font-family: sans-serif;
+    font-size: 20px;
+    color: #333;
+    padding: 25px;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.close-btn {
+    background: #f0f0f0;
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+
+.close-btn:hover { background: #e0e0e0; }
+
+/* 4. CONTEÚDO CENTRAL (SACOLA VAZIA) */
+.empty-content {
+    flex: 1; /* Faz ocupar o meio do modal */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    text-align: center;
+}
+
+.empty-content p {
+    color: #666;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 10px 0;
+}
+
+/* Ícone da Sacola com Badge */
+.icon-bag {
+    font-size: 55px;
+    margin: 25px 0;
+    position: relative;
+}
+
+.badge {
+    position: absolute;
+    top: 5px;
+    right: -5px;
+    background: #d93025;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #fff;
+}
+
+/* 5. RODAPÉ FIXO (BOTÕES) */
+.cart-footer {
+    padding: 25px;
+    border-top: 1px solid #f5f5f5;
+}
+
+.subtotal {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Botão Azul "Fofinho" */
+.btn-entendi, .btn-primary-modal {
+    background-color: #1a65bb;
+    color: white;
+    border: none;
+    padding: 18px;
+    width: 100%;
+    border-radius: 15px; /* Bordas bem redondas */
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-entendi:hover, .btn-primary-modal:hover {
+    background-color: #15549a;
+    transform: translateY(-2px);
+}
+
+.btn-back {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    color: #1a65bb;
+    font-weight: bold;
+    margin-top: 15px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background-color: #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background-color: #00bcd4; /* Cor azul Zooka */
+    width: 30px; /* Efeito de pílula na ativa */
+    border-radius: 6px;
 }

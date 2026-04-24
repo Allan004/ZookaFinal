@@ -8,8 +8,8 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZookaPet - O melhor para o seu melhor amigo</title>
     <link rel="stylesheet" href="css/style.css">
-   
     <script src="ZookaWeb.js" defer></script>
+    <script src="script.js" defer></script>
    
    
 </head>
@@ -29,10 +29,10 @@ session_start();
             </a>
         </div>
  
-        <div class="search-container">
-            <input type="text" placeholder="o que seu pet precisa hoje?">
-        </div>
- 
+      <div class="search-container">
+    <input type="text" class="search-input" placeholder="o que seu pet precisa hoje?">
+</div>
+
 <div class="user-menu">
 
 <?php if(isset($_SESSION['usuario_nome'])): ?>
@@ -234,43 +234,64 @@ session_start();
     <h2 class="shelf-title">presentes favoritos para surpreender</h2>
    
     <div class="carousel-wrapper">
-        <button class="carousel-btn prev">❮</button>
-       
-        <div class="shelf-container">
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="">
-                    <span class="wishlist-icon">♡</span>
-                </div>
-                <div class="product-info">
-                    <p class="brand">Zooka Care</p>
-                    <p class="name">Presente Pet Conforto - Cama e Manta</p>
-                    <p class="old-price">R$ 189,90</p>
-                    <p class="new-price">R$ 159,90 <span class="discount">-15%</span></p>
-                    <p class="installments">ou 3x de R$ 53,30 sem juros</p>
-                    <button class="btn-add">adicionar à sacola</button>
-                </div>
+    <button class="carousel-btn prev">❮</button>
+    
+    <div class="shelf-container">
+        <div class="product-card">
+            <div class="product-image">
+                <img src="Assets/racao (1).png" alt="Ração Golden Special">
+                <span class="wishlist-icon">♡</span>
             </div>
-           
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="" alt="Produto">
-                    <span class="wishlist-icon">♡</span>
-                </div>
-                <div class="product-info">
-                    <p class="brand">Zooka Food</p>
-                    <p class="name">Ração Natural de Frango e Vegetais 3kg</p>
-                    <p class="old-price">R$ 120,00</p>
-                    <p class="new-price">R$ 84,00 <span class="discount">-30%</span></p>
-                    <p class="installments">ou 2x de R$ 42,00 sem juros</p>
-                    <button class="btn-add">adicionar à sacola</button>
-                </div>
+            <div class="product-info">
+                <p class="brand">Zooka Care</p>
+                <p class="name">Ração Golden Special Adulto 10,1kg</p>
+                <p class="old-price">R$ 189,90</p>
+                <p class="new-price">R$ 159,90 <span class="discount">-15%</span></p>
+                <p class="installments">ou 3x de R$ 53,30 sem juros</p>
+                <button class="btn-add">adicionar à sacola</button>
             </div>
-           
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">
+                <img src="Assets/racao (2).png" alt="Escova Removedora">
+                <span class="wishlist-icon">♡</span>
             </div>
- 
-        <button class="carousel-btn next">❯</button>
+            <div class="product-info">
+                <p class="brand">Zooka Food</p>
+                <p class="name">Escova Removedora de Pelos</p>
+                <p class="old-price">R$ 70,00</p>
+                <p class="new-price">R$ 21,00 <span class="discount">-30%</span></p>
+                <p class="installments">ou 2x de R$ 10.50 sem juros</p>
+                <button class="btn-add">adicionar à sacola</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">
+                <img src="Assets/antipulgas.jpg" alt="Simparic">
+                <span class="wishlist-icon">♡</span>
+            </div>
+            <div class="product-info">
+                <p class="brand">Zooka Food</p>
+                <p class="name">Antipulgas Simparic 10–20kg</p>
+                <p class="new-price">R$ 113,00</p>
+                <p class="installments">ou 2x de R$ 56,50 sem juros</p>
+                <button class="btn-add">adicionar à sacola</button>
+            </div>
+        </div>
     </div>
+
+    <button class="carousel-btn next">❯</button>
+</div>
+
+<div class="carousel-dots">
+    <span class="dot active" onclick="currentSlide(0)"></span>
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+</div>
+           
+          
    
     <div class="carousel-dots">
         <span class="dot active"></span>
@@ -291,6 +312,10 @@ session_start();
         </div>
     </div>
 </section>
+
+
+
+
  
 <footer class="main-footer">
     <div class="newsletter-section">
@@ -383,62 +408,54 @@ if($_POST) {
         $mail->addAddress($email);
 
         $mail->isHTML(true);
-        $mail->Subject = 'Bem-vindo à Zooka, ' . $nome . '!';
+    $mail->CharSet = 'UTF-8';
+    $mail->Subject = 'Bem-vindo à Zooka, ' . $nome . '!';
 
-        // MONTAGEM DO CORPO DO E-MAIL (ESTILO PETSHOP)
-        $mail->Body = "
-        <div style='background-color: #f4f4f4; padding: 20px; font-family: Arial, sans-serif;'>
-            <table align='center' border='0' cellpadding='0' cellspacing='0' width='600' style='background-color: #ffffff; border-radius: 10px; overflow: hidden; border-collapse: collapse;'>
-                
-                <tr>
-                    <td align='center'>
-                        <img src='Assets/Banner  Zooka Email.png' alt='Bem-vindo à Zooka' width='600' style='display: block; width: 100%;'>
-                    </td>
-                </tr>
+    $mail->Body = "
+    <div style='background-color: #f4f4f4; padding: 20px; font-family: Arial, sans-serif;'>
+        <table align='center' border='0' cellpadding='0' cellspacing='0' width='600' style='background-color: #ffffff; border-radius: 10px; overflow: hidden; border-collapse: collapse; box-shadow: 0 4px 10px rgba(0,0,0,0.1);'>
+            
+            <tr>
+                <td align='center'>
+                    <img 
+  src='https://res.cloudinary.com/dggprgzoj/image/upload/Banner_Zooka_Email_mf2l0n.png' 
+  alt='Zooka Petshop' 
+  width='600' 
+  style='display:block; width:100%; max-width:600px; border:0;'
+                </td>
+            </tr>
 
-                <tr>
-                    <td style='padding: 30px; text-align: center;'>
-                        <h2 style='color: #ca7e4c; margin-bottom: 10px;'>Olá, $nome!</h2>
-                        <p style='color: #666; font-size: 16px; line-height: 1.6;'>
-                            Ficamos muito felizes com seu interesse! Recebemos seus dados e em breve nossa equipe entrará em contato através do número <strong>$celular</strong>.
-                        </p>
-                    </td>
-                </tr>
+            <tr>
+                <td style='padding: 30px; text-align: center;'>
+                    <h2 style='color: #ca7e4c; margin: 0 0 10px 0;'>Olá, $nome!</h2>
+                    <p style='color: #666; font-size: 16px; line-height: 1.6;'>
+                        Ficamos muito felizes com seu interesse! Recebemos seus dados e em breve nossa equipe entrará em contato através do número <strong>$celular</strong>.
+                    </p>
+                </td>
+            </tr>
 
-                <tr>
-                    <td style='padding: 0 20px 30px 20px;'>
-                        <table width='100%' border='0' cellspacing='0' cellpadding='0'>
-                            <tr>
-                                <td align='center' width='33%'>
-                                    <img src='https://seusite.com/Assets/cachorro1.png' width='50' style='display:block; margin-bottom:5px;'>
-                                    <span style='font-size:12px; font-weight:bold; color:#333;'>Cachorros</span>
-                                </td>
-                                <td align='center' width='33%'>
-                                    <img src='https://seusite.com/Assets/gato1.png' width='50' style='display:block; margin-bottom:5px;'>
-                                    <span style='font-size:12px; font-weight:bold; color:#333;'>Gatos</span>
-                                </td>
-                                <td align='center' width='33%'>
-                                    <img src='https://seusite.com/Assets/peixe2.png' width='50' style='display:block; margin-bottom:5px;'>
-                                    <span style='font-size:12px; font-weight:bold; color:#333;'>Peixes</span>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
+            <tr>
+                <td align='center' style='padding-bottom: 30px;'>
+                    <table border='0' cellpadding='0' cellspacing='0'>
+                        <tr>
+                            <td align='center' bgcolor='#ca7e4c' style='border-radius: 5px;'>
+                                <a href='https://seusite.com' style='padding: 15px 25px; color: #ffffff; text-decoration: none; font-weight: bold; display: inline-block;'>ACESSAR NOSSA LOJA</a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
 
-                <tr>
-                    <td style='background-color: #ca7e4c; padding: 15px; text-align: center;'>
-                        <a href='https://seusite.com' style='color: #ffffff; text-decoration: none; font-weight: bold;'>VISITAR NOSSA LOJA</a>
-                    </td>
-                </tr>
-            </table>
-            <p style='text-align: center; color: #999; font-size: 12px; margin-top: 20px;'>
-                Zooka Petshop © 2026 - Todos os direitos reservados.
-            </p>
-        </div>
-        ";
+            <tr>
+                <td style='background-color: #333333; color: #ffffff; padding: 15px; text-align: center; font-size: 12px;'>
+                    Zooka Petshop © 2026 - Todos os direitos reservados.
+                </td>
+            </tr>
+        </table>
+    </div>
+    ";
 
-        $mail->send();
+    $mail->send();
         echo "E-mail enviado com sucesso!";
 
     } catch (Exception $e) {
@@ -446,4 +463,34 @@ if($_POST) {
     }
 }
 ?>
+
+<div id="modal-carrinho" class="modal-overlay">
+    <div class="modal-content">
+        <button id="fechar-modal" class="close-btn">&times;</button>
+        
+        <div id="carrinho-vazio" class="cart-state">
+            <h2>Sacola</h2>
+            <div class="empty-content">
+                <p>Você ainda não tem produtos adicionados à sacola.</p>
+                <div class="icon-bag">🛍️<span class="badge">0</span></div>
+                <p>Escolha tudo que o seu pet precisa e adicione à sacola para comprar.</p>
+                <button class="btn-entendi" onclick="toggleModal()">Entendi</button>
+            </div>
+        </div>
+
+        <div id="carrinho-com-itens" class="cart-state" style="display: none;">
+            <h2>Confira sua compra</h2>
+            <div class="items-list">
+                </div>
+            <div class="cart-footer">
+                <div class="subtotal">
+                    <span>Subtotal</span>
+                    <span id="valor-subtotal">R$ 0,00</span>
+                </div>
+                <button class="btn-primary-modal">Ir para sacola</button>
+                <button class="btn-back" onclick="toggleModal()">Voltar</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
