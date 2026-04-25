@@ -3,62 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdoteZooka - Adoção e Proteção Animal</title>
+    <title>AdoteZooka</title>
+
     <link rel="stylesheet" href="css/adocao.css">
-    <script src="js/adocao.js" defer></script>
+
+    <!-- Fonte moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <header>
-        <nav class="navbar">
-            <div class="logo"><strong>Adote<span>Zooka</span></strong></div>
-            <ul class="nav-links">
-               
-            </ul>
-            <div class="nav-buttons">
-                <a href="https://adotar.com.br/guarulhos-sp" class="btn-orange" target="_blank">Quero adotar</a>
-                <a href="https://www.webdenuncia.sp.gov.br/depa" class="btn-orange" target="_blank">Denuncie</a>
-                <button class="btn-outline">Entrar</button>
-            </div>
-        </nav>
-    </header>
- 
-    <section class="hero-banner">
-        <div class="banner-full-image">
-            <img src="Assets/banner_pagina.jpg" alt="Banner Zookapetshop">
+
+<header>
+    <nav class="navbar">
+        <div class="logo">Adote<span>Zooka</span></div>
+
+        <div class="nav-buttons">
+            <a href="#" class="btn-orange">Quero adotar</a>
+            <a href="#" class="btn-orange">Denuncie</a>
+            <button class="btn-outline">Entrar</button>
         </div>
-    </section>
- 
-    <section class="highlights-section">
-        <div class="highlights-container">
-            <div class="highlight-card">
-                <div class="card-image"><img src="" alt="Adoção"></div>
-                <div class="card-text">
-                    <h3>Adoção: um ato de amor</h3>
-                    <p>Mudar o destino de um animal é um gesto que transforma vidas.</p>
-                </div>
+    </nav>
+</header>
+
+<!-- 🔥 HERO COM CARROSSEL -->
+<section class="hero-banner">
+
+    <div class="carousel">
+
+        <div class="slide active">
+            <div class="slide-content">
+                <h1>Você pode se apaixonar agora por um pet</h1>
+                <button class="btn-orange">Buscar um pet</button>
             </div>
-            <div class="highlight-card">
-                <div class="card-image"><img src="" alt="Responsabilidade"></div>
-                <div class="card-text">
-                    <h3>Responsabilidade</h3>
-                    <p>Ter um pet exige compromisso. Lutamos contra o abandono.</p>
-                </div>
-            </div>
-            <div class="highlight-card">
-                <div class="card-image"><img src="" alt="Proteção"></div>
-                <div class="card-text">
-                    <h3>Proteção Ativa</h3>
-                    <p>Denunciar maus-tratos é o primeiro passo para a dignidade animal.</p>
-                </div>
+
+            <div class="slide-img">
+                <img src="Assets/pet1.jpg">
+                <img src="Assets/pet2.jpg">
+                <img src="Assets/pet3.jpg">
             </div>
         </div>
-    </section>
- 
-    <section class="about-section">
-        <h2>Conheça o AdoteZooka</h2>
-        <p class="manifesto-text">Somos a voz de quem não pode falar. Nossa missão vai além de encontrar lares: lutamos ativamente contra os maus-tratos e o abandono.</p>
-       
-        <div class="stats-banner">
+
+        <div class="slide">
+            <div class="slide-content">
+                <h1>Adote e transforme uma vida</h1>
+                <button class="btn-orange">Quero adotar</button>
+            </div>
+
+            <div class="slide-img">
+                <img src="Assets/pet4.jpg">
+                <img src="Assets/pet5.jpg">
+                <img src="Assets/pet6.jpg">
+            </div>
+        </div>
+
+    </div>
+
+    <!-- botões -->
+    <button class="prev">&#10094;</button>
+    <button class="next">&#10095;</button>
+
+    <!-- bolinhas -->
+    <div class="dots">
+        <span class="dot active" onclick="irParaSlide(0)"></span>
+        <span class="dot" onclick="irParaSlide(1)"></span>
+    </div>
+
+</section>
+
+<!-- DESTAQUES -->
+<section class="highlights">
+    <div class="card">
+        <h3>Adoção: um ato de amor</h3>
+        <p>Mudar o destino de um animal transforma vidas.</p>
+    </div>
+
+    <div class="card">
+        <h3>Responsabilidade</h3>
+        <p>Ter um pet exige compromisso.</p>
+    </div>
+
+    <div class="card">
+        <h3>Proteção Ativa</h3>
+        <p>Denunciar maus-tratos é essencial.</p>
+    </div>
+</section>
+
+<div class="stats-banner">
             <div class="stats-overlay">
                 <div class="stats-container">
                     <div class="stat-item">
@@ -131,5 +161,7 @@
             </div>
         </div>
     </footer>
+
+<script src="js/adocao.js"></script>
 </body>
 </html>

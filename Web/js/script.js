@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", function() {
     const container = document.getElementById('conteudo-dinamico');
 
-    // 1. Carrega a Home automaticamente ao abrir o site
+    // 1. Carrega a página inicial automaticamente ao abrir o site
     fetch('home.php')
-        .then(response => response.text())
+        .then(resposta => resposta.text())
         .then(html => {
             container.innerHTML = html;
         });
@@ -11,23 +11,23 @@ document.addEventListener("DOMContentLoaded", function() {
     // 2. Configura os cliques no menu
     document.querySelectorAll('.category-nav a').forEach(link => {
         link.addEventListener('click', function(e) {
-            // Se for um link de verdade (tipo adocao.php), deixa o navegador ir
-            const href = this.getAttribute('href');
-            if (href !== "#" && href !== "") return;
+            // Se for um link real (tipo adocao.php), deixa o navegador seguir
+            const linkDestino = this.getAttribute('href');
+            if (linkDestino !== "#" && linkDestino !== "") return;
 
             e.preventDefault();
             
-            // Pega o nome da categoria e limpa espaços/acentos
+            // Pega o nome da categoria e padroniza
             const categoria = this.textContent.trim().toLowerCase();
 
-            // Busca o arquivo (ex: gatos.php, cachorros.php)
+            // Busca o arquivo correspondente (ex: gatos.php, cachorros.php)
             fetch(categoria + '.php')
-                .then(response => response.text())
+                .then(resposta => resposta.text())
                 .then(html => {
                     container.innerHTML = html;
-                    window.scrollTo(0, 0); // Sobe para o topo do conteúdo
+                    window.scrollTo(0, 0); // Volta para o topo
                 })
-                .catch(err => {
+                .catch(erro => {
                     container.innerHTML = "<h2>Em breve teremos produtos para " + categoria + "!</h2>";
                 });
         });
@@ -37,58 +37,62 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // Parte da barra de pesquisa
 
+const campoPesquisa = document.getElementById('searchInput');
+const itens = document.querySelectorAll('.item');
 
-const searchInput = document.getElementById('searchInput');
-const items = document.querySelectorAll('.item');
+campoPesquisa.addEventListener('input', () => {
+    // 1. Pega o valor digitado e transforma em minúsculo
+    const valorFiltro = campoPesquisa.value.toLowerCase();
 
-searchInput.addEventListener('input', () => {
-    // 1. Pega o valor digitado e transforma em minúsculo para facilitar a busca
-    const filterValue = searchInput.value.toLowerCase();
+    itens.forEach(item => {
+        // 2. Pega o texto do item
+        const textoItem = item.textContent.toLowerCase();
 
-    items.forEach(item => {
-        // 2. Pega o texto de dentro do item
-        const text = item.textContent.toLowerCase();
-
-        // 3. Verifica se o texto do item contém o que foi digitado
-        if (text.includes(filterValue)) {
-            item.style.display = "block"; // Mostra o item
+        // 3. Verifica se contém o que foi digitado
+        if (textoItem.includes(valorFiltro)) {
+            item.style.display = "block"; // Mostra
         } else {
-            item.style.display = "none";  // Esconde o item
+            item.style.display = "none";  // Esconde
         }
     });
 });
 
-const shelf = document.querySelector('.shelf-container');
-const dots = document.querySelectorAll('.dot');
-let index = 0;
 
-function updateCarousel() {
-    const cardWidth = shelf.querySelector('.product-card').offsetWidth + 20; // Largura + Gap
-    shelf.scrollTo({
-        left: index * cardWidth,
+// Parte do carrossel
+
+const prateleira = document.querySelector('.shelf-container');
+const bolinhas = document.querySelectorAll('.dot');
+let indiceAtual = 0;
+
+function atualizarCarrossel() {
+    const larguraCard = prateleira.querySelector('.product-card').offsetWidth + 20; // largura + espaço
+    prateleira.scrollTo({
+        left: indiceAtual * larguraCard,
         behavior: 'smooth'
     });
 
-    // Atualiza as bolinhas
-    dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    // Atualiza as bolinhas indicadoras
+    bolinhas.forEach((b, i) => b.classList.toggle('active', i === indiceAtual));
 }
 
-// Próximo Slide
-function nextSlide() {
-    index++;
-    if (index >= dots.length) index = 0; // Volta ao início
-    updateCarousel();
+// Próximo slide
+function proximoSlide() {
+    indiceAtual++;
+    if (indiceAtual >= bolinhas.length) indiceAtual = 0; // Volta ao início
+    atualizarCarrossel();
 }
 
-// Ir para slide específico (ao clicar na bolinha)
-function currentSlide(n) {
-    index = n;
-    updateCarousel();
+// Ir para um slide específico
+function irParaSlide(n) {
+    indiceAtual = n;
+    atualizarCarrossel();
 }
 
-// Configura o Tempo (Muda a cada 4 segundos)
-let autoPlay = setInterval(nextSlide, 4000);
+// Configura o autoplay (a cada 4 segundos)
+let reproducaoAutomatica = setInterval(proximoSlide, 4000);
 
-// Para o autoplay quando o usuário mexe no carrossel
-shelf.addEventListener('mouseenter', () => clearInterval(autoPlay));
-shelf.addEventListener('mouseleave', () => autoPlay = setInterval(nextSlide, 4000));
+// Pausa quando o usuário passa o mouse
+prateleira.addEventListener('mouseenter', () => clearInterval(reproducaoAutomatica));
+prateleira.addEventListener('mouseleave', () => 
+    reproducaoAutomatica = setInterval(proximoSlide, 4000)
+);

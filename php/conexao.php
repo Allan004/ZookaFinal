@@ -1,7 +1,7 @@
 <?php
 
 function conectar(){
-    $host = "10.37.44.29:3306";
+    $host = "10.37.44.31:3306";
     $db = "zookaheva";
     $usuario = "root";
     $senha = "";

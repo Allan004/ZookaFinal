@@ -12,6 +12,7 @@ session_start();
     <script src="script.js" defer></script>
    
    
+   
 </head>
 <body>
    
@@ -243,7 +244,7 @@ session_start();
                 <span class="wishlist-icon">♡</span>
             </div>
             <div class="product-info">
-                <p class="brand">Zooka Care</p>
+                <p class="brand">Zooka Food</p>
                 <p class="name">Ração Golden Special Adulto 10,1kg</p>
                 <p class="old-price">R$ 189,90</p>
                 <p class="new-price">R$ 159,90 <span class="discount">-15%</span></p>
@@ -258,7 +259,7 @@ session_start();
                 <span class="wishlist-icon">♡</span>
             </div>
             <div class="product-info">
-                <p class="brand">Zooka Food</p>
+                <p class="brand">Zooka Care</p>
                 <p class="name">Escova Removedora de Pelos</p>
                 <p class="old-price">R$ 70,00</p>
                 <p class="new-price">R$ 21,00 <span class="discount">-30%</span></p>
@@ -273,10 +274,25 @@ session_start();
                 <span class="wishlist-icon">♡</span>
             </div>
             <div class="product-info">
-                <p class="brand">Zooka Food</p>
+                <p class="brand">Zooka therapy</p>
                 <p class="name">Antipulgas Simparic 10–20kg</p>
                 <p class="new-price">R$ 113,00</p>
                 <p class="installments">ou 2x de R$ 56,50 sem juros</p>
+                <button class="btn-add">adicionar à sacola</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">
+                <img src="Assets/racao (2).png" alt="Escova Removedora">
+                <span class="wishlist-icon">♡</span>
+            </div>
+            <div class="product-info">
+                <p class="brand">Zooka Care</p>
+                <p class="name">Escova Removedora de Pelos</p>
+                <p class="old-price">R$ 70,00</p>
+                <p class="new-price">R$ 21,00 <span class="discount">-30%</span></p>
+                <p class="installments">ou 2x de R$ 10.50 sem juros</p>
                 <button class="btn-add">adicionar à sacola</button>
             </div>
         </div>
