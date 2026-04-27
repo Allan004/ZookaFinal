@@ -7,11 +7,7 @@
         <section class="payment-methods">
             <h1 class="page-title">Pagamento</h1>
            
-            <div class="card-white card-wallet">
-                <p><strong>Carteira Zooka</strong></p>
-                <p class="small-text">Sua carteira está sem saldo. Participe das nossas ofertas para acumular.</p>
-                <a href="#" class="blue-link">Conheça a Carteira Zooka →</a>
-            </div>
+            
  
             <div class="card-white">
                 <h3>Formas de pagamento</h3>
