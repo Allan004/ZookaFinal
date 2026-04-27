@@ -13,7 +13,337 @@
     --text-light: #777;
     --bg-gray: #f9f9f9;
 }
+/* --- CONFIGURAÇÕES GLOBAIS PARA O HEADER --- */
+:root {
+    --zooka-teal: #36a9b1;      /* Azul principal */
+    --zooka-orange: #c07b4d;    /* Laranja do Ticker */
+    --text-dark: #333;
+    --text-light: #777;
+    --bg-search: #f1f1f1;
+}
 
+/* --- 1. TOP PROMO (O texto estático no topo) --- */
+.top-promo {
+    background-color: #fff;
+    text-align: center;
+    padding: 10px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #eee;
+    text-transform: uppercase;
+    color: var(--text-dark);
+}
+
+/* --- 2. HEADER PRINCIPAL (LOGO, BUSCA, LOGIN) --- */
+.main-header {
+    background-color: #fff;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;            
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 15px 40px;
+}
+
+/* Logo */
+.logo-container {
+    flex: 1;
+}
+
+.banner-topo {
+    height: 60px; /* Ajuste conforme o tamanho do seu arquivo logo.png */
+    width: auto;
+}
+
+/* Barra de Busca Central */
+.search-container {
+    flex: 2; 
+    display: flex;
+    justify-content: center;
+}
+
+.search-input {
+    width: 100%;
+    max-width: 500px;
+    padding: 12px 25px;
+    border-radius: 30px;
+    border: 1px solid #e0e0e0;
+    background-color: var(--bg-search);
+    outline: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.search-input:focus {
+    background-color: #fff;
+    border-color: var(--zooka-teal);
+    box-shadow: 0 0 5px rgba(54, 169, 177, 0.2);
+}
+
+/* Menu de Usuário e Carrinho */
+.user-menu {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-link, .user-name {
+    font-size: 13px;
+    color: var(--text-dark);
+    text-decoration: none;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.user-dropdown {
+    position: relative;
+    cursor: pointer;
+}
+
+.btn-continue {
+    font-size: 22px;
+    text-decoration: none;
+}
+
+/* --- 3. MENU DE CATEGORIAS --- */
+/* --- 1. AJUSTE NA LISTA PAI (NAV) --- */
+.category-nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+   
+    /* REDUZIDO: Diminuí o espaço entre os itens para as palavras ficarem mais juntas */
+    gap: 12px;
+   
+    padding: 15px 0;
+    align-items: center;
+}
+ 
+/* 2. O ITEM DA LISTA (LI) */
+/* NAV BAR */
+.category-nav {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    padding: 10px 20px;
+}
+ 
+/* MENU HORIZONTAL */
+.category-nav ul {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+ 
+/* ITEM */
+.category-nav li {
+    position: relative;
+}
+ 
+/* ITEM VISUAL */
+.category-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+}
+ 
+.category-item img {
+    width: 20px;
+}
+ 
+.category-item:hover {
+    color: #ca7e4c;
+}
+/* 1. ESTADO INICIAL: ESCONDE A IMAGEM E O SUBMENU */
+.has-dropdown .category-item img, 
+.has-dropdown .submenu {
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s ease; /* Transição suave */
+}
+
+/* 2. AJUSTE DO SUBMENU (POSICIONAMENTO) */
+.submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.1);
+    z-index: 1000;
+    list-style: none;
+    padding: 10px 0;
+    display: block; /* Mantemos block para a transição de opacity funcionar */
+}
+
+/* 3. AO PASSAR O MOUSE NO LI: MOSTRA A IMAGEM E O SUBMENU */
+.has-dropdown:hover .category-item img,
+.has-dropdown:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 4. GARANTE QUE O TEXTO FIQUE SEMPRE VISÍVEL */
+.category-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #333; /* Cor do texto sempre visível */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* OPCIONAL: Mudar a cor do texto no hover para destacar */
+.has-dropdown:hover .category-item {
+    color: #ca7e4c;
+}
+/* AJUSTE O TAMANHO AQUI */
+.category-item img {
+    width: 55px;      /* Largura da imagem */
+    height: 25px;     /* Altura da imagem */
+    object-fit: contain; /* Garante que a imagem não fique esticada */
+    
+    /* Mantendo as regras de esconder que fizemos antes */
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s ease;
+}
+
+/* Quando passar o mouse, a imagem aparece com o tamanho definido acima */
+.has-dropdown:hover .category-item img {
+    opacity: 1;
+    visibility: visible;
+}
+/* SUBMENU */
+.submenu {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+ 
+    position: absolute;
+    top: 100%;
+    left: 0;
+ 
+    background-color: #fff;
+    min-width: 230px;
+ 
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.08);
+    border-top: 3px solid #ca7e4c;
+ 
+    padding: 5px 0;
+    z-index: 9999;
+ 
+    list-style: none;
+ 
+    transform: translateY(10px);
+    transition: 0.2s;
+}
+ 
+/* HOVER ATIVA */
+.has-dropdown:hover .submenu {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
+ 
+/* ITENS INTERNOS */
+.submenu li {
+    width: 100%;
+}
+ 
+.submenu li a {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 18px;
+    color: #555;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    border-bottom: 1px solid #f0f0f0;
+}
+ 
+/* HOVER ITEM */
+.submenu li a:hover {
+    background-color: #f9f9f9;
+    color: #ca7e4c;
+}
+ 
+/* REMOVE BORDA DO ÚLTIMO */
+.submenu li:last-child a {
+    border-bottom: none;
+}
+/* --- 5. LETREIRO ANIMADO (SCROLLING TICKER) --- */
+.scrolling-ticker {
+    background-color: var(--zooka-orange);
+    color: white;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 12px 0;
+}
+
+.ticker-content {
+    display: inline-block;
+    animation: marquee 40s linear infinite;
+}
+
+.ticker-content span {
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-right: 20px;
+    letter-spacing: 1px;
+}
+
+.ticker-content img {
+    width: 18px;
+    margin-right: 50px;
+    vertical-align: middle;
+}
+
+/* Animação do Letreiro */
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Dropdown do Usuário (Logado) */
+.user-dropdown:hover .dropdown-menu {
+    display: flex;
+}
+
+.dropdown-menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+    background: #fff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    min-width: 150px;
+    z-index: 100;
+}
+
+.dropdown-menu a {
+    padding: 10px 15px;
+    font-size: 13px;
+    color: var(--text-dark);
+    text-decoration: none;
+    border-bottom: 1px solid #eee;
+}
+
+.dropdown-menu a:hover {
+    background: #f1f1f1;
+}
 body {
     background-color: #fff;
     color: var(--text-dark);
