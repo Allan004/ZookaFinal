@@ -37,6 +37,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    if (isset($_POST['acao']) && $_POST['acao'] === 'adicionar_produto_codigo') {
+        $codigo_produto = trim($_POST['codigo_produto'] ?? '');
+        $produto = buscar_produto_por_codigo($codigo_produto);
+        $quantidade = 1;
+
+        if (empty($codigo_produto)) {
+            $mensagens[] = 'Informe o código do produto.';
+        } elseif (!$produto) {
+            $mensagens[] = 'Produto não encontrado para o código informado.';
+        } elseif ($quantidade > (int)$produto['estoque']) {
+            $mensagens[] = 'Não há estoque suficiente para este produto.';
+        } else {
+            adicionar_item_venda_sessao([
+                'tipo' => 'produto',
+                'id_produto' => $produto['id'],
+                'nome' => $produto['nome'],
+                'quantidade' => $quantidade,
+                'preco' => $produto['preco'],
+            ]);
+            header('Location: caixa.php?sucesso=produto');
+            exit;
+        }
+    }
+
     if (isset($_POST['acao']) && $_POST['acao'] === 'adicionar_servico') {
         $id_servico = (int)($_POST['id_servico'] ?? 0);
         $quantidade = max(1, (int)($_POST['quantidade'] ?? 1));
@@ -158,6 +182,18 @@ foreach ($carrinho as $item) {
     <input type="number" name="quantidade" value="1" min="1" required>
   </div>
   <button class="btn btn-block" type="submit">Adicionar produto</button>
+</form>
+</div>
+
+<div class="card">
+<h4>Adicionar por código</h4>
+<form method="post" id="scannerCodigoForm">
+  <input type="hidden" name="acao" value="adicionar_produto_codigo">
+  <div class="field">
+    <label>Código do produto</label>
+    <input type="text" name="codigo_produto" id="codigoProdutoScanner" autocomplete="off" autofocus required>
+  </div>
+  <button class="btn btn-block" type="submit">Adicionar</button>
 </form>
 </div>
 

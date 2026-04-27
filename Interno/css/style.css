@@ -158,6 +158,18 @@
       letter-spacing:.8px
     }
 
+    .card2-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .card2-title {
+      margin: 0;
+    }
+
 
     .card .value{
       font-size:28px; 

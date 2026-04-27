@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zooka PetShop - Gatos</title>
-    <link rel="stylesheet" href="Web/css/produtos.css">
+    <link rel="stylesheet" href="css/produtos.css">
 </head>
 <body>
 

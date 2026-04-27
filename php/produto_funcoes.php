@@ -18,6 +18,37 @@ function buscar_produto($id) {
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+function buscar_produto_por_codigo($codigo) {
+    $pdo = conectar();
+    $codigo = trim($codigo);
+
+    if ($codigo === '') {
+        return false;
+    }
+
+    $sql = "SELECT * FROM produto WHERE id = :codigo";
+    $params = [':codigo' => $codigo];
+
+    $colunas = $pdo->query("SHOW COLUMNS FROM produto")->fetchAll(PDO::FETCH_COLUMN);
+    $camposCodigo = ['codigo', 'codigo_barras', 'codigo_de_barras', 'barcode', 'sku'];
+    $camposEncontrados = array_intersect($camposCodigo, $colunas);
+
+    if (!empty($camposEncontrados)) {
+        $camposExtras = [];
+        foreach ($camposEncontrados as $campo) {
+            $camposExtras[] = "$campo = :codigo";
+        }
+        $sql = "SELECT * FROM produto WHERE id = :codigo OR " . implode(' OR ', $camposExtras) . " LIMIT 1";
+    } else {
+        $sql .= " LIMIT 1";
+    }
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':codigo', ctype_digit($codigo) ? (int)$codigo : $codigo, PDO::PARAM_STR);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 function salvar_produto($dados) {
     $nome = trim($dados['nome'] ?? '');
     $descricao = trim($dados['descricao'] ?? '');
