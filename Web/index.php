@@ -8,88 +8,205 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZookaPet - O melhor para o seu melhor amigo</title>
     <link rel="stylesheet" href="css/style.css">
-    
-    
+    <script src="ZookaWeb.js" defer></script>
+    <script src="script.js" defer></script>
+   
+   
+   
 </head>
 <body>
    
  
-    <div class="top-promo">
+    <div class="top-promo">  
         10% OFF na primeira compra com o cupom <strong>BEMVINDOAUAU</strong>
     </div>
  
    <header class="main-header">
     <div class="header-top">
-        
+       
         <div class="logo-container">
             <a href="#" class="logo">
                 <img src="Assets/logo.png" class="banner-topo" alt="Zooka">
             </a>
         </div>
+ 
+      <div class="search-container">
+    <input type="text" class="search-input" placeholder="o que seu pet precisa hoje?">
+</div>
 
-        <div class="search-container">
-            <input type="text" placeholder="o que seu pet precisa hoje?">
+<div class="user-menu">
+
+<?php if(isset($_SESSION['usuario_nome'])): ?>
+
+    <div class="user-dropdown">
+        <span class="user-name">
+            Olá, <?php echo $_SESSION['usuario_nome']; ?>!
+        </span>
+
+        <div class="dropdown-menu">
+            <a href="#">Meus pedidos</a>
+            <a href="#">Meus pets</a>
+            <a href="#">Meus dados</a>
+            <a href="logout.php">Sair</a>
         </div>
-
-    <div class="user-menu">
-    <a href="#" class="user-link">Meus Pets</a>
-
-    <?php if(isset($_SESSION['usuario_nome'])): ?>
-        
-        <div class="user-info">
-            <span class="user-name">Olá, <?php echo $_SESSION['usuario_nome']; ?>!</span>
-            <a href="logout.php" class="logout-link">Sair</a>
-        </div>
-
-    <?php else: ?>
-
-        <a href="login.php" class="user-link">Entrar ou <br>Cadastrar</a>
-
-    <?php endif; ?>
-
-    <span class="cart-icon">🛒</span>
     </div>
 
+<?php else: ?>
+
+    <a href="login.php" class="user-link">
+        Entrar ou <br>Cadastrar
+    </a>
+
+<?php endif; ?>
+
+<a href="CarrinhoZooka.html" class="btn-continue">🛒</a>
+
+</div>
+ 
     </div>
 </header>
-        
+       
        <nav class="category-nav">
-    <ul>
-        <li class="has-dropdown">
-            <div class="category-item">
-                <img src="Assets/cachorro1.png"> cachorros
-            </div>
-            
-            <ul class="submenu">
-                <li><a href="#">Ração <span>&rsaquo;</span></a></li>
-                <li><a href="#">Petiscos e Ossos <span>&rsaquo;</span></a></li>
-                <li><a href="#">Farmácia <span>&rsaquo;</span></a></li>
-                <li><a href="#">Brinquedos <span>&rsaquo;</span></a></li>
-                <li><a href="#">Coleiras e Guias <span>&rsaquo;</span></a></li>
-                <li><a href="#">Camas e Cobertores <span>&rsaquo;</span></a></li>
-            </ul>
-<<<<<<< HEAD
-        </li>
-
-        <li><img src="Assets/gato1.png"> gatos</li>
-        <li><img src="Assets/passaros1.png"> pássaros</li>
-        <li><img src="Assets/peixe2.png"> peixes</li>
-        <li><img src="Assets/roedor1.png"> roedores</li>
-        <li><img src="Assets/farmacia2.png"> farmácia</li>
-        <li><img src="Assets/higiene1.png"> higiene</li>
-        <li><img src="Assets/brinquedos1.png"> brinquedos</li>
-        <li><img src="Assets/camas1.png"> camas</li>
-        <li><img src="Assets/promocoes1.png"> promoções</li>
-        <li><img src="Assets/assinatura1.png"> assinatura</li>
-        <li><img src="Assets/adocao2.png"> <a href="adocao.php">Adoção</a></li>
-    </ul>
+<ul>
+ 
+    <!-- CACHORROS -->
+    <li class="has-dropdown">
+        <div class="category-item">
+            <img src="Assets/cachorro1.png"> cachorros
+        </div>
+        <ul class="submenu">
+            <li><a href="#">Ração</a></li>
+            <li><a href="#">Petiscos</a></li>
+            <li><a href="#">Brinquedos</a></li>
+        </ul>
+    </li>
+ 
+    <!-- GATOS -->
+    <li class="has-dropdown">
+        <div class="category-item">
+            <img src="Assets/gato1.png"> gatos
+        </div>
+        <ul class="submenu">
+            <li><a href="#">Ração</a></li>
+            <li><a href="#">Areia</a></li>
+            <li><a href="#">Brinquedos</a></li>
+            <li><a href="#">Arranhadores</a></li>
+        </ul>
+    </li>
+ 
+    <!-- PÁSSAROS -->
+    <li class="has-dropdown">
+        <div class="category-item">
+            <img src="Assets/passaros1.png"> pássaros
+        </div>
+        <ul class="submenu">
+            <li><a href="#">Sementes</a></li>
+            <li><a href="#">Gaiolas</a></li>
+            <li><a href="#">Acessórios</a></li>
+        </ul>
+    </li>
+ 
+    <!-- PEIXES -->
+    <li class="has-dropdown">
+        <div class="category-item">
+            <img src="Assets/peixe2.png"> peixes
+        </div>
+        <ul class="submenu">
+            <li><a href="#">Ração</a></li>
+            <li><a href="#">Aquários</a></li>
+            <li><a href="#">Filtros</a></li>
+        </ul>
+    </li>
+ 
+    <!-- ROEDORES -->
+    <li class="has-dropdown">
+        <div class="category-item">
+            <img src="Assets/roedor1.png"> roedores
+        </div>
+        <ul class="submenu">
+            <li><a href="#">Ração</a></li>
+            <li><a href="#">Gaiolas</a></li>
+            <li><a href="#">Brinquedos</a></li>
+        </ul>
+    </li>
+ 
+    <!-- FARMÁCIA -->
+    <li class="has-dropdown">
+        <div class="category-item">
+            <img src="Assets/farmacia2.png"> farmácia
+        </div>
+        <ul class="submenu">
+            <li><a href="#">Antipulgas</a></li>
+            <li><a href="#">Vermífugos</a></li>
+            <li><a href="#">Vitaminas</a></li>
+        </ul>
+    </li>
+ 
+    <!-- HIGIENE -->
+    <li class="has-dropdown">
+        <div class="category-item">
+            <img src="Assets/higiene1.png"> higiene
+        </div>
+        <ul class="submenu">
+            <li><a href="#">Shampoo</a></li>
+            <li><a href="#">Tapetes</a></li>
+            <li><a href="#">Escovas</a></li>
+        </ul>
+    </li>
+ 
+    <!-- BRINQUEDOS -->
+    <li class="has-dropdown">
+        <div class="category-item">
+            <img src="Assets/brinquedos1.png"> brinquedos
+        </div>
+        <ul class="submenu">
+            <li><a href="#">Mordedores</a></li>
+            <li><a href="#">Bolinhas</a></li>
+        </ul>
+    </li>
+ 
+    <!-- CAMAS -->
+    <li class="has-dropdown">
+        <div class="category-item">
+            <img src="Assets/camas1.png"> camas
+        </div>
+        <ul class="submenu">
+            <li><a href="#">Camas</a></li>
+            <li><a href="#">Cobertores</a></li>
+        </ul>
+    </li>
+ 
+    <!-- PROMOÇÕES -->
+    <li class="has-dropdown">
+        <div class="category-item">
+            <img src="Assets/promocoes1.png"> promoções
+        </div>
+        <ul class="submenu">
+            <li><a href="#">Ofertas do dia</a></li>
+        </ul>
+    </li>
+ 
+    <!-- ASSINATURA -->
+    <li class="has-dropdown">
+        <div class="category-item">
+            <img src="Assets/assinatura1.png"> assinatura
+        </div>
+        <ul class="submenu">
+            <li><a href="#">Planos</a></li>
+        </ul>
+    </li>
+ 
+    <!-- ADOÇÃO -->
+    <li>
+    <a href="adocao.php" class="category-item">
+        <img src="Assets/adocao2.png"> adoção
+    </a>
+</li>
+ 
+</ul>
 </nav>
  
  
-=======
-        </nav>
-  
->>>>>>> 76002e9c72f02239f794c3a5329ff91a3e64ba43
     <div class="scrolling-ticker">
     <div class="ticker-content">
         <span>Frete grátis</span> <img src="Assets/patinhas1.png" alt="pata">
@@ -116,46 +233,82 @@ session_start();
  
     <section class="product-shelf">
     <h2 class="shelf-title">presentes favoritos para surpreender</h2>
-    
+   
     <div class="carousel-wrapper">
-        <button class="carousel-btn prev">❮</button>
-        
-        <div class="shelf-container">
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="">
-                    <span class="wishlist-icon">♡</span>
-                </div>
-                <div class="product-info">
-                    <p class="brand">Zooka Care</p>
-                    <p class="name">Presente Pet Conforto - Cama e Manta</p>
-                    <p class="old-price">R$ 189,90</p>
-                    <p class="new-price">R$ 159,90 <span class="discount">-15%</span></p>
-                    <p class="installments">ou 3x de R$ 53,30 sem juros</p>
-                    <button class="btn-add">adicionar à sacola</button>
-                </div>
-            </div>
-            
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="img/Cat and Dog Hormones_ The Ultimate Guide.jpeg" alt="Produto">
-                    <span class="wishlist-icon">♡</span>
-                </div>
-                <div class="product-info">
-                    <p class="brand">Zooka Food</p>
-                    <p class="name">Ração Natural de Frango e Vegetais 3kg</p>
-                    <p class="old-price">R$ 120,00</p>
-                    <p class="new-price">R$ 84,00 <span class="discount">-30%</span></p>
-                    <p class="installments">ou 2x de R$ 42,00 sem juros</p>
-                    <button class="btn-add">adicionar à sacola</button>
-                </div>
-            </div>
-            
-            </div>
- 
-        <button class="carousel-btn next">❯</button>
-    </div>
+    <button class="carousel-btn prev">❮</button>
     
+    <div class="shelf-container">
+        <div class="product-card">
+            <div class="product-image">
+                <img src="Assets/racao (1).png" alt="Ração Golden Special">
+                <span class="wishlist-icon">♡</span>
+            </div>
+            <div class="product-info">
+                <p class="brand">Zooka Food</p>
+                <p class="name">Ração Golden Special Adulto 10,1kg</p>
+                <p class="old-price">R$ 189,90</p>
+                <p class="new-price">R$ 159,90 <span class="discount">-15%</span></p>
+                <p class="installments">ou 3x de R$ 53,30 sem juros</p>
+                <button class="btn-add">adicionar à sacola</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">
+                <img src="Assets/racao (2).png" alt="Escova Removedora">
+                <span class="wishlist-icon">♡</span>
+            </div>
+            <div class="product-info">
+                <p class="brand">Zooka Care</p>
+                <p class="name">Escova Removedora de Pelos</p>
+                <p class="old-price">R$ 70,00</p>
+                <p class="new-price">R$ 21,00 <span class="discount">-30%</span></p>
+                <p class="installments">ou 2x de R$ 10.50 sem juros</p>
+                <button class="btn-add">adicionar à sacola</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">
+                <img src="Assets/antipulgas.jpg" alt="Simparic">
+                <span class="wishlist-icon">♡</span>
+            </div>
+            <div class="product-info">
+                <p class="brand">Zooka therapy</p>
+                <p class="name">Antipulgas Simparic 10–20kg</p>
+                <p class="new-price">R$ 113,00</p>
+                <p class="installments">ou 2x de R$ 56,50 sem juros</p>
+                <button class="btn-add">adicionar à sacola</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">
+                <img src="Assets/racao (2).png" alt="Escova Removedora">
+                <span class="wishlist-icon">♡</span>
+            </div>
+            <div class="product-info">
+                <p class="brand">Zooka Care</p>
+                <p class="name">Escova Removedora de Pelos</p>
+                <p class="old-price">R$ 70,00</p>
+                <p class="new-price">R$ 21,00 <span class="discount">-30%</span></p>
+                <p class="installments">ou 2x de R$ 10.50 sem juros</p>
+                <button class="btn-add">adicionar à sacola</button>
+            </div>
+        </div>
+    </div>
+
+    <button class="carousel-btn next">❯</button>
+</div>
+
+<div class="carousel-dots">
+    <span class="dot active" onclick="currentSlide(0)"></span>
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+</div>
+           
+          
+   
     <div class="carousel-dots">
         <span class="dot active"></span>
         <span class="dot"></span>
@@ -175,34 +328,19 @@ session_start();
         </div>
     </div>
 </section>
+
+
+
+
  
 <footer class="main-footer">
     <div class="newsletter-section">
         <h3>quer receber nossas novidades e ofertas exclusivas?</h3>
         <p>cadastre-se e aproveite um cupom na sua primeira compra!</p>
-<<<<<<< HEAD
         <form method="POST" class="newsletter-form">
     <div class="input-group">
         <label>nome: (*)</label>
         <input type="text" name="nome" placeholder="insira seu nome:" required>
-=======
-        <form class="newsletter-form">
-            <div class="input-group">
-                <label>nome: (*)</label>
-                <input type="text" placeholder="insira seu nome:">
-            </div>
-            <div class="input-group">
-                <label>email: (*)</label>
-                <input type="email" placeholder="insira seu email:">
-            </div>
-            <div class="input-group">
-                <label>celular: (*)</label>
-                <input type="tel" placeholder="insira seu celular:">
-            </div>
-            <button type="submit" class="btn-send">enviar</button>
-        </form>
-        <p class="disclaimer">ao se cadastrar, você concorda em receber comunicações ZookaPet de acordo com nossa <a href="index.php">política de privacidade</a>.</p>
->>>>>>> 76002e9c72f02239f794c3a5329ff91a3e64ba43
     </div>
     <div class="input-group">
         <label>email: (*)</label>
@@ -248,60 +386,127 @@ session_start();
 </footer>
 <script type="module">
   import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@0/dist/web.js'
-
+ 
   Typebot.initBubble({
     typebot: "lead-generation-yz0zgkk",
     theme: {
       button: { backgroundColor: "#2eaeb0" },
       chatWindow: { backgroundColor: "#020202" },
-      
+     
     },
   });
 </script>
-
+ 
 <?php
 
-
 if($_POST) {
-$email = $_POST['email'] ?? '';
-$nome  = $_POST['nome'] ?? '';
-$celular  = $_POST['celular'] ?? '';
- 
-require_once 'PHPMailer/src/PHPMailer.php';
-require_once 'PHPMailer/src/SMTP.php';
-require_once 'PHPMailer/src/Exception.php';
- 
-$mail = new PHPMailer\PHPMailer\PHPMailer(true);
- 
-try {
-    $mail->isSMTP();
-    $mail->Host = 'smtp.gmail.com';
-    $mail->SMTPAuth = true;
-    $mail->Username = 'ZookaPetshop@gmail.com';
-    $mail->Password = 'juky tzsz dshp oncx';
-    $mail->SMTPSecure = 'tls';
-    $mail->Port = 587;
- 
-    $mail->setFrom('ZookaPetshop@gmail.com', 'Zooka');
-    $mail->addAddress($email);
- 
-    $mail->isHTML(true);
-    $mail->Subject = 'Verification code';
-    $mail->Body = "
-        <h2>Bem-vindo ao Quimera 🚀</h2>
-        <p>Seu código de verificação é:</p>
-        <h1 style='color:red;'>ok</h1>
-    ";
- 
-    $mail->send();
- 
+    $email = $_POST['email'] ?? '';
+    $nome  = $_POST['nome'] ?? '';
+    $celular = $_POST['celular'] ?? '';
 
- 
-} catch (Exception $e) {
-    echo "Erro: {$mail->ErrorInfo}";
+    require_once 'PHPMailer/src/PHPMailer.php';
+    require_once 'PHPMailer/src/SMTP.php';
+    require_once 'PHPMailer/src/Exception.php';
+
+    $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+
+    try {
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'ZookaPetshop@gmail.com';
+        $mail->Password = 'juky tzsz dshp oncx'; // Lembre-se de manter esta senha segura
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = 587;
+        $mail->CharSet = 'UTF-8'; // Garante acentuação correta
+
+        $mail->setFrom('ZookaPetshop@gmail.com', 'Zooka Petshop');
+        $mail->addAddress($email);
+
+        $mail->isHTML(true);
+    $mail->CharSet = 'UTF-8';
+    $mail->Subject = 'Bem-vindo à Zooka, ' . $nome . '!';
+
+    $mail->Body = "
+    <div style='background-color: #f4f4f4; padding: 20px; font-family: Arial, sans-serif;'>
+        <table align='center' border='0' cellpadding='0' cellspacing='0' width='600' style='background-color: #ffffff; border-radius: 10px; overflow: hidden; border-collapse: collapse; box-shadow: 0 4px 10px rgba(0,0,0,0.1);'>
+            
+            <tr>
+                <td align='center'>
+                    <img 
+  src='https://res.cloudinary.com/dggprgzoj/image/upload/Banner_Zooka_Email_mf2l0n.png' 
+  alt='Zooka Petshop' 
+  width='600' 
+  style='display:block; width:100%; max-width:600px; border:0;'
+                </td>
+            </tr>
+
+            <tr>
+                <td style='padding: 30px; text-align: center;'>
+                    <h2 style='color: #ca7e4c; margin: 0 0 10px 0;'>Olá, $nome!</h2>
+                    <p style='color: #666; font-size: 16px; line-height: 1.6;'>
+                        Ficamos muito felizes com seu interesse! Recebemos seus dados e em breve nossa equipe entrará em contato através do número <strong>$celular</strong>.
+                    </p>
+                </td>
+            </tr>
+
+            <tr>
+                <td align='center' style='padding-bottom: 30px;'>
+                    <table border='0' cellpadding='0' cellspacing='0'>
+                        <tr>
+                            <td align='center' bgcolor='#ca7e4c' style='border-radius: 5px;'>
+                                <a href='https://seusite.com' style='padding: 15px 25px; color: #ffffff; text-decoration: none; font-weight: bold; display: inline-block;'>ACESSAR NOSSA LOJA</a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr>
+                <td style='background-color: #333333; color: #ffffff; padding: 15px; text-align: center; font-size: 12px;'>
+                    Zooka Petshop © 2026 - Todos os direitos reservados.
+                </td>
+            </tr>
+        </table>
+    </div>
+    ";
+
+    $mail->send();
+        echo "E-mail enviado com sucesso!";
+
+    } catch (Exception $e) {
+        echo "Erro: {$mail->ErrorInfo}";
+    }
 }
- 
-}
- 
 ?>
+
+<div id="modal-carrinho" class="modal-overlay">
+    <div class="modal-content">
+        <button id="fechar-modal" class="close-btn">&times;</button>
+        
+        <div id="carrinho-vazio" class="cart-state">
+            <h2>Sacola</h2>
+            <div class="empty-content">
+                <p>Você ainda não tem produtos adicionados à sacola.</p>
+                <div class="icon-bag">🛍️<span class="badge">0</span></div>
+                <p>Escolha tudo que o seu pet precisa e adicione à sacola para comprar.</p>
+                <button class="btn-entendi" onclick="toggleModal()">Entendi</button>
+            </div>
+        </div>
+
+        <div id="carrinho-com-itens" class="cart-state" style="display: none;">
+            <h2>Confira sua compra</h2>
+            <div class="items-list">
+                </div>
+            <div class="cart-footer">
+                <div class="subtotal">
+                    <span>Subtotal</span>
+                    <span id="valor-subtotal">R$ 0,00</span>
+                </div>
+                <button class="btn-primary-modal">Ir para sacola</button>
+                <button class="btn-back" onclick="toggleModal()">Voltar</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>

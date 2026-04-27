@@ -3,184 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdoteZooka - Adoção e Proteção Animal</title>
+    <title>AdoteZooka</title>
+
     <link rel="stylesheet" href="css/adocao.css">
-    <script src="js/adocao.js"></script>
+
+    <!-- Fonte moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <header>
-        <nav class="navbar">
-            <div class="logo"><strong>Adote<span>Zooka</span></strong></div>
-            <ul class="nav-links">
-                <li>Institucional</li>
-                <li>Causa Animal</li>
-                <li>Unidades</li>
-                <li>FAQ</li>
-            </ul>
-            <div class="nav-buttons">
+
+<header>
+    <nav class="navbar">
+        <div class="logo">Adote<span>Zooka</span></div>
+
+        <div class="nav-buttons">
+            <a href="#" class="btn-orange">Quero adotar</a>
+            <a href="#" class="btn-orange">Denuncie</a>
+            <button class="btn-outline">Entrar</button>
+        </div>
+    </nav>
+</header>
+
+<!-- 🔥 HERO COM CARROSSEL -->
+<section class="hero-banner">
+
+    <div class="carousel">
+
+        <div class="slide active">
+            <div class="slide-content">
+                <h1>Você pode se apaixonar agora por um pet</h1>
+                <button class="btn-orange">Buscar um pet</button>
+            </div>
+
+            <div class="slide-img">
+                <img src="Assets/pet1.jpg">
+                <img src="Assets/pet2.jpg">
+                <img src="Assets/pet3.jpg">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <h1>Adote e transforme uma vida</h1>
                 <button class="btn-orange">Quero adotar</button>
-                <a href="https://www.webdenuncia.sp.gov.br/depa" class="btn-orange" target="_blank" style="text-decoration: none; display: inline-block;">
-    Denuncie
-</a>
-                <button class="btn-outline">Entrar</button>
             </div>
-        </nav>
-    </header>
 
-    <section class="hero-banner">
-        <div class="banner-content">
-            <h1>ZOOOOOOOKAA</h1>
-            <p>Vantagens exclusivas para quem protege.</p>
-            <button class="btn-confira">Confira</button>
-        </div>
-        <div class="banner-image">
-            <img src="https://via.placeholder.com/500x400" alt="Mulher com cachorros">
-        </div>
-    </section>
-
-    <section class="highlights-section">
-        <div class="highlights-container">
-            <div class="highlight-card">
-                <div class="card-image"><img src="https://via.placeholder.com/400x250" alt="Adoção"></div>
-                <div class="card-text">
-                    <h3>Adoção: um ato de amor</h3>
-                    <p>Mudar o destino de um animal é um gesto que transforma vidas.</p>
-                </div>
-            </div>
-            <div class="highlight-card">
-                <div class="card-image"><img src="https://via.placeholder.com/400x250" alt="Responsabilidade"></div>
-                <div class="card-text">
-                    <h3>Responsabilidade</h3>
-                    <p>Ter um pet exige compromisso. Lutamos contra o abandono.</p>
-                </div>
-            </div>
-            <div class="highlight-card">
-                <div class="card-image"><img src="https://via.placeholder.com/400x250" alt="Proteção"></div>
-                <div class="card-text">
-                    <h3>Proteção Ativa</h3>
-                    <p>Denunciar maus-tratos é o primeiro passo para a dignidade animal.</p>
-                </div>
+            <div class="slide-img">
+                <img src="Assets/pet4.jpg">
+                <img src="Assets/pet5.jpg">
+                <img src="Assets/pet6.jpg">
             </div>
         </div>
-    </section>
 
-    <section class="about-section">
-        <h2>Conheça o AdoteZooka</h2>
-        <p class="manifesto-text">Somos a voz de quem não pode falar. Nossa missão vai além de encontrar lares: lutamos ativamente contra os maus-tratos e o abandono para garantir que todo animal viva com dignidade.</p>
-        
-       <section class="stats-banner">
-    <div class="stats-overlay">
-        <div class="stats-container">
-            
-            <div class="stat-item">
-    <div class="stat-icon"></div>
-    <h2 class="counter" data-target="30">0</h2>
-    <span class="unit">Milhões</span>
-    <p>Animais vivem em situação de rua no Brasil</p>
-</div>
+    </div>
 
-            <div class="stat-item">
-                <div class="stat-icon"></div>
-                <h2 class="counter" data-target="180">0</h2>
-                <span class="unit">Mil</span>
-                <p>Pets resgatados anualmente por ONGs parceiras</p>
-            </div>
+    <!-- botões -->
+    <button class="prev">&#10094;</button>
+    <button class="next">&#10095;</button>
 
-            <div class="stat-item">
-                <div class="stat-icon"></div>
-                <h2 class="counter" data-target="13">0</h2>
-                <span class="unit">Denúncias</span>
-                <p>Média diária de novos processos de maus-tratos</p>
-            </div>
+    <!-- bolinhas -->
+    <div class="dots">
+        <span class="dot active" onclick="irParaSlide(0)"></span>
+        <span class="dot" onclick="irParaSlide(1)"></span>
+    </div>
 
-            <div class="stat-item">
-                <div class="stat-icon"></div>
-                <h2 class="counter" data-target="1.3" data-decimal="true">0</h2>
-                <span class="unit">Milhão</span>
-                <p>Vítimas de atropelamento por dia nas estradas</p>
-            </div>
+</section>
 
-        </div>
+<!-- DESTAQUES -->
+<section class="highlights">
+    <div class="card">
+        <h3>Adoção: um ato de amor</h3>
+        <p>Mudar o destino de um animal transforma vidas.</p>
+    </div>
+
+    <div class="card">
+        <h3>Responsabilidade</h3>
+        <p>Ter um pet exige compromisso.</p>
+    </div>
+
+    <div class="card">
+        <h3>Proteção Ativa</h3>
+        <p>Denunciar maus-tratos é essencial.</p>
     </div>
 </section>
 
-    <section class="how-it-works">
-        <h2>Entenda como funciona a adoção:</h2>
-        <div class="steps-grid">
-            <div class="step"><span>🏠</span><h4>Ache seu pet</h4><p>Visite nossos espaços dedicados em lojas físicas.</p></div>
-            <div class="step"><span>📋</span><h4>Entrevista</h4><p>Batemos um papo para garantir o melhor "match".</p></div>
-            <div class="step"><span>✅</span><h4>Avaliação</h4><p>Analisamos o perfil para uma adoção segura.</p></div>
-            <div class="step"><span>🐾</span><h4>Lar Feliz</h4><p>Hora de começar uma nova história juntos!</p></div>
+<div class="stats-banner">
+            <div class="stats-overlay">
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <h2 class="counter" data-target="30">0</h2>
+                        <span class="unit">Milhões</span>
+                        <p>Animais de rua no Brasil</p>
+                    </div>
+                    <div class="stat-item">
+                        <h2 class="counter" data-target="180">0</h2>
+                        <span class="unit">Mil</span>
+                        <p>Resgatados por ONGs</p>
+                    </div>
+                    <div class="stat-item">
+                        <h2 class="counter" data-target="13">0</h2>
+                        <span class="unit">Denúncias</span>
+                        <p>Média diária de casos</p>
+                    </div>
+                    <div class="stat-item">
+                        <h2 class="counter" data-target="38">0</h2>
+                        <span class="unit">Milhões</span>
+                        <p>Retirados da natureza</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
-
+ 
+    <section class="how-it-works">
+        <h2>Como funciona a adoção:</h2>
+        <div class="steps-grid">
+            <div class="step"><span>🏠</span><h4>Ache seu pet</h4><p>Visite nossos espaços dedicados.</p></div>
+            <div class="step"><span>📋</span><h4>Entrevista</h4><p>Garantimos o melhor "match".</p></div>
+            <div class="step"><span>✅</span><h4>Avaliação</h4><p>Análise para adoção segura.</p></div>
+            <div class="step"><span>🐾</span><h4>Lar Feliz</h4><p>Comece uma nova história!</p></div>
+        </div>
+    </section>
+ 
     <section class="help-section">
         <div class="help-content">
             <h2>Ajude nossa campanha:</h2>
             <ul>
-                <li>Denuncie maus-tratos anonimamente</li>
+                <li>Denuncie maus-tratos</li>
                 <li>Ofereça um lar temporário</li>
-                <li>Doe itens básicos para resgatados</li>
-                <li>Apadrinhe um animal em tratamento</li>
+                <li>Doe itens básicos</li>
+                <li>Apadrinhe um animal</li>
             </ul>
             <button class="btn-orange">Saiba como ajudar</button>
         </div>
         <div class="video-container">
-            <iframe src="https://www.youtube.com/watch?v=C7pXXopyVBM" frameborder="0" allowfullscreen></iframe>
+            <video controls poster="Assets/VideoAdocao.mp4">
+                <source src="Assets/VideoAdocao.mp4" type="video/mp4">
+                Seu navegador não suporta vídeos.
+            </video>
         </div>
     </section>
-
-    <footer class="main-footer">
-    <div class="newsletter-section">
-        <h3>Quer Saber mais sobre adoções ou como ser um padrinho ou madrinha?</h3>
-        <p>cadastre-se e aproveite um cupom na sua primeira compra!</p>
-        <form method="POST" class="newsletter-form">
-    <div class="input-group">
-        <label>nome: (*)</label>
-        <input type="text" name="nome" placeholder="insira seu nome:" required>
-    </div>
-    <div class="input-group">
-        <label>email: (*)</label>
-        <input type="email" name="email" placeholder="insira seu email:" required>
-    </div>
-    <div class="input-group">
-        <label>celular: (*)</label>
-        <input type="tel" name="celular" placeholder="insira seu celular:" required>
-    </div>
-    <button type="submit" class="btn-send">enviar</button>
-</form>
  
-    <div class="footer-links-container">
-        <div class="logo-footer">zookapet</div>
+    <footer class="main-footer">
         <div class="footer-grid">
             <div class="footer-column">
                 <h4>a zookapet</h4>
-                <ul>
-                    <li>bem estar bem</li>
-                    <li>sustentabilidade</li>
-                    <li>nossa história</li>
-                    <li>trabalhe conosco</li>
-                </ul>
+                <ul><li>bem estar bem</li><li>sustentabilidade</li><li>nossa história</li></ul>
             </div>
             <div class="footer-column">
                 <h4>atendimento</h4>
-                <ul>
-                    <li>encontre a zooka</li>
-                    <li>ajuda e contato</li>
-                    <li>ouvidoria</li>
-                </ul>
+                <ul><li>ajuda e contato</li><li>ouvidoria</li></ul>
             </div>
             <div class="footer-column">
                 <h4>suporte</h4>
-                <ul>
-                    <li>aviso de privacidade</li>
-                    <li>política de cookies</li>
-                    <li>trocas e devoluções</li>
-                </ul>
+                <ul><li>privacidade</li><li>cookies</li><li>trocas</li></ul>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
 
+<script src="js/adocao.js"></script>
 </body>
 </html>

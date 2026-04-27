@@ -1,5 +1,5 @@
 :root{
-      --primary:#1abc9c; /* verde água */
+      --primary:#1abc9c; 
       --primary-700:#14967e;
       --bg:#f7f9fb;
       --surface:#fffff;
@@ -260,7 +260,7 @@
   gap: 14px;
 }
 
-/* BRAND */
+
 .login-brand {
   display: flex;
   align-items: center;
@@ -283,7 +283,7 @@
   color: var(--muted);
 }
 
-/* TÍTULO */
+
 .login-card h2 {
   margin: 6px 0 10px;
   font-size: 18px;

@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require __DIR__ . '/../../php/conexao.php';
+require_once "../php/conexao.php";
 $pdo = conectar();
 
 $erro = "";
