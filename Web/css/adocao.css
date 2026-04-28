@@ -1,4 +1,6 @@
-/* --- RESET --- */
+/* --- 1. CONFIGURAÇÕES GLOBAIS E RESET --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -7,51 +9,59 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: #f8fafc;
-    color: #333;
+    background: #fdfdfd;
+    color: #444;
+    line-height: 1.6;
 }
 
-/* --- NAVBAR --- */
+/* --- 2. NAVBAR --- */
+/* Ajuste da Logo no Topo */
+.banner-topo {
+    height: 60px; /* Define uma altura visível e elegante */
+    width: auto;   /* Mantém a proporção da largura automaticamente */
+    object-fit: contain;
+    padding: 5px 0;
+    transition: transform 0.3s ease;
+}
+
+/* Efeito sutil ao passar o mouse (interatividade) */
+.banner-topo:hover {
+    transform: scale(1.05);
+}
+
+/* Ajuste na Navbar para alinhar a logo */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 5%;
+    padding: 10px 5%; /* Reduzi um pouco o padding vertical */
     background: white;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+    height: 100px; /* Altura fixa para a barra de navegação */
 }
 
-.logo {
-    font-size: 26px;
-    font-weight: 800;
-    color: #2eaeb0;
+.nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
-.logo span {
-    color: #ca7e4c;
-}
-
-.nav-buttons a,
-.nav-buttons button {
-    margin-left: 10px;
-}
-
-/* --- BOTÕES --- */
+/* --- 3. BOTÕES GERAIS --- */
 .btn-orange {
     background: #ca7e4c;
     color: white;
-    padding: 10px 20px;
+    padding: 10px 25px;
     border-radius: 25px;
     border: none;
     cursor: pointer;
     text-decoration: none;
     font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(202, 126, 76, 0.3);
 }
 
 .btn-orange:hover {
     background: #b36a3b;
+    transform: translateY(-2px);
 }
 
 .btn-outline {
@@ -61,232 +71,320 @@ body {
     border-radius: 25px;
     background: transparent;
     cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
 }
 
-/* --- HERO / CARROSSEL --- */
+.btn-outline:hover {
+    background: #2eaeb0;
+    color: white;
+}
+
+/* --- 4. HERO / CARROSSEL (AJUSTADO PARA SER MENOR E SEM CORTES) --- */
+/* --- 4. HERO / CARROSSEL (VERSÃO FINAL) --- */
+/* --- 4. HERO / CARROSSEL (VERSÃO BANNER SLIM) --- */
 .hero-banner {
-    margin: 30px 5%;
+    margin: 15px 2%; /* Quase toda a largura da tela */
     position: relative;
-    border-radius: 20px;
+    border-radius: 10px;
     overflow: hidden;
+    /* Ajuste a altura abaixo: 200px a 250px é o ideal para banners "slim" */
+    height:600px; 
+    background: none;
 }
 
 .carousel {
-    position: relative;
+    height: 100%;
+    width: 100%;
 }
 
 .slide {
     display: none;
-    align-items: center;
-    justify-content: space-between;
-    padding: 60px;
-    background: linear-gradient(135deg, #7c8db5, #8fd694);
-    color: white;
+    opacity: 0;
+    transition: opacity 1s ease-in-out; /* Suaviza a troca das imagens */
 }
 
 .slide.active {
     display: flex;
+    opacity: 1;
 }
 
-.slide-content {
-    max-width: 500px;
+.slide a {
+    width: 100%;
+    height: 100%;
 }
 
-.slide-content h1 {
-    font-size: 42px;
-    margin-bottom: 20px;
+/* O SEGREDO ESTÁ AQUI: */
+.bg-slide {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 👈 troca aqui */
+    object-position: center; /* opcional, mas recomendado */
+    filter: none !important;
 }
 
-.slide-img {
-    display: flex;
-    gap: 20px;
-}
-
-.slide-img img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 4px dashed white;
-}
-
-/* --- BOTÕES DO CARROSSEL --- */
+/* --- Ajuste das Setas para ficarem proporcionais ao banner menor --- */
 .prev, .next {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255,255,255,0.8);
+    background: rgba(255, 255, 255, 0.4);
+    color: #333;
     border: none;
-    padding: 10px 15px;
+    width: 35px;
+    height: 35px;
     cursor: pointer;
     border-radius: 50%;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.prev:hover, .next:hover {
+    background: rgba(255, 255, 255, 0.8);
 }
 
 .prev { left: 10px; }
 .next { right: 10px; }
 
-/* --- DOTS --- */
+/* Pontinhos discretos */
+/* Container dos indicadores */
 .dots {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
     text-align: center;
-    margin-top: 10px;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px; /* Espaço entre as bolinhas */
 }
 
+/* Bolinha padrão (Inativa) */
 .dot {
-    width: 10px;
-    height: 10px;
-    background: #ccc;
-    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background: rgba(0, 0, 0, 0.1); /* Cor cinza clara das inativas */
     border-radius: 50%;
-    margin: 5px;
+    display: inline-block;
     cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Transição suave */
 }
 
+/* A Barra de Progresso (Ativa) */
 .dot.active {
-    background: #ca7e4c;
+    background: #222; /* Cor preta/grafite da barra ativa */
+    width: 40px;      /* Largura alongada */
+    border-radius: 20px; /* Bordas arredondadas (pílula) */
 }
 
-/* --- CARDS --- */
+/* Responsividade: Diminuir a altura em telas de celular */
+@media (max-width: 768px) {
+    .hero-banner {
+        height: 200px; /* Menor no celular */
+        margin: 10px 2%;
+    }
+}
+/* --- 5. CARDS DE DESTAQUE --- */
+/* --- 5. CARDS DE DESTAQUE (EVOLUÍDO) --- */
 .highlights {
     display: flex;
-    gap: 20px;
-    padding: 60px 5%;
+    gap: 25px;
+    padding: 40px 5% 60px 5%; /* Aumentei o padding inferior para dar espaço */
+    background: #fdfdfd;
+    margin-top: 20px; /* Espaço entre o carrossel e os cards */
 }
 
 .card {
     background: white;
-    padding: 25px;
-    border-radius: 15px;
+    padding: 35px 25px;
+    border-radius: 20px;
     flex: 1;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+    transition: all 0.4s ease;
+    border-left: 0px solid #2eaeb0; /* Preparando a borda para o hover */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-/* --- ESTATÍSTICAS --- */
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(46, 174, 176, 0.1);
+    border-left: 8px solid #2eaeb0; /* Adiciona uma barra lateral no hover */
+    padding-left: 17px; /* Compensa a entrada da borda para não mover o texto bruscamente */
+}
+
+.card h3 {
+    color: #2eaeb0;
+    margin-bottom: 12px;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.card p {
+    color: #666;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+/* --- 6. AJUSTE DE ESPAÇAMENTO PARA ESTATÍSTICAS --- */
+.stats-section {
+    margin-top: 40px; /* Cria o espaço entre os cards e a faixa de números */
+    width: 100%;
+}
+
+/* --- 6. ESTATÍSTICAS --- */
 .stats-banner {
- background: url('../Assets/imagenscachorros.png') center/cover no-repeat;
-    margin-top: 40px;
-    background-size: cover;
+    background-image: url('../Assets/imagenscachorros.png');
+    background-attachment: fixed;
     background-position: center;
-    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
 }
 
 .stats-overlay {
-    background: rgba(0, 0, 0, 0.7); /* transparência */
-    padding: 80px 5%;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 60px 0;
 }
 
 .stats-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.stat-item {
-    color: white;
-    text-align: center;
-}
+.stat-item { text-align: center; color: white; }
+.stat-item h2 { font-size: 48px; font-weight: 800; }
+.unit { color: #FFD700; font-weight: 800; text-transform: uppercase; }
 
-.stat-item h2 {
-    font-size: 40px;
-    color: #2eaeb0;
-}
-
-.unit {
-    color: #ca7e4c;
-    font-size: 12px;
-}
-
-/* --- COMO FUNCIONA --- */
+/* --- 7. COMO FUNCIONA --- */
+/* --- 7. COMO FUNCIONA (INTERATIVO) --- */
 .how-it-works {
     padding: 80px 5%;
     text-align: center;
+    background: linear-gradient(to bottom, #fdfdfd, #f4f9f9); /* Fundo suave */
+}
+
+.how-it-works h2 {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+/* Linha decorativa embaixo do título */
+.how-it-works h2::after {
+    content: '';
+    width: 60px;
+    height: 4px;
+    background: #ca7e4c;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
 }
 
 .steps-grid {
     display: flex;
-    gap: 20px;
-    margin-top: 40px;
+    gap: 30px;
+    justify-content: center;
+    perspective: 1000px; /* Necessário para efeito 3D suave */
 }
 
 .step {
     flex: 1;
     background: white;
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    padding: 40px 20px;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    position: relative;
+    cursor: default;
 }
 
-/* --- AJUDA --- */
+/* Efeito ao passar o mouse no Card */
+.step:hover {
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(46, 174, 176, 0.15);
+    border-color: #2eaeb0;
+}
+
+.icon-box {
+    font-size: 50px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+/* Animação do ícone quando passa o mouse no card */
+.step:hover .icon-box {
+    transform: scale(1.2) rotate(10deg);
+}
+
+.step h4 {
+    font-size: 20px;
+    color: #2eaeb0;
+    margin-bottom: 15px;
+    font-weight: 800;
+}
+
+.step p {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* Número do passo discreto no fundo */
+.step::before {
+    content: counter(step-counter);
+    counter-increment: step-counter;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 40px;
+    font-weight: 800;
+    color: rgba(0, 0, 0, 0.03);
+    font-style: italic;
+}
+
+/* Inicializador do contador */
+.steps-grid {
+    counter-reset: step-counter;
+}
+
+/* --- 8. AJUDA E VÍDEO --- */
 .help-section {
     display: flex;
-    padding: 80px 5%;
+    padding: 60px 5%;
     gap: 40px;
     align-items: center;
+    background: white;
+    margin: 20px 5%;
+    border-radius: 25px;
 }
 
-.help-content {
-    flex: 1;
-}
+.help-content { flex: 1; }
+.video-container { flex: 1; }
+.video-container video { width: 100%; border-radius: 20px; }
 
-.help-content ul {
-    margin: 20px 0;
-}
+/* --- 9. FOOTER --- */
+.main-footer { padding: 40px 5%; background: #fff; border-top: 1px solid #eee; }
+.footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
+.footer-column ul { list-style: none; }
+.footer-column li { color: #777; margin-top: 8px; cursor: pointer; }
 
-.video-container {
-    flex: 1;
-}
-
-.video-container video {
-    width: 100%;
-    border-radius: 15px;
-}
-
-/* --- FOOTER --- */
-.main-footer {
-    padding: 60px 5%;
-    background: #fff;
-    margin-top: 40px;
-}
-
-.footer-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 40px;
-}
-
-.footer-column h4 {
-    margin-bottom: 15px;
-}
-
-.footer-column li {
-    list-style: none;
-    margin-bottom: 8px;
-    color: #666;
-}
-
-/* --- RESPONSIVO --- */
-@media (max-width: 1024px) {
-    .stats-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .slide {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .slide-img {
-        margin-top: 20px;
-    }
-}
-
+/* --- 10. RESPONSIVIDADE --- */
 @media (max-width: 768px) {
-    .highlights,
-    .steps-grid,
-    .help-section {
+    .hero-banner { margin: 10px 5%; aspect-ratio: 4 / 3; }
+    .highlights, .steps-grid, .help-section, .stats-container {
         flex-direction: column;
-    }
-
-    .stats-container {
-        grid-template-columns: 1fr;
+        gap: 20px;
     }
 }
