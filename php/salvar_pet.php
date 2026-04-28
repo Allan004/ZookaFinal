@@ -140,3 +140,75 @@ function atualizar_pet($dados){
         return ['sucesso' => false, 'erros' => ['Erro ao atualizar pet no banco de dados']];
     }
 }
+
+function criar_pet($dados) {
+    $erros = validarDadosPet($dados);
+    if (!empty($erros)) {
+        return ['sucesso' => false, 'erros' => $erros];
+    }
+
+    $pdo = conectar();
+
+    $tipoIdade = strtoupper(trim($dados['tipoIdade'] ?? ''));
+    $idadeaprox = $dados['idadeaprox'] !== '' ? (int)$dados['idadeaprox'] : null;
+    $nascimento = trim($dados['nascimento'] ?? '');
+    
+    if ($tipoIdade === 'APROXIMADA') {
+        $nascimento = null;
+    } else {
+        $idadeaprox = null;
+    }
+
+    $sql = "
+        INSERT INTO pet (
+            nome,
+            nascimento,
+            tipoIdade,
+            idadeaprox,
+            especie,
+            raca,
+            observacao,
+            id_cliente,
+            created_at,
+            updated_at
+        ) VALUES (
+            :nome,
+            :nascimento,
+            :tipoIdade,
+            :idadeaprox,
+            :especie,
+            :raca,
+            :observacao,
+            :id_cliente,
+            NOW(),
+            NOW()
+        )
+    ";
+
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->bindValue(':nome', $dados['nome']);
+    if ($nascimento === null) {
+        $stmt->bindValue(':nascimento', null, PDO::PARAM_NULL);
+    } else {
+        $stmt->bindValue(':nascimento', $nascimento);
+    }
+    $stmt->bindValue(':tipoIdade', $tipoIdade);
+    if ($idadeaprox === null) {
+        $stmt->bindValue(':idadeaprox', null, PDO::PARAM_NULL);
+    } else {
+        $stmt->bindValue(':idadeaprox', $idadeaprox, PDO::PARAM_INT);
+    }
+    $stmt->bindValue(':especie', $dados['especie']);
+    $stmt->bindValue(':raca', $dados['raca']);
+    $stmt->bindValue(':observacao', $dados['observacao'] ?? null);
+    $stmt->bindValue(':id_cliente', null, PDO::PARAM_NULL);
+
+    try {
+        $stmt->execute();
+        return ['sucesso' => true, 'erros' => [], 'id' => $pdo->lastInsertId()];
+    } catch (PDOException $e) {
+        error_log($e->getMessage());
+        return ['sucesso' => false, 'erros' => ['Erro ao criar pet no banco de dados']];
+    }
+}

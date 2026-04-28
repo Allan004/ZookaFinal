@@ -462,7 +462,7 @@ body {
 
 .product-image img {
     max-width: 100%;
-    height: auto;
+    height: 200px;
 }
 
 /* Selo de Desconto */

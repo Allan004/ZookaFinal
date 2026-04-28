@@ -14,25 +14,40 @@ if (isset($_POST['logout'])) {
 
 $logado = usuario_logado();
 $modalAberto = null;
+$modoCriarCliente = false;
+$modoCriarPet = false;
 $erros = [];
 $dados_formulario = [];
+$consulta_cliente = [null, '', '', '', '', '', '', '', '', '', '', ''];
+$consulta_pet = [null, '', '', '', '', '', '', ''];
 
-/* EDITAR PET */
+
 if (isset($_GET['editar_pet']) && isset($_GET['id_pet_editar'])) {
     $modalAberto = "pet";
     $consulta_pet = abrir_pet((int)$_GET['id_pet_editar']);
 }
 
-/* EDITAR CLIENTE */
+
 if (isset($_GET['editar_cliente']) && isset($_GET['id_cliente_editar'])) {
     $modalAberto = "cliente";
     $consulta_cliente = abrir_cliente((int)$_GET['id_cliente_editar']);
 }
 
-/* SALVAR CLIENTE */
+
+if (isset($_GET['novo_cliente'])) {
+    $modalAberto = "cliente";
+    $modoCriarCliente = true;
+}
+
+
+if (isset($_GET['novo_pet'])) {
+    $modalAberto = "pet";
+    $modoCriarPet = true;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_c'])) {
     $dados = [
-        'id'         => $_POST['id_cliente'],
+        'id'         => $_POST['id_cliente'] ?? null,
         'nome'       => trim($_POST['nome']),
         'telefone'   => trim($_POST['telefone']),
         'email'      => trim($_POST['email']),
@@ -46,26 +61,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_c'])) {
         'cep'        => trim($_POST['cep'])
     ];
     
-    $resultado = atualizar_cliente($dados);
-    
+$modoCriarCliente = empty($dados['id']);
+    $modalAberto = 'cliente';
+
+    if ($modoCriarCliente) {
+        $resultado = criar_cliente($dados);
+    } else {
+        $resultado = atualizar_cliente($dados);
+    }
+
     if ($resultado['sucesso']) {
-        $_SESSION['sucesso'] = "Cliente atualizado com sucesso!";
+        $_SESSION['sucesso'] = $modoCriarCliente ? "Cliente criado com sucesso!" : "Cliente atualizado com sucesso!";
         $_SESSION['tipo_sucesso'] = "cliente";
         header("Location: clientes_e_pets.php");
         exit;
     } else {
-        $modalAberto = "cliente";
         $erros = $resultado['erros'];
         $dados_formulario = $dados;
-        // Carregar dados do cliente para pre-preencher o formulário
-        $consulta_cliente = abrir_cliente((int)$dados['id']);
+        if (!$modoCriarCliente && !empty($dados['id'])) {
+            $consulta_cliente = abrir_cliente((int)$dados['id']);
+        } else {
+            $consulta_cliente = [null, $dados['nome'], $dados['telefone'], $dados['email'], $dados['cpf'], $dados['nascimento'], $dados['rua'], $dados['numero'], $dados['bairro'], $dados['cidade'], $dados['estado'], $dados['cep']];
+        }
     }
 }
 
 /* SALVAR PET */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_p'])) {
     $dados = [
-        'id_pet'      => $_POST['id_pet'],
+        'id_pet'      => $_POST['id_pet'] ?? null,
         'nome'        => trim($_POST['nome']),
         'nascimento'  => $_POST['nascimento'] ?: null,
         'tipoIdade'   => $_POST['tipoIdade'],
@@ -75,19 +99,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_p'])) {
         'observacao'  => trim($_POST['observacao'] ?? '')
     ];
     
-    $resultado = atualizar_pet($dados);
+    $modoCriarPet = empty($dados['id_pet']);
+    $modalAberto = 'pet';
+
+    if ($modoCriarPet) {
+        $resultado = criar_pet($dados);
+    } else {
+        $resultado = atualizar_pet($dados);
+    }
     
     if ($resultado['sucesso']) {
-        $_SESSION['sucesso'] = "Pet atualizado com sucesso!";
+        $_SESSION['sucesso'] = $modoCriarPet ? "Pet criado com sucesso!" : "Pet atualizado com sucesso!";
         $_SESSION['tipo_sucesso'] = "pet";
         header("Location: clientes_e_pets.php");
         exit;
     } else {
-        $modalAberto = "pet";
         $erros = $resultado['erros'];
         $dados_formulario = $dados;
-        // Carregar dados do pet para pre-preencher o formulário
-        $consulta_pet = abrir_pet((int)$dados['id_pet']);
+        if (!$modoCriarPet && !empty($dados['id_pet'])) {
+            $consulta_pet = abrir_pet((int)$dados['id_pet']);
+        } else {
+            $consulta_pet = [null, $dados['nome'], $dados['nascimento'], $dados['tipoIdade'], $dados['idadeaprox'], $dados['especie'], '', $dados['raca'], $dados['observacao']];
+        }
     }
 }
 
@@ -102,6 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_p'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Zooka - Dashboard Essencial</title>
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
     
@@ -124,14 +158,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_p'])) {
   </header>
 
   <main class="layout">
-     <nav>
-      <a class="nav-item" href="../index.php"><span>🏠</span> Início</a>
-      <a class="nav-item active" href="clientes_e_pets.php"><span>🐕</span> Clientes & Pets</a>
-      <a class="nav-item" href="agendamento.php"><span>📅</span> Agendamento</a>
-      <a class="nav-item" href="servicos.php"><span>✂️</span> Serviços</a>
-      <a class="nav-item" href="produtos.php"><span>🛍️</span> Produtos</a>
-      <a class="nav-item" href="estoque.php"><span>📦</span> Estoque</a>
-      <a class="nav-item" href="caixa.php"><span>💰</span> Caixa</a>
+    <nav>
+      <a class="nav-item " href="../index.php"><span><i class="fa-solid fa-house"></i></span> Início</a>
+      <a class="nav-item active" href="clientes_e_pets.php"><span><i class="fa-solid fa-dog"></i></span> Clientes & Pets</a>
+      <a class="nav-item" href="agendamento.php"><span><i class="fa-solid fa-calendar"></i></span> Agendamento</a>
+      <a class="nav-item" href="servicos.php"><span><i class="fa-solid fa-scissors"></i></span> Serviços</a>
+      <a class="nav-item" href="produtos.php"><span><i class="fa-solid fa-bag-shopping"></i></span> Produtos</a>
+      <a class="nav-item" href="estoque.php"><span><i class="fa-solid fa-boxes-stacked"></i></span> Estoque</a>
+      <a class="nav-item" href="caixa.php"><span><i class="fa-solid fa-money-bill"></i></span> Caixa</a>
+  
     </nav>
 
     <section class="content2">
@@ -149,11 +184,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_p'])) {
 
       <div class="cards2">
         <div class="card2">
-          <h4>Pesquisar Cliente</h4>
+          <div class="card2-header">
+            <h4 class="card2-title">Pesquisar Cliente</h4>
+            <a href="clientes_e_pets.php?novo_cliente=1" class="btn btn-sm">Novo cliente</a>
+          </div>
           <div class="value"><input type="text" id="buscaCliente"></div>
         </div>
         <div class="card2">
-          <h4>Pesquisar Pet</h4>
+          <div class="card2-header">
+            <h4 class="card2-title">Pesquisar Pet</h4>
+            <a href="clientes_e_pets.php?novo_pet=1" class="btn btn-sm">Novo pet</a>
+          </div>
           <div class="value"><input type="text" id="buscaPet"></div>
         </div>
       </div>
@@ -216,7 +257,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_p'])) {
             <div class="logo-modal" ><img src="../Assets/logo_ico.png" alt=""></div>
             <div>
                 <strong>Zooka</strong>
-                <div class="muted">Editar conta</div>
+                <div class="muted"><?= $modoCriarCliente ? 'Novo cliente' : 'Editar conta' ?></div>
             </div>
             </div>
            <div class="esquerdo">
@@ -224,7 +265,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_p'])) {
                 </div>
         </div>
 
-        <h2>Editar usuário</h2>
+        <h2><?= $modoCriarCliente ? 'Criar cliente' : 'Editar usuário' ?></h2>
         
         <?php if (!empty($erros) && $modalAberto === "cliente"): ?>
             <div class="message-error">
@@ -241,65 +282,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_p'])) {
         <div class="editar-cliente-direito">
         <div class="field">
             <label>Nome</label>
-            <input type="text" value="<?php echo htmlspecialchars($dados_formulario['nome'] ?? $consulta_cliente[1]); ?>" name="nome" required>
+            <input type="text" value="<?php echo htmlspecialchars($dados_formulario['nome'] ?? ($consulta_cliente[1] ?? '')); ?>" name="nome" required>
         </div>
 
         <div class="field">
             <label>Telefone</label>
-            <input type="text" value="<?php echo htmlspecialchars($dados_formulario['telefone'] ?? $consulta_cliente[2]); ?>" name="telefone" required>
+            <input type="text" value="<?php echo htmlspecialchars($dados_formulario['telefone'] ?? ($consulta_cliente[2] ?? '')); ?>" name="telefone" required>
         </div>
 
         <div class="field">
             <label>Email</label>
-            <input type="email" value="<?php echo htmlspecialchars($dados_formulario['email'] ?? $consulta_cliente[3]); ?>" name="email" required>
+            <input type="email" value="<?php echo htmlspecialchars($dados_formulario['email'] ?? ($consulta_cliente[3] ?? '')); ?>" name="email" required>
         </div>
 
         <div class="field">
             <label>CPF</label>
-            <input type="text" value="<?php echo htmlspecialchars($dados_formulario['cpf'] ?? $consulta_cliente[4]); ?>" name="cpf" required>
+            <input type="text" value="<?php echo htmlspecialchars($dados_formulario['cpf'] ?? ($consulta_cliente[4] ?? '')); ?>" name="cpf" required>
         </div>
 
         <div class="field">
             <label>Nascimento</label>
-            <input type="text" value="<?php echo htmlspecialchars($dados_formulario['nascimento'] ?? $consulta_cliente[5]); ?>" name="nascimento" required>
+            <input type="text" value="<?php echo htmlspecialchars($dados_formulario['nascimento'] ?? ($consulta_cliente[5] ?? '')); ?>" name="nascimento" required>
         </div>
 
          <div class="field">
             <label>CEP</label>
-            <input type="text" value="<?php echo htmlspecialchars($dados_formulario['cep'] ?? $consulta_cliente[11]); ?>" name="cep" required>
+            <input type="text" value="<?php echo htmlspecialchars($dados_formulario['cep'] ?? ($consulta_cliente[11] ?? '')); ?>" name="cep" required>
         </div>
         </div>
         <div class="editar-cliente-direito">
 
         <div class="field">
             <label>Rua</label>
-            <input type="text" value="<?php echo htmlspecialchars($dados_formulario['rua'] ?? $consulta_cliente[6]); ?>" name="rua" required>
+            <input type="text" value="<?php echo htmlspecialchars($dados_formulario['rua'] ?? ($consulta_cliente[6] ?? '')); ?>" name="rua" required>
         </div>
 
         <div class="field">
             <label>Numero</label>
-            <input type="text" value="<?php echo htmlspecialchars($dados_formulario['numero'] ?? $consulta_cliente[7]); ?>" name="numero" required>
+            <input type="text" value="<?php echo htmlspecialchars($dados_formulario['numero'] ?? ($consulta_cliente[7] ?? '')); ?>" name="numero" required>
         </div>
 
         <div class="field">
             <label>Bairro</label>
-            <input type="text" value="<?php echo htmlspecialchars($dados_formulario['bairro'] ?? $consulta_cliente[8]); ?>" name="bairro" required>
+            <input type="text" value="<?php echo htmlspecialchars($dados_formulario['bairro'] ?? ($consulta_cliente[8] ?? '')); ?>" name="bairro" required>
         </div>
 
         <div class="field">
             <label>Cidade</label>
-            <input type="text" value="<?php echo htmlspecialchars($dados_formulario['cidade'] ?? $consulta_cliente[9]); ?>" name="cidade" required>
+            <input type="text" value="<?php echo htmlspecialchars($dados_formulario['cidade'] ?? ($consulta_cliente[9] ?? '')); ?>" name="cidade" required>
         </div>
 
          <div class="field">
             <label>Estado</label>
-            <input type="text" value="<?php echo htmlspecialchars($dados_formulario['estado'] ?? $consulta_cliente[10]); ?>" name="estado" required>
+            <input type="text" value="<?php echo htmlspecialchars($dados_formulario['estado'] ?? ($consulta_cliente[10] ?? '')); ?>" name="estado" required>
         </div>
         <div class="editar-cliente-direito">
         </div>
-        <input type="hidden" name="id_cliente" value="<?= $consulta_cliente[0]; ?>">
+        <input type="hidden" name="id_cliente" value="<?php echo htmlspecialchars($consulta_cliente[0] ?? ''); ?>">
 
-        <button class="btn btn-block" name='salvar_c'> Editar conta</button>
+        <button class="btn btn-block" name='salvar_c'> <?= $modoCriarCliente ? 'Criar cliente' : 'Editar conta' ?></button>
 
     </form>
 </div>
@@ -322,7 +363,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_p'])) {
                 </div>
         </div>
 
-        <h2>Editar usuário</h2>
+        <h2><?= $modoCriarPet ? 'Criar pet' : 'Editar pet' ?></h2>
         
         <?php if (!empty($erros) && $modalAberto === "pet"): ?>
             <div class="message-error">
@@ -338,40 +379,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_p'])) {
         <div class="editar-cliente-container">
         <div class="editar-cliente-direito">
 
-<input type="hidden" name="id_pet" value="<?= $consulta_pet[0]; ?>">
+<input type="hidden" name="id_pet" value="<?php echo htmlspecialchars($consulta_pet[0] ?? ''); ?>">
 
 <div class="field">
   <label>Nome</label>
-  <input type="text" name="nome" value="<?php echo htmlspecialchars($dados_formulario['nome'] ?? $consulta_pet[1]); ?>">
+  <input type="text" name="nome" value="<?php echo htmlspecialchars($dados_formulario['nome'] ?? ($consulta_pet[1] ?? '')); ?>">
 </div>
 
 <div class="field">
   <label>Nascimento</label>
-  <input type="date" name="nascimento" value="<?php echo htmlspecialchars($dados_formulario['nascimento'] ?? $consulta_pet[2]); ?>">
+  <input type="date" name="nascimento" value="<?php echo htmlspecialchars($dados_formulario['nascimento'] ?? ($consulta_pet[2] ?? '')); ?>">
 </div>
 
 <div class="field">
   <label>Tipo Idade</label>
   <select name="tipoIdade">
-    <option value="EXATA" <?= strtoupper($dados_formulario['tipoIdade'] ?? $consulta_pet[3] ?? '') === 'EXATA' ? 'selected' : '' ?>>Exata</option>
-    <option value="APROXIMADA" <?= strtoupper($dados_formulario['tipoIdade'] ?? $consulta_pet[3] ?? '') === 'APROXIMADA' ? 'selected' : '' ?>>Aproximada</option>
+    <option value="EXATA" <?= strtoupper($dados_formulario['tipoIdade'] ?? ($consulta_pet[3] ?? '')) === 'EXATA' ? 'selected' : '' ?>>Exata</option>
+    <option value="APROXIMADA" <?= strtoupper($dados_formulario['tipoIdade'] ?? ($consulta_pet[3] ?? '')) === 'APROXIMADA' ? 'selected' : '' ?>>Aproximada</option>
   </select>
 </div>
 
 <div class="field">
   <label>Idade aproximada</label>
-  <input type="number" name="idadeaprox" value="<?php echo htmlspecialchars($dados_formulario['idadeaprox'] ?? $consulta_pet[4]); ?>">
+  <input type="number" name="idadeaprox" value="<?php echo htmlspecialchars($dados_formulario['idadeaprox'] ?? ($consulta_pet[4] ?? '')); ?>">
 </div>
 </div>
 <div class="editar-cliente-esquerdo">
 <div class="field">
   <label>Espécie</label>
-  <input type="text" name="especie" value="<?php echo htmlspecialchars($dados_formulario['especie'] ?? $consulta_pet[5]); ?>">
+  <input type="text" name="especie" value="<?php echo htmlspecialchars($dados_formulario['especie'] ?? ($consulta_pet[5] ?? '')); ?>">
 </div>
 
 <div class="field">
   <label>Raça</label>
-  <input type="text" name="raca" value="<?php echo htmlspecialchars($dados_formulario['raca'] ?? $consulta_pet[7]); ?>">
+  <input type="text" name="raca" value="<?php echo htmlspecialchars($dados_formulario['raca'] ?? ($consulta_pet[7] ?? '')); ?>">
 </div>
 
 <div class="field">
@@ -380,7 +421,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_p'])) {
 </div>
 
 
-<button class="btn btn-block" name="salvar_p">Salvar</button>
+<button class="btn btn-block" name="salvar_p"><?= $modoCriarPet ? 'Criar pet' : 'Salvar' ?></button>
 </div>
 
 </form>

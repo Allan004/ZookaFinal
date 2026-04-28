@@ -1,0 +1,17 @@
+<?php
+
+    require_once 'conexao.php';
+
+    function produtos_web(){
+    $pdo=conectar();
+    $sql="SELECT * FROM produto";
+    $stmt=$pdo->prepare($sql);
+    $stmt->execute();
+    $resultado=$stmt-> fetchAll(PDO::FETCH_ASSOC);
+    return $resultado;
+    }
+
+
+
+
+?>

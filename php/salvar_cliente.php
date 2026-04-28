@@ -195,4 +195,66 @@ function atualizar_cliente($dados){
         error_log($e->getMessage());
         return ['sucesso' => false, 'erros' => ['Erro ao atualizar cliente no banco de dados']];
     }
-};
+}
+
+function criar_cliente($dados) {
+    $erros = validarDadosCliente($dados);
+    if (!empty($erros)) {
+        return ['sucesso' => false, 'erros' => $erros];
+    }
+
+    $pdo = conectar();
+
+    $sql = "
+        INSERT INTO cliente (
+            nome,
+            telefone,
+            email,
+            cpf,
+            nascimento,
+            rua,
+            numero,
+            bairro,
+            cidade,
+            estado,
+            cep,
+            created_at,
+            updated_at
+        ) VALUES (
+            :nome,
+            :telefone,
+            :email,
+            :cpf,
+            :nascimento,
+            :rua,
+            :numero,
+            :bairro,
+            :cidade,
+            :estado,
+            :cep,
+            NOW(),
+            NOW()
+        )
+    ";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':nome',      $dados['nome']);
+    $stmt->bindValue(':telefone',  preg_replace('/[^0-9]/', '', $dados['telefone']));
+    $stmt->bindValue(':email',     strtolower($dados['email']));
+    $stmt->bindValue(':cpf',       preg_replace('/[^0-9]/', '', $dados['cpf']));
+    $stmt->bindValue(':nascimento',$dados['nascimento']);
+    $stmt->bindValue(':rua',       $dados['rua']);
+    $stmt->bindValue(':numero',    $dados['numero']);
+    $stmt->bindValue(':bairro',    $dados['bairro']);
+    $stmt->bindValue(':cidade',    $dados['cidade']);
+    $stmt->bindValue(':estado',    strtoupper($dados['estado']));
+    $stmt->bindValue(':cep',       preg_replace('/[^0-9]/', '', $dados['cep']));
+
+    try {
+        $stmt->execute();
+        return ['sucesso' => true, 'erros' => [], 'id' => $pdo->lastInsertId()];
+    } catch (PDOException $e) {
+        error_log($e->getMessage());
+        return ['sucesso' => false, 'erros' => ['Erro ao criar cliente no banco de dados']];
+    }
+}
