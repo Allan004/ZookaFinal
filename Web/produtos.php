@@ -1,3 +1,13 @@
+<?php 
+
+include "../php/buscar_produtos_web";
+
+
+$produtos=produtos_web();
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -248,32 +258,31 @@
                 <h2>Mais comprados em Gato</h2>
                 
                 <div class="products-grid">
-                    <div class="product-card">
+                    <?php 
+                    
+                    foreach($produtos as $produto){
+
+                        echo '<div class="product-card">
                         <div class="product-image">
                             <span class="badge-off">15% OFF</span>
-                            <img src="https://via.placeholder.com/180" alt="Produto">
+                            <img src="assets/imagens_produtos/'.$produto["id"].'.jpg" alt="Produto">
                             <button class="add-cart">+</button>
                         </div>
                         <div class="product-info">
-                            <p class="product-name">Areia Higiênica Viva Verde Grãos Finos para Gatos</p>
-                            <p class="old-price">A partir de R$ 69,90</p>
-                            <p class="price">R$ 62,91 <span class="sync-icon">🔄</span></p>
+                            <p class="product-name">'.$produto['nome'].'</p>
+                            <p class="old-price">A partir de '.$produto['preco'].'</p>
+                            <p class="price">'.$produto['preco']*0.9.'<span class="sync-icon">🔄</span></p>
                             <p class="subscriber-price">para assinantes</p>
                         </div>
-                    </div>
+                    </div>';
 
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="https://via.placeholder.com/180" alt="Produto">
-                            <button class="add-cart">+</button>
-                        </div>
-                        <div class="product-info">
-                            <p class="product-name">Purê Churu Atum e Salmão para Gatos 56g</p>
-                            <p class="price-only">R$ 24,99</p>
-                            <p class="price">R$ 22,49 <span class="sync-icon">🔄</span></p>
-                            <p class="subscriber-price">para assinantes</p>
-                        </div>
-                    </div>
+
+                    };
+                    
+
+                    
+                    
+                    ?>
 
                     </div>
             </section>

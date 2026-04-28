@@ -26,7 +26,7 @@ function buscar_produto_por_codigo($codigo) {
         return false;
     }
 
-    $sql = "SELECT * FROM produto WHERE id = :codigo";
+    $sql = "SELECT * FROM produto WHERE codigo_produto = :codigo";
     $params = [':codigo' => $codigo];
 
     $colunas = $pdo->query("SHOW COLUMNS FROM produto")->fetchAll(PDO::FETCH_COLUMN);
@@ -38,7 +38,7 @@ function buscar_produto_por_codigo($codigo) {
         foreach ($camposEncontrados as $campo) {
             $camposExtras[] = "$campo = :codigo";
         }
-        $sql = "SELECT * FROM produto WHERE id = :codigo OR " . implode(' OR ', $camposExtras) . " LIMIT 1";
+        $sql = "SELECT * FROM produto WHERE codigo_produto = :codigo OR " . implode(' OR ', $camposExtras) . " LIMIT 1";
     } else {
         $sql .= " LIMIT 1";
     }
