@@ -194,7 +194,7 @@ session_start();
         <ul class="submenu">
             <li><a href="#">Planos</a></li>
         </ul>
-    </li>
+    </li> 
  
     <!-- ADOÇÃO -->
     <li>
