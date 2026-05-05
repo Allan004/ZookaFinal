@@ -324,7 +324,7 @@ session_start();
         <div class="video-overlay">
             <h2>Momentos que Marcam</h2>
             <p>Conheça nossa nova linha de bem-estar animal com extratos naturais.</p>
-            <a href="#" class="btn-secondary">eu quero</a>
+            
         </div>
     </div>
 </section>
