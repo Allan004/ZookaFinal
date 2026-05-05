@@ -480,7 +480,7 @@ body {
  
 .btn-primary:hover { transform: scale(1.05); }
  
-/* --- VITRINE DE PRODUTOS (IGUAL AO PRINT DA NATURA) --- */
+/* --- VITRINE DE PRODUTOS  --- */
 .product-shelf {
     padding: 60px 5%;
     max-width: 1400px;
@@ -494,30 +494,43 @@ body {
     font-weight: 600;
 }
  
+/* O PAI: Garante a linha única e o scroll */
 .shelf-container {
-    display: grid;
-    /* Ajustado para garantir que os cards mantenham um tamanho bom no grid */
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
-    gap: 20px;
+    display: flex !important;       /* Força a ficar lado a lado */
+    flex-direction: row !important; /* Garante que é uma linha */
+    flex-wrap: nowrap !important;   /* IMPEDE de quebrar para baixo */
+    
+    overflow-x: auto;               /* Ativa o scroll horizontal */
+    gap: 20px;                      /* Espaço entre os cards */
+    padding: 20px;
+    
+    /* Melhora o deslize */
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
 }
 
+/* O FILHO: Garante que ele tenha um tamanho fixo */
 .product-card {
-    padding: 15px;
-    background: #fff; /* Garante fundo branco */
-    border: 1px solid #eee; /* Uma borda leve para separar os cards */
-    border-radius: 12px;
-    transition: 0.3s;
+    /* flex: grow | shrink | basis */
+    /* O '0' no meio é o mais importante: impede de esmagar */
+    flex: 0 0 260px !important;     
     
-    /* Faz o card ser um flexbox vertical para alinhar o conteúdo */
+    scroll-snap-align: start;       /* Faz o card "parar" no lugar certo */
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 15px;
+    
+    /* Mantém o alinhamento interno */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-.product-card:hover {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+/* Esconde a barra de rolagem para um visual limpo */
+.shelf-container::-webkit-scrollbar {
+    display: none;
 }
-
 .product-image {
     position: relative;
     background: #f9f9f9;
