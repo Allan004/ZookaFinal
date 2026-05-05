@@ -53,19 +53,22 @@ function initCounters() {
 
 
 // =============================
-// 🎠 CARROSSEL
+// Carousel
 // =============================
 
 let slideIndex = 0;
 let slides = [];
 let dots = [];
+let carrosselTimer; // Variável para controlar o tempo
 
 function mostrarSlide(n) {
     slides.forEach(s => s.classList.remove("active"));
     dots.forEach(d => d.classList.remove("active"));
 
-    slides[n].classList.add("active");
-    dots[n].classList.add("active");
+    if (slides[n]) slides[n].classList.add("active");
+    if (dots[n]) dots[n].classList.add("active");
+    
+    resetTimer(); // Reinicia o tempo sempre que mudar de slide
 }
 
 function proximoSlide() {
@@ -74,26 +77,35 @@ function proximoSlide() {
     mostrarSlide(slideIndex);
 }
 
+function voltarSlide() {
+    slideIndex--;
+    if (slideIndex < 0) slideIndex = slides.length - 1;
+    mostrarSlide(slideIndex);
+}
+
 function irParaSlide(n) {
     slideIndex = n;
     mostrarSlide(slideIndex);
+}
+
+// Função para resetar o tempo (evita que o slide mude logo após o clique manual)
+function resetTimer() {
+    clearInterval(carrosselTimer);
+    carrosselTimer = setInterval(proximoSlide, 6000); // 8 segundos para ficar bem lento
 }
 
 function iniciarCarrossel() {
     slides = document.querySelectorAll(".slide");
     dots = document.querySelectorAll(".dot");
 
-    if (slides.length === 0) return; // evita erro se não tiver carrossel
+    if (slides.length === 0) return;
 
+    // Configuração dos botões
     document.querySelector(".next")?.addEventListener("click", proximoSlide);
+    document.querySelector(".prev")?.addEventListener("click", voltarSlide);
 
-    document.querySelector(".prev")?.addEventListener("click", () => {
-        slideIndex--;
-        if (slideIndex < 0) slideIndex = slides.length - 1;
-        mostrarSlide(slideIndex);
-    });
-
-    setInterval(proximoSlide, 4000);
+    // Inicia o contador automático
+    resetTimer();
 }
 
 
@@ -106,7 +118,6 @@ function init() {
     iniciarCarrossel();
 }
 
-// roda quando o DOM estiver pronto
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
 } else {

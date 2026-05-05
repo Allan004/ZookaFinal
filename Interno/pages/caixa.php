@@ -37,6 +37,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    if (isset($_POST['acao']) && $_POST['acao'] === 'adicionar_produto_codigo') {
+        $codigo_produto = trim($_POST['codigo_produto'] ?? '');
+        $produto = buscar_produto_por_codigo($codigo_produto);
+        $quantidade = 1;
+
+        if (empty($codigo_produto)) {
+            $mensagens[] = 'Informe o código do produto.';
+        } elseif (!$produto) {
+            $mensagens[] = 'Produto não encontrado para o código informado.';
+        } elseif ($quantidade > (int)$produto['estoque']) {
+            $mensagens[] = 'Não há estoque suficiente para este produto.';
+        } else {
+            adicionar_item_venda_sessao([
+                'tipo' => 'produto',
+                'id_produto' => $produto['id'],
+                'nome' => $produto['nome'],
+                'quantidade' => $quantidade,
+                'preco' => $produto['preco'],
+            ]);
+            header('Location: caixa.php?sucesso=produto');
+            exit;
+        }
+    }
+
     if (isset($_POST['acao']) && $_POST['acao'] === 'adicionar_servico') {
         $id_servico = (int)($_POST['id_servico'] ?? 0);
         $quantidade = max(1, (int)($_POST['quantidade'] ?? 1));
@@ -99,6 +123,7 @@ foreach ($carrinho as $item) {
 <meta charset="UTF-8">
 <title>Caixa • Zooka</title>
 <link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
 
@@ -116,14 +141,15 @@ foreach ($carrinho as $item) {
 
 <main class="layout">
 
- <nav>
-      <a class="nav-item" href="../index.php"><span>🏠</span> Início</a>
-      <a class="nav-item" href="clientes_e_pets.php"><span>🐕</span> Clientes & Pets</a>
-      <a class="nav-item" href="agendamento.php"><span>📅</span> Agendamento</a>
-      <a class="nav-item" href="servicos.php"><span>✂️</span> Serviços</a>
-      <a class="nav-item" href="produtos.php"><span>🛍️</span> Produtos</a>
-      <a class="nav-item" href="estoque.php"><span>📦</span> Estoque</a>
-      <a class="nav-item active" href="caixa.php"><span>💰</span> Caixa</a>
+<nav>
+      <a class="nav-item " href="../index.php"><span><i class="fa-solid fa-house"></i></span> Início</a>
+      <a class="nav-item" href="clientes_e_pets.php"><span><i class="fa-solid fa-dog"></i></span> Clientes & Pets</a>
+      <a class="nav-item" href="agendamento.php"><span><i class="fa-solid fa-calendar"></i></span> Agendamento</a>
+      <a class="nav-item" href="servicos.php"><span><i class="fa-solid fa-scissors"></i></span> Serviços</a>
+      <a class="nav-item" href="produtos.php"><span><i class="fa-solid fa-bag-shopping"></i></span> Produtos</a>
+      <a class="nav-item" href="estoque.php"><span><i class="fa-solid fa-boxes-stacked"></i></span> Estoque</a>
+      <a class="nav-item active" href="caixa.php"><span><i class="fa-solid fa-money-bill"></i></span> Caixa</a>
+  
     </nav>
 
 <section class="content">
@@ -158,6 +184,18 @@ foreach ($carrinho as $item) {
     <input type="number" name="quantidade" value="1" min="1" required>
   </div>
   <button class="btn btn-block" type="submit">Adicionar produto</button>
+</form>
+</div>
+
+<div class="card">
+<h4>Adicionar por código</h4>
+<form method="post" id="scannerCodigoForm">
+  <input type="hidden" name="acao" value="adicionar_produto_codigo">
+  <div class="field">
+    <label>Código do produto</label>
+    <input type="text" name="codigo_produto" id="codigoProdutoScanner" autocomplete="off" autofocus required>
+  </div>
+  <button class="btn btn-block" type="submit">Adicionar</button>
 </form>
 </div>
 

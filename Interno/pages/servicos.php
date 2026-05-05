@@ -54,6 +54,7 @@ $servicos = buscar_servicos();
   <meta charset="UTF-8">
   <title>Serviços • Zooka</title>
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
 
@@ -74,13 +75,14 @@ $servicos = buscar_servicos();
 
 <main class="layout">
     <nav>
-      <a class="nav-item " href="../index.php"><span>🏠</span> Início</a>
-      <a class="nav-item" href="clientes_e_pets.php"><span>🐕</span> Clientes & Pets</a>
-      <a class="nav-item" href="agendamento.php"><span>📅</span> Agendamento</a>
-      <a class="nav-item active" href="servicos.php"><span>✂️</span> Serviços</a>
-      <a class="nav-item" href="produtos.php"><span>🛍️</span> Produtos</a>
-      <a class="nav-item" href="estoque.php"><span>📦</span> Estoque</a>
-      <a class="nav-item" href="caixa.php"><span>💰</span> Caixa</a>
+      <a class="nav-item " href="../index.php"><span><i class="fa-solid fa-house"></i></span> Início</a>
+      <a class="nav-item" href="clientes_e_pets.php"><span><i class="fa-solid fa-dog"></i></span> Clientes & Pets</a>
+      <a class="nav-item" href="agendamento.php"><span><i class="fa-solid fa-calendar"></i></span> Agendamento</a>
+      <a class="nav-item active" href="servicos.php"><span><i class="fa-solid fa-scissors"></i></span> Serviços</a>
+      <a class="nav-item " href="produtos.php"><span><i class="fa-solid fa-bag-shopping"></i></span> Produtos</a>
+      <a class="nav-item " href="estoque.php"><span><i class="fa-solid fa-boxes-stacked"></i></span> Estoque</a>
+      <a class="nav-item" href="caixa.php"><span><i class="fa-solid fa-money-bill"></i></span> Caixa</a>
+  
     </nav>
 
   <section class="content">

@@ -112,7 +112,7 @@ function listar_ultimos_clientes(){
                     INNER JOIN pet p on a.id_pet = p.id
                     INNER JOIN cliente c on a.id_servico = c.id
                     WHERE a.dataagendamento <= CURDATE() AND LOWER(a.statusagendamento)='concluido'
-                    ORDER BY a.hora asc"
+                            ORDER BY a.hora asc"
                     ;
         $total=$pdo->query($comando);
         return $total;

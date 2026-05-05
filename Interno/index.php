@@ -19,6 +19,7 @@ $logado = usuario_logado();
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Zooka - Dashboard Essencial</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
     <?php
@@ -51,13 +52,13 @@ $logado = usuario_logado();
 
   <main class="layout">
     <nav>
-      <a class="nav-item active" href="index.php"><span>🏠</span> Início</a>
-      <a class="nav-item" href="pages/clientes_e_pets.php"><span>🐕</span> Clientes & Pets</a>
-      <a class="nav-item" href="pages/agendamento.php"><span>📅</span> Agendamento</a>
-      <a class="nav-item" href="pages/servicos.php"><span>✂️</span> Serviços</a>
-      <a class="nav-item" href="pages/produto.php"><span>🛍️</span> Produtos</a>
-      <a class="nav-item" href="pages/estoque.php"><span>📦</span> Estoque</a>
-      <a class="nav-item" href="pages/caixa.php"><span>💰</span> Caixa</a>
+      <a class="nav-item active" href="index.php"><span><i class="fa-solid fa-house"></i></span> Início</a>
+      <a class="nav-item" href="pages/clientes_e_pets.php"><span><i class="fa-solid fa-dog"></i></span> Clientes & Pets</a>
+      <a class="nav-item" href="pages/agendamento.php"><span><i class="fa-solid fa-calendar"></i></span> Agendamento</a>
+      <a class="nav-item" href="pages/servicos.php"><span><i class="fa-solid fa-scissors"></i></span> Serviços</a>
+      <a class="nav-item" href="pages/produtos.php"><span><i class="fa-solid fa-bag-shopping"></i></span> Produtos</a>
+      <a class="nav-item" href="pages/estoque.php"><span><i class="fa-solid fa-boxes-stacked"></i></span> Estoque</a>
+      <a class="nav-item" href="pages/caixa.php"><span><i class="fa-solid fa-money-bill"></i></span> Caixa</a>
     </nav>
 
     <section class="content">
