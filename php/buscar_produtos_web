@@ -2,16 +2,23 @@
 
     require_once 'conexao.php';
 
-    function produtos_web(){
+    function produtos_web($nome,$filtro){
     $pdo=conectar();
-    $sql="SELECT * FROM produto";
-    $stmt=$pdo->prepare($sql);
+    $sql="SELECT * FROM produto WHERE nome LIKE :termo1 OR filtros_produto LIKE :termo2";
+    $stmt = $pdo->prepare($sql);
+    $like1 = "%$nome%";
+    $like2 = "%$filtro%";
+    $stmt->bindParam(':termo1', $like1);
+    $stmt->bindParam(':termo2', $like2);
     $stmt->execute();
     $resultado=$stmt-> fetchAll(PDO::FETCH_ASSOC);
     return $resultado;
-    }
+    }   
 
 
+
+
+    
 
 
 ?>

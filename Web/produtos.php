@@ -2,8 +2,9 @@
 
 include "../php/buscar_produtos_web";
 
-
-$produtos=produtos_web();
+$filtro=$_GET['categoria']??'';
+$nome=$_GET['filtro']??'';
+$produtos=produtos_web($nome,$filtro);
 
 
 ?>
@@ -71,141 +72,141 @@ $produtos=produtos_web();
        
        <nav class="category-nav">
 <ul>
- 
+
     <!-- CACHORROS -->
     <li class="has-dropdown">
         <div class="category-item">
             <img src="Assets/cachorro1.png"> cachorros
         </div>
         <ul class="submenu">
-            <li><a href="#">Ração</a></li>
-            <li><a href="#">Petiscos</a></li>
-            <li><a href="#">Brinquedos</a></li>
+            <li><a href="produtos.php?categoria=cachorros&filtro=racao">Ração</a></li>
+            <li><a href="produtos.php?categoria=cachorros&filtro=petiscos">Petiscos</a></li>
+            <li><a href="produtos.php?categoria=cachorros&filtro=brinquedos">Brinquedos</a></li>
         </ul>
     </li>
- 
+
     <!-- GATOS -->
     <li class="has-dropdown">
         <div class="category-item">
             <img src="Assets/gato1.png"> gatos
         </div>
         <ul class="submenu">
-            <li><a href="#">Ração</a></li>
-            <li><a href="#">Areia</a></li>
-            <li><a href="#">Brinquedos</a></li>
-            <li><a href="#">Arranhadores</a></li>
+            <li><a href="produtos.php?categoria=gatos&filtro=racao">Ração</a></li>
+            <li><a href="produtos.php?categoria=gatos&filtro=areia">Areia</a></li>
+            <li><a href="produtos.php?categoria=gatos&filtro=brinquedos">Brinquedos</a></li>
+            <li><a href="produtos.php?categoria=gatos&filtro=arranhadores">Arranhadores</a></li>
         </ul>
     </li>
- 
+
     <!-- PÁSSAROS -->
     <li class="has-dropdown">
         <div class="category-item">
             <img src="Assets/passaros1.png"> pássaros
         </div>
         <ul class="submenu">
-            <li><a href="#">Sementes</a></li>
-            <li><a href="#">Gaiolas</a></li>
-            <li><a href="#">Acessórios</a></li>
+            <li><a href="produtos.php?categoria=passaros&filtro=sementes">Sementes</a></li>
+            <li><a href="produtos.php?categoria=passaros&filtro=gaiolas">Gaiolas</a></li>
+            <li><a href="produtos.php?categoria=passaros&filtro=acessorios">Acessórios</a></li>
         </ul>
     </li>
- 
+
     <!-- PEIXES -->
     <li class="has-dropdown">
         <div class="category-item">
             <img src="Assets/peixe2.png"> peixes
         </div>
         <ul class="submenu">
-            <li><a href="#">Ração</a></li>
-            <li><a href="#">Aquários</a></li>
-            <li><a href="#">Filtros</a></li>
+            <li><a href="produtos.php?categoria=peixes&filtro=racao">Ração</a></li>
+            <li><a href="produtos.php?categoria=peixes&filtro=aquarios">Aquários</a></li>
+            <li><a href="produtos.php?categoria=peixes&filtro=filtros">Filtros</a></li>
         </ul>
     </li>
- 
+
     <!-- ROEDORES -->
     <li class="has-dropdown">
         <div class="category-item">
             <img src="Assets/roedor1.png"> roedores
         </div>
         <ul class="submenu">
-            <li><a href="#">Ração</a></li>
-            <li><a href="#">Gaiolas</a></li>
-            <li><a href="#">Brinquedos</a></li>
+            <li><a href="produtos.php?categoria=roedores&filtro=racao">Ração</a></li>
+            <li><a href="produtos.php?categoria=roedores&filtro=gaiolas">Gaiolas</a></li>
+            <li><a href="produtos.php?categoria=roedores&filtro=brinquedos">Brinquedos</a></li>
         </ul>
     </li>
- 
+
     <!-- FARMÁCIA -->
     <li class="has-dropdown">
         <div class="category-item">
             <img src="Assets/farmacia2.png"> farmácia
         </div>
         <ul class="submenu">
-            <li><a href="#">Antipulgas</a></li>
-            <li><a href="#">Vermífugos</a></li>
-            <li><a href="#">Vitaminas</a></li>
+            <li><a href="produtos.php?categoria=farmacia&filtro=antipulgas">Antipulgas</a></li>
+            <li><a href="produtos.php?categoria=farmacia&filtro=vermifugos">Vermífugos</a></li>
+            <li><a href="produtos.php?categoria=farmacia&filtro=vitaminas">Vitaminas</a></li>
         </ul>
     </li>
- 
+
     <!-- HIGIENE -->
     <li class="has-dropdown">
         <div class="category-item">
             <img src="Assets/higiene1.png"> higiene
         </div>
         <ul class="submenu">
-            <li><a href="#">Shampoo</a></li>
-            <li><a href="#">Tapetes</a></li>
-            <li><a href="#">Escovas</a></li>
+            <li><a href="produtos.php?categoria=higiene&filtro=shampoo">Shampoo</a></li>
+            <li><a href="produtos.php?categoria=higiene&filtro=tapetes">Tapetes</a></li>
+            <li><a href="produtos.php?categoria=higiene&filtro=escovas">Escovas</a></li>
         </ul>
     </li>
- 
+
     <!-- BRINQUEDOS -->
     <li class="has-dropdown">
         <div class="category-item">
             <img src="Assets/brinquedos1.png"> brinquedos
         </div>
         <ul class="submenu">
-            <li><a href="#">Mordedores</a></li>
-            <li><a href="#">Bolinhas</a></li>
+            <li><a href="produtos.php?categoria=brinquedos&filtro=mordedores">Mordedores</a></li>
+            <li><a href="produtos.php?categoria=brinquedos&filtro=bolinhas">Bolinhas</a></li>
         </ul>
     </li>
- 
+
     <!-- CAMAS -->
     <li class="has-dropdown">
         <div class="category-item">
             <img src="Assets/camas1.png"> camas
         </div>
         <ul class="submenu">
-            <li><a href="#">Camas</a></li>
-            <li><a href="#">Cobertores</a></li>
+            <li><a href="produtos.php?categoria=camas&filtro=camas">Camas</a></li>
+            <li><a href="produtos.php?categoria=camas&filtro=cobertores">Cobertores</a></li>
         </ul>
     </li>
- 
+
     <!-- PROMOÇÕES -->
     <li class="has-dropdown">
         <div class="category-item">
             <img src="Assets/promocoes1.png"> promoções
         </div>
         <ul class="submenu">
-            <li><a href="#">Ofertas do dia</a></li>
+            <li><a href="produtos.php?categoria=promocoes&filtro=ofertas">Ofertas do dia</a></li>
         </ul>
     </li>
- 
+
     <!-- ASSINATURA -->
     <li class="has-dropdown">
         <div class="category-item">
             <img src="Assets/assinatura1.png"> assinatura
         </div>
         <ul class="submenu">
-            <li><a href="#">Planos</a></li>
+            <li><a href="produtos.php?categoria=assinatura&filtro=planos">Planos</a></li>
         </ul>
     </li>
- 
+
     <!-- ADOÇÃO -->
     <li>
-    <a href="adocao.php" class="category-item">
-        <img src="Assets/adocao2.png"> adoção
-    </a>
-</li>
- 
+        <a href="adocao.php" class="category-item">
+            <img src="Assets/adocao2.png"> adoção
+        </a>
+    </li>
+
 </ul>
 </nav>
  
