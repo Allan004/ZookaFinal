@@ -96,3 +96,98 @@ prateleira.addEventListener('mouseenter', () => clearInterval(reproducaoAutomati
 prateleira.addEventListener('mouseleave', () => 
     reproducaoAutomatica = setInterval(proximoSlide, 4000)
 );
+
+
+
+// carrosel do menu principal
+
+/* script.js */
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Seleção dos elementos usando IDs para maior precisão
+    const shelf = document.getElementById('shelf');
+    const btnNext = document.getElementById('btnNext');
+    const btnPrev = document.getElementById('btnPrev');
+    const dots = document.querySelectorAll('.dot');
+
+    // Verificação de segurança: Só executa se os elementos existirem na página
+    if (shelf && btnNext && btnPrev) {
+        
+        // Função para rolar para a DIREITA
+        btnNext.onclick = function() {
+            // Calcula a largura de um card dinamicamente (incluindo o gap)
+            const cardWidth = shelf.querySelector('.product-card').offsetWidth + 20;
+            
+            shelf.scrollBy({
+                left: cardWidth,
+                behavior: 'smooth'
+            });
+        };
+
+        // Função para rolar para a ESQUERDA
+        btnPrev.onclick = function() {
+            const cardWidth = shelf.querySelector('.product-card').offsetWidth + 20;
+            
+            shelf.scrollBy({
+                left: -cardWidth,
+                behavior: 'smooth'
+            });
+        };
+
+        // --- EXTRAS: Funcionalidades Profissionais ---
+
+        // 2. Atualizar as "Bolinhas" (Dots) conforme o usuário rola
+        shelf.addEventListener('scroll', () => {
+            const scrollLeft = shelf.scrollLeft;
+            const itemWidth = shelf.querySelector('.product-card').offsetWidth;
+            const index = Math.round(scrollLeft / itemWidth);
+
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        });
+
+        // 3. Suporte para arrastar com o mouse (Desktop Drag)
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        shelf.addEventListener('mousedown', (e) => {
+            isDown = true;
+            shelf.classList.add('active');
+            startX = e.pageX - shelf.offsetLeft;
+            scrollLeft = shelf.scrollLeft;
+        });
+
+        shelf.addEventListener('mouseleave', () => {
+            isDown = false;
+        });
+
+        shelf.addEventListener('mouseup', () => {
+            isDown = false;
+        });
+
+        shelf.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - shelf.offsetLeft;
+            const walk = (x - startX) * 2; // Velocidade do arraste
+            shelf.scrollLeft = scrollLeft - walk;
+        });
+    }
+});
+
+// Função para o Modal do Carrinho (que já estava no seu código)
+function toggleModal() {
+    const modal = document.getElementById('modal-carrinho');
+    if (modal) {
+        modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+    }
+}
+
+// Fechar modal no botão X
+document.addEventListener('click', (e) => {
+    if (e.target.id === 'fechar-modal') {
+        toggleModal();
+    }
+});
