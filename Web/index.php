@@ -8,7 +8,6 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZookaPet - O melhor para o seu melhor amigo</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="ZookaWeb.js" defer></script>
     <script src="script.js" defer></script>
    
    
@@ -234,8 +233,14 @@ session_start();
     <section class="product-shelf">
     <h2 class="shelf-title">presentes favoritos para surpreender</h2>
    
-    <div class="carousel-wrapper">
+   <div class="carousel-wrapper">
     <button class="carousel-btn prev">❮</button>
+    
+    <div class="shelf-container">
+        </div>
+
+    <button class="carousel-btn next">❯</button>
+</div>
     
     <div class="shelf-container">
         <div class="product-card">
@@ -273,6 +278,7 @@ session_start();
                 <img src="Assets/antipulgas.jpg" alt="Simparic">
                 <span class="wishlist-icon">♡</span>
             </div>
+           
             <div class="product-info">
                 <p class="brand">Zooka therapy</p>
                 <p class="name">Antipulgas Simparic 10–20kg</p>
@@ -298,16 +304,8 @@ session_start();
         </div>
     </div>
 
-    <button class="carousel-btn next">❯</button>
-</div>
+  <button class="carousel-btn next">❯</button>
 
-<div class="carousel-dots">
-    <span class="dot active" onclick="currentSlide(0)"></span>
-    <span class="dot" onclick="currentSlide(1)"></span>
-    <span class="dot" onclick="currentSlide(2)"></span>
-</div>
-           
-          
    
     <div class="carousel-dots">
         <span class="dot active"></span>

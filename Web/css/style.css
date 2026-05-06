@@ -1,6 +1,6 @@
 /* --- CONFIGURAÇÕES GERAIS --- */
 :root {
-    --nude-bg: #f5f2ed; 
+    --nude-bg: #f5f5f5; 
     --primary: #f48120;
     --dark: #333;
     --text-light: #666;
@@ -553,20 +553,38 @@ body {
     display: block;
     padding: 10px; /* Respiro para a imagem */
 }
+.product-info {
+    display: flex;
+    flex-direction: column;
+    padding: 15px; /* Espaçamento interno do card */
+    flex-grow: 1;  /* Faz este bloco ocupar todo o espaço acima do botão */
+}
+
+/* Se houver preço antigo, garanta que ele não quebre o layout */
+.product-info .old-price {
+    font-size: 12px;
+    text-decoration: line-through;
+    color: #bbb;
+    margin-bottom: 2px;
+    height: 14px; /* Altura fixa para que, se não houver preço antigo, o espaço continue lá */
+}
 
 .product-info .brand { 
-    font-size: 12px; 
+    font-size: 11px; /* Um pouco menor para dar hierarquia */
     color: #999; 
     text-transform: uppercase;
+    letter-spacing: 0.5px; /* Deixa o texto da marca mais elegante */
+    margin-bottom: 4px;
 }
 
 .product-info .name { 
     font-size: 14px; 
     font-weight: 600; 
-    margin: 5px 0 10px; 
+    line-height: 1.4; /* Importante: 1.4 * 14px = ~20px por linha */
+    height: 40px; /* 20px * 2 linhas = 40px exatos */
+    margin: 0 0 12px 0; 
+    color: #333;
     
-    /* Garante que o nome ocupe sempre 2 linhas para alinhar os preços */
-    height: 40px; 
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -574,32 +592,48 @@ body {
 }
 
 .product-info .new-price { 
-    font-size: 16px; 
-    font-weight: bold; 
-    color: #333;
+    font-size: 18px; /* Destaque maior no preço final */
+    font-weight: 800; /* Mais "peso" visual */
+    color: #00bcd4; /* Use sua cor primária aqui para guiar o olho */
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
-
+/* Esse aqui é o do carrosel do menu principal okk!! -> */
 .btn-add {
     width: 100%;
     background: transparent;
-    border: 1px solid #e0e0e0;
-    padding: 10px;
+    border: 1.5px solid #e0e0e0; /* Um pouco mais grosso para destacar */
+    padding: 12px;
     border-radius: 25px;
-    margin-top: 15px;
+    
+    /* O segredo do alinhamento: */
+    margin-top: auto; 
+    
     cursor: pointer;
     font-weight: 600;
-    transition: 0.3s;
-    
-    /* Garante que o botão fique na base do card */
-    align-self: flex-end; 
+    text-transform: lowercase; /* Mantendo seu estilo "adicionar à sacola" */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #555;
 }
 
 .btn-add:hover { 
-    border-color: #00bcd4; /* Troque pela sua cor primária */
-    color: #00bcd4; 
-    background-color: rgba(0, 188, 212, 0.05);
+    border-color: #00bcd4; 
+    color: #fff; /* Troquei para branco para dar mais destaque no hover */
+    background-color: #00bcd4; /* Preenchimento total no hover atrai mais o clique */
+    box-shadow: 0 4px 12px rgba(0, 188, 212, 0.2);
+    transform: translateY(-2px);
 }
- 
+
+.btn-add:active {
+    transform: translateY(0);
+}
+ /* Até aqui menu principal tá <- */
+
+
+
+
+
 /* --- SEÇÃO DE VÍDEO (RELEITURA NATURA) --- */
 .video-section {
     padding: 40px 5%;
@@ -652,23 +686,40 @@ body {
 }
 /* CARROSSEL DE PRODUTOS */
 .carousel-wrapper {
-    position: relative;
+    position: relative; /* Necessário para as setas se prenderem a ele */
     display: flex;
     align-items: center;
-    max-width: 1400px;
-    margin: 0 auto;
+    width: 100%;
 }
- 
+
 .carousel-btn {
+    position: absolute; /* Coloca as setas em cima da prateleira */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100; /* Garante que fiquem na frente de tudo */
     background: #fff;
-    border: 1px solid #eee;
+    border: 1px solid #ddd;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     cursor: pointer;
-    font-size: 18px;
-    z-index: 10;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    
+    /* Centraliza o ícone ❮ ❯ dentro do botão */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Posiciona cada seta no seu lado */
+.prev { left: -20px; }
+.next { right: -20px; }
+
+/* No mobile, as setas podem atrapalhar, então podemos escondê-las 
+   já que o usuário pode arrastar com o dedo */
+@media (max-width: 768px) {
+    .carousel-btn { display: none; }
+    .carousel-wrapper { padding: 0; }
 }
  
 .shelf-container {
@@ -682,6 +733,8 @@ body {
     min-width: 280px;
     background: #fff;
     text-align: left;
+    display: flex;
+    flex-direction: column;
 }
  
 .wishlist-icon {

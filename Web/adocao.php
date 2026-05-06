@@ -32,21 +32,21 @@
     <div class="carousel">
         <div class="slide active">
             <a href="#">
-                <img src="Assets/bannerzooka.png" class="bg-slide" alt="Vantagens exclusivas para adotantes">
+                <img src="Assets/1.png" class="bg-slide" alt="Vantagens exclusivas para adotantes">
                 <div class="slide-content"></div>
             </a>
         </div>
 
         <div class="slide">
             <a href="#">
-                <img src="Assets/bannerzooka2 (1).png" class="bg-slide" alt="O silêncio mata. Sua denúncia salva.">
+                <img src="Assets/2.png" class="bg-slide" alt="O silêncio mata. Sua denúncia salva.">
                 <div class="slide-content"></div>
             </a>
         </div>
 
         <div class="slide">
             <a href="#">
-                <img src="Assets/bannerzooka3.png" class="bg-slide" alt="Denuncie maus-tratos">
+                <img src="Assets/3.png" class="bg-slide" alt="Denuncie maus-tratos">
                 <div class="slide-content"></div>
             </a>
         </div>
