@@ -1,18 +1,44 @@
 <?php
 session_start();
+if (!isset($_POST['enviar_codigo']) &&
+    !isset($_POST['validar_codigo']) &&
+    !isset($_POST['trocar_senha']) &&
+    !isset($_POST['reenviar_codigo'])) {
+ 
+    $_SESSION['etapa'] = 1;
+    unset($_SESSION['recuperacao']);
+}
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
  
 require_once "../php/conexao.php";
 $pdo = conectar();
  
 $erro = "";
  
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['recuperar_btn'])) {
+if (
+    $_SERVER['REQUEST_METHOD'] === 'POST' &&
+    !isset($_POST['enviar_codigo']) &&
+    !isset($_POST['validar_codigo']) &&
+    !isset($_POST['trocar_senha']) &&
+    !isset($_POST['reenviar_codigo'])
+) {
  
-    $usuario = $_POST['email'] ?? '';
+    $usuario = $_POST['login'] ?? '';
     $senha   = $_POST['senha'] ?? '';
  
-    $stmt = $pdo->prepare("SELECT * FROM loginweb WHERE usuario = ?");
-    $stmt->execute([$usuario]);
+   $stmt = $pdo->prepare("
+    SELECT l.*
+    FROM loginweb l
+    WHERE l.usuario = ?
+       OR l.id = (
+            SELECT c.id_login FROM clienteweb c WHERE c.email = ?
+       )
+       OR l.id = (
+            SELECT c.id_login FROM clienteweb c WHERE c.cpf = ?
+       )
+");
+$stmt->execute([$usuario, $usuario, $usuario]);
  
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
  
@@ -28,42 +54,201 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['recuperar_btn'])) {
         $erro = "Login inválido!";
     }
 }
-$msg_recuperar = "";
- 
-if (isset($_POST['recuperar_btn'])) {
+if (isset($_POST['enviar_codigo'])) {
  
     $usuario = $_POST['recuperar_usuario'] ?? '';
-    $nova = $_POST['nova_senha'] ?? '';
-    $confirma = $_POST['confirmar_senha'] ?? '';
  
-    // limpa CPF
-    $usuario = preg_replace('/\D/', '', $usuario);
+$stmt = $pdo->prepare("
+    SELECT loginweb.*, clienteweb.email
+    FROM clienteweb
+    INNER JOIN loginweb
+        ON clienteweb.id_login = loginweb.id
+    WHERE clienteweb.cpf = ?
+");
  
-    // busca no banco
-    $stmt = $pdo->prepare("SELECT * FROM loginweb WHERE usuario = ?");
-    $stmt->execute([$usuario]);
+$stmt->execute([$usuario]);
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
  
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+if (!$user) {
+    $msg_recuperar = "Usuário não encontrado!";
+    $_SESSION['etapa'] = 1; // FICA NA ETAPA 1
+} else {
  
-    if (!$user) {
-        $msg_recuperar = "Usuário não encontrado!";
+    $codigo = random_int(100000, 999999);
+ 
+        $_SESSION['recuperacao'] = [
+            'usuario_id' => $user['id'],
+            'codigo' => $codigo,
+            'expira' => time() + 180
+        ];
+ 
+require_once __DIR__ . '/PHPMailer/src/PHPMailer.php';
+require_once __DIR__ . '/PHPMailer/src/SMTP.php';
+require_once __DIR__ . '/PHPMailer/src/Exception.php';
+ 
+$mail = new PHPMailer(true);
+ 
+try {
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->SMTPAuth = true;
+    $mail->Username = 'ZookaPetshop@gmail.com';
+    $mail->Password = 'juky tzsz dshp oncx';
+    $mail->SMTPSecure = 'tls';
+    $mail->Port = 587;
+    $mail->CharSet = 'UTF-8';
+ 
+    $mail->setFrom('ZookaPetshop@gmail.com', 'Zooka Petshop');
+    $mail->addAddress($user['email']);
+ 
+    $mail->isHTML(true);
+    $mail->Subject = 'Código de recuperação';
+ 
+    $mail->Body = "
+        <h2>Recuperação de senha</h2>
+        <p>Seu código é:</p>
+        <h1>$codigo</h1>
+        <p>Expira em 3 minutos.</p>
+    ";
+ 
+    $mail->send();
+ 
+} catch (Exception $e) {
+    echo "ERRO REAL: " . $mail->ErrorInfo;
+    exit;
+}
+ 
+$_SESSION['etapa'] = 2;
+$etapa = 2;
+$msg_recuperar = "Código enviado!";
+ 
+    } // fecha if (!$user)
+} // fecha if (isset enviar_codigo)
+ 
+if (isset($_POST['validar_codigo'])) {
+ 
+    $codigo = $_POST['codigo'] ?? '';
+ 
+    if (!isset($_SESSION['recuperacao'])) {
+        $msg_recuperar = "Sessão expirada!";
+    }
+    elseif (time() > $_SESSION['recuperacao']['expira']) {
+        $msg_recuperar = "Código expirado!";
+    }
+    elseif ($codigo != $_SESSION['recuperacao']['codigo']) {
+        $msg_recuperar = "Código incorreto!";
+    }
+    else {
+        $_SESSION['etapa'] = 3;
+        $etapa = 3;
+ 
+        $msg_recuperar = "Código validado!";
+    }
+}
+ 
+if (isset($_POST['trocar_senha'])) {
+ 
+    if (!isset($_SESSION['recuperacao'])) {
+        $msg_recuperar = "Sessão inválida!";
     } else {
+ 
+        $nova = $_POST['nova_senha'] ?? '';
+        $confirma = $_POST['confirmar_senha'] ?? '';
  
         if (empty($nova)) {
             $msg_recuperar = "Digite a nova senha!";
-        } elseif ($nova !== $confirma) {
+        }
+        elseif ($nova !== $confirma) {
             $msg_recuperar = "As senhas não coincidem!";
-        } else {
+        }
+        else {
  
             $hash = password_hash($nova, PASSWORD_DEFAULT);
+            $id = $_SESSION['recuperacao']['usuario_id'];
  
             $stmt = $pdo->prepare("UPDATE loginweb SET senha = ? WHERE id = ?");
-            $stmt->execute([$hash, $user['id']]);
+            $stmt->execute([$hash, $id]);
+ 
+            unset($_SESSION['recuperacao']);
+            unset($_SESSION['etapa']);
+ 
+            $etapa = 1;
  
             $msg_recuperar = "Senha redefinida com sucesso!";
         }
     }
 }
+ 
+if (isset($_POST['reenviar_codigo'])) {
+ 
+    if (isset($_SESSION['recuperacao'])) {
+ 
+        $codigo = random_int(100000, 999999);
+ 
+        $_SESSION['recuperacao']['codigo'] = $codigo;
+        $_SESSION['recuperacao']['expira'] = time() + 180;
+ 
+        // 🔥 BUSCAR EMAIL DE NOVO
+        $id = $_SESSION['recuperacao']['usuario_id'];
+ 
+        $stmt = $pdo->prepare("
+            SELECT clienteweb.email
+            FROM clienteweb
+            WHERE id_login = ?
+        ");
+        $stmt->execute([$id]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+ 
+        if ($user) {
+ 
+            require_once __DIR__ . '/PHPMailer/src/PHPMailer.php';
+            require_once __DIR__ . '/PHPMailer/src/SMTP.php';
+            require_once __DIR__ . '/PHPMailer/src/Exception.php';
+ 
+            $mail = new PHPMailer(true);
+ 
+            try {
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'ZookaPetshop@gmail.com';
+                $mail->Password = 'juky tzsz dshp oncx';
+                $mail->SMTPSecure = 'tls';
+                $mail->Port = 587;
+                $mail->CharSet = 'UTF-8';
+ 
+                $mail->setFrom('ZookaPetshop@gmail.com', 'Zooka Petshop');
+                $mail->addAddress($user['email']);
+ 
+                $mail->isHTML(true);
+                $mail->Subject = 'Novo código de recuperação';
+ 
+                $mail->Body = "
+                    <h2>Recuperação de senha</h2>
+                    <p>Seu novo código é:</p>
+                    <h1>$codigo</h1>
+                    <p>Expira em 3 minutos.</p>
+                ";
+ 
+                $mail->send();
+ 
+                $msg_recuperar = "Novo código enviado para o e-mail!";
+ 
+            } catch (Exception $e) {
+                $msg_recuperar = "Erro ao reenviar e-mail: " . $mail->ErrorInfo;
+            }
+ 
+        } else {
+            $msg_recuperar = "Erro ao encontrar e-mail do usuário!";
+        }
+    }
+}
+$etapa = $_SESSION['etapa'] ?? 1;
+ 
+if (!isset($_SESSION['recuperacao'])) {
+    $etapa = 1;
+}
+ 
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -109,8 +294,8 @@ if (isset($_POST['recuperar_btn'])) {
     </p>
   <?php endif; ?>
       <form method="POST">
-        <label for="email">E-mail ou CPF/CNPJ</label>
-        <input type="text" id="email" name="email" placeholder="Digite seu usuário ou CPF/CNPJ">
+        <label for="email">Usuário, CPF ou E-mail</label>
+        <input type="text" id="email" name="login" placeholder="Digite seu usuário ou CPF/E-mail">
         <label for="senha">Senha</label>
         <div class="senha-wrapper">
             <input type="password" id="senha" name="senha" placeholder="Digite sua senha">
@@ -140,7 +325,7 @@ if (isset($_POST['recuperar_btn'])) {
     Todos os direitos reservados</p>
 </footer>
 <div id="modal-recuperar" class="modal-termos">
-  <div class="modal-conteudo">
+  <div class="modal-conteudo modal-recuperacao">
  
     <span class="fechar" onclick="fecharModalRecuperar()">&times;</span>
  
@@ -148,25 +333,42 @@ if (isset($_POST['recuperar_btn'])) {
  
     <form method="POST">
  
-      <input type="text" name="recuperar_usuario"
-        placeholder="Digite usuário ou CPF">
+<?php if ($etapa == 1): ?>
  
-      <?php if(isset($_POST['recuperar_usuario'])): ?>
+  <input type="text" name="recuperar_usuario" placeholder="CPF ou e-mail">
  
-        <input type="password" name="nova_senha" placeholder="Nova senha">
-        <input type="password" name="confirmar_senha" placeholder="Confirmar senha">
+  <button type="submit" name="enviar_codigo">
+    Enviar código
+  </button>
  
-      <?php endif; ?>
+<?php elseif ($etapa == 2): ?>
  
-      <?php if(!empty($msg_recuperar)): ?>
-        <p class="msg-erro"><?= $msg_recuperar ?></p>
-      <?php endif; ?>
+  <input type="text" name="codigo" placeholder="Digite o código">
  
-      <button type="submit" name="recuperar_btn">
-        Continuar
-      </button>
+  <button type="submit" name="validar_codigo">
+    Validar código
+  </button>
  
-    </form>
+  <button type="submit" name="reenviar_codigo">
+    Reenviar código
+  </button>
+ 
+<?php elseif ($etapa == 3): ?>
+ 
+  <input type="password" name="nova_senha" placeholder="Nova senha">
+  <input type="password" name="confirmar_senha" placeholder="Confirmar senha">
+ 
+  <button type="submit" name="trocar_senha">
+    Redefinir senha
+  </button>
+ 
+<?php endif; ?>
+ 
+<?php if (!empty($msg_recuperar) && $_SERVER['REQUEST_METHOD'] === 'POST'): ?>
+  <p><?= $msg_recuperar ?></p>
+<?php endif; ?>
+ 
+</form>
  
   </div>
 </div>
@@ -174,12 +376,25 @@ if (isset($_POST['recuperar_btn'])) {
 function abrirModalRecuperar(e) {
   e.preventDefault();
   document.getElementById('modal-recuperar').style.display = 'block';
+ 
+  // mantém sua lógica
+  sessionStorage.setItem('modalRecuperar', '1');
 }
  
 function fecharModalRecuperar() {
   document.getElementById('modal-recuperar').style.display = 'none';
+  sessionStorage.removeItem('modalRecuperar');
 }
+ 
+window.addEventListener('DOMContentLoaded', () => {
+  const etapa = <?= json_encode($_SESSION['etapa'] ?? 1) ?>;
+  const abriuManual = sessionStorage.getItem('modalRecuperar');
+ 
+  // se estiver em etapa de recuperação OU abriu manual
+  if (etapa > 1 || abriuManual === '1') {
+    document.getElementById('modal-recuperar').style.display = 'block';
+  }
+});
 </script>
 </body>
 </html>
- 

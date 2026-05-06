@@ -1,5 +1,5 @@
 /* ELEN <>*/
-
+ 
 .modal-termos {
   display: none;
   position: fixed;
@@ -7,8 +7,8 @@
   inset: 0;
   background: rgba(0,0,0,0.6);
 }
-
-.modal-conteudo {
+ 
+.modal-termos .modal-conteudo {
   background: #fff;
   margin: 5% auto;
   padding: 25px 25px 20px;
@@ -19,7 +19,7 @@
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   animation: aparecer 0.2s ease;
 }
-
+ 
 @keyframes aparecer {
   from {
     transform: translateY(-20px);
@@ -30,7 +30,7 @@
     opacity: 1;
   }
 }
-
+ 
 .fechar {
   position: absolute;
   top: 12px;
@@ -39,17 +39,17 @@
   cursor: pointer;
   color: #999;
 }
-
+ 
 .fechar:hover {
   color: #000;
 }
-
+ 
 .modal-conteudo h3 {
   margin-bottom: 15px;
   font-size: 20px;
   color: #333;
 }
-
+ 
 .termos-texto {
   font-size: 13px;
   color: #555;
@@ -58,22 +58,22 @@
   overflow-y: auto;
   padding-right: 5px;
 }
-
+ 
 .termos-texto ul {
   padding-left: 18px;
   margin: 10px 0;
 }
-
+ 
 .termos-texto li {
   margin-bottom: 6px;
 }
-
+ 
 .termos-final {
   margin-top: 10px;
   font-weight: 600;
   color: #333;
 }
-
+ 
 .fechar {
   position: absolute;
   top: 10px;
@@ -86,7 +86,7 @@
   border: 1px solid red !important;
   color: #a30000;
 }
-
+ 
 .login-access input.input-erro {
   background: #ffe6e6;
   border: 2px solid red !important;
@@ -106,11 +106,11 @@
   font-weight: 600;
   text-decoration: none;
 }
-
+ 
 .link-termos:hover {
   text-decoration: underline;
 }
-
+ 
 .login-access input[type="date"] {
   width: 100%;
   padding: 10px 15px;
@@ -120,7 +120,7 @@
   font-size: 14px;
   outline: none;
 }
-
+ 
 input:invalid {
   border: 2px solid red;
 }
@@ -142,10 +142,10 @@ input:invalid {
 .ambiente .texto-ambiente {
     font-size: 20px;
     font-weight: bold;
-    margin: 0; 
+    margin: 0;
     color: rgb(84, 84, 84);
 }
-
+ 
 .login-container {
   max-width: 1000px;
   margin: 40px auto;
@@ -153,7 +153,7 @@ input:invalid {
   font-family: 'Inter', sans-serif;
   color: #333;
 }
-
+ 
 .login-container > h2 {
   font-size: 24px;
   margin-bottom: 30px;
@@ -164,7 +164,7 @@ input:invalid {
   gap: 40px;
   flex-wrap: wrap;
 }
-
+ 
 .login-access {
   background: white;
   padding: 30px 25px;
@@ -173,21 +173,21 @@ input:invalid {
   flex: 1 1 350px;
   min-width: 320px;
 }
-
+ 
 .login-access h3 {
   font-size: 20px;
   color: #ca7e4c;
   margin-bottom: 20px;
   font-weight: 700;
 }
-
+ 
 .login-access label {
   display: block;
   font-weight: 600;
   font-size: 12px;
   margin-bottom: 6px;
 }
-
+ 
 .login-access input[type="email"],
 .login-access input[type="text"],
 .login-access input[type="password"] {
@@ -200,13 +200,13 @@ input:invalid {
   outline: none;
   transition: border-color 0.3s;
 }
-
+ 
 .login-access input[type="email"]:focus,
 .login-access input[type="text"]:focus,
 .login-access input[type="password"]:focus {
   border-color: #ca7e4c;
 }
-
+ 
 .forgot-password {
   display: block;
   text-align: right;
@@ -216,11 +216,11 @@ input:invalid {
   text-decoration: none;
   font-weight: 600;
 }
-
+ 
 .forgot-password:hover {
   text-decoration: underline;
 }
-
+ 
 .btn-login {
   background-color: #2eaeb0;
   color: white;
@@ -233,24 +233,24 @@ input:invalid {
   font-size: 14px;
   transition: background-color 0.3s;
 }
-
+ 
 .btn-login:hover {
   background-color: #176668;
 }
-
+ 
 .login-access hr {
   margin: 30px 0 15px;
   border: none;
   border-top: 1px solid #ddd;
 }
-
+ 
 .quick-access {
   text-align: center;
   font-size: 14px;
   font-weight: 600;
   color: #555;
 }
-
+ 
 .btn-quick-access {
   margin-top: 15px;
   border: 1px solid #333;
@@ -263,24 +263,24 @@ input:invalid {
   width: 100%;
   transition: background-color 0.3s, color 0.3s;
 }
-
+ 
 .btn-quick-access:hover {
   background-color: #ca7e4c;
   color: white;
 }
-
+ 
 .login-create {
   flex: 1 1 400px;
   min-width: 320px;
   color: #ca7e4c;
 }
-
+ 
 .login-create h3 {
   font-size: 22px;
   font-weight: 700;
   margin-bottom: 15px;
 }
-
+ 
 .login-create p {
   font-size: 14px;
   font-weight: 600;
@@ -288,7 +288,7 @@ input:invalid {
   margin-bottom: 30px;
   line-height: 1.4;
 }
-
+ 
 .btn-create-account {
   padding: 12px 25px;
   border-radius: 6px;
@@ -302,14 +302,14 @@ input:invalid {
   max-width: 300px;
   transition: background-color 0.3s, color 0.3s;
 }
-
+ 
 .btn-create-account:hover {
   background-color: #ca7e4c;
   color: white;
 }
 /* ELEN </>*/
-
-
+ 
+ 
 /* --- CONFIGURAÇÕES GERAIS --- */
 :root {
     --nude-bg: #f5f5f5;; /* Cor de fundo inspirada na Natura */
@@ -339,15 +339,15 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;             
-    padding: 10px 40px;       
+    width: 100%;            
+    padding: 10px 40px;      
 }
-
+ 
 .banner-topo {
     height: 50px;
     width: auto;
 }
-
+ 
 .category-nav ul {
     display: flex;
     justify-content: center;
@@ -381,7 +381,7 @@ body {
     max-width: 1400px;
     margin: 0 auto;
 }
-
+ 
 .footer-links-container {
     padding: 60px 5%;
     max-width: 1400px;
@@ -409,7 +409,7 @@ body {
     list-style: none;
     cursor: pointer;
 }
-
+ 
 .disclaimer {
     margin-top: 15px;
     font-size: 10px !important;
@@ -422,7 +422,7 @@ body {
     .input-row { flex-direction: column; }
     .newsletter-content { padding-left: 0; }
 }
-
+ 
 input[name="senha"]::placeholder,
 input[name="confirma"]::placeholder {
   font-size: 12px;
@@ -441,7 +441,7 @@ input[name="confirma"]::placeholder {
   gap: 10px;
   font-weight: 500;
 }
-
+ 
 .msg-sucesso::before {
   content: "✔";
   background: #2eaeb0;
@@ -453,4 +453,45 @@ input[name="confirma"]::placeholder {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
+}
+#modal-recuperar .modal-conteudo {
+  background: #fff;
+  margin: 5% auto;
+  padding: 30px;
+  width: 90%;
+  max-width: 420px;
+  border-radius: 12px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+body #modal-recuperar input {
+  width: 100% !important;
+  padding: 12px 14px !important;
+  border-radius: 6px !important;
+  border: 1px solid #ccc !important;
+  margin-bottom: 12px !important;
+  font-size: 14px !important;
+  background: #fff !important;
+  color: #000 !important;
+}
+ 
+body #modal-recuperar input:focus {
+  border: 1px solid #2eaeb0 !important;
+  box-shadow: 0 0 0 2px rgba(46,174,176,0.2) !important;
+}
+ 
+body #modal-recuperar button {
+  width: 100% !important;
+  padding: 12px !important;
+  border-radius: 6px !important;
+  border: none !important;
+  background: #2eaeb0 !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  display: block !important;
+}
+ 
+body #modal-recuperar button:hover {
+  background: #176668 !important;
 }
