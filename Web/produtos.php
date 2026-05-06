@@ -4,7 +4,8 @@ include "../php/buscar_produtos_web";
 
 $filtro=$_GET['categoria']??'';
 $nome=$_GET['filtro']??'';
-$produtos=produtos_web($nome,$filtro);
+$ordenar=$_GET['ordenacao']??'';
+$produtos=produtos_web($nome,$filtro,$ordenar);
 
 
 ?>
@@ -29,7 +30,7 @@ $produtos=produtos_web($nome,$filtro);
     <div class="header-top">
        
         <div class="logo-container">
-            <a href="#" class="logo">
+            <a href="index.php  " class="logo">
                 <img src="Assets/logo.png" class="banner-topo" alt="Zooka">
             </a>
         </div>
@@ -79,9 +80,9 @@ $produtos=produtos_web($nome,$filtro);
             <img src="Assets/cachorro1.png"> cachorros
         </div>
         <ul class="submenu">
-            <li><a href="produtos.php?categoria=cachorros&filtro=racao">Ração</a></li>
-            <li><a href="produtos.php?categoria=cachorros&filtro=petiscos">Petiscos</a></li>
-            <li><a href="produtos.php?categoria=cachorros&filtro=brinquedos">Brinquedos</a></li>
+            <li><a href="produtos.php?categoria=cachorro&filtro=racao">Ração</a></li>
+            <li><a href="produtos.php?categoria=cachorro&filtro=petisco">Petiscos</a></li>
+            <li><a href="produtos.php?categoria=cachorro&filtro=brinquedo">Brinquedos</a></li>
         </ul>
     </li>
 
@@ -91,10 +92,10 @@ $produtos=produtos_web($nome,$filtro);
             <img src="Assets/gato1.png"> gatos
         </div>
         <ul class="submenu">
-            <li><a href="produtos.php?categoria=gatos&filtro=racao">Ração</a></li>
-            <li><a href="produtos.php?categoria=gatos&filtro=areia">Areia</a></li>
-            <li><a href="produtos.php?categoria=gatos&filtro=brinquedos">Brinquedos</a></li>
-            <li><a href="produtos.php?categoria=gatos&filtro=arranhadores">Arranhadores</a></li>
+            <li><a href="produtos.php?categoria=gato&filtro=racao">Ração</a></li>
+            <li><a href="produtos.php?categoria=gato&filtro=areia">Areia</a></li>
+            <li><a href="produtos.php?categoria=gato&filtro=brinquedo">Brinquedos</a></li>
+            <li><a href="produtos.php?categoria=gato&filtro=arranhador">Arranhadores</a></li>
         </ul>
     </li>
 
@@ -104,9 +105,9 @@ $produtos=produtos_web($nome,$filtro);
             <img src="Assets/passaros1.png"> pássaros
         </div>
         <ul class="submenu">
-            <li><a href="produtos.php?categoria=passaros&filtro=sementes">Sementes</a></li>
-            <li><a href="produtos.php?categoria=passaros&filtro=gaiolas">Gaiolas</a></li>
-            <li><a href="produtos.php?categoria=passaros&filtro=acessorios">Acessórios</a></li>
+            <li><a href="produtos.php?categoria=passaro&filtro=racao">Sementes</a></li>
+            <li><a href="produtos.php?categoria=passaro&filtro=gaiola">Gaiolas</a></li>
+            <li><a href="produtos.php?categoria=passaro&filtro=acessorio">Acessórios</a></li>
         </ul>
     </li>
 
@@ -116,9 +117,9 @@ $produtos=produtos_web($nome,$filtro);
             <img src="Assets/peixe2.png"> peixes
         </div>
         <ul class="submenu">
-            <li><a href="produtos.php?categoria=peixes&filtro=racao">Ração</a></li>
-            <li><a href="produtos.php?categoria=peixes&filtro=aquarios">Aquários</a></li>
-            <li><a href="produtos.php?categoria=peixes&filtro=filtros">Filtros</a></li>
+            <li><a href="produtos.php?categoria=peixe&filtro=racao">Ração</a></li>
+            <li><a href="produtos.php?categoria=peixe&filtro=aquario">Aquários</a></li>
+            <li><a href="produtos.php?categoria=peixe&filtro=filtro">Filtros</a></li>
         </ul>
     </li>
 
@@ -128,9 +129,9 @@ $produtos=produtos_web($nome,$filtro);
             <img src="Assets/roedor1.png"> roedores
         </div>
         <ul class="submenu">
-            <li><a href="produtos.php?categoria=roedores&filtro=racao">Ração</a></li>
-            <li><a href="produtos.php?categoria=roedores&filtro=gaiolas">Gaiolas</a></li>
-            <li><a href="produtos.php?categoria=roedores&filtro=brinquedos">Brinquedos</a></li>
+            <li><a href="produtos.php?categoria=roedor&filtro=racao">Ração</a></li>
+            <li><a href="produtos.php?categoria=roedor&filtro=gaiola">Gaiolas</a></li>
+            <li><a href="produtos.php?categoria=roedor&filtro=brinquedo">Brinquedos</a></li>
         </ul>
     </li>
 
@@ -140,9 +141,9 @@ $produtos=produtos_web($nome,$filtro);
             <img src="Assets/farmacia2.png"> farmácia
         </div>
         <ul class="submenu">
-            <li><a href="produtos.php?categoria=farmacia&filtro=antipulgas">Antipulgas</a></li>
-            <li><a href="produtos.php?categoria=farmacia&filtro=vermifugos">Vermífugos</a></li>
-            <li><a href="produtos.php?categoria=farmacia&filtro=vitaminas">Vitaminas</a></li>
+            <li><a href="produtos.php?categoria=medicamento&filtro=antipulga">Antipulgas</a></li>
+            <li><a href="produtos.php?categoria=men&filtro=vermifugo">Vermífugos</a></li>
+            <li><a href="produtos.php?categoria=farmacia&filtro=vitamina">Vitaminas</a></li>
         </ul>
     </li>
 
@@ -153,8 +154,8 @@ $produtos=produtos_web($nome,$filtro);
         </div>
         <ul class="submenu">
             <li><a href="produtos.php?categoria=higiene&filtro=shampoo">Shampoo</a></li>
-            <li><a href="produtos.php?categoria=higiene&filtro=tapetes">Tapetes</a></li>
-            <li><a href="produtos.php?categoria=higiene&filtro=escovas">Escovas</a></li>
+            <li><a href="produtos.php?categoria=higiene&filtro=tapete">Tapetes</a></li>
+            <li><a href="produtos.php?categoria=higiene&filtro=escova">Escovas</a></li>
         </ul>
     </li>
 
@@ -164,8 +165,8 @@ $produtos=produtos_web($nome,$filtro);
             <img src="Assets/brinquedos1.png"> brinquedos
         </div>
         <ul class="submenu">
-            <li><a href="produtos.php?categoria=brinquedos&filtro=mordedores">Mordedores</a></li>
-            <li><a href="produtos.php?categoria=brinquedos&filtro=bolinhas">Bolinhas</a></li>
+            <li><a href="produtos.php?categoria=brinquedo&filtro=mordedor">Mordedores</a></li>
+            <li><a href="produtos.php?categoria=brinquedo&filtro=bolinha">Bolinhas</a></li>
         </ul>
     </li>
 
@@ -175,8 +176,8 @@ $produtos=produtos_web($nome,$filtro);
             <img src="Assets/camas1.png"> camas
         </div>
         <ul class="submenu">
-            <li><a href="produtos.php?categoria=camas&filtro=camas">Camas</a></li>
-            <li><a href="produtos.php?categoria=camas&filtro=cobertores">Cobertores</a></li>
+            <li><a href="produtos.php?categoria=cama&filtro=camas">Camas</a></li>
+            <li><a href="produtos.php?categoria=cama&filtro=cobertor">Cobertores</a></li>
         </ul>
     </li>
 
@@ -186,7 +187,7 @@ $produtos=produtos_web($nome,$filtro);
             <img src="Assets/promocoes1.png"> promoções
         </div>
         <ul class="submenu">
-            <li><a href="produtos.php?categoria=promocoes&filtro=ofertas">Ofertas do dia</a></li>
+            <li><a href="produtos.php?categoria=promocao&filtro=oferta">Ofertas do dia</a></li>
         </ul>
     </li>
 
@@ -196,7 +197,7 @@ $produtos=produtos_web($nome,$filtro);
             <img src="Assets/assinatura1.png"> assinatura
         </div>
         <ul class="submenu">
-            <li><a href="produtos.php?categoria=assinatura&filtro=planos">Planos</a></li>
+            <li><a href="produtos.php?categoria=assinatura&filtro=plano">Planos</a></li>
         </ul>
     </li>
 
@@ -229,41 +230,94 @@ $produtos=produtos_web($nome,$filtro);
         <aside class="sidebar">
             <div class="filter-header">
                 <h3>Filtrar Produtos</h3>
-                <span class="clear-filters">Limpar filtros 🗑️</span>
+                <span class="clear-filters"><a class="sem_linha" href="produtos.php">Limpar filtros 🗑️</a></span>
             </div>
             
             <div class="filter-group">
-                <h4>Categorias</h4>
+                <h2>Categorias</h2>
+                <ul class="menu">
+                    <h3 class="h3_desce">Cachorros</h3>
                 <ul>
-                    <li class="active">Ração</li>
-                    <li>Petiscos e Ossos</li>
-                    <li>Higiene</li>
-                    <li>Brinquedos</li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=cachorro&filtro=racao">Ração</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=cachorro&filtro=filhote">Ração Filhote</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=cachorro&filtro=sênior">Ração Sênior</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=cachorro&filtro=petisco">Petiscos</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=cachorro&filtro=brinquedo">Brinquedos</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=cachorro&filtro=cama">Camas</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=cachorro&filtro=coleira">Coleiras</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=cachorro&filtro=antipulgas">Antipulgas</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=cachorro&filtro=shampoo">Shampoos</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=cachorro&filtro=filhote">Shampoo Filhote</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=cachorro&filtro=higiene">Higiene</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=cachorro&filtro=tapete">Tapete Higiênico</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=cachorro&filtro=bebedouro">Bebedouros</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=cachorro&filtro=comedouro">Comedouros</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=cachorro&filtro=transporte">Transporte</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=cachorro&filtro=medicamento">Medicamentos</a></li>
                 </ul>
+                    <h3 class="h3_desce">Gatos</h3>
+                <ul>
+                    <li><a class="sem_linha" href="produtos.php?categoria=gato&filtro=racao">Ração</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=gato&filtro=adulto">Ração Adulto</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=gato&filtro=petisco">Petiscos</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=gato&filtro=areia">Areia Sanitária</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=gato&filtro=shampoo">Shampoos</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=gato&filtro=filhote">Shampoo Filhote</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=gato&filtro=antipulgas">Antipulgas</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=gato&filtro=higiene">Higiene</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=gato&filtro=comedouro">Comedouros</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=gato&filtro=bebedouro">Bebedouros</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=gato&filtro=transporte">Transporte</a></li>  
+                </ul>
+                    <h3 class="h3_desce">Aves</h3>
+                <ul>
+                    <li><a class="sem_linha" href="produtos.php?categoria=passaro&filtro=racao">Ração</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=passaro&filtro=calopsita">Ração Calopsita</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=passaro&filtro=gaiola">Gaiolas</a></li>
+                </ul>
+                    <h3 class="h3_desce">Peixes</h3>
+                <ul>
+                    <li><a class="sem_linha" href="produtos.php?categoria=peixe&filtro=racao">Ração</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=peixe&filtro=aquario">Aquários</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=peixe&filtro=filtro">Filtros</a></li>
+                </ul>
+                   <h3 class="h3_desce">Roedores</h3>
+                <ul>
+                    <li><a class="sem_linha" href="produtos.php?categoria=roedor&filtro=racao">Ração</a></li>
+                </ul>
+                    <h3 class="h3_desce">Outros</h3>
+                <ul>
+                    <li><a class="sem_linha" href="produtos.php?categoria=geral&filtro=higiene">Higiene</a></li>
+                    <li><a class="sem_linha" href="produtos.php?categoria=geral&filtro=escova">Escovas</a></li>
+                </ul>
+                
+
             </div>
         </aside>
 
         <main class="content">
             <header class="content-header">
-                <h1>Gato</h1>
+                <h1><?php
+               echo ucfirst($_GET['categoria'] ?? "Produtos");
+                ?></h1>
                 <div class="sort">
                     <span>Ordenar por:</span>
-                    <select>
-                        <option>Mais relevantes</option>
-                        <option>Menor preço</option>
+                     <select onchange="atualizarOrdenacao(this.value)">
+                        <option value="">Selecione Uma Categoria</option>
+                        <option value="nome" <?= ($ordenar == "nome") ? "selected" : "" ?>>A-Z</option>
+                        <option value="preco" <?= ($ordenar == "preco") ? "selected" : "" ?>>Menor preço</option>
                     </select>
                 </div>
             </header>
 
             <section class="products-section">
-                <h2>Mais comprados em Gato</h2>
                 
                 <div class="products-grid">
                     <?php 
                     
                     foreach($produtos as $produto){
 
-                        echo '<div class="product-card">
+                        echo '<a class="sem_card" href="telasDeProdutos.php"><div class="product-card">
                         <div class="product-image">
                             <span class="badge-off">15% OFF</span>
                             <img src="assets/imagens_produtos/'.$produto["id"].'.jpg" alt="Produto">
@@ -271,11 +325,12 @@ $produtos=produtos_web($nome,$filtro);
                         </div>
                         <div class="product-info">
                             <p class="product-name">'.$produto['nome'].'</p>
-                            <p class="old-price">A partir de '.$produto['preco'].'</p>
-                            <p class="price">'.$produto['preco']*0.9.'<span class="sync-icon">🔄</span></p>
+                            <p class="old-price">A partir de R$'.$produto['preco'].'</p>
+                            <p class="price">R$'.$produto['preco']*0.9.'<span class="sync-icon">🔄</span></p>
                             <p class="subscriber-price">para assinantes</p>
                         </div>
-                    </div>';
+                    </div>
+                    </a>';
 
 
                     };
@@ -320,6 +375,18 @@ $produtos=produtos_web($nome,$filtro);
         </div>
     </div>
 </footer>
+
+
+<script>
+
+    function atualizarOrdenacao(valor) {
+    let url = new URL(window.location.href);
+
+    url.searchParams.set("ordenacao", valor);
+
+    window.location.href = url.toString();
+}
+</script>
 
 </body>
 </html>

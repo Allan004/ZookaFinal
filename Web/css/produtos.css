@@ -559,3 +559,22 @@ body {
     list-style: none;
     cursor: pointer;
 }
+
+.sem_linha{
+
+    text-decoration: none;
+    color: var( --text-light);
+    
+}
+
+.h3_desce{
+
+padding-top: 20px;
+
+}
+
+.sem_card{
+
+    text-decoration: none;
+    
+}
