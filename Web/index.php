@@ -58,7 +58,7 @@ session_start();
 
 <?php endif; ?>
 
-<a href="CarrinhoZooka.html" class="btn-continue">🛒</a>
+<a href="carrinho.php" class="btn-continue">🛒</a>
 
 </div>
  

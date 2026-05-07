@@ -1198,3 +1198,26 @@ body {
     }
 
 }
+/* Estilo do botão Confirmar */
+.confirm-address-btn {
+    width: 100%;
+    background-color: #1a5fb4; /* Tom de azul do botão */
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 12px; /* Cantos arredondados */
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.2s;
+}
+
+.confirm-address-btn:hover {
+    background-color: #154d92; /* Azul um pouco mais escuro ao passar o mouse */
+}
+
+/* Garante que o conteúdo do modal tenha um pouco de espaço no fundo */
+.register-content {
+    padding-bottom: 30px;
+}

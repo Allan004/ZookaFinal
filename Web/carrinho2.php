@@ -16,7 +16,6 @@
 
     <main class="container">
 
-        <!-- CARRINHO -->
         <section class="cart-section">
 
             <div class="cart-header">
@@ -67,12 +66,10 @@
 
         </section>
 
-        <!-- ENTREGA -->
         <aside class="delivery-section">
 
             <h2>Escolha a forma de entrega</h2>
 
-            <!-- PADRÃO -->
             <div class="delivery-option active">
 
                 <div class="delivery-left">
@@ -90,7 +87,6 @@
 
             </div>
 
-            <!-- EXPRESSA -->
             <div class="delivery-option">
 
                 <div class="delivery-left">
@@ -108,7 +104,6 @@
 
             </div>
 
-            <!-- RETIRAR -->
             <div class="delivery-option"
                 onclick="toggleSideModal()"
                 style="cursor:pointer;">
@@ -128,7 +123,6 @@
 
             </div>
 
-            <!-- ENDEREÇO -->
             <div class="address-box">
 
                 <h3>Endereço de entrega</h3>
@@ -149,12 +143,10 @@
 
             </div>
 
-            <!-- RESUMO -->
             <div class="summary-box">
 
                 <h2>Resumo do pedido</h2>
 
-                <!-- ITEM -->
                 <div class="summary-row">
 
                     <p>
@@ -166,7 +158,6 @@
 
                 </div>
 
-                <!-- ITEM -->
                 <div class="summary-row">
 
                     <p class="info-text">
@@ -181,7 +172,6 @@
 
                 </div>
 
-                <!-- ITEM -->
                 <div class="summary-row">
 
                     <p>Prazo de entrega</p>
@@ -190,7 +180,6 @@
 
                 </div>
 
-                <!-- ITEM -->
                 <div class="summary-row">
 
                     <p>
@@ -204,7 +193,6 @@
 
                 </div>
 
-                <!-- ITEM -->
                 <div class="summary-row">
 
                     <p>
@@ -221,7 +209,6 @@
 
                 </div>
 
-                <!-- TOTAL -->
                 <div class="summary-total">
 
                     <div>
@@ -242,7 +229,6 @@
 
                 </div>
 
-                <!-- FRETE -->
                 <div class="shipping-free">
 
                     <p>
@@ -261,7 +247,6 @@
 
                 </div>
 
-                <!-- BOTÕES -->
                 <button class="payment-btn">
                     Ir para pagamento
                 </button>
@@ -276,12 +261,10 @@
 
     </main>
 
-    <!-- MODAL ENDEREÇOS -->
     <div class="modal" id="addressModal">
 
         <div class="modal-content">
 
-            <!-- TOPO -->
             <div class="modal-header">
 
                 <h2>Cadastrar novo endereço</h2>
@@ -294,7 +277,6 @@
 
             </div>
 
-            <!-- CARD -->
             <div class="address-option">
 
                 <div class="address-left">
@@ -321,7 +303,6 @@
 
             </div>
 
-            <!-- BOTÃO -->
             <button
                 type="button"
                 class="new-address"
@@ -337,12 +318,10 @@
 
     </div>
 
-    <!-- MODAL RETIRAR -->
     <div id="sideModalOverlay" class="side-modal-overlay">
 
         <div class="side-modal-content">
 
-            <!-- HEADER -->
             <div class="side-modal-header">
 
                 <h3>Escolha a loja para retirar o pedido</h3>
@@ -356,7 +335,6 @@
 
             </div>
 
-            <!-- TABS -->
             <div class="side-modal-tabs">
 
                 <button class="tab-btn active">
@@ -369,10 +347,8 @@
 
             </div>
 
-            <!-- BODY -->
             <div class="side-modal-body">
 
-                <!-- LOJAS -->
                 <div class="stores-list">
 
                     <div class="store-card selected">
@@ -419,7 +395,6 @@
 
                 </div>
 
-                <!-- MAPA -->
                 <div id="googleMapContainer"
                     class="map-container">
 
@@ -435,7 +410,6 @@
 
             </div>
 
-            <!-- FOOTER -->
             <div class="side-modal-footer">
 
                 <p>
@@ -452,12 +426,10 @@
 
     </div>
 
-    <!-- MODAL CADASTRO -->
     <div class="register-modal" id="registerModal">
 
         <div class="register-content">
 
-            <!-- HEADER -->
             <div class="register-header">
 
                 <h2>Cadastrar novo endereço</h2>
@@ -470,10 +442,8 @@
 
             </div>
 
-            <!-- FORM -->
             <form class="address-form">
 
-                <!-- CEP -->
                 <div class="form-group cep-group">
 
                     <label>Qual o CEP?</label>
@@ -494,7 +464,6 @@
 
                 </div>
 
-                <!-- ENDEREÇO -->
                 <div class="form-group">
 
                     <label>Endereço</label>
@@ -505,7 +474,6 @@
 
                 </div>
 
-                <!-- NÚMERO -->
                 <div class="form-group">
 
                     <label>Número</label>
@@ -528,7 +496,6 @@
 
                 </div>
 
-                <!-- COMPLEMENTO -->
                 <div class="form-group">
 
                     <label>
@@ -545,7 +512,6 @@
 
                 </div>
 
-                <!-- BAIRRO -->
                 <div class="form-group">
 
                     <label>Bairro</label>
@@ -556,7 +522,6 @@
 
                 </div>
 
-                <!-- CIDADE + ESTADO -->
                 <div class="city-state">
 
                     <div class="form-group">
@@ -584,7 +549,6 @@
 
                 </div>
 
-                <!-- REFERÊNCIA -->
                 <div class="form-group">
 
                     <label>
@@ -601,7 +565,6 @@
 
                 </div>
 
-                <!-- APELIDO -->
                 <div class="form-group">
 
                     <label>
@@ -614,6 +577,10 @@
 
                 </div>
 
+                <button type="submit" class="confirm-address-btn">
+                    Confirmar
+                </button>
+
             </form>
 
         </div>
@@ -622,7 +589,7 @@
 
     <script src="js/carrinho2.js"></script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsLXJZMNJ8TrUQfLMaDYXZuhsfwzwMfOg"
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsLXJZMNJ8TrUQfLMaDYXZuhsfwzwMfOg&callback=initMap&libraries=marker&loading=async"
         defer></script>
 
 </body>
