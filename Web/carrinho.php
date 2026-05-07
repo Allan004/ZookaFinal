@@ -1,380 +1,532 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrinho de Compras</title>
-    <link rel="stylesheet" href="css/carrinho.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="js/carrinho.js" defer></script>
+    <title>Carrinho - Zooka Petshop</title>
+
+    <link rel="stylesheet" href="css/carrinho2.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
+
 <body>
 
+    <main class="container">
 
-<div class="top-promo">  
-        10% OFF na primeira compra com o cupom <strong>BEMVINDOAUAU</strong>
-    </div>
- 
-   <header class="main-header">
-    <div class="header-top">
-       
-        <div class="logo-container">
-            <a href="#" class="logo">
-                <img src="Assets/logo.png" class="banner-topo" alt="Zooka">
-            </a>
-        </div>
- 
-      <div class="search-container">
-    <input type="text" class="search-input" placeholder="o que seu pet precisa hoje?">
-</div>
+        <!-- ========================= -->
+        <!-- CARRINHO -->
+        <!-- ========================= -->
 
-<div class="user-menu">
+        <section class="cart-section">
 
-<?php if(isset($_SESSION['usuario_nome'])): ?>
-
-    <div class="user-dropdown">
-        <span class="user-name">
-            Olá, <?php echo $_SESSION['usuario_nome']; ?>!
-        </span>
-
-        <div class="dropdown-menu">
-            <a href="#">Meus pedidos</a>
-            <a href="#">Meus pets</a>
-            <a href="#">Meus dados</a>
-            <a href="logout.php">Sair</a>
-        </div>
-    </div>
-
-<?php else: ?>
-
-    <a href="login.php" class="user-link">
-        Entrar ou <br>Cadastrar
-    </a>
-
-<?php endif; ?>
-
-<a href="CarrinhoZooka.html" class="cart-button">🛒</a>
-
-</div>
- 
-    </div>
-</header>
-       
-       <nav class="category-nav">
-<ul>
- 
-    <!-- CACHORROS -->
-    <li class="has-dropdown">
-        <div class="category-item">
-            <img src="Assets/cachorro1.png"> cachorros
-        </div>
-        <ul class="submenu">
-            <li><a href="#">Ração</a></li>
-            <li><a href="#">Petiscos</a></li>
-            <li><a href="#">Brinquedos</a></li>
-        </ul>
-    </li>
- 
-    <!-- GATOS -->
-    <li class="has-dropdown">
-        <div class="category-item">
-            <img src="Assets/gato1.png"> gatos
-        </div>
-        <ul class="submenu">
-            <li><a href="#">Ração</a></li>
-            <li><a href="#">Areia</a></li>
-            <li><a href="#">Brinquedos</a></li>
-            <li><a href="#">Arranhadores</a></li>
-        </ul>
-    </li>
- 
-    <!-- PÁSSAROS -->
-    <li class="has-dropdown">
-        <div class="category-item">
-            <img src="Assets/passaros1.png"> pássaros
-        </div>
-        <ul class="submenu">
-            <li><a href="#">Sementes</a></li>
-            <li><a href="#">Gaiolas</a></li>
-            <li><a href="#">Acessórios</a></li>
-        </ul>
-    </li>
- 
-    <!-- PEIXES -->
-    <li class="has-dropdown">
-        <div class="category-item">
-            <img src="Assets/peixe2.png"> peixes
-        </div>
-        <ul class="submenu">
-            <li><a href="#">Ração</a></li>
-            <li><a href="#">Aquários</a></li>
-            <li><a href="#">Filtros</a></li>
-        </ul>
-    </li>
- 
-    <!-- ROEDORES -->
-    <li class="has-dropdown">
-        <div class="category-item">
-            <img src="Assets/roedor1.png"> roedores
-        </div>
-        <ul class="submenu">
-            <li><a href="#">Ração</a></li>
-            <li><a href="#">Gaiolas</a></li>
-            <li><a href="#">Brinquedos</a></li>
-        </ul>
-    </li>
- 
-    <!-- FARMÁCIA -->
-    <li class="has-dropdown">
-        <div class="category-item">
-            <img src="Assets/farmacia2.png"> farmácia
-        </div>
-        <ul class="submenu">
-            <li><a href="#">Antipulgas</a></li>
-            <li><a href="#">Vermífugos</a></li>
-            <li><a href="#">Vitaminas</a></li>
-        </ul>
-    </li>
- 
-    <!-- HIGIENE -->
-    <li class="has-dropdown">
-        <div class="category-item">
-            <img src="Assets/higiene1.png"> higiene
-        </div>
-        <ul class="submenu">
-            <li><a href="#">Shampoo</a></li>
-            <li><a href="#">Tapetes</a></li>
-            <li><a href="#">Escovas</a></li>
-        </ul>
-    </li>
- 
-    <!-- BRINQUEDOS -->
-    <li class="has-dropdown">
-        <div class="category-item">
-            <img src="Assets/brinquedos1.png"> brinquedos
-        </div>
-        <ul class="submenu">
-            <li><a href="#">Mordedores</a></li>
-            <li><a href="#">Bolinhas</a></li>
-        </ul>
-    </li>
- 
-    <!-- CAMAS -->
-    <li class="has-dropdown">
-        <div class="category-item">
-            <img src="Assets/camas1.png"> camas
-        </div>
-        <ul class="submenu">
-            <li><a href="#">Camas</a></li>
-            <li><a href="#">Cobertores</a></li>
-        </ul>
-    </li>
- 
-    <!-- PROMOÇÕES -->
-    <li class="has-dropdown">
-        <div class="category-item">
-            <img src="Assets/promocoes1.png"> promoções
-        </div>
-        <ul class="submenu">
-            <li><a href="#">Ofertas do dia</a></li>
-        </ul>
-    </li>
- 
-    <!-- ASSINATURA -->
-    <li class="has-dropdown">
-        <div class="category-item">
-            <img src="Assets/assinatura1.png"> assinatura
-        </div>
-        <ul class="submenu">
-            <li><a href="#">Planos</a></li>
-        </ul>
-    </li>
- 
-    <!-- ADOÇÃO -->
-    <li>
-    <a href="adocao.php" class="category-item">
-        <img src="Assets/adocao2.png"> adoção
-    </a>
-</li>
- 
-</ul>
-</nav>
- 
- 
-    <div class="scrolling-ticker">
-    <div class="ticker-content">
-        <span>Frete grátis</span> <img src="Assets/patinhas1.png" alt="pata">
-        <span>Brindes exclusivos</span> <img src="Assets/coroa1.png" alt="pata">
-        <span>15% a 25% OFF</span> <img src="Assets/patinhas1.png" alt="pata">
-        <span>Frete grátis</span> <img src="Assets/coroa1.png" alt="pata">
-        <span>Brindes exclusivos</span> <img src="Assets/patinhas1.png" alt="pata">
-        <span>15% a 25% OFF</span> <img src="Assets/coroa1.png" alt="pata">
-        <span>Frete grátis</span> <img src="Assets/patinhas1.png" alt="pata">
-        <span>Brindes exclusivos</span> <img src="Assets/coroa1.png" alt="pata">
-        <span>15% a 25% OFF</span> <img src="Assets/patinhas1.png" alt="pata">
-    </div>
-</div>
-<div class="container">
-
-<div class="container">
-    <div class="main-content">
-        <section class="cart-card">
+            <!-- HEADER -->
             <div class="cart-header">
-                <label>
-                    <input type="checkbox" checked> 
-                    <strong>Produtos <span class="full-tag"></span></strong>
-                </label>
-            </div>
-            
-            <div class="product-row">
-                <input type="checkbox" checked>
-                <img src="Assets/carrinho.png" alt="nome do produto">
-                <div class="product-details">
-                    <span class="offer-badge">OFERTA DO DIA</span>
-                    <h3>Nome do produto...</h3>
-                    <p class="variant">Detalhe do produto....</p>
-                    <div class="quantity-selector">
-    <button type="button" class="btn-qty">-</button>
-    <input type="text" value="1" class="input-qty">
-    <button type="button" class="btn-qty">+</button>
-</div>
-                </div>
-                <div class="product-price">
-                    <span class="old-price">R$ xxxxxxxx <span class="discount">x% OFF</span></span>
-                    <span class="current-price">R$ xxxxxxx</span>
-                </div>
+
+                <span>Produtos</span>
+                <span>Desconto</span>
+                <span>Preço</span>
+                <span>Quantidade</span>
+                <span>Total</span>
+
             </div>
 
-            <div class="shipping-info">
-                <p>Frete <span class="old-shipping">R$xxxx</span> <span class="free-text">Grátis Para Todo O Brasil</span></p>
-                <p class="shipping-tip">Aproveite o frete grátis adicionando mais produtos <span class="full-tag-small"></span>. <a href="#">Ver produtos</a></p>
+            <!-- PRODUTO -->
+            <div class="cart-product">
+
+                <!-- INFO -->
+                <div class="product-info">
+
+                    <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=300&auto=format&fit=crop"
+                        alt="Produto">
+
+                    <div class="product-text">
+
+                        <h3>
+                            Brinquedo Cansei de Ser Gato Ratinho com Catnip Amarelo
+                        </h3>
+
+                    </div>
+
+                </div>
+
+                <!-- DESCONTO -->
+                <div class="discount">
+
+                    <span>10% OFF</span>
+
+                </div>
+
+                <!-- PREÇO -->
+                <div class="price">
+
+                    <p class="old-price">
+                        R$ 44,99
+                    </p>
+
+                    <p class="new-price">
+                        R$ 40,49
+                    </p>
+
+                </div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantity">
+
+                    <button>-</button>
+
+                    <span>1</span>
+
+                    <button>+</button>
+
+                </div>
+
+                <!-- TOTAL -->
+                <div class="total">
+
+                    <span>R$ 40,49</span>
+
+                    <i class="fa-regular fa-trash-can"></i>
+
+                </div>
+
             </div>
+
+            <!-- ========================= -->
+            <!-- RECOMENDAÇÕES -->
+            <!-- ========================= -->
+
+            <div class="recommendations-section">
+
+                <h2 class="section-title">
+                    Recomendações para você
+                </h2>
+
+                <div class="recommendations-grid">
+
+                    <!-- CARD -->
+                    <div class="rec-card">
+
+                        <img src="Assets/produto1.png" alt="Produto 1">
+
+                        <div class="rec-info">
+
+                            <h4>
+                                Faqueiro Tramontina 24 Peças Inox Jogo De Talheres...
+                            </h4>
+
+                            <p class="rec-old-price">
+                                R$ 99,90
+                            </p>
+
+                            <p class="rec-price">
+
+                                R$ 96,90
+
+                                <span class="discount">
+                                    3% OFF
+                                </span>
+
+                            </p>
+
+                            <span class="payment-tag">
+                                20% OFF Saldo no Zooka
+                            </span>
+
+                            <p class="free-shipping">
+                                Frete grátis
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <!-- CARD -->
+                    <div class="rec-card">
+
+                        <img src="Assets/produto2.png" alt="Produto 2">
+
+                        <div class="rec-info">
+
+                            <h4>
+                                Kit 10 Potes Vidro Hermético Aristus 640ml...
+                            </h4>
+
+                            <p class="rec-old-price">
+                                R$ 189,99
+                            </p>
+
+                            <p class="rec-price">
+
+                                R$ 114
+
+                                <span class="discount">
+                                    40% OFF
+                                </span>
+
+                            </p>
+
+                            <span class="payment-tag">
+                                20% OFF Saldo no Zooka
+                            </span>
+
+                            <p class="free-shipping">
+                                Frete grátis
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <!-- CARD -->
+                    <div class="rec-card">
+
+                        <img src="Assets/produto3.png" alt="Produto 3">
+
+                        <div class="rec-info">
+
+                            <h4>
+                                Panela Pressão Brinox Cerâmica Indução Vanilla...
+                            </h4>
+
+                            <p class="rec-old-price">
+                                R$ 329,90
+                            </p>
+
+                            <p class="rec-price">
+
+                                R$ 258,63
+
+                                <span class="discount">
+                                    21% OFF
+                                </span>
+
+                            </p>
+
+                            <span class="payment-tag">
+                                20% OFF Saldo no Zooka
+                            </span>
+
+                            <p class="free-shipping">
+                                Frete grátis
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <!-- CARD -->
+                    <div class="rec-card">
+
+                        <img src="Assets/produto4.png" alt="Produto 4">
+
+                        <div class="rec-info">
+
+                            <h4>
+                                19 Peças Kit Utensílios Cozinha Tábua Silicone...
+                            </h4>
+
+                            <p class="rec-old-price">
+                                R$ 129
+                            </p>
+
+                            <p class="rec-price">
+
+                                R$ 60,81
+
+                                <span class="discount">
+                                    52% OFF
+                                </span>
+
+                            </p>
+
+                            <span class="payment-tag">
+                                20% OFF Saldo no Zooka
+                            </span>
+
+                            <p class="free-shipping">
+                                Frete grátis
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </section>
 
-        <h2 class="section-title">Recomendações para você</h2>
-<div class="recommendations-grid">
-    <div class="rec-card">
-        <img src="Assets/produto1.png" alt="Produto 1">
-        <div class="rec-info">
-            <h4>Faqueiro Tramontina 24 Peças Inox Jogo De Talheres...</h4>
-            <p class="rec-old-price">R$ 99,90</p>
-            <p class="rec-price">R$ 96,90 <span class="discount">3% OFF</span></p>
-            <span class="payment-tag">20% OFF Saldo no Zooka</span>
-            <p class="free-shipping">Frete grátis</p>
-        </div>
-    </div>
+        <!-- ========================= -->
+        <!-- ENTREGA -->
+        <!-- ========================= -->
 
-    <div class="rec-card">
-        <img src="Assets/produto2.png" alt="Produto 2">
-        <div class="rec-info">
-            <h4>Kit 10 Potes Vidro Hermético Aristus 640ml...</h4>
-            <p class="rec-old-price">R$ 189,99</p>
-            <p class="rec-price">R$ 114 <span class="discount">40% OFF</span></p>
-            <span class="payment-tag">20% OFF Saldo no Zooka</span>
-            <p class="free-shipping">Frete grátis</p>
-        </div>
-    </div>
+        <aside class="delivery-section">
 
-    <div class="rec-card">
-        <img src="Assets/produto3.png" alt="Produto 3">
-        <div class="rec-info">
-            <h4>Panela Pressão Brinox Cerâmica Indução Vanilla...</h4>
-            <p class="rec-old-price">R$ 329,90</p>
-            <p class="rec-price">R$ 258,63 <span class="discount">21% OFF</span></p>
-            <span class="payment-tag">20% OFF Saldo no Zooka</span>
-            <p class="free-shipping">Frete grátis</p>
-        </div>
-    </div>
+            <h2>
+                Escolha a forma de entrega
+            </h2>
 
-    <div class="rec-card">
-        <img src="Assets/produto4.png" alt="Produto 4">
-        <div class="rec-info">
-            <h4>19 Peças Kit Utensílios Cozinha Tábua Silicone...</h4>
-            <p class="rec-old-price">R$ 129</p>
-            <p class="rec-price">R$ 60,81 <span class="discount">52% OFF</span></p>
-            <span class="payment-tag">20% OFF Saldo no Zooka</span>
-            <p class="free-shipping">Frete grátis</p>
-        </div>
-    </div>
-</div>
-</div>
-    <aside class="summary-card">
-        <h3>Resumo da compra</h3>
-        <div class="summary-line">
-            <span>Produto</span>
-            <span>R$ xxxxxx</span>
-        </div>
-        <div class="summary-line">
-            <span>Frete</span>
-            <span class="free-text">Grátis</span>
-        </div>
-        <div class="coupon-area">
-            <a href="#" class="coupon-link" id="openCoupon">Inserir código do cupom</a>
-        </div>
-        <div class="summary-total">
-            <span>Total</span>
-            <span class="total-price">R$xxxxxxx</span>
-        </div>
-        <button class="btn-continue">Continuar</button>
-    </aside>
-</div>
+            <!-- ENTREGA -->
+            <div class="delivery-option active">
 
-<div id="couponModal" class="modal-overlay">
-    <div class="modal-coupon-card">
-        <div class="modal-header">
-            <h2>Cupons</h2>
-            <span class="close-coupon" id="closeCoupon">&times;</span>
-        </div>
-        <div class="coupon-input-container">
-            <div class="input-wrapper">
-                <i class="fas fa-ticket-alt coupon-icon"></i>
-                <input type="text" placeholder="Inserir código do cupom" id="couponField">
-            </div>
-            <button class="btn-add-coupon" id="btnAddCoupon" disabled>Adicionar cupom</button>
-        </div>
-    </div>
-</div>
-</div>
+                <div class="delivery-left">
 
+                    <i class="fa-solid fa-check"></i>
 
-<footer>
-    <div class="footer-links-container">
+                    <div>
 
-        <div class="logo-footer">zookapet</div>
+                        <h4>Padrão</h4>
 
-        <div class="footer-grid">
+                        <p>Até amanhã</p>
 
-            <div class="footer-column">
-                <h4>a zookapet</h4>
-                <ul>
-                    <li>bem estar bem</li>
-                    <li>sustentabilidade</li>
-                    <li>nossa história</li>
-                    <li>trabalhe conosco</li>
-                </ul>
+                    </div>
+
+                </div>
+
+                <span>R$ 5,76</span>
+
             </div>
 
-            <div class="footer-column">
-                <h4>atendimento</h4>
-                <ul>
-                    <li>encontre a zooka</li>
-                    <li>ajuda e contato</li>
-                    <li>ouvidoria</li>
-                </ul>
+            <!-- EXPRESSA -->
+            <div class="delivery-option">
+
+                <div class="delivery-left">
+
+                    <i class="fa-regular fa-clock"></i>
+
+                    <div>
+
+                        <h4>Expressa</h4>
+
+                        <p>Em até 3 horas</p>
+
+                    </div>
+
+                </div>
+
+                <span>R$ 10,27</span>
+
             </div>
 
-            <div class="footer-column">
-                <h4>suporte</h4>
-                <ul>
-                    <li>aviso de privacidade</li>
-                    <li>política de cookies</li>
-                    <li>trocas e devoluções</li>
-                </ul>
+            <!-- RETIRADA -->
+            <div class="delivery-option"
+                onclick="toggleSideModal()"
+                style="cursor:pointer;">
+
+                <div class="delivery-left">
+
+                    <i class="fa-solid fa-store"></i>
+
+                    <div>
+
+                        <h4>Retire na Loja</h4>
+
+                        <p>
+                            Em algumas lojas a partir de 45 min
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <span class="free">
+                    Grátis
+                </span>
+
             </div>
 
-        </div>
+            <!-- ENDEREÇO -->
+            <div class="address-box">
 
-    </div>
-</footer>
+                <h3>
+                    Endereço de entrega
+                </h3>
+
+                <div class="address-card">
+
+                    <h4>
+                        Minha Casa
+                    </h4>
+
+                    <p>
+                        Avenida Três, 417
+                    </p>
+
+                    <p>
+                        Guarulhos - SP
+                    </p>
+
+                    <p>
+                        CEP: 07179-707
+                    </p>
+
+                </div>
+
+                <a href="#" id="openModal">
+                    Alterar endereço
+                </a>
+
+            </div>
+
+            <!-- ========================= -->
+            <!-- RESUMO -->
+            <!-- ========================= -->
+
+            <div class="summary-box">
+
+                <h2>
+                    Resumo do pedido
+                </h2>
+
+                <!-- LINHA -->
+                <div class="summary-row">
+
+                    <p>
+                        Valor dos produtos
+                        <strong>(5 itens)</strong>
+                    </p>
+
+                    <span>
+                        R$ 224,95
+                    </span>
+
+                </div>
+
+                <!-- LINHA -->
+                <div class="summary-row">
+
+                    <p class="info-text">
+
+                        Taxa de serviço
+
+                        <i class="fa-regular fa-circle-question"></i>
+
+                    </p>
+
+                    <span>
+                        R$ 5,90
+                    </span>
+
+                </div>
+
+                <!-- LINHA -->
+                <div class="summary-row">
+
+                    <p>
+                        Prazo de entrega
+                    </p>
+
+                    <span>
+                        Até 12/05/2026
+                    </span>
+
+                </div>
+
+                <!-- LINHA -->
+                <div class="summary-row">
+
+                    <p>
+
+                        Entrega para
+                        <strong>07179-707</strong>
+
+                    </p>
+
+                    <span class="free-text">
+                        Grátis
+                    </span>
+
+                </div>
+
+                <!-- LINHA -->
+                <div class="summary-row">
+
+                    <p>
+
+                        Total de descontos
+
+                        <i class="fa-solid fa-chevron-down"></i>
+
+                    </p>
+
+                    <span class="discount-text">
+
+                        - R$ 22,50
+
+                    </span>
+
+                </div>
+
+                <!-- TOTAL -->
+                <div class="summary-total">
+
+                    <div>
+
+                        <h3>
+                            Total
+                        </h3>
+
+                    </div>
+
+                    <div class="total-price">
+
+                        <h2>
+                            R$ 208,35
+                        </h2>
+
+                        <p>
+                            ou 2x de R$ 104,18 sem juros
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- FRETE -->
+                <div class="shipping-free">
+
+                    <p>
+
+                        <i class="fa-solid fa-truck"></i>
+
+                        Frete grátis liberado!
+
+                    </p>
+
+                    <div class="shipping-bar">
+
+                        <div class="shipping-progress"></div>
+
+                    </div>
+
+                </div>
+
+                <!-- BOTÃO -->
+                <button class="payment-btn">
+
+                    Ir para pagamento
+
+                </button>
+
+                <!-- BOTÃO -->
+                <button class="more-products-btn">
+
+                    Escolher mais produtos
+
+                </button>
+
+            </div>
+
+        </aside>
+
+    </main>
+
+    <script src="js/carrinho2.js"></script>
+
 </body>
+
 </html>

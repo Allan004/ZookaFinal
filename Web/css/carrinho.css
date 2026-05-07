@@ -16,7 +16,7 @@ html {
 
 /* HEADER PARA COPIAR E COLAR EM TODAS AS OUTRAS  */
 
-/* --- CONFIGURAÇÕES GLOBAIS --- */
+
 * {
     margin: 0;
     padding: 0;
@@ -51,38 +51,42 @@ html {
 
 .header-top {
     display: flex;
-    justify-content: space-between; 
-    align-items: center;            
+    justify-content: center; /* Mantém a busca e o menu centralizados entre si */
+    align-items: center;
     max-width: 1400px;
     margin: 0 auto;
     padding: 15px 40px;
+    position: relative;     /* ESSENCIAL para a logo se orientar por aqui */
+    min-height: 80px;       /* Garante altura para a logo não cortar */
 }
 
+
+/* parte da logo começa aqui */
 .logo-container {
-    flex: 1;
+    position: absolute;     /* Tira a logo do fluxo normal */
+    left: 40px;             /* Encosta na esquerda (mesmo padding do header) */
+    top: 50%;               /* Centraliza verticalmente */
+    transform: translateY(-50%); 
+    flex: none;
 }
-
+/* Diminuindo o tamanho do logo */
 .banner-topo {
-    height: 60px; 
+    height: 50px;           /* Tamanho da sua logo */
     width: auto;
 }
 
+/* Ajuste na busca para ela ocupar o resto do espaço central */
 .search-container {
-    flex: 2; 
+    flex: 0 1 500px;        /* Define um tamanho base, mas deixa encolher se necessário */
     display: flex;
     justify-content: center;
 }
-
+/* parte da logo termina aqui */
 .search-input {
     width: 100%;
-    max-width: 500px;
     padding: 12px 25px;
     border-radius: 30px;
     border: 1px solid #e0e0e0;
-    background-color: var(--bg-search);
-    outline: none;
-    font-size: 14px;
-    transition: 0.3s;
 }
 
 .search-input:focus {
@@ -92,10 +96,11 @@ html {
 }
 
 .user-menu {
-    flex: 1;
+    position: absolute;     /* Também fixamos na direita para não brigar com a busca */
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
     gap: 20px;
 }
 
@@ -279,9 +284,10 @@ html {
 
 
 /* Container principal que usa Flexbox para colocar carrinho e resumo lado a lado */
+/* Localize esta parte no seu código e adicione o margin-top */
 .container {
     max-width: 1100px;
-    margin: 0 auto;
+    margin: 40px auto; /* O primeiro valor (40px) é o espaço em cima e embaixo */
     display: flex;
     gap: 20px;
 }
@@ -290,7 +296,7 @@ html {
 .main-content { flex: 3; }
 
 /* Estilização comum para todos os cards brancos do site */
-.cart-card, .summary-card, .rec-card {
+.cart-card, .summary-card {
     background: #fff;
     border-radius: 8px;
     padding: 20px;
@@ -298,6 +304,71 @@ html {
     margin-bottom: 20px;
 }
 
+/* parte da recomendação do carrinho----esse é o começo */
+.recommendations-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* O "Quadradinho" arredondado */
+.rec-card {
+    background: #ffffff;
+    border: 1px solid #e0e0e0; /* Borda fina para dar o formato de quadrado */
+    border-radius: 12px;       /* O arredondamento dos cantos */
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s, box-shadow 0.2s; /* Efeito suave ao passar o mouse */
+    cursor: pointer;
+}
+
+/* Efeito de destaque ao passar o mouse (opcional, fica bem moderno) */
+.rec-card:hover {
+    transform: translateY(-5px); /* Sobe um pouquinho */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Sombra mais forte */
+    border-color: #36a9b1; /* Muda a borda para a cor da sua logo */
+}
+
+/* Ajuste da imagem dentro do quadrado */
+.rec-card img {
+    width: 100%;
+    height: 150px;             /* Altura fixa para as imagens */
+    object-fit: contain;       /* Garante que a imagem não estique */
+    margin-bottom: 12px;
+    border-radius: 8px;        /* Arredonda levemente a imagem também */
+}
+
+/* Estilização interna dos textos para combinar */
+.rec-info h4 {
+    font-size: 13px;
+    color: #333;
+    line-height: 1.4;
+    height: 36px;              /* Limita a altura do título para alinhar tudo */
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.rec-price {
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+}
+
+.payment-tag {
+    display: inline-block;
+    background-color: #e8f5f6; /* Azul bem clarinho */
+    color: #36a9b1;            /* Cor da sua marca */
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-top: 5px;
+    font-weight: 600;
+}
+
+/* parte da recomendação do carrinho----esse é o final */
 /* --- SEÇÃO DE PRODUTOS --- */
 .cart-header { border-bottom: 1px solid #eee; padding-bottom: 15px; }
 .full-tag { color: var(--mercado-green); font-style: italic; }
@@ -351,79 +422,135 @@ html {
     align-items: center;
 }
 
-/* Card branco do cupom */
-/* Este é o card branco que contém o input do cupom */
+/* Parte da estilização do cupom */
+
 .modal-coupon-card {
     background-color: #ffffff;
     width: 90%;
-    max-width: 460px;
-    padding: 32px;
-    border-radius: 8px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+    max-width: 480px;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3); /* Sombra um pouco mais forte para destacar */
+    border: 3px solid #f0f9fa;
 
-    /* --- AS REGRAS ABAIXO COLOCAM NO MEIO DA TELA --- */
-    position: fixed;      /* Fixa em relação à janela do navegador */
-    top: 50%;             /* Empurra o topo do card até a metade da tela */
-    left: 50%;            /* Empurra a esquerda do card até a metade da tela */
-    transform: translate(-50%, -50%); /* Move o card para trás metade do seu tamanho */
+    /* --- ESTA É A MÁGICA PARA CENTRALIZAR --- */
+    position: fixed;      /* Fixa em relação à tela, não ao conteúdo */
+    top: 50%;             /* Joga o topo do card no meio da tela */
+    left: 50%;            /* Joga a esquerda do card no meio da tela */
+    transform: translate(-50%, -50%); /* Move o card para trás metade do seu próprio tamanho */
     
-    margin: 0;            /* Garante que nenhuma margem desloque o modal */
-    z-index: 10000;       /* Garante que ele fique acima do fundo escuro */
+    z-index: 10001;       /* Garante que fique acima de TUDO */
+    margin: 0;            /* Remove qualquer margem que possa deslocar o centro */
 }
 
+/* Container do título e do X */
 .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    position: relative; /* Isso permite que o X se posicione em relação a este cabeçalho */
+    width: 100%;
 }
 
+/* O botão de fechar (X) */
 .close-coupon {
-    font-size: 24px;
-    color: #3483fa;
+    font-size: 32px;        /* Deixamos maior como você pediu */
+    color: #36a9b1;         /* Cor da sua marca */
     cursor: pointer;
     line-height: 1;
+    position: absolute;     /* Para mover livremente */
+    top: -10px;             /* Ajuste fino para subir um pouco */
+    right: -10px;            /* Ajuste fino para colar no canto direito */
+    transition: transform 0.2s, color 0.2s;
+    padding: 5px;           /* Aumenta a área de clique, facilitando pro usuário */
 }
 
+/* Efeito ao passar o mouse */
+.close-coupon:hover {
+    color: #c07b4d;         /* Muda para o laranja do seu ticker ao passar o mouse */
+    transform: scale(1.1);  /* Dá um leve zoom */
+}
+
+/* O container do input (o retângulo branco interno) */
 .coupon-input-container {
     display: flex;
     align-items: center;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    border: 2px solid #e8f5f6; /* Borda suave */
+    border-radius: 50px;       /* Formato de pílula (super moderno) */
+    padding: 8px 8px 8px 20px;
+    background: #fff;
+    transition: 0.3s;
+}
+
+.coupon-input-container:focus-within {
+    border-color: #36a9b1;
+    box-shadow: 0 0 10px rgba(54, 169, 177, 0.1);
+}
+
+/* Ícone de ticket/patinha */
+.coupon-icon {
+    color: #36a9b1;
+    font-size: 18px;
+}
+
+/* Campo de texto */
+#couponField {
     padding: 10px;
+    font-weight: 500;
+    color: #555;
 }
 
-.input-wrapper {
-    display: flex;
-    align-items: center;
-    flex: 1;
+#couponField::placeholder {
+    color: #bbb;
 }
 
-.coupon-icon { color: #3483fa; margin-right: 10px; }
+/* Botão de Adicionar Cupom */
+.btn-add-coupon {
+    background-color: #f1f1f1;
+    color: #aaa;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 50px; /* Seguindo o padrão arredondado */
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 13px;
+    cursor: not-allowed;
+    transition: 0.3s;
+}
+
+/* Quando o botão estiver ativo */
+.btn-add-coupon.active {
+    background-color: #36a9b1; /* Azul da petshop */
+    color: #ffffff;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(54, 169, 177, 0.3);
+}
+
+.btn-add-coupon.active:hover {
+    background-color: #2d8e95;
+    transform: scale(1.05);
+}
+
 
 #couponField {
-    border: none;
-    outline: none;
-    width: 100%;
+    border: none;      /* Remove a borda padrão que está aparecendo */
+    outline: none;     /* Remove a linha preta/azul que aparece ao clicar */
+    background: transparent; /* Garante que não haja fundo branco sobreposto */
+    width: 100%;       /* Faz o campo ocupar o espaço disponível */
     font-size: 16px;
+    color: #555;
 }
 
-.btn-add-coupon {
-    background-color: #eee;
-    color: #bbb;
+/* Caso queira garantir que ela não volte ao clicar: */
+#couponField:focus {
+    outline: none;
     border: none;
-    padding: 10px 15px;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: not-allowed;
 }
 
-/* Quando o botão está ativo */
-.btn-add-coupon.active {
-    background-color: #3483fa;
-    color: #fff;
-    cursor: pointer;
-}
+
+
+/* Termina aqui a parte de cupom */
 
 /* Rodapé do resumo e botão continuar */
 .summary-total {
@@ -589,3 +716,21 @@ footer {
     justify-content: center;
     text-decoration: none;
 }
+
+
+
+/* se funcionar vou pirar kakakakakakka */
+
+
+/* Ao clicar em qualquer parte da página */
+html:active {
+    cursor: url('../Assets/patinha.png'), auto;
+}
+
+/* Aplicando especificamente em elementos clicáveis para não falhar */
+a:active, button:active, .btn-qty:active, .btn-continue:active {
+    cursor: url('../Assets/patinha.png'), auto !important;
+}
+
+
+/* se funcionar vou pirar kakakakakakka aqui que termina */
