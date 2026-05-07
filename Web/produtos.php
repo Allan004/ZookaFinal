@@ -317,10 +317,10 @@ $produtos=produtos_web($nome,$filtro,$ordenar);
                     
                     foreach($produtos as $produto){
 
-                        echo '<a class="sem_card" href="telasDeProdutos.php"><div class="product-card">
+                        echo '<a class="sem_card" href="telaDeProdutos.php?idProduto='.$produto['id'].'"><div class="product-card">
                         <div class="product-image">
                             <span class="badge-off">15% OFF</span>
-                            <img src="assets/imagens_produtos/'.$produto["id"].'.jpg" alt="Produto">
+                            <img src="assets/imagens_produtos/produto_'.$produto["id"].'/1.jpg" alt="Produto">
                             <button class="add-cart">+</button>
                         </div>
                         <div class="product-info">

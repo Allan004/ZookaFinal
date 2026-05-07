@@ -5,128 +5,141 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+body {
+    background-color: #f5f5f5;
+    padding: 20px;
+}
+
 .container {
+    display: flex;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
 }
 
-/* Estilo do Banner Roxo */
-.adoption-banner {
-    background-color: #b3a3c4; /* Roxo claro da imagem */
-    padding: 40px 0;
-    color: #4a4a4a;
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-right: 30px;
+    height: fit-content;
 }
 
-.breadcrumb {
+.sidebar h3 {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.filter-section {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.filter-header, .filter-dropdown {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.filter-section label {
+    display: block;
     font-size: 13px;
-    margin-bottom: 15px;
+    margin: 8px 0;
+    color: #555;
 }
 
-.adoption-banner h1 {
-    font-size: 32px;
-    margin-bottom: 15px;
-    color: #5a4a75;
+.view-more {
+    font-size: 12px;
+    color: #888;
+    text-decoration: none;
+    display: block;
+    margin-top: 10px;
 }
 
-.adoption-banner p {
-    line-height: 1.6;
-    max-width: 800px;
-}
-
-.adoption-banner strong {
-    color: #6a3d9a;
-}
-
-/* Grade de Pets */
-.section-title {
-    margin: 40px 0 20px;
-    font-size: 24px;
+/* Conteúdo */
+.content h2 {
     color: #333;
+    margin-bottom: 25px;
 }
 
 .pet-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, min-max(250px, 1fr));
-    gap: 25px;
-    margin-bottom: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-/* Estilo do Card */
+/* Card de Pet */
 .pet-card {
-    background: #fff;
+    background: white;
+    width: 240px;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    transition: transform 0.3s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
-.pet-card:hover {
-    transform: translateY(-5px);
+.pet-image {
+    height: 240px;
+    background-size: cover;
+    background-position: center;
 }
 
-.pet-image img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-}
-
-.pet-info {
+.card-info {
     padding: 15px;
 }
 
 .ong-name {
-    font-size: 10px;
-    color: #f2994a; /* Laranja suave */
+    font-size: 9px;
+    color: #ff8a5c;
     font-weight: bold;
-    display: block;
     margin-bottom: 8px;
 }
 
-.name-gender {
+.name-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 5px;
 }
 
-.name-gender h3 {
+.pet-name {
     font-size: 18px;
+    font-weight: bold;
     color: #444;
 }
 
-.gender-icon {
-    font-size: 18px;
+.icons {
+    color: #ccc;
+    font-size: 16px;
 }
 
-.gender-icon.female { color: #ff85a1; }
-.gender-icon.male { color: #4dabf7; }
+.male { color: #5dade2; margin-left: 10px; }
+.female { color: #ec7063; margin-left: 10px; }
 
 .location {
-    font-size: 13px;
-    color: #777;
-    margin: 8px 0 15px;
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 15px;
 }
 
-/* Botão Laranja */
 .btn-adopt {
     width: 100%;
-    background-color: #f2994a;
+    background-color: #fba171;
     color: white;
     border: none;
-    padding: 12px;
-    border-radius: 8px;
+    padding: 10px;
+    border-radius: 6px;
     font-weight: bold;
     cursor: pointer;
     transition: background 0.3s;
 }
 
 .btn-adopt:hover {
-    background-color: #e67e22;
-}
-
-/* Responsividade para o Grid */
-@media (max-width: 768px) {
-    .pet-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    }
+    background-color: #e68a5a;
 }
