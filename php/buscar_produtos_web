@@ -3,22 +3,36 @@
     require_once 'conexao.php';
 
     function produtos_web($nome,$filtro,$ordenar){
-    $pdo=conectar();
-    $sql="SELECT * FROM produto WHERE nome LIKE :termo1 AND filtros_produto LIKE :termo2";
-    if ($ordenar == "preco") {
-        $sql .= " ORDER BY preco ASC";
-    } elseif ($ordenar == "nome") {
-        $sql .= " ORDER BY nome ASC";
+        $pdo=conectar();
+        $sql="SELECT * FROM produto WHERE nome LIKE :termo1 AND filtros_produto LIKE :termo2";
+        if ($ordenar == "preco") {
+            $sql .= " ORDER BY preco ASC";
+        } elseif ($ordenar == "nome") {
+            $sql .= " ORDER BY nome ASC";
+        }
+        $stmt = $pdo->prepare($sql);
+        $like1 = "%$nome%";
+        $like2 = "%$filtro%";
+        $stmt->bindParam(':termo1', $like1);
+        $stmt->bindParam(':termo2', $like2);
+        $stmt->execute();
+        $resultado=$stmt-> fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    };
+
+
+    function produto_espefico($id){
+
+        $pdo=conectar();
+        $sql="SELECT * FROM produto WHERE id=:valor";
+        $stmt = $pdo->prepare($sql);
+        $valor=$id;
+        $stmt->bindParam(':valor',$valor);
+        $stmt->execute();
+        $resultado=$stmt-> fetch(PDO::FETCH_ASSOC); 
+        return $resultado;
+
     }
-    $stmt = $pdo->prepare($sql);
-    $like1 = "%$nome%";
-    $like2 = "%$filtro%";
-    $stmt->bindParam(':termo1', $like1);
-    $stmt->bindParam(':termo2', $like2);
-    $stmt->execute();
-    $resultado=$stmt-> fetchAll(PDO::FETCH_ASSOC);
-    return $resultado;
-    }   
 
 
 

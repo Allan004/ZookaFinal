@@ -1,4 +1,11 @@
-<!DOCTYPE html>
+<?php
+
+include "../php/buscar_produtos_web";
+
+$id_produto=$_GET['idProduto'];
+$produto=produto_espefico($id_produto);
+
+?><!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -219,20 +226,33 @@
     <!-- LADO ESQUERDO (IMAGENS) -->
     <div class="galeria">
 
-        <div class="thumbs">
-            <img src="Assets/download (1).png" class="thumb active">
-            <img src="Assets/download (2).png" class="thumb">
-        </div>
+    <div class="thumbs">
+        <img 
+            src="<?php echo 'Assets/imagens_produtos/produto_'.$produto['id'].'/1.jpg' ?>" 
+            class="thumb active"
+        >
 
-        <div class="imagem-principal">
-            <img src="Assets/download.png">
-            <div class="dots">
-                <span class="dot active"></span>
-                <span class="dot"></span>
-            </div>
+        <img 
+            src="<?php echo 'Assets/imagens_produtos/produto_'.$produto['id'].'/2.jpg' ?>" 
+            class="thumb"
+        >
+    </div>
+
+    <div class="imagem-principal">
+
+        <img 
+            id="imagemPrincipal"
+            src="<?php echo 'Assets/imagens_produtos/produto_'.$produto['id'].'/1.jpg' ?>"
+        >
+
+        <div class="dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
         </div>
 
     </div>
+
+</div>
 
     <!-- LADO DIREITO (INFO) -->
     <div class="info">
@@ -240,18 +260,18 @@
       
 
         <h1>
-            Ração Golden Special para Cães Adultos Sabor Frango e Carne
+           <?php echo $produto['nome']?>
         </h1>
 
-        <p class="codigo">Código: 10002310000032 | Premier Pet | Golden</p>
+        <p class="codigo"><?php echo 'Código: '.$produto['codigo_produto']?></p>
 
         <div class="avaliacao">
             ⭐ 4.4
         </div>
 
         <div class="preco">
-            <span class="normal">R$ 159,90</span>
-            <span class="assinante">R$ 143,91</span>
+            <span class="normal"><?php echo 'R$'.$produto['preco']?></span>
+            <span class="assinante"><?php  echo 'R$'.$produto['preco']*0.9?></span>
         </div>
 
         <div class="opcoes-compra">
@@ -286,71 +306,7 @@
 
 <!-- CARACTERISTICAS DO PRODUTO -->
 
-<section class="caracteristicas-container">
-    <h2>Características do produto</h2>
 
-    <div class="tabelas-grid">
-        <div class="coluna-caracteristicas">
-            <h3>Características principais</h3>
-            <table class="tabela-especificacoes">
-                <tr>
-                    <td class="label">Marca</td>
-                    <td class="valor">B-Max</td>
-                </tr>
-                <tr>
-                    <td class="label">Modelo</td>
-                    <td class="valor">LM-800</td>
-                </tr>
-                <tr>
-                    <td class="label">Tipo de alimentação</td>
-                    <td class="valor">USB</td>
-                </tr>
-                <tr>
-                    <td class="label">Voltagem</td>
-                    <td class="valor">127/220V</td>
-                </tr>
-                <tr>
-                    <td class="label">Cor</td>
-                    <td class="valor">Preto</td>
-                </tr>
-                <tr>
-                    <td class="label">Tipo de conector do cabo</td>
-                    <td class="valor">USB</td>
-                </tr>
-                <tr>
-                    <td class="label">Inclui suporte</td>
-                    <td class="valor">Não</td>
-                </tr>
-            </table>
-        </div>
-
-        <div class="coluna-caracteristicas">
-            <h3>Outros</h3>
-            <table class="tabela-especificacoes">
-                <tr>
-                    <td class="label">Tipo de leitor de código de barras</td>
-                    <td class="valor">De Mão</td>
-                </tr>
-                <tr>
-                    <td class="label">Tecnologia do sensor</td>
-                    <td class="valor">Laser</td>
-                </tr>
-                <tr>
-                    <td class="label">Tipo de digitalização</td>
-                    <td class="valor">Sem fio</td>
-                </tr>
-                <tr>
-                    <td class="label">Interfaces suportadas</td>
-                    <td class="valor">USB</td>
-                </tr>
-                <tr>
-                    <td class="label">Fabricante</td>
-                    <td class="valor">B-Max</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-</section>
 
 <!-- CARACTERISTICAS DO PRODUTO TERMINA AQUI -->
 
@@ -367,7 +323,7 @@
         
         <p class="divisor">----------Descrição:</p>
         
-        <p>O Leitor de Código de Barras B-Max LM-600 é uma solução confiável e eficiente para otimizar operações comerciais e logísticas. Desenvolvido para oferecer alto desempenho, inclusive em etiquetas danificadas ou de baixa qualidade.</p>
+        <p><?php echo $produto['descricao'] ?></p>
         
         <p class="divisor">----------Especificações:</p>
     </div>
@@ -418,9 +374,34 @@
         </div>
 
     </div>
+    
 </footer>
 
+<script>
 
+const thumbs = document.querySelectorAll('.thumb');
+const imagemPrincipal = document.getElementById('imagemPrincipal');
+
+thumbs.forEach((thumb) => {
+
+    thumb.addEventListener('click', () => {
+
+        
+        imagemPrincipal.src = thumb.src;
+
+        
+        thumbs.forEach(img => {
+            img.classList.remove('active');
+        });
+
+       
+        thumb.classList.add('active');
+
+    });
+
+});
+
+</script>
 
 </body>
 </html>
