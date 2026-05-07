@@ -226,20 +226,33 @@ $produto=produto_espefico($id_produto);
     <!-- LADO ESQUERDO (IMAGENS) -->
     <div class="galeria">
 
-        <div class="thumbs">
-            <img src="Assets/download (1).png" class="thumb active">
-            <img src="Assets/download (2).png" class="thumb">
-        </div>
+    <div class="thumbs">
+        <img 
+            src="<?php echo 'Assets/imagens_produtos/produto_'.$produto['id'].'/1.jpg' ?>" 
+            class="thumb active"
+        >
 
-        <div class="imagem-principal">
-            <img src=<?php echo "Assets/imagens_produtos/produto_".$produto['id']."/1.jpg" ?>>
-            <div class="dots">
-                <span class="dot active"></span>
-                <span class="dot"></span>
-            </div>
+        <img 
+            src="<?php echo 'Assets/imagens_produtos/produto_'.$produto['id'].'/2.jpg' ?>" 
+            class="thumb"
+        >
+    </div>
+
+    <div class="imagem-principal">
+
+        <img 
+            id="imagemPrincipal"
+            src="<?php echo 'Assets/imagens_produtos/produto_'.$produto['id'].'/1.jpg' ?>"
+        >
+
+        <div class="dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
         </div>
 
     </div>
+
+</div>
 
     <!-- LADO DIREITO (INFO) -->
     <div class="info">
@@ -361,9 +374,34 @@ $produto=produto_espefico($id_produto);
         </div>
 
     </div>
+    
 </footer>
 
+<script>
 
+const thumbs = document.querySelectorAll('.thumb');
+const imagemPrincipal = document.getElementById('imagemPrincipal');
+
+thumbs.forEach((thumb) => {
+
+    thumb.addEventListener('click', () => {
+
+        
+        imagemPrincipal.src = thumb.src;
+
+        
+        thumbs.forEach(img => {
+            img.classList.remove('active');
+        });
+
+       
+        thumb.classList.add('active');
+
+    });
+
+});
+
+</script>
 
 </body>
 </html>
