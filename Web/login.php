@@ -27,16 +27,18 @@ if (
     $usuario = $_POST['login'] ?? '';
     $senha   = $_POST['senha'] ?? '';
  
-   $stmt = $pdo->prepare("
-    SELECT l.*
+$stmt = $pdo->prepare("
+    SELECT 
+        l.*,
+        c.nome
     FROM loginweb l
+
+    LEFT JOIN clienteweb c
+        ON c.id_login = l.id
+
     WHERE l.usuario = ?
-       OR l.id = (
-            SELECT c.id_login FROM clienteweb c WHERE c.email = ?
-       )
-       OR l.id = (
-            SELECT c.id_login FROM clienteweb c WHERE c.cpf = ?
-       )
+       OR c.email = ?
+       OR c.cpf = ?
 ");
 $stmt->execute([$usuario, $usuario, $usuario]);
  
@@ -46,6 +48,7 @@ $stmt->execute([$usuario, $usuario, $usuario]);
  
         $_SESSION['usuario_id'] = $user['id'];
         $_SESSION['usuario_nome'] = $user['usuario'];
+        $_SESSION['usuario_nome_real'] = $user['nome'];
  
         header("Location: index.php");
         exit;
@@ -56,18 +59,22 @@ $stmt->execute([$usuario, $usuario, $usuario]);
 }
 if (isset($_POST['enviar_codigo'])) {
  
-    $usuario = $_POST['recuperar_usuario'] ?? '';
- 
-$stmt = $pdo->prepare("
-    SELECT loginweb.*, clienteweb.email
-    FROM clienteweb
-    INNER JOIN loginweb
-        ON clienteweb.id_login = loginweb.id
-    WHERE clienteweb.cpf = ?
-");
- 
-$stmt->execute([$usuario]);
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $usuario = trim($_POST['recuperar_usuario'] ?? '');
+
+    // remove máscara do cpf
+    $cpfLimpo = preg_replace('/\D/', '', $usuario);
+
+    $stmt = $pdo->prepare("
+        SELECT loginweb.*, clienteweb.email
+        FROM clienteweb
+        INNER JOIN loginweb
+            ON clienteweb.id_login = loginweb.id
+        WHERE clienteweb.cpf = ?
+           OR clienteweb.email = ?
+    ");
+
+    $stmt->execute([$cpfLimpo, $usuario]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
  
 if (!$user) {
     $msg_recuperar = "Usuário não encontrado!";
@@ -104,12 +111,135 @@ try {
     $mail->isHTML(true);
     $mail->Subject = 'Código de recuperação';
  
-    $mail->Body = "
-        <h2>Recuperação de senha</h2>
-        <p>Seu código é:</p>
-        <h1>$codigo</h1>
-        <p>Expira em 3 minutos.</p>
-    ";
+    $mail->Body = '
+
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<style>
+
+body{
+    background:#f4f4f4;
+    padding:30px;
+    font-family:Arial,sans-serif;
+}
+
+.container{
+    max-width:600px;
+    margin:auto;
+    background:white;
+    border-radius:16px;
+    overflow:hidden;
+}
+
+.topo{
+    padding:0;
+    text-align:center;
+    line-height:0;
+    background:none;
+}
+
+.topo img{
+    width:100%;
+    max-width:600px;
+    display:block;
+}
+
+.conteudo{
+    padding:40px;
+    text-align:center;
+}
+
+.titulo{
+    font-size:28px;
+    font-weight:bold;
+    color:#333;
+    margin-bottom:20px;
+}
+
+.texto{
+    color:#666;
+    font-size:15px;
+    line-height:1.6;
+    margin-bottom:30px;
+}
+
+.codigo{
+    background:#f2fcfc;
+    border:2px dashed #2eaeb0;
+    color:#176668;
+
+    font-size:40px;
+    font-weight:bold;
+
+    padding:20px 30px;
+    border-radius:12px;
+
+    letter-spacing:8px;
+
+    display:inline-block;
+}
+
+.aviso{
+    margin-top:25px;
+    color:#999;
+    font-size:13px;
+}
+
+.footer{
+    background:#fafafa;
+    padding:20px;
+    text-align:center;
+    color:#999;
+    font-size:12px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="topo">
+
+        <img src="https://i.imgur.com/xwFq8GA.png">
+
+    </div>
+
+    <div class="conteudo">
+
+        <div class="titulo">
+            Recuperação de senha
+        </div>
+
+        <div class="texto">
+            Utilize o código abaixo para redefinir sua senha.
+        </div>
+
+        <div class="codigo">
+            '.$codigo.'
+        </div>
+
+
+    </div>
+
+    <div class="footer">
+        © 2026 Zooka Petshop
+    </div>
+
+</div>
+
+</body>
+
+</html>
+
+';
+$mail->AltBody = "Seu código é: $codigo";
  
     $mail->send();
  
@@ -169,17 +299,27 @@ if (isset($_POST['trocar_senha'])) {
             $stmt = $pdo->prepare("UPDATE loginweb SET senha = ? WHERE id = ?");
             $stmt->execute([$hash, $id]);
  
-            unset($_SESSION['recuperacao']);
-            unset($_SESSION['etapa']);
- 
-            $etapa = 1;
- 
-            $msg_recuperar = "Senha redefinida com sucesso!";
+unset($_SESSION['recuperacao']);
+unset($_SESSION['etapa']);
+
+$_SESSION['sucesso'] = "Senha redefinida com sucesso! Faça login.";
+
+echo "
+<script>
+
+sessionStorage.removeItem('modalRecuperar');
+
+window.location.href='login.php';
+
+</script>
+";
+
+exit;
         }
     }
 }
  
-if (isset($_POST['reenviar_codigo'])) {
+if (($_POST['acao'] ?? '') === 'reenviar') {
  
     if (isset($_SESSION['recuperacao'])) {
  
@@ -223,12 +363,139 @@ if (isset($_POST['reenviar_codigo'])) {
                 $mail->isHTML(true);
                 $mail->Subject = 'Novo código de recuperação';
  
-                $mail->Body = "
-                    <h2>Recuperação de senha</h2>
-                    <p>Seu novo código é:</p>
-                    <h1>$codigo</h1>
-                    <p>Expira em 3 minutos.</p>
-                ";
+                $mail->isHTML(true);
+$mail->Subject = 'Novo código de recuperação';
+
+$mail->Body = '
+
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<style>
+
+body{
+    background:#f4f4f4;
+    padding:30px;
+    font-family:Arial,sans-serif;
+}
+
+.container{
+    max-width:600px;
+    margin:auto;
+    background:white;
+    border-radius:16px;
+    overflow:hidden;
+}
+
+.topo{
+    padding:0;
+    text-align:center;
+    line-height:0;
+    background:none;
+}
+
+.topo img{
+    width:100%;
+    max-width:600px;
+    display:block;
+}
+
+.conteudo{
+    padding:40px;
+    text-align:center;
+}
+
+.titulo{
+    font-size:28px;
+    font-weight:bold;
+    color:#333;
+    margin-bottom:20px;
+}
+
+.texto{
+    color:#666;
+    font-size:15px;
+    line-height:1.6;
+    margin-bottom:30px;
+}
+
+.codigo{
+    background:#f2fcfc;
+    border:2px dashed #2eaeb0;
+    color:#176668;
+
+    font-size:40px;
+    font-weight:bold;
+
+    padding:20px 30px;
+    border-radius:12px;
+
+    letter-spacing:8px;
+
+    display:inline-block;
+}
+
+.aviso{
+    margin-top:25px;
+    color:#999;
+    font-size:13px;
+}
+
+.footer{
+    background:#fafafa;
+    padding:20px;
+    text-align:center;
+    color:#999;
+    font-size:12px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="topo">
+
+        <img src="https://i.imgur.com/xwFq8GA.png">
+
+    </div>
+
+    <div class="conteudo">
+
+        <div class="titulo">
+            Novo código de recuperação
+        </div>
+
+        <div class="texto">
+            Utilize o código abaixo para continuar a redefinição da sua senha.
+        </div>
+
+        <div class="codigo">
+            '.$codigo.'
+        </div>
+
+
+    </div>
+
+    <div class="footer">
+        © 2026 Zooka Petshop
+    </div>
+
+</div>
+
+</body>
+
+</html>
+
+';
+
+$mail->AltBody = "Seu novo código é: $codigo";
  
                 $mail->send();
  
@@ -332,40 +599,68 @@ if (!isset($_SESSION['recuperacao'])) {
     <h3>Recuperar senha</h3>
  
     <form method="POST">
- 
+ <?php if(isset($msg_recuperar)): ?>
+    <p class="msg-erro">
+        <?= $msg_recuperar ?>
+    </p>
+<?php endif; ?>
+
 <?php if ($etapa == 1): ?>
- 
-  <input type="text" name="recuperar_usuario" placeholder="CPF ou e-mail">
- 
+
+  <input type="text"
+       id="recuperar_usuario"
+       name="recuperar_usuario"
+       placeholder="CPF ou e-mail">
+
   <button type="submit" name="enviar_codigo">
     Enviar código
   </button>
- 
+
 <?php elseif ($etapa == 2): ?>
- 
-  <input type="text" name="codigo" placeholder="Digite o código">
- 
-  <button type="submit" name="validar_codigo">
-    Validar código
-  </button>
- 
-  <button type="submit" name="reenviar_codigo">
-    Reenviar código
-  </button>
- 
+
+  <div class="codigo-box">
+
+    <input type="text"
+           name="codigo"
+           placeholder="Digite o código enviado"
+           maxlength="6">
+
+    <button type="submit"
+            name="validar_codigo"
+            class="btn-validar">
+
+      Validar código
+
+    </button>
+
+<a href="#"
+   class="btn-reenviar"
+   onclick="event.preventDefault(); this.closest('form').querySelector('[name=acao]').value='reenviar'; this.closest('form').submit();">
+
+   Reenviar código
+
+</a>
+
+<input type="hidden" name="acao" value="">
+  </div>
+
 <?php elseif ($etapa == 3): ?>
- 
-  <input type="password" name="nova_senha" placeholder="Nova senha">
-  <input type="password" name="confirmar_senha" placeholder="Confirmar senha">
- 
-  <button type="submit" name="trocar_senha">
+
+  <input type="password"
+         name="nova_senha"
+         placeholder="Nova senha">
+
+  <input type="password"
+         name="confirmar_senha"
+         placeholder="Confirmar senha">
+
+  <button type="submit"
+          name="trocar_senha">
+
     Redefinir senha
+
   </button>
- 
-<?php endif; ?>
- 
-<?php if (!empty($msg_recuperar) && $_SERVER['REQUEST_METHOD'] === 'POST'): ?>
-  <p><?= $msg_recuperar ?></p>
+
 <?php endif; ?>
  
 </form>
@@ -396,5 +691,33 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 </script>
+</body>
+</html>
+<script>
+
+document.addEventListener('input', function(e){
+
+  if(e.target.id === 'recuperar_usuario'){
+
+    let valor = e.target.value;
+
+    // se tiver letra ou @ => email
+    if(/[a-zA-Z@]/.test(valor)){
+      return;
+    }
+
+    valor = valor.replace(/\D/g,'').slice(0,11);
+
+    valor = valor.replace(/^(\d{3})(\d)/, '$1.$2');
+    valor = valor.replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3');
+    valor = valor.replace(/\.(\d{3})(\d)/, '.$1-$2');
+
+    e.target.value = valor;
+  }
+
+});
+
+</script>
+
 </body>
 </html>

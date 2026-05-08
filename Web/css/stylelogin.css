@@ -495,3 +495,99 @@ body #modal-recuperar button {
 body #modal-recuperar button:hover {
   background: #176668 !important;
 }
+
+/* ===== RECUPERAÇÃO ===== */
+
+.modal-recuperacao h3 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: 700;
+}
+
+.codigo-box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#modal-recuperar input {
+  height: 50px;
+  font-size: 15px !important;
+  border: 1px solid #dcdcdc !important;
+  transition: 0.2s;
+}
+
+#modal-recuperar input:focus {
+  border-color: #2eaeb0 !important;
+  box-shadow: 0 0 0 3px rgba(46,174,176,.15);
+}
+
+.btn-validar {
+  background: #18b7bb !important;
+  height: 48px;
+  border-radius: 8px !important;
+  font-size: 15px !important;
+  transition: .2s;
+}
+
+.btn-validar:hover {
+  background: #148d90 !important;
+  transform: translateY(-1px);
+}
+
+.btn-reenviar {
+  background: transparent !important;
+  border: none !important;
+  color: #d9534f !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  text-decoration: underline dotted;
+  cursor: pointer;
+  width: fit-content !important;
+  margin: 0 auto;
+  padding: 0 !important;
+  height: auto !important;
+}
+
+.btn-reenviar:hover {
+  color: #b52b27 !important;
+}
+
+.msg-rec-sucesso,
+.msg-rec-erro {
+  margin-top: 15px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  animation: aparecer .2s ease;
+}
+
+.msg-rec-sucesso {
+  background: #e7f8f0;
+  color: #176668;
+  border: 1px solid #8ee0ca;
+}
+
+.msg-rec-erro {
+  background: #ffe9e9;
+  color: #b42318;
+  border: 1px solid #ffb3b3;
+}
+.btn-reenviar {
+  display: block;
+  text-align: center;
+  margin-top: 2px;
+
+  color: #d9534f;
+  font-size: 13px;
+  font-weight: 600;
+
+  text-decoration: underline dotted;
+  transition: .2s;
+}
+
+.btn-reenviar:hover {
+  color: #b42318;
+}

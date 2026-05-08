@@ -44,8 +44,7 @@ session_start();
 
         <div class="dropdown-menu">
             <a href="#">Meus pedidos</a>
-            <a href="#">Meus pets</a>
-            <a href="#">Meus dados</a>
+            <a href="meusdados.php">Meus dados</a>
             <a href="logout.php">Sair</a>
         </div>
     </div>
@@ -425,49 +424,130 @@ if($_POST) {
     $mail->CharSet = 'UTF-8';
     $mail->Subject = 'Bem-vindo à Zooka, ' . $nome . '!';
 
-    $mail->Body = "
-    <div style='background-color: #f4f4f4; padding: 20px; font-family: Arial, sans-serif;'>
-        <table align='center' border='0' cellpadding='0' cellspacing='0' width='600' style='background-color: #ffffff; border-radius: 10px; overflow: hidden; border-collapse: collapse; box-shadow: 0 4px 10px rgba(0,0,0,0.1);'>
-            
-            <tr>
-                <td align='center'>
-                    <img 
-  src='https://res.cloudinary.com/dggprgzoj/image/upload/Banner_Zooka_Email_mf2l0n.png' 
-  alt='Zooka Petshop' 
-  width='600' 
-  style='display:block; width:100%; max-width:600px; border:0;'
-                </td>
-            </tr>
+    $mail->Body = '
 
-            <tr>
-                <td style='padding: 30px; text-align: center;'>
-                    <h2 style='color: #ca7e4c; margin: 0 0 10px 0;'>Olá, $nome!</h2>
-                    <p style='color: #666; font-size: 16px; line-height: 1.6;'>
-                        Ficamos muito felizes com seu interesse! Recebemos seus dados e em breve nossa equipe entrará em contato através do número <strong>$celular</strong>.
-                    </p>
-                </td>
-            </tr>
+<html>
 
-            <tr>
-                <td align='center' style='padding-bottom: 30px;'>
-                    <table border='0' cellpadding='0' cellspacing='0'>
-                        <tr>
-                            <td align='center' bgcolor='#ca7e4c' style='border-radius: 5px;'>
-                                <a href='https://seusite.com' style='padding: 15px 25px; color: #ffffff; text-decoration: none; font-weight: bold; display: inline-block;'>ACESSAR NOSSA LOJA</a>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
+<head>
 
-            <tr>
-                <td style='background-color: #333333; color: #ffffff; padding: 15px; text-align: center; font-size: 12px;'>
-                    Zooka Petshop © 2026 - Todos os direitos reservados.
-                </td>
-            </tr>
-        </table>
+<meta charset="UTF-8">
+
+<style>
+
+body{
+    background:#f4f4f4;
+    padding:30px;
+    font-family:Arial,sans-serif;
+}
+
+.container{
+    max-width:600px;
+    margin:auto;
+    background:#ffffff;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+}
+
+.banner img{
+    width:100%;
+    display:block;
+}
+
+.content{
+    padding:40px;
+    text-align:center;
+}
+
+.titulo{
+    color:#ca7e4c;
+    font-size:32px;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.texto{
+    color:#666;
+    font-size:16px;
+    line-height:1.7;
+    margin-bottom:30px;
+}
+
+.numero{
+    color:#176668;
+    font-weight:bold;
+}
+
+.botao{
+    display:inline-block;
+    background:#2eaeb0;
+    color:white !important;
+    text-decoration:none;
+    padding:16px 28px;
+    border-radius:10px;
+    font-weight:bold;
+    font-size:14px;
+}
+
+.footer{
+    background:#fafafa;
+    padding:20px;
+    text-align:center;
+    color:#999;
+    font-size:12px;
+    border-top:1px solid #eee;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="banner">
+        <img src="https://i.imgur.com/xwFq8GA.png">
     </div>
-    ";
+
+    <div class="content">
+
+        <div class="titulo">
+            Olá, '.$nome.'!
+        </div>
+
+        <div class="texto">
+
+            Ficamos muito felizes com seu cadastro 💚
+
+            <br><br>
+
+            Recebemos seus dados com sucesso e em breve nossa equipe entrará em contato através do número:
+
+            <br><br>
+
+            <span class="numero">
+                '.$celular.'
+            </span>
+
+        </div>
+
+
+    </div>
+
+    <div class="footer">
+        © 2026 Zooka Petshop
+    </div>
+
+</div>
+
+</body>
+
+</html>
+
+';
+
+$mail->AltBody = "Olá, $nome! Recebemos seu cadastro com sucesso.";
 
     $mail->send();
         echo "E-mail enviado com sucesso!";
