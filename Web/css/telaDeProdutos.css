@@ -701,3 +701,41 @@ footer {
 }
 
 /* O FOOTER TERMINA AQUI */
+
+/* CARD CLICÁVEL */
+.product-card{
+    position: relative;
+    cursor: pointer;
+}
+
+.add-cart{
+    all: unset;
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background-color: #36a9b1;
+    color: white;
+
+    font-size: 24px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.add-cart{
+    font-size: 24px;
+    line-height: 1;
+}
+
+a, a *{
+    text-decoration: none !important;
+}
