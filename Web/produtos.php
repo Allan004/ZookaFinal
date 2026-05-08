@@ -15,7 +15,7 @@ $produtos=produtos_web($nome,$filtro,$ordenar);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zooka PetShop - Gatos</title>
+    <title>Zooka PetShop - Produtos <?php echo ucfirst($_GET['categoria'] ?? "Produtos");?></title>
     <link rel="stylesheet" href="css/produtos.css">
 </head>
 <body>
@@ -317,26 +317,38 @@ $produtos=produtos_web($nome,$filtro,$ordenar);
                     
                     foreach($produtos as $produto){
 
-                        echo '<a class="sem_card" href="telasDeProdutos.php"><div class="product-card">
-                        <div class="product-image">
-                            <span class="badge-off">15% OFF</span>
-                            <img src="assets/imagens_produtos/'.$produto["id"].'.jpg" alt="Produto">
-                            <button class="add-cart">+</button>
-                        </div>
-                        <div class="product-info">
-                            <p class="product-name">'.$produto['nome'].'</p>
-                            <p class="old-price">A partir de R$'.$produto['preco'].'</p>
-                            <p class="price">R$'.$produto['preco']*0.9.'<span class="sync-icon">🔄</span></p>
-                            <p class="subscriber-price">para assinantes</p>
-                        </div>
-                    </div>
-                    </a>';
+   echo '
+<div class="product-card"
+     onclick="window.location.href=\'telaDeProdutos.php?idProduto=' . $produto['id'] . '\'">
 
+    <div class="product-image">
+        <span class="badge-off">15% OFF</span>
 
-                    };
-                    
+        <img src="assets/imagens_produtos/produto_' . $produto['id'] . '/1.jpg" alt="Produto">
 
-                    
+        <form action="carrinho2.php" method="POST" class="add-cart" onclick="event.stopPropagation();">
+            <input type="hidden" name="idProduto" value="' . $produto['id'] . '">
+            <button type="submit">+</button>
+        </form>
+
+    </div>
+
+    <div class="product-info">
+
+        <p class="product-name">' . $produto['nome'] . '</p>
+
+        <p class="old-price">
+            A partir de R$' . $produto['preco'] . '
+        </p>
+
+        <p class="price">
+            R$' . ($produto['preco'] * 0.9) . '
+        </p>
+
+    </div>
+
+</div>
+';}
                     
                     ?>
 
@@ -386,6 +398,8 @@ $produtos=produtos_web($nome,$filtro,$ordenar);
 
     window.location.href = url.toString();
 }
+
+
 </script>
 
 </body>

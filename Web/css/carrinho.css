@@ -1,270 +1,1254 @@
-/* =========================================
-   VARIAVEIS DE CORES E ESTILO ZOOKA
-   ========================================= */
+/* Variáveis de cores para facilitar a manutenção e manter o padrão visual */
+
 :root {
-    --zooka-teal: #36a9b1;      /* Azul Turquesa do Banner */
-    --zooka-orange: #c07b4d;    /* Laranja da barra de frete */
-    --zooka-dark: #333333;
-    --zooka-gray-text: #666666;
-    --zooka-bg: #f4f7f8;        /* Fundo levemente azulado/cinza */
-    --zooka-white: #ffffff;
-    --zooka-border: #eeeeee;
-    --radius-lg: 20px;          /* Bordas dos cards */
-    --radius-md: 12px;          /* Bordas de inputs e botões */
+
+    --mercado-blue: #3483fa;   /* Azul padrão Mercado Livre */
+
+    --mercado-green: #00a650;  /* Verde para promoções e frete grátis */
+
+    --bg-gray: #000000;        /* Cinza de fundo da página */
+
+    --text-gray: #666;
+
 }
 
-/* =========================================
-   RESET E GERAL
-   ========================================= */
-* {
+
+
+/* Configurações básicas do corpo da página */
+
+html {
+
     margin: 0;
+
     padding: 0;
+
+    width: 100%;
+
+    overflow-x: hidden; /* Evita que apareça uma barra de rolagem horizontal */
+
+}
+
+
+
+/* HEADER PARA COPIAR E COLAR EM TODAS AS OUTRAS  */
+
+
+
+/* --- CONFIGURAÇÕES GLOBAIS --- */
+
+* {
+
+    margin: 0;
+
+    padding: 0;
+
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
 }
 
-body {
-    background-color: var(--zooka-bg);
+
+
+:root {
+
+    --zooka-teal: #36a9b1;      /* Azul principal */
+
+    --zooka-orange: #c07b4d;    /* Laranja do Ticker */
+
+    --text-dark: #333;
+
+    --text-light: #777;
+
+    --bg-search: #f1f1f1;
+
 }
 
-/* =========================================
-   LAYOUT (GRID)
-   ========================================= */
-.checkout-container {
-    padding: 40px 5%;
-    min-height: 100vh;
+
+
+/* --- 1. TOP PROMO (Texto estático no topo) --- */
+
+.top-promo {
+
+    background-color: #fff;
+
+    text-align: center;
+
+    padding: 10px;
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+
+    border-bottom: 1px solid #eee;
+
+    text-transform: uppercase;
+
+    color: var(--text-dark);
+
 }
 
-.checkout-content {
-    display: grid;
-    grid-template-columns: 1fr 380px; /* Coluna maior pra esquerda, menor pra direita */
-    gap: 30px;
-    max-width: 1200px;
+
+
+/* --- 2. HEADER PRINCIPAL --- */
+
+.main-header {
+
+    background-color: #fff;
+
+}
+
+
+
+.header-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;            
+
+    max-width: 1400px;
+
     margin: 0 auto;
+
+    padding: 15px 40px;
+
 }
 
-/* Responsividade para telas menores */
-@media (max-width: 900px) {
-    .checkout-content {
+
+
+.logo-container {
+
+    flex: 1;
+
+}
+
+
+
+.banner-topo {
+
+    height: 60px;
+
+    width: auto;
+
+}
+
+
+
+.search-container {
+
+    flex: 2;
+
+    display: flex;
+
+    justify-content: center;
+
+}
+
+
+
+.search-input {
+
+    width: 100%;
+
+    max-width: 500px;
+
+    padding: 12px 25px;
+
+    border-radius: 30px;
+
+    border: 1px solid #e0e0e0;
+
+    background-color: var(--bg-search);
+
+    outline: none;
+
+    font-size: 14px;
+
+    transition: 0.3s;
+
+}
+
+
+
+.search-input:focus {
+
+    background-color: #201f1f;
+
+    border-color: var(--zooka-teal);
+
+    box-shadow: 0 0 5px rgba(54, 169, 177, 0.2);
+
+}
+
+
+
+.user-menu {
+
+    flex: 1;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    align-items: center;
+
+    gap: 20px;
+
+}
+
+
+
+.user-link, .user-name {
+
+    font-size: 13px;
+
+    color: var(--text-dark);
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    line-height: 1.2;
+
+}
+
+
+
+.user-dropdown {
+
+    position: relative;
+
+    cursor: pointer;
+
+}
+
+
+
+.btn-continue {
+
+    font-size: 22px;
+
+    text-decoration: none;
+
+}
+
+
+
+/* Dropdown do Usuário (Logado) */
+
+.user-dropdown:hover .dropdown-menu {
+
+    display: flex;
+
+}
+
+
+
+.dropdown-menu {
+
+    display: none;
+
+    flex-direction: column;
+
+    position: absolute;
+
+    right: 0;
+
+    background: #fff;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+
+    border-radius: 8px;
+
+    min-width: 150px;
+
+    z-index: 100;
+
+}
+
+
+
+.dropdown-menu a {
+
+    padding: 10px 15px;
+
+    font-size: 13px;
+
+    color: var(--text-dark);
+
+    text-decoration: none;
+
+    border-bottom: 1px solid #eee;
+
+}
+
+
+
+.dropdown-menu a:hover {
+
+    background: #b34848;
+
+}
+
+
+
+/* --- 3. MENU DE CATEGORIAS --- */
+
+.category-nav {
+
+    background: #fff;
+
+    border-bottom: 1px solid #eee;
+
+    padding: 10px 20px;
+
+}
+
+
+
+.category-nav ul {
+
+    display: flex;
+
+    justify-content: center;
+
+    list-style: none;
+
+    gap: 25px;
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding: 15px 0;
+
+    align-items: center;
+
+}
+
+
+
+.category-nav li {
+
+    position: relative;
+
+}
+
+
+
+.category-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: #333;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+
+}
+
+
+
+/* Imagens das Categorias (Efeito hover) */
+
+.category-item img {
+
+    width: 55px;
+
+    height: 25px;
+
+    object-fit: contain;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition: 0.3s ease;
+
+}
+
+
+
+.has-dropdown:hover .category-item img {
+
+    opacity: 1;
+
+    visibility: visible;
+
+}
+
+
+
+.has-dropdown:hover .category-item {
+
+    color: #ca7e4c;
+
+}
+
+
+
+/* SUBMENU (Dropdown de produtos) */
+
+.submenu {
+
+    display: none;
+
+    position: absolute;
+
+    top: 100%;
+
+    left: 0;
+
+    background-color: #912a2a;
+
+    min-width: 230px;
+
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.08);
+
+    border-top: 3px solid #ca7e4c;
+
+    padding: 5px 0;
+
+    z-index: 9999;
+
+    list-style: none;
+
+    transform: translateY(10px);
+
+    transition: 0.2s;
+
+    opacity: 0;
+
+}
+
+
+
+.has-dropdown:hover .submenu {
+
+    display: block;
+
+    visibility: visible;
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+}
+
+
+
+.submenu li a {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 14px 18px;
+
+    color: #555;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    border-bottom: 1px solid #f0f0f0;
+
+}
+
+
+
+.submenu li a:hover {
+
+    background-color: #f9f9f9;
+
+    color: #ca7e4c;
+
+}
+
+
+
+/* --- 4. LETREIRO ANIMADO (SCROLLING TICKER) --- */
+
+.scrolling-ticker {
+
+    background-color: var(--zooka-orange);
+
+    color: white;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    padding: 12px 0;
+
+}
+
+
+
+.ticker-content {
+
+    display: inline-block;
+
+    animation: marquee 25s linear infinite;
+
+}
+
+
+
+.ticker-content span {
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    margin-right: 20px;
+
+    letter-spacing: 1px;
+
+}
+
+
+
+.ticker-content img {
+
+    width: 18px;
+
+    margin-right: 50px;
+
+    vertical-align: middle;
+
+}
+
+
+
+@keyframes marquee {
+
+    0% { transform: translateX(0); }
+
+    100% { transform: translateX(-50%); }
+
+}
+
+
+
+.scrolling-ticker:hover .ticker-content {
+
+    animation-play-state: paused;
+
+}
+
+
+
+
+
+
+
+/* Container principal que usa Flexbox para colocar carrinho e resumo lado a lado */
+
+/* Localize esta parte no seu código e adicione o margin-top */
+.container {
+    max-width: 1100px;
+    margin: 40px auto; /* O primeiro valor (40px) é o espaço em cima e embaixo */
+    display: flex;
+    gap: 20px;
+}
+
+
+
+/* O conteúdo principal (produtos) ocupa 3 partes do espaço */
+
+.main-content { flex: 3; }
+
+
+
+/* Estilização comum para todos os cards brancos do site */
+
+.cart-card, .summary-card, .rec-card {
+
+    background: #fff;
+
+    border-radius: 8px;
+
+    padding: 20px;
+
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+
+    margin-bottom: 20px;
+
+}
+
+
+
+/* --- SEÇÃO DE PRODUTOS --- */
+
+.cart-header { border-bottom: 1px solid #eee; padding-bottom: 15px; }
+
+.full-tag { color: var(--mercado-green); font-style: italic; }
+
+
+
+.product-row {
+
+    display: flex;
+
+    padding: 20px 0;
+
+    border-bottom: 1px solid #eee;
+
+}
+
+
+
+.product-row img { width: 80px; height: 80px; margin: 0 15px; }
+
+.product-details { flex: 1; }
+
+.offer-badge { background: var(--mercado-red); color: #fff; font-size: 10px; padding: 2px 5px; border-radius: 3px; font-weight: bold; }
+
+.current-price { font-size: 22px; display: block; margin-top: 5px; }
+
+
+
+/* --- BARRA LATERAL (RESUMO) --- */
+
+.summary-card {
+
+    flex: 1;
+
+    height: fit-content;
+
+}
+
+
+
+.summary-line {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin: 15px 0;
+
+    font-size: 15px;
+
+}
+
+
+
+.free-text { color: var(--mercado-green); }
+
+
+
+.coupon-link {
+
+    color: var(--mercado-blue);
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+}
+
+
+
+/* Modalzinhoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo lindooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo */
+
+.modal-overlay {
+
+    display: none; /* Inicia oculto */
+
+    position: fixed; /* Fica preso na tela, ignora o scroll */
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.6); /* Escurece o fundo */
+
+    z-index: 9999; /* Fica acima de qualquer outro elemento */
+
+   
+
+    /* Centralização horizontal e vertical */
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+
+
+/* Card branco do cupom */
+
+/* Este é o card branco que contém o input do cupom */
+
+.modal-coupon-card {
+
+    background-color: #ffffff;
+
+    width: 90%;
+
+    max-width: 460px;
+
+    padding: 32px;
+
+    border-radius: 8px;
+
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+
+
+
+    /* --- AS REGRAS ABAIXO COLOCAM NO MEIO DA TELA --- */
+
+    position: fixed;      /* Fixa em relação à janela do navegador */
+
+    top: 50%;             /* Empurra o topo do card até a metade da tela */
+
+    left: 50%;            /* Empurra a esquerda do card até a metade da tela */
+
+    transform: translate(-50%, -50%); /* Move o card para trás metade do seu tamanho */
+
+   
+
+    margin: 0;            /* Garante que nenhuma margem desloque o modal */
+
+    z-index: 10000;       /* Garante que ele fique acima do fundo escuro */
+
+}
+
+
+
+.modal-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+
+}
+
+
+
+.close-coupon {
+
+    font-size: 24px;
+
+    color: #3483fa;
+
+    cursor: pointer;
+
+    line-height: 1;
+
+}
+
+
+
+.coupon-input-container {
+
+    display: flex;
+
+    align-items: center;
+
+    border: 1px solid #ddd;
+
+    border-radius: 8px;
+
+    padding: 10px;
+
+}
+
+
+
+.input-wrapper {
+
+    display: flex;
+
+    align-items: center;
+
+    flex: 1;
+
+}
+
+
+
+.coupon-icon { color: #3483fa; margin-right: 10px; }
+
+
+
+#couponField {
+
+    border: none;
+
+    outline: none;
+
+    width: 100%;
+
+    font-size: 16px;
+
+}
+
+
+
+.btn-add-coupon {
+
+    background-color: #eee;
+
+    color: #bbb;
+
+    border: none;
+
+    padding: 10px 15px;
+
+    border-radius: 6px;
+
+    font-weight: bold;
+
+    cursor: not-allowed;
+
+}
+
+
+
+/* Quando o botão está ativo */
+
+.btn-add-coupon.active {
+
+    background-color: #3483fa;
+
+    color: #fff;
+
+    cursor: pointer;
+
+}
+
+
+
+/* Rodapé do resumo e botão continuar */
+
+.summary-total {
+
+    border-top: 1px solid #eee;
+
+    padding-top: 15px;
+
+    margin-top: 20px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+}
+
+
+
+.btn-continue {
+
+    width: 100%;
+
+    background: var(--mercado-blue);
+
+    color: white;
+
+    border: none;
+
+    padding: 15px;
+
+    border-radius: 6px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    margin-top: 20px;
+
+    cursor: pointer;
+
+}
+
+/* Container principal do seletor */
+
+.quantity-selector {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    border: 1px solid #ddd; /* Borda fina cinza */
+
+    border-radius: 6px;     /* Bordas levemente arredondadas */
+
+    overflow: hidden;       /* Garante que os botões não saiam do arredondamento */
+
+    height: 32px;           /* Altura padrão */
+
+    background-color: #fff;
+
+}
+
+
+
+/* Estilo geral para os botões + e - */
+
+.btn-qty {
+
+    background-color: #fff;
+
+    border: none;
+
+    color: #3483fa;         /* Azul do Mercado Livre */
+
+    font-size: 18px;
+
+    width: 32px;
+
+    height: 100%;
+
+    cursor: pointer;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    transition: background 0.2s;
+
+}
+
+
+
+/* Efeito ao passar o mouse nos botões */
+
+.btn-qty:hover {
+
+    background-color: #f5f5f5;
+
+}
+
+
+
+/* Estilo do campo de texto (número) */
+
+.input-qty {
+
+    width: 40px;            /* Largura fixa para o número */
+
+    height: 100%;
+
+    border: none;
+
+    border-left: 1px solid #eee;  /* Divisória interna */
+
+    border-right: 1px solid #eee; /* Divisória interna */
+
+    text-align: center;
+
+    font-size: 14px;
+
+    color: #333;
+
+    outline: none;          /* Remove a borda azul ao clicar */
+
+}
+
+
+
+/* Pequeno ajuste para o texto "disponíveis" que fica ao lado */
+
+.stock {
+
+    font-size: 12px;
+
+    color: #999;
+
+    margin-left: 10px;
+
+}
+
+/* O FOOTER COMEÇA AQUI */
+
+
+
+
+
+
+
+footer {
+
+    margin-top: 60px; /* Cria o espaço entre o fim dos produtos e o início do footer */
+
+    background-color: #ffffff;
+
+    width: 100%;
+
+    border-top: 1px solid #ddd;
+
+}
+
+
+
+.footer-links-container {
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding: 0 20px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 40px;
+
+}
+
+
+
+/* Logo "ZOOKAPET" igual à imagem */
+
+.logo-footer {
+
+    font-size: 24px;
+
+    font-weight: 900;
+
+    color: #36a9b1; /* Verde água da Zooka */
+
+    text-transform: uppercase; /* Tudo em maiúsculo */
+
+    letter-spacing: -1px;
+
+}
+
+
+
+/* Grid com 3 colunas bem espalhadas */
+
+.footer-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 20px;
+
+}
+
+
+
+/* Títulos das colunas (a zookapet, atendimento, suporte) */
+
+.footer-column h4 {
+
+    font-size: 16px;
+
+    font-weight: 800;
+
+    color: #333;
+
+    margin-bottom: 25px;
+
+    text-transform: lowercase; /* Mantendo o estilo do seu HTML */
+
+}
+
+
+
+/* Estilo dos links */
+
+.footer-column ul {
+
+    list-style: none;
+
+    padding: 0;
+
+}
+
+
+
+.footer-column li {
+
+    font-size: 14px;
+
+    color: #666; /* Cor cinza mais suave */
+
+    margin-bottom: 15px;
+
+    cursor: pointer;
+
+    font-weight: 500;
+
+    transition: color 0.2s;
+
+}
+
+
+
+/* Efeito Hover */
+
+.footer-column li:hover {
+
+    color: #36a9b1;
+
+}
+
+
+
+/* Responsividade para celular */
+
+@media (max-width: 768px) {
+
+    .footer-grid {
+
         grid-template-columns: 1fr;
+
+        text-align: center;
+
+    }
+
+   
+
+    .logo-footer {
+
+        text-align: center;
+
+    }
+
+}
+
+
+
+/* O FOOTER TERMINA AQUI */
+
+
+
+
+
+.cart-button {
+
+    background-color: #ffffff; /* Use o código da cor verde-água da sua logo */
+
+    color: white;
+
+    width: 60px; /* Ajuste o tamanho conforme preferir */
+
+    height: 40px;
+
+    border-radius: 8px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-decoration: none;
+
+}
+/* Container das recomendações */
+/* Container que alinha os 4 cards */
+.recommendations-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* O "Quadradinho" arredondado */
+.rec-card {
+    background: #ffffff;
+    border: 1px solid #e0e0e0; /* Borda fina para dar o formato de quadrado */
+    border-radius: 12px;       /* O arredondamento dos cantos */
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s, box-shadow 0.2s; /* Efeito suave ao passar o mouse */
+    cursor: pointer;
+}
+
+/* Efeito de destaque ao passar o mouse (opcional, fica bem moderno) */
+.rec-card:hover {
+    transform: translateY(-5px); /* Sobe um pouquinho */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Sombra mais forte */
+    border-color: #36a9b1; /* Muda a borda para a cor da sua logo */
+}
+
+/* Ajuste da imagem dentro do quadrado */
+.rec-card img {
+    width: 100%;
+    height: 150px;             /* Altura fixa para as imagens */
+    object-fit: contain;       /* Garante que a imagem não estique */
+    margin-bottom: 12px;
+    border-radius: 8px;        /* Arredonda levemente a imagem também */
+}
+
+/* Estilização interna dos textos para combinar */
+.rec-info h4 {
+    font-size: 13px;
+    color: #333;
+    line-height: 1.4;
+    height: 36px;              /* Limita a altura do título para alinhar tudo */
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.rec-price {
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+}
+
+.payment-tag {
+    display: inline-block;
+    background-color: #e8f5f6; /* Azul bem clarinho */
+    color: #36a9b1;            /* Cor da sua marca */
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-top: 5px;
+    font-weight: 600;
+}
+/* Quando a tela for menor que 992px, exibe 2 por linha */
+@media (max-width: 992px) {
+    .recommendations-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
-/* =========================================
-   CARDS E ELEMENTOS COMUNS
-   ========================================= */
-.card-white {
-    background: var(--zooka-white);
-    border-radius: var(--radius-lg);
-    padding: 25px;
-    margin-bottom: 20px;
-    border: none;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.04); /* Sombra suave de profundidade */
-}
-
-.page-title {
-    font-size: 28px;
-    color: var(--zooka-teal);
-    margin-bottom: 25px;
-    font-weight: 700;
-}
-
-h3 {
-    font-size: 18px;
-    color: var(--zooka-dark);
-    margin-bottom: 20px;
-}
-
-/* =========================================
-   FORMAS DE PAGAMENTO (LISTA)
-   ========================================= */
-.payment-list {
-    list-style: none;
-    margin-bottom: 25px;
-}
-
-.payment-list li {
-    padding: 18px;
-    border: 2px solid var(--zooka-border);
-    border-radius: var(--radius-md);
-    margin-bottom: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: 500;
-    color: var(--zooka-gray-text);
-}
-
-.payment-list li:hover {
-    border-color: var(--zooka-teal);
-    background-color: #f0fbfc;
-}
-
-.payment-list li.active {
-    border-color: var(--zooka-teal);
-    background-color: #eaf7f8;
-    color: var(--zooka-teal);
-}
-
-.tag-green {
-    background: #4caf50;
-    color: white;
-    padding: 3px 10px;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-.arrow {
-    font-style: normal;
-    font-size: 20px;
-    color: #ccc;
-}
-
-/* =========================================
-   FORMULÁRIO DE CARTÃO
-   ========================================= */
-.card-form {
-    padding-top: 15px;
-    border-top: 1px solid var(--zooka-border);
-}
-
-.input-group {
-    margin-bottom: 15px;
-}
-
-.input-group label {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--zooka-gray-text);
-    margin-bottom: 6px;
-}
-
-input {
-    width: 100%;
-    padding: 14px;
-    border: 2px solid var(--zooka-border);
-    border-radius: var(--radius-md);
-    font-size: 15px;
-    background-color: #fafafa;
-    transition: all 0.3s ease;
-}
-
-input:focus {
-    outline: none;
-    border-color: var(--zooka-teal);
-    background-color: white;
-    box-shadow: 0 0 8px rgba(54, 169, 177, 0.2);
-}
-
-.row {
-    display: flex;
-    gap: 15px;
-}
-
-/* =========================================
-   SIDEBAR (ENTREGA E RESUMO)
-   ========================================= */
-.address-box {
-    border-left: 5px solid var(--zooka-teal); /* Detalhe lateral no endereço */
-}
-
-.address-header {
-    margin-bottom: 15px;
-    font-size: 14px;
-}
-
-.small-text {
-    font-size: 14px;
-    color: var(--zooka-gray-text);
-    margin: 5px 0 15px;
-}
-
-.blue-link {
-    background: none;
-    border: none;
-    color: var(--zooka-teal);
-    font-weight: 700;
-    font-size: 14px;
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-/* Botão Pagar - Cor Laranja Zooka */
-.btn-pay {
-    background: var(--zooka-orange);
-    color: white;
-    border: none;
-    width: 100%;
-    padding: 20px;
-    border-radius: var(--radius-md);
-    font-weight: bold;
-    font-size: 18px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(192, 123, 77, 0.3);
-}
-
-.btn-pay:hover {
-    background: #a66a41;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(192, 123, 77, 0.4);
-}
-
-/* =========================================
-   MODAL DE ENDEREÇO
-   ========================================= */
-.modal-overlay-address {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-card-address {
-    background-color: white;
-    padding: 40px;
-    border-radius: var(--radius-lg);
-    width: 90%;
-    max-width: 500px;
-    position: relative;
-    animation: popUp 0.4s ease;
-}
-
-@keyframes popUp {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-.btn-primary-modal {
-    background-color: var(--zooka-teal);
-    color: white;
-    border: none;
-    padding: 15px;
-    width: 100%;
-    border-radius: var(--radius-md);
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 15px;
-}
-
-.close-modal {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: none;
-    border: none;
-    font-size: 28px;
-    color: #999;
-    cursor: pointer;
+/* Quando for celular, exibe 1 por linha */
+@media (max-width: 480px) {
+    .recommendations-grid {
+        grid-template-columns: 1fr;
+    }
 }
