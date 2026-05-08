@@ -166,3 +166,42 @@ registerModal.addEventListener("click", (e) => {
     }
 
 });
+
+// delivery option selection and summary update
+const deliveryOptions = document.querySelectorAll('.delivery-option');
+const shippingFee = document.getElementById('shippingFee');
+const summaryTotal = document.getElementById('summaryTotal');
+const summaryData = document.getElementById('summaryData');
+
+if (deliveryOptions.length && shippingFee && summaryTotal && summaryData) {
+    const serviceTax = parseFloat(summaryData.dataset.service) || 0;
+    const productsTotal = parseFloat(summaryData.dataset.products) || 0;
+
+    function formatBRL(value) {
+        return value.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function updateTotals(shippingValue) {
+        const totalValue = productsTotal + serviceTax + shippingValue;
+        const displayShipping = shippingValue === 0 ? 'Grátis' : 'R$ ' + formatBRL(shippingValue);
+        shippingFee.textContent = displayShipping;
+        summaryTotal.textContent = 'R$ ' + formatBRL(totalValue);
+    }
+
+    deliveryOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            deliveryOptions.forEach(item => item.classList.remove('active'));
+            option.classList.add('active');
+
+            const price = parseFloat(option.dataset.price || '0');
+            const method = option.dataset.method || 'padrao';
+            updateTotals(price);
+
+            // Update hidden input for form submission
+            const metodoEntregaInput = document.getElementById('metodoEntrega');
+            if (metodoEntregaInput) {
+                metodoEntregaInput.value = method;
+            }
+        });
+    });
+}

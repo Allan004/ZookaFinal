@@ -24,7 +24,7 @@ session_start();
     <div class="header-top">
        
         <div class="logo-container">
-            <a href="#" class="logo">
+            <a href="index.php" class="logo">
                 <img src="Assets/logo.png" class="banner-topo" alt="Zooka">
             </a>
         </div>
@@ -44,6 +44,7 @@ session_start();
 
         <div class="dropdown-menu">
             <a href="#">Meus pedidos</a>
+            <a href="#">Meus pets</a>
             <a href="meusdados.php">Meus dados</a>
             <a href="logout.php">Sair</a>
         </div>
@@ -73,9 +74,9 @@ session_start();
             <img src="Assets/cachorro1.png"> cachorros
         </div>
         <ul class="submenu">
-            <li><a href="#">Ração</a></li>
-            <li><a href="#">Petiscos</a></li>
-            <li><a href="#">Brinquedos</a></li>
+            <li><a href="produtos.php?categoria=cachorro&filtro=racao">Ração</a></li>
+            <li><a href="produtos.php?categoria=cachorro&filtro=petisco">Petiscos</a></li>
+            <li><a href="produtos.php?categoria=cachorro&filtro=brinquedo">Brinquedos</a></li>
         </ul>
     </li>
  
@@ -85,10 +86,10 @@ session_start();
             <img src="Assets/gato1.png"> gatos
         </div>
         <ul class="submenu">
-            <li><a href="#">Ração</a></li>
-            <li><a href="#">Areia</a></li>
-            <li><a href="#">Brinquedos</a></li>
-            <li><a href="#">Arranhadores</a></li>
+            <li><a href="produtos.php?categoria=gato&filtro=racao">Ração</a></li>
+            <li><a href="produtos.php?categoria=gato&filtro=areia">Areia</a></li>
+            <li><a href="produtos.php?categoria=gato&filtro=brinquedo">Brinquedos</a></li>
+            <li><a href="produtos.php?categoria=gato&filtro=arranhador">Arranhadores</a></li>
         </ul>
     </li>
  
@@ -98,9 +99,9 @@ session_start();
             <img src="Assets/passaros1.png"> pássaros
         </div>
         <ul class="submenu">
-            <li><a href="#">Sementes</a></li>
-            <li><a href="#">Gaiolas</a></li>
-            <li><a href="#">Acessórios</a></li>
+            <li><a href="produtos.php?categoria=passaro&filtro=racao">Sementes</a></li>
+            <li><a href="produtos.php?categoria=passaro&filtro=gaiola">Gaiolas</a></li>
+            <li><a href="produtos.php?categoria=passaro&filtro=acessorio">Acessórios</a></li>
         </ul>
     </li>
  
@@ -110,9 +111,9 @@ session_start();
             <img src="Assets/peixe2.png"> peixes
         </div>
         <ul class="submenu">
-            <li><a href="#">Ração</a></li>
-            <li><a href="#">Aquários</a></li>
-            <li><a href="#">Filtros</a></li>
+            <li><a href="produtos.php?categoria=peixe&filtro=racao">Ração</a></li>
+            <li><a href="produtos.php?categoria=peixe&filtro=aquario">Aquários</a></li>
+            <li><a href="produtos.php?categoria=peixe&filtro=filtro">Filtros</a></li>
         </ul>
     </li>
  
@@ -122,9 +123,9 @@ session_start();
             <img src="Assets/roedor1.png"> roedores
         </div>
         <ul class="submenu">
-            <li><a href="#">Ração</a></li>
-            <li><a href="#">Gaiolas</a></li>
-            <li><a href="#">Brinquedos</a></li>
+            <li><a href="produtos.php?categoria=roedor&filtro=racao">Ração</a></li>
+            <li><a href="produtos.php?categoria=roedor&filtro=gaiola">Gaiolas</a></li>
+            <li><a href="produtos.php?categoria=roedor&filtro=brinquedo">Brinquedos</a></li>
         </ul>
     </li>
  
@@ -134,9 +135,9 @@ session_start();
             <img src="Assets/farmacia2.png"> farmácia
         </div>
         <ul class="submenu">
-            <li><a href="#">Antipulgas</a></li>
-            <li><a href="#">Vermífugos</a></li>
-            <li><a href="#">Vitaminas</a></li>
+            <li><a href="produtos.php?categoria=medicamento&filtro=antipulga">Antipulgas</a></li>
+            <li><a href="produtos.php?categoria=men&filtro=vermifugo">Vermífugos</a></li>
+            <li><a href="produtos.php?categoria=farmacia&filtro=vitamina">Vitaminas</a></li>
         </ul>
     </li>
  
@@ -146,9 +147,9 @@ session_start();
             <img src="Assets/higiene1.png"> higiene
         </div>
         <ul class="submenu">
-            <li><a href="#">Shampoo</a></li>
-            <li><a href="#">Tapetes</a></li>
-            <li><a href="#">Escovas</a></li>
+            <li><a href="produtos.php?categoria=higiene&filtro=shampoo">Shampoo</a></li>
+            <li><a href="produtos.php?categoria=higiene&filtro=tapete">Tapetes</a></li>
+            <li><a href="produtos.php?categoria=higiene&filtro=escova">Escovas</a></li>
         </ul>
     </li>
  
@@ -158,8 +159,8 @@ session_start();
             <img src="Assets/brinquedos1.png"> brinquedos
         </div>
         <ul class="submenu">
-            <li><a href="#">Mordedores</a></li>
-            <li><a href="#">Bolinhas</a></li>
+            <li><a href="produtos.php?categoria=brinquedo&filtro=mordedor">Mordedores</a></li>
+            <li><a href="produtos.php?categoria=brinquedo&filtro=bolinha">Bolinhas</a></li>
         </ul>
     </li>
  
@@ -169,8 +170,8 @@ session_start();
             <img src="Assets/camas1.png"> camas
         </div>
         <ul class="submenu">
-            <li><a href="#">Camas</a></li>
-            <li><a href="#">Cobertores</a></li>
+            <li><a href="produtos.php?categoria=cama&filtro=camas">Camas</a></li>
+            <li><a href="produtos.php?categoria=cama&filtro=cobertor">Cobertores</a></li>
         </ul>
     </li>
  
@@ -180,7 +181,7 @@ session_start();
             <img src="Assets/promocoes1.png"> promoções
         </div>
         <ul class="submenu">
-            <li><a href="#">Ofertas do dia</a></li>
+            <li><a href="produtos.php?categoria=promocao&filtro=oferta">Ofertas do dia</a></li>
         </ul>
     </li>
  
@@ -190,7 +191,7 @@ session_start();
             <img src="Assets/assinatura1.png"> assinatura
         </div>
         <ul class="submenu">
-            <li><a href="#">Planos</a></li>
+            <li><a href="produtos.php?categoria=assinatura&filtro=plano">Planos</a></li>
         </ul>
     </li> 
  
