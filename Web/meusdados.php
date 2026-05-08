@@ -138,7 +138,7 @@ $usuario = $sql->fetch(PDO::FETCH_ASSOC);
 
 <div class="scrolling-ticker">
     <div class="ticker-content">
-        <span>Frete grátis</span>
+        <span>Frete grátis</span> 
         <span>Brindes exclusivos</span>
         <span>15% OFF</span>
     </div>
