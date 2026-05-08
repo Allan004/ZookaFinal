@@ -1,23 +1,43 @@
-// Função para abrir o modal de endereço
-function openAddressModal() {
-    const modal = document.getElementById("modal-endereco");
-    if (modal) {
-        modal.style.display = "flex"; // Usamos flex para centralizar melhor o conteúdo
-    }
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const openCoupon = document.getElementById('openCoupon');
+    const closeCoupon = document.getElementById('closeCoupon');
+    const couponModal = document.getElementById('couponModal');
+    const couponField = document.getElementById('couponField');
+    const btnAddCoupon = document.getElementById('btnAddCoupon');
 
-// Função para fechar o modal de endereço
-function closeAddressModal() {
-    const modal = document.getElementById("modal-endereco");
-    if (modal) {
-        modal.style.display = "none";
+    // Abrir o Modal de Cupom
+    if (openCoupon) {
+        openCoupon.addEventListener('click', (e) => {
+            e.preventDefault();
+            couponModal.style.display = 'block';
+        });
     }
-}
 
-// Fechar o modal se o usuário clicar fora da caixa branca
-window.onclick = function(event) {
-    const modal = document.getElementById("modal-endereco");
-    if (event.target === modal) {
-        modal.style.display = "none";
+    // Fechar o Modal de Cupom
+    if (closeCoupon) {
+        closeCoupon.addEventListener('click', () => {
+            couponModal.style.display = 'none';
+        });
     }
-};
+
+    // Lógica para habilitar o botão de adicionar
+    if (couponField) {
+        couponField.addEventListener('input', () => {
+            const value = couponField.value.trim();
+            if (value.length > 0) {
+                btnAddCoupon.disabled = false;
+                btnAddCoupon.classList.add('active');
+            } else {
+                btnAddCoupon.disabled = true;
+                btnAddCoupon.classList.remove('active');
+            }
+        });
+    }
+
+    // Fechar ao clicar fora do modal (opcional)
+    window.addEventListener('click', (event) => {
+        if (event.target === couponModal) {
+            couponModal.style.display = 'none';
+        }
+    });
+});
