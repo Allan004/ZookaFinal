@@ -1,3 +1,11 @@
+<?php
+include "../php/carrinho.php";
+$idProduto = $_POST['idProduto'];
+
+var_dump($idProduto);
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 

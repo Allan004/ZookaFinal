@@ -5,7 +5,10 @@ include "../php/buscar_produtos_web";
 $id_produto=$_GET['idProduto'];
 $produto=produto_espefico($id_produto);
 
-?><!DOCTYPE html>
+
+
+?>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
