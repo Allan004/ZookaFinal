@@ -1,9 +1,76 @@
 <?php
+session_start();
 include "../php/carrinho.php";
-$idProduto = $_POST['idProduto'];
 
-var_dump($idProduto);
+$erroEndereco = '';
+$mensagemEndereco = '';
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!empty($_POST['acao']) && !empty($_POST['idCarrinho'])) {
+        $idCarrinho = intval($_POST['idCarrinho']);
+        if ($_POST['acao'] === 'increment') {
+            alterar_quantidade_item_carrinho($idCarrinho, 1);
+        } elseif ($_POST['acao'] === 'decrement') {
+            alterar_quantidade_item_carrinho($idCarrinho, -1);
+        } elseif ($_POST['acao'] === 'remove') {
+            remover_item_carrinho($idCarrinho);
+        }
+        header('Location: carrinho2.php');
+        exit;
+    }
+
+    if (!empty($_POST['idProduto'])) {
+        $idProduto = intval($_POST['idProduto']);
+        if ($idProduto > 0) {
+            adicionar_item_carrinho($idProduto, 1);
+        }
+        header('Location: carrinho2.php');
+        exit;
+    }
+
+    if (!empty($_POST['atualizar_endereco'])) {
+        $dadosEndereco = [
+            'cep' => $_POST['cep'] ?? '',
+            'rua' => $_POST['rua'] ?? '',
+            'numero' => $_POST['numero'] ?? '',
+            'bairro' => $_POST['bairro'] ?? '',
+            'cidade' => $_POST['cidade'] ?? '',
+            'estado' => $_POST['estado'] ?? '',
+        ];
+
+        if (atualizar_endereco_cliente_web($dadosEndereco)) {
+            header('Location: carrinho2.php?endereco_atualizado=1');
+            exit;
+        }
+
+        $erroEndereco = 'Não foi possível atualizar o endereço. Verifique os dados e tente novamente.';
+    }
+}
+
+if (isset($_GET['endereco_atualizado'])) {
+    $mensagemEndereco = 'Endereço atualizado com sucesso.';
+}
+
+if (isset($_GET['pedido_finalizado'])) {
+    $mensagemEndereco = 'Pedido finalizado com sucesso! ID do pedido: ' . htmlspecialchars($_GET['id_pedido'], ENT_QUOTES, 'UTF-8');
+}
+
+$enderecoCliente = obter_endereco_cliente_web();
+$itensCarrinho = buscar_itens_carrinho();
+$quantidadeTotal = array_sum(array_column($itensCarrinho, 'quantidade'));
+$valorProdutos = 0.0;
+$valorDescontos = 0.0;
+foreach ($itensCarrinho as $item) {
+    $valorProdutos += $item['preco'] * $item['quantidade'];
+    $valorDescontos += $item['preco'] * $item['quantidade'] * 0.1;
+}
+$valorProdutosComDesconto = max(0, $valorProdutos - $valorDescontos);
+$taxaServico = 5.90;
+$fretePadrao = 5.76;
+$freteExpressa = 10.27;
+$freteRetirada = 0.0;
+$freteSelecionado = $fretePadrao;
+$valorTotal = $valorProdutosComDesconto + $taxaServico + $freteSelecionado;
 ?>
 
 <!DOCTYPE html>
@@ -34,17 +101,27 @@ var_dump($idProduto);
                 <span>Total</span>
             </div>
 
+<?php if (empty($itensCarrinho)): ?>
+            <div class="cart-empty" style="padding: 24px; text-align: center; width: 100%;">
+                <p>Seu carrinho está vazio. Adicione produtos na página de produtos.</p>
+            </div>
+        </section>
+<?php else: ?>
+            <?php foreach ($itensCarrinho as $item): ?>
+                <?php
+                    $oldPrice = number_format($item['preco'], 2, ',', '.');
+                    $newPrice = number_format($item['preco'] * 0.9, 2, ',', '.');
+                    $totalItem = number_format($item['preco'] * $item['quantidade'] * 0.9, 2, ',', '.');
+                ?>
             <div class="cart-product">
 
                 <div class="product-info">
 
-                    <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=300&auto=format&fit=crop"
-                        alt="Brinquedo">
+                    <img src="Assets/imagens_produtos/produto_<?php echo $item['id_produto']; ?>/1.jpg"
+                        alt="<?php echo htmlspecialchars($item['nome'], ENT_QUOTES, 'UTF-8'); ?>">
 
                     <div class="product-text">
-                        <h3>
-                            Brinquedo Cansei de Ser Gato Ratinho com Catnip Amarelo
-                        </h3>
+                        <h3><?php echo htmlspecialchars($item['nome'], ENT_QUOTES, 'UTF-8'); ?></h3>
                     </div>
 
                 </div>
@@ -54,31 +131,51 @@ var_dump($idProduto);
                 </div>
 
                 <div class="price">
-                    <p class="old-price">R$ 44,99</p>
-                    <p class="new-price">R$ 40,49</p>
+                    <p class="old-price">R$ <?php echo $oldPrice; ?></p>
+                    <p class="new-price">R$ <?php echo $newPrice; ?></p>
                 </div>
 
                 <div class="quantity">
-                    <button>-</button>
-                    <span>1</span>
-                    <button>+</button>
+                    <form method="POST" action="carrinho2.php" style="display:inline-block;">
+                        <input type="hidden" name="acao" value="decrement">
+                        <input type="hidden" name="idCarrinho" value="<?php echo $item['id_carrinho']; ?>">
+                        <button type="submit" class="quantity-btn">-</button>
+                    </form>
+                    <span><?php echo $item['quantidade']; ?></span>
+                    <form method="POST" action="carrinho2.php" style="display:inline-block;">
+                        <input type="hidden" name="acao" value="increment">
+                        <input type="hidden" name="idCarrinho" value="<?php echo $item['id_carrinho']; ?>">
+                        <button type="submit" class="quantity-btn">+</button>
+                    </form>
                 </div>
 
                 <div class="total">
-                    <span>R$ 40,49</span>
+                    <span>R$ <?php echo $totalItem; ?></span>
 
-                    <i class="fa-regular fa-trash-can"></i>
+                    <form method="POST" action="carrinho2.php" style="display:inline-block; margin-left: 12px;">
+                        <input type="hidden" name="acao" value="remove">
+                        <input type="hidden" name="idCarrinho" value="<?php echo $item['id_carrinho']; ?>">
+                        <button type="submit" class="delete-cart-item" style="background:none; border:none; color:#333; cursor:pointer;">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </button>
+                    </form>
                 </div>
 
             </div>
+            <?php endforeach; ?>
+
+            <div class="continue-shopping-wrapper" style="width: 100%; text-align: center; margin: 24px 0;">
+                <a href="produtos.php" class="continue-shopping-btn" style="display: inline-block; padding: 14px 24px; background: #2f8fef; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600;">Continuar comprando</a>
+            </div>
 
         </section>
+<?php endif; ?>
 
         <aside class="delivery-section">
 
             <h2>Escolha a forma de entrega</h2>
 
-            <div class="delivery-option active">
+            <div class="delivery-option active" data-method="padrao" data-price="5.76">
 
                 <div class="delivery-left">
 
@@ -91,11 +188,11 @@ var_dump($idProduto);
 
                 </div>
 
-                <span>R$ 5,76</span>
+                <span class="shipping-price">R$ 5,76</span>
 
             </div>
 
-            <div class="delivery-option">
+            <div class="delivery-option" data-method="expressa" data-price="10.27">
 
                 <div class="delivery-left">
 
@@ -108,13 +205,11 @@ var_dump($idProduto);
 
                 </div>
 
-                <span>R$ 10,27</span>
+                <span class="shipping-price">R$ 10,27</span>
 
             </div>
 
-            <div class="delivery-option"
-                onclick="toggleSideModal()"
-                style="cursor:pointer;">
+            <div class="delivery-option" data-method="retirada" data-price="0.00" style="cursor:pointer;">
 
                 <div class="delivery-left">
 
@@ -127,7 +222,7 @@ var_dump($idProduto);
 
                 </div>
 
-                <span class="free">Grátis</span>
+                <span class="shipping-price free">Grátis</span>
 
             </div>
 
@@ -135,13 +230,23 @@ var_dump($idProduto);
 
                 <h3>Endereço de entrega</h3>
 
+                <?php if (!empty($mensagemEndereco)): ?>
+                    <div class="address-feedback" style="margin-bottom: 12px; padding: 12px; border-radius: 8px; background: #e6ffec; color: #206a33;">
+                        <?php echo htmlspecialchars($mensagemEndereco, ENT_QUOTES, 'UTF-8'); ?>
+                    </div>
+                <?php elseif (!empty($erroEndereco)): ?>
+                    <div class="address-feedback" style="margin-bottom: 12px; padding: 12px; border-radius: 8px; background: #ffe6e6; color: #9d1f1f;">
+                        <?php echo htmlspecialchars($erroEndereco, ENT_QUOTES, 'UTF-8'); ?>
+                    </div>
+                <?php endif; ?>
+
                 <div class="address-card">
 
                     <h4>Minha Casa</h4>
 
-                    <p>Avenida Três, 417</p>
-                    <p>Guarulhos - SP</p>
-                    <p>CEP: 07179-707</p>
+                    <p><?php echo htmlspecialchars($enderecoCliente['rua'] ?? 'Rua não informada', ENT_QUOTES, 'UTF-8'); ?>, <?php echo htmlspecialchars($enderecoCliente['numero'] ?? '', ENT_QUOTES, 'UTF-8'); ?></p>
+                    <p><?php echo htmlspecialchars($enderecoCliente['bairro'] ?? 'Bairro não informado', ENT_QUOTES, 'UTF-8'); ?> - <?php echo htmlspecialchars($enderecoCliente['cidade'] ?? 'Cidade não informada', ENT_QUOTES, 'UTF-8'); ?></p>
+                    <p>CEP: <?php echo htmlspecialchars($enderecoCliente['cep'] ?? '----', ENT_QUOTES, 'UTF-8'); ?></p>
 
                 </div>
 
@@ -159,10 +264,10 @@ var_dump($idProduto);
 
                     <p>
                         Valor dos produtos
-                        <strong>(5 itens)</strong>
+                        <strong>(<?php echo $quantidadeTotal; ?> itens)</strong>
                     </p>
 
-                    <span>R$ 224,95</span>
+                    <span>R$ <?php echo number_format($valorProdutos, 2, ',', '.'); ?></span>
 
                 </div>
 
@@ -176,7 +281,7 @@ var_dump($idProduto);
 
                     </p>
 
-                    <span>R$ 5,90</span>
+                    <span>R$ <?php echo number_format($taxaServico, 2, ',', '.'); ?></span>
 
                 </div>
 
@@ -195,11 +300,13 @@ var_dump($idProduto);
                         <strong>07179-707</strong>
                     </p>
 
-                    <span class="free-text">
-                        Grátis
+                    <span id="shippingFee" class="free-text">
+                        R$ <?php echo number_format($freteSelecionado, 2, ',', '.'); ?>
                     </span>
 
                 </div>
+
+                <div id="summaryData" data-service="<?php echo $taxaServico; ?>" data-products="<?php echo $valorProdutosComDesconto; ?>" style="display:none"></div>
 
                 <div class="summary-row">
 
@@ -212,7 +319,7 @@ var_dump($idProduto);
                     </p>
 
                     <span class="discount-text">
-                        - R$ 22,50
+                        - R$ <?php echo number_format($valorDescontos, 2, ',', '.'); ?>
                     </span>
 
                 </div>
@@ -227,10 +334,10 @@ var_dump($idProduto);
 
                     <div class="total-price">
 
-                        <h2>R$ 208,35</h2>
+                        <h2 id="summaryTotal">R$ <?php echo number_format($valorTotal, 2, ',', '.'); ?></h2>
 
                         <p>
-                            ou 2 vezes de R$ 104,18 sem juros
+                            ou 2 vezes de R$ <?php echo number_format($valorTotal / 2, 2, ',', '.'); ?> sem juros
                         </p>
 
                     </div>
@@ -255,9 +362,12 @@ var_dump($idProduto);
 
                 </div>
 
-                <button class="payment-btn">
-                    Ir para pagamento
-                </button>
+                <form method="GET" action="compra.php">
+                    <input type="hidden" name="metodo_entrega" id="metodoEntrega" value="padrao">
+                    <button type="submit" class="payment-btn">
+                        Finalizar Pedido
+                    </button>
+                </form>
 
                 <button class="more-products-btn">
                     Escolher mais produtos
@@ -275,7 +385,7 @@ var_dump($idProduto);
 
             <div class="modal-header">
 
-                <h2>Cadastrar novo endereço</h2>
+                <h2>Editar endereço</h2>
 
                 <button id="closeModal">
 
@@ -318,7 +428,7 @@ var_dump($idProduto);
 
                 <i class="fa-solid fa-circle-plus"></i>
 
-                Cadastrar endereço
+                Editar endereço
 
             </button>
 
@@ -440,7 +550,7 @@ var_dump($idProduto);
 
             <div class="register-header">
 
-                <h2>Cadastrar novo endereço</h2>
+                <h2>Editar endereço</h2>
 
                 <button id="closeRegisterModal">
 
@@ -450,7 +560,9 @@ var_dump($idProduto);
 
             </div>
 
-            <form class="address-form">
+            <form class="address-form" method="POST" action="carrinho2.php">
+
+                <input type="hidden" name="atualizar_endereco" value="1">
 
                 <div class="form-group cep-group">
 
@@ -458,7 +570,7 @@ var_dump($idProduto);
 
                     <div class="cep-row">
 
-                        <input type="text">
+                        <input type="text" name="cep" value="<?php echo htmlspecialchars($enderecoCliente['cep'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
 
                         <a
                             href="https://buscacepinter.correios.com.br/app/endereco/index.php"
@@ -478,6 +590,8 @@ var_dump($idProduto);
 
                     <input
                         type="text"
+                        name="rua"
+                        value="<?php echo htmlspecialchars($enderecoCliente['rua'] ?? '', ENT_QUOTES, 'UTF-8'); ?>"
                         placeholder="Digite o nome da rua">
 
                 </div>
@@ -490,6 +604,8 @@ var_dump($idProduto);
 
                         <input
                             type="text"
+                            name="numero"
+                            value="<?php echo htmlspecialchars($enderecoCliente['numero'] ?? '', ENT_QUOTES, 'UTF-8'); ?>"
                             placeholder="Digite o número">
 
                         <label class="checkbox">
@@ -516,6 +632,7 @@ var_dump($idProduto);
 
                     <input
                         type="text"
+                        name="complemento"
                         placeholder="Apartamento, bloco e outros">
 
                 </div>
@@ -526,6 +643,8 @@ var_dump($idProduto);
 
                     <input
                         type="text"
+                        name="bairro"
+                        value="<?php echo htmlspecialchars($enderecoCliente['bairro'] ?? '', ENT_QUOTES, 'UTF-8'); ?>"
                         placeholder="Digite o nome do bairro">
 
                 </div>
@@ -536,7 +655,7 @@ var_dump($idProduto);
 
                         <label>Cidade</label>
 
-                        <input type="text">
+                        <input type="text" name="cidade" value="<?php echo htmlspecialchars($enderecoCliente['cidade'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
 
                     </div>
 
@@ -544,12 +663,12 @@ var_dump($idProduto);
 
                         <label>Estado</label>
 
-                        <select>
+                        <select name="estado">
 
-                            <option></option>
-                            <option>SP</option>
-                            <option>RJ</option>
-                            <option>MG</option>
+                            <option value="">Selecione</option>
+                            <option value="SP" <?php echo (isset($enderecoCliente['estado']) && $enderecoCliente['estado'] === 'SP') ? 'selected' : ''; ?>>SP</option>
+                            <option value="RJ" <?php echo (isset($enderecoCliente['estado']) && $enderecoCliente['estado'] === 'RJ') ? 'selected' : ''; ?>>RJ</option>
+                            <option value="MG" <?php echo (isset($enderecoCliente['estado']) && $enderecoCliente['estado'] === 'MG') ? 'selected' : ''; ?>>MG</option>
 
                         </select>
 
@@ -569,19 +688,8 @@ var_dump($idProduto);
 
                     <input
                         type="text"
+                        name="referencia"
                         placeholder="Digite um ponto de referência">
-
-                </div>
-
-                <div class="form-group">
-
-                    <label>
-                        Apelido do endereço
-                    </label>
-
-                    <input
-                        type="text"
-                        placeholder="Dê um nome para o endereço">
 
                 </div>
 

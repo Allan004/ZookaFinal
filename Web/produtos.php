@@ -1,4 +1,5 @@
-<?php 
+<?php
+session_start();
 
 include "../php/buscar_produtos_web";
 
@@ -36,8 +37,13 @@ $produtos=produtos_web($nome,$filtro,$ordenar);
         </div>
  
       <div class="search-container">
-    <input type="text" class="search-input" placeholder="o que seu pet precisa hoje?">
-</div>
+        <form action="produtos.php" method="GET" class="search-form">
+            <input type="text" name="filtro" class="search-input" placeholder="o que seu pet precisa hoje?" value="<?php echo htmlspecialchars($_GET['filtro'] ?? '', ENT_QUOTES); ?>">
+            <?php if (!empty($_GET['ordenacao'])): ?>
+                <input type="hidden" name="ordenacao" value="<?php echo htmlspecialchars($_GET['ordenacao'], ENT_QUOTES); ?>">
+            <?php endif; ?>
+        </form>
+      </div>
 
 <div class="user-menu">
 

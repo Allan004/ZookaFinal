@@ -1,3 +1,48 @@
+<?php
+session_start();
+require_once '../php/carrinho.php';
+
+$erroFinalizacao = '';
+$mensagemFinalizacao = '';
+$metodoEntrega = $_GET['metodo_entrega'] ?? 'padrao';
+$totais = calcular_totais_carrinho($metodoEntrega);
+$enderecoCliente = obter_endereco_cliente_web();
+
+if (!$totais) {
+    $totais = [
+        'itens' => [],
+        'subtotal' => 0.00,
+        'descontos' => 0.00,
+        'subtotal_com_desconto' => 0.00,
+        'taxa_servico' => 0.00,
+        'frete' => 0.00,
+        'metodo_entrega' => $metodoEntrega,
+        'total' => 0.00,
+    ];
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['finalizar_pedido'])) {
+    $metodoEntrega = $_POST['metodo_entrega'] ?? $metodoEntrega;
+    $idPedido = finalizar_pedido($metodoEntrega);
+
+    if ($idPedido) {
+        header('Location: compra.php?pedido_finalizado=1&id_pedido=' . urlencode($idPedido));
+        exit;
+    }
+
+    if (empty($totais['itens'])) {
+        $erroFinalizacao = 'Seu carrinho está vazio. Adicione produtos antes de finalizar o pedido.';
+    } elseif (!$enderecoCliente) {
+        $erroFinalizacao = 'Atualize seu endereço antes de finalizar o pedido.';
+    } else {
+        $erroFinalizacao = 'Não foi possível finalizar o pedido. Tente novamente.';
+    }
+}
+
+if (isset($_GET['pedido_finalizado'])) {
+    $mensagemFinalizacao = 'Pedido finalizado com sucesso! ID do pedido: ' . htmlspecialchars($_GET['id_pedido'], ENT_QUOTES, 'UTF-8');
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -38,7 +83,7 @@
                 <?php else: ?>
                     <a href="login.php" class="user-link">Entrar ou <br>Cadastrar</a>
                 <?php endif; ?>
-                <a href="CarrinhoZooka.html" class="btn-continue">🛒</a>
+                <a href="carrinho2.php" class="btn-continue">🛒</a>
             </div>
         </div>
     </header>
@@ -76,6 +121,16 @@
         <div class="checkout-content">
             <section class="payment-section">
                 <h1 class="page-title"><i class="fa-solid fa-paw"></i> Pagamento</h1>
+
+                <?php if (!empty($mensagemFinalizacao)): ?>
+                    <div class="checkout-feedback success" style="margin-bottom: 16px; padding: 14px; border-radius: 8px; background: #e6ffec; color: #206a33;">
+                        <?php echo $mensagemFinalizacao; ?>
+                    </div>
+                <?php elseif (!empty($erroFinalizacao)): ?>
+                    <div class="checkout-feedback error" style="margin-bottom: 16px; padding: 14px; border-radius: 8px; background: #ffe6e6; color: #9d1f1f;">
+                        <?php echo htmlspecialchars($erroFinalizacao, ENT_QUOTES, 'UTF-8'); ?>
+                    </div>
+                <?php endif; ?>
                 
                 <div class="card-white main-payment-card">
                     <div class="payment-header">
@@ -141,15 +196,26 @@
                 <div class="card-white summary-card">
                     <h3>Resumo do Pedido</h3>
                     <div class="summary-details">
-                        <div class="summary-line"><span>Produtos</span><span>R$ 224,95</span></div>
-                        <div class="summary-line"><span>Frete</span><span class="free-text">Grátis</span></div>
+                        <div class="summary-line"><span>Produtos</span><span>R$ <?php echo number_format($totais['subtotal'], 2, ',', '.'); ?></span></div>
+                        <div class="summary-line"><span>Descontos</span><span class="discount-text">- R$ <?php echo number_format($totais['descontos'], 2, ',', '.'); ?></span></div>
+                        <div class="summary-line"><span>Taxa de serviço</span><span>R$ <?php echo number_format($totais['taxa_servico'], 2, ',', '.'); ?></span></div>
+                        <div class="summary-line"><span>Frete (<?php echo ucfirst($totais['metodo_entrega']); ?>)</span><span class="<?php echo $totais['frete'] == 0 ? 'free-text' : ''; ?>"><?php echo $totais['frete'] == 0 ? 'Grátis' : 'R$ ' . number_format($totais['frete'], 2, ',', '.'); ?></span></div>
+                        <?php if (!empty($enderecoCliente)): ?>
+                            <div class="summary-line"><span>Endereço de entrega</span><span><?php echo htmlspecialchars(($enderecoCliente['rua'] ?? '—') . ', ' . ($enderecoCliente['numero'] ?? '') . ' - ' . ($enderecoCliente['bairro'] ?? '—') . ', ' . ($enderecoCliente['cidade'] ?? '—') . '/' . ($enderecoCliente['estado'] ?? '—'), ENT_QUOTES, 'UTF-8'); ?></span></div>
+                        <?php else: ?>
+                            <div class="summary-line"><span>Endereço de entrega</span><span style="color: #9d1f1f;">Não informado</span></div>
+                        <?php endif; ?>
                         <hr class="zooka-divider">
                         <div class="summary-line total-line">
                             <span>Total</span>
-                            <span class="total-value">R$ 202,45</span>
+                            <span class="total-value">R$ <?php echo number_format($totais['total'], 2, ',', '.'); ?></span>
                         </div>
                     </div>
-                    <button class="btn-pay">FINALIZAR COMPRA</button>
+                    <form method="POST" action="compra.php<?php echo !empty($metodoEntrega) ? '?metodo_entrega=' . urlencode($metodoEntrega) : ''; ?>">
+                        <input type="hidden" name="finalizar_pedido" value="1">
+                        <input type="hidden" name="metodo_entrega" value="<?php echo htmlspecialchars($totais['metodo_entrega'], ENT_QUOTES, 'UTF-8'); ?>">
+                        <button type="submit" class="btn-pay" <?php echo empty($totais['itens']) ? 'disabled' : ''; ?>>FINALIZAR COMPRA</button>
+                    </form>
                 </div>
             </aside>
         </div>
@@ -170,7 +236,7 @@
             </div>
             <p>Escaneie o QR Code para pagar:</p>
             <div class="qr-code-area">
-                <img src="Assets/qrcode.png" alt="QR Code Pix">
+                <img src="Assets/Rickrolling_QR_code.png" alt="QR Code Pix">
             </div>
             <div class="copy-paste-area">
                 <p>Ou utilize o Pix Copia e Cola:</p>
