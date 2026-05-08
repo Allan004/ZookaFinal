@@ -739,3 +739,10 @@ footer {
 a, a *{
     text-decoration: none !important;
 }
+
+.add-cart button {
+    all: unset;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+}

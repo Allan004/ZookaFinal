@@ -319,37 +319,36 @@ $produtos=produtos_web($nome,$filtro,$ordenar);
 
    echo '
 <div class="product-card"
-     onclick="window.location.href=\'telaDeProdutos.php?idProduto='.$produto['id'].'\'">
+     onclick="window.location.href=\'telaDeProdutos.php?idProduto=' . $produto['id'] . '\'">
 
     <div class="product-image">
         <span class="badge-off">15% OFF</span>
 
-        <img src="assets/imagens_produtos/produto_'.$produto["id"].'/1.jpg" alt="Produto">
+        <img src="assets/imagens_produtos/produto_' . $produto['id'] . '/1.jpg" alt="Produto">
 
-        <a class="add-cart"
-           href="adicionarCarrinho.php?idProduto='.$produto['id'].'"
-           onclick="event.stopPropagation();">
-            +
-        </a>
+        <form action="carrinho2.php" method="POST" class="add-cart" onclick="event.stopPropagation();">
+            <input type="hidden" name="idProduto" value="' . $produto['id'] . '">
+            <button type="submit">+</button>
+        </form>
+
     </div>
 
     <div class="product-info">
 
-        <p class="product-name">'.$produto['nome'].'</p>
+        <p class="product-name">' . $produto['nome'] . '</p>
 
         <p class="old-price">
-            A partir de R$'.$produto['preco'].'
+            A partir de R$' . $produto['preco'] . '
         </p>
 
         <p class="price">
-            R$'.($produto['preco'] * 0.9).'
+            R$' . ($produto['preco'] * 0.9) . '
         </p>
 
     </div>
 
-</div>';
-
-}
+</div>
+';}
                     
                     ?>
 
@@ -399,6 +398,8 @@ $produtos=produtos_web($nome,$filtro,$ordenar);
 
     window.location.href = url.toString();
 }
+
+
 </script>
 
 </body>
