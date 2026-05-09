@@ -1,0 +1,256 @@
+/* ==========================================================================
+   1. RESET E CONFIGURAÇÕES GERAIS
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  background-color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100%;
+  
+}
+
+/* ==========================================================================
+   2. ESTRUTURA DO GRID PRINCIPAL (Mural de Blocos)
+   ========================================================================== */
+.sobre-nos-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1.5fr 1.2fr 0.95fr;
+  width: 100vw;       
+  height: 550px;      
+  overflow: hidden;
+}
+
+/* Configuração comum para todos os blocos */
+.bloco {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.sobre-nos-grid > div:first-child {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* ==========================================================================
+   3. PALETA DE CORES (Extraída exatamente da sua imagem)
+   ========================================================================== */
+
+.coluna-um {
+  position: relative;
+  width: 100%;
+  height: 100%; /* Herda a altura total de 550px do grid */
+}
+.azul-claro {
+  background-color: #CBEFF7;
+  position: absolute !important; 
+  top: 0;
+  left: 0;
+  width: 18% !important; 
+  height: 55% !important; 
+  z-index: 1;
+}
+.verde-agua {
+  background-color: #31B2B2;
+  position: absolute !important;
+  left: 0;
+  top: 40%;
+  width: 15% !important;   
+  height: 40% !important;  
+  z-index: 2 !important; 
+}
+
+.laranja {
+  background-color: #F47B20;
+  position: absolute !important;
+  top: 0;  
+  left: 60%;                   
+  width: 20% !important;     
+  height: 45% !important;     
+  z-index: 2 !important;                 
+}
+
+.salmao {
+  background-color: #F5BE94;
+  position: absolute !important;
+  bottom: 20%;             
+  height: 40% !important;  
+  left: 57%;                  
+  width: 26% !important;     
+  z-index: 3 !important; 
+}
+.marrom {
+  background-color: #5E4633;
+  grid-column: 4;
+  grid-row: 1 / span 2; 
+  bottom: 20%;           
+  height: 80% !important;
+  position: absolute !important;
+  top: 0;
+  right: 0; 
+  width: 25% !important;  
+  z-index: 1;
+  overflow: hidden; 
+}
+
+/* ==========================================================================
+   4. CONTEÚDO TEXTUAL E LOGO (Coluna do Meio)
+   ========================================================================== */
+/* Este é o seu quadrado branco puro de fundo (sem texto dentro) */
+.conteudo-texto {
+  background-color: #ffffff;
+  position: absolute !important;
+  bottom: 20%;           
+  height: 90% !important;  
+  top: auto;
+  left: 15%;               
+  width: 80% !important;   
+  z-index: 0 !important;  
+}
+
+.texto-institucional {
+  position: absolute !important;
+  z-index: 10 !important;
+  top: 10%;                
+  left: 19%;               
+  width: 40% !important;   
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  box-sizing: border-box;
+  font-weight: bold; 
+}
+
+.texto-institucional p {
+  font-size: 23px !important; 
+  line-height: 1.5; 
+  margin-bottom: 15px;
+}
+
+
+/* 2. NOME MAIOR "ZOOKA" */
+.texto-titulo-zooka {
+  position: absolute !important;
+  z-index: 15 !important;    /* Força ele a ficar na frente de TODOS os blocos */
+  
+  /* Posição: vamos subir ele um pouco mais para garantir que apareça na tela */
+  bottom: 12% !important;   /* Ajuste essa porcentagem para subir ou descer o nome */
+  left: 18% !important;     /* Alinhado na mesma linha que o texto institucional */
+  width: auto !important;   /* Deixa a largura livre para a palavra não quebrar */
+  
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* Garante o tamanho, a cor e a visibilidade da letra */
+.texto-titulo-zooka h1 {
+  font-size: 75px !important;       /* Bem grandão! */
+  color: #5E4633 !important;        /* Usando o marrom do seu layout (mude para #000000 se quiser preto) */
+  font-family: sans-serif;          /* Ou a fonte que você estiver usando no projeto */
+  font-weight: 900 !important;      /* Deixa bem grosso/negrito */
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+}
+.conteudo-logo {
+  display: none !important;
+}
+
+.logo-texto {
+  font-size: 6.5rem;
+  font-weight: 900;
+  color: #000000;
+  font-family: 'Georgia', serif; /* Fonte elegante do logo */
+  line-height: 1;
+}
+
+/* ==========================================================================
+   5. SISTEMA DE HOVER (Efeito de animação ao passar o mouse)
+   ========================================================================== */
+.card-personagem {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  cursor: pointer;
+}
+
+/* Faz com que ambas as imagens ocupem 100% do bloco, uma em cima da outra */
+.card-personagem img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ajusta a imagem sem distorcer ou amassar */
+  transition: opacity 0.4s ease-in-out; /* Efeito suave de transição */
+}
+
+/* Configuração inicial (Apenas a foto parada aparece) */
+.foto-estatica {
+  opacity: 1;
+  z-index: 2; /* Fica visível por cima */
+}
+
+.foto-animada {
+  opacity: 0;
+  z-index: 1; /* Fica oculta por baixo */
+}
+
+/* Quando o usuário passa o mouse por cima do container */
+.card-personagem:hover .foto-estatica {
+  opacity: 0; /* A foto parada fica invisível */
+}
+
+.card-personagem:hover .foto-animada {
+  opacity: 1; /* A animação (GIF) aparece */
+}
+
+/* ==========================================================================
+   6. DECORAÇÕES DO BLOCO MARROM (Direita)
+   ========================================================================== */
+.marrom-conteudo {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.logo-redondo-z {
+  width: 120px;
+  height: auto;
+}
+
+.grupo-patinhas-dog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.patinhas-decoracao {
+  width: 90px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.cachorrinho-ilustra {
+  width: 130px;
+  height: auto;
+}
