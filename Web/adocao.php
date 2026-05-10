@@ -32,7 +32,7 @@
     <div class="carousel">
         <div class="slide active">
             <a href="#">
-                <img src="Assets/1.png" class="bg-slide" alt="Vantagens exclusivas para adotantes">
+                <img src="Assets\1.png" class="bg-slide" alt="Vantagens exclusivas para adotantes">
                 <div class="slide-content"></div>
             </a>
         </div>

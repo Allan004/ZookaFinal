@@ -9,7 +9,7 @@
 }
 
 body {
-  background-color: #f5f5f5;
+  background-color: #ffffff;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -26,6 +26,8 @@ body {
   width: 100vw;       
   height: 550px;      
   overflow: hidden;
+    overflow: visible !important; /* Libera o corte no bloco principal */
+
 }
 
 /* Configuração comum para todos os blocos */
@@ -47,11 +49,7 @@ body {
    3. PALETA DE CORES (Extraída exatamente da sua imagem)
    ========================================================================== */
 
-.coluna-um {
-  position: relative;
-  width: 100%;
-  height: 100%; /* Herda a altura total de 550px do grid */
-}
+
 .azul-claro {
   background-color: #CBEFF7;
   position: absolute !important; 
@@ -119,84 +117,195 @@ body {
   z-index: 0 !important;  
 }
 
+.imagem-logo-zooka {
+   
+    width: 15% !important; /* Força ele a ser maior que o próprio container */
+    max-width: 1800px !important; /* Um limite gigante para ele poder expandir */
+    height: auto !important; 
+
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+    /* 2. Mantém o posicionamento (Para a esquerda e para CIMA) */
+    /* Como ele cresceu, talvez você precise ajustar esses números */
+    /* -150px empurra para a esquerda | -80px puxa para cima */
+    transform: translate(-150px, -80px) !important;
+    
+    transition: transform 0.3s ease, max-width 0.3s ease; 
+}
+.secao-texto {
+    display: block !important;
+    width: 100% !important;
+    clear: both !important;
+    position: relative !important;
+    z-index: 5 !important;
+    margin-bottom: 50px !important; 
+}
+
 .texto-institucional {
-  position: absolute !important;
-  z-index: 10 !important;
-  top: 10%;                
-  left: 19%;               
-  width: 40% !important;   
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  box-sizing: border-box;
-  font-weight: bold; 
+    max-width: 800px !important;
+    margin: 0 auto !important; 
+    padding: 40px 20px !important;
+    background-color: transparent !important; 
 }
 
 .texto-institucional p {
-  font-size: 23px !important; 
-  line-height: 1.5; 
-  margin-bottom: 15px;
+    font-family: 'Nunito', 'Century Gothic', sans-serif !important;
+    font-size: 18px !important;
+    line-height: 1.8 !important;
+    color: #2c3e50 !important;
+    margin-bottom: 25px !important;
+    text-align: justify;
+    display: block !important; 
+    font-weight: 700 !important;
+}
+
+.logo-redondo-z {
+    width: 200px !important;
+    height: 200px !important;
+    object-fit: contain !important;
+    flex-shrink: 0 !important;
+    transition: all 0.3s ease;
+    transform: translate( 50px) !important; 
 }
 
 
-/* 2. NOME MAIOR "ZOOKA" */
-.texto-titulo-zooka {
+
+
+/* Container que segura o logo do Zooka */
+.logo-zooka-container {
   position: absolute !important;
-  z-index: 15 !important;    /* Força ele a ficar na frente de TODOS os blocos */
-  
-  /* Posição: vamos subir ele um pouco mais para garantir que apareça na tela */
-  bottom: 12% !important;   /* Ajuste essa porcentagem para subir ou descer o nome */
-  left: 18% !important;     /* Alinhado na mesma linha que o texto institucional */
-  width: auto !important;   /* Deixa a largura livre para a palavra não quebrar */
-  
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  box-sizing: border-box;
+  z-index: 15 !important;
+  top: 55% !important;        
+  left: 18% !important;       
+  width: auto !important;
+  height: auto !important;
 }
 
-/* Garante o tamanho, a cor e a visibilidade da letra */
-.texto-titulo-zooka h1 {
-  font-size: 75px !important;       /* Bem grandão! */
-  color: #5E4633 !important;        /* Usando o marrom do seu layout (mude para #000000 se quiser preto) */
-  font-family: sans-serif;          /* Ou a fonte que você estiver usando no projeto */
-  font-weight: 900 !important;      /* Deixa bem grosso/negrito */
-  margin: 0 !important;
-  padding: 0 !important;
-  line-height: 1 !important;
-}
-.conteudo-logo {
-  display: none !important;
-}
-
-.logo-texto {
-  font-size: 6.5rem;
-  font-weight: 900;
-  color: #000000;
-  font-family: 'Georgia', serif; /* Fonte elegante do logo */
-  line-height: 1;
+/* Controlando o tamanho do logo */
+.imagem-logo-zooka {
+  width: 280px !important;    /* Ajuste esse tamanho em pixels até ficar do tamanho que você quer */
+  height: auto !important;    /* Mantém a proporção da imagem sem achatar */
+  display: block;
+  pointer-events: none !important;
 }
 
 /* ==========================================================================
    5. SISTEMA DE HOVER (Efeito de animação ao passar o mouse)
    ========================================================================== */
-.card-personagem {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  cursor: pointer;
+/* 1. CONTAINER PRINCIPAL (Controla o tamanho de todo o bloco do personagem) */
+
+/* Conteudo da Elen */
+
+.card-personagem .foto-estatica {
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 90% !important;   
+    height: 90% !important;  
+    object-fit: contain !important; 
+    opacity: 1 !important;          
+    z-index: 2 !important;         
+    transition: opacity 0.4s ease-in-out !important; 
+    transform: translateY(-60px) !important;
+    
+}
+.card-personagem .foto-animada  {
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;   
+    height: 100% !important;  
+    object-fit: contain !important;
+    opacity: 0 !important;          
+    z-index: 1 !important;         
+    transition: opacity 0.4s ease-in-out !important; 
+    transform: translate(-25px, -25px) !important;
+    scale: 1.03 !important; 
+}
+/* Conteudo da Elen termina aqui */
+
+
+/* Henrique começa aqui */
+
+.card-personagem.henrique .foto-estatica {
+
+    transform: translate(-10px, 0px) !important; 
+    scale: 1 !important; 
+}
+.card-personagem.henrique .foto-animada {
+    transform: translate(-36px, 30px) !important; 
+    scale: 0.900 !important; 
+}
+/* Henrique termina aqui */
+
+/* Allan começa aqui */
+.card-personagem.allan .foto-estatica {
+    
+    transform: translate(22px,-25px) !important; 
+    scale: 0.95 !important; 
+}
+.card-personagem.allan .foto-animada {
+    transform: translate(0px, 0px) !important; 
+    scale: 0.85 !important; 
+}
+/* Allan termina aqui */
+
+/* vitoria começa aqui */
+
+
+
+.card-personagem.vitoria .foto-estatica {
+    /* 1º valor: esquerda/direita | 2º valor: cima/baixo */
+    transform: translate(10px, 10px) !important; 
+    
+    scale: 1 !important; /* Começa em 100%, diminua ou aumente aqui */
 }
 
-/* Faz com que ambas as imagens ocupem 100% do bloco, uma em cima da outra */
-.card-personagem img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Ajusta a imagem sem distorcer ou amassar */
-  transition: opacity 0.4s ease-in-out; /* Efeito suave de transição */
+/* Ajuste do GIF da Vitória */
+.card-personagem.vitoria .foto-animada {
+    /* Deixe igual ao de cima para não desalinharem na transição */
+    transform: translate(-10px, 28px) !important; 
+    
+    scale: 0.9 !important; /* Começa em 100%, ajuste se o GIF for menor/maior */
+}
+
+/* vitoria termina aqui */
+
+/* --- AJUSTE DO LOGO ZOOKA --- */
+/* --- AJUSTE ULTRA-POWER DO LOGO ZOOKA --- */
+
+.imagem-logo-zooka {
+   
+    width: 150% !important; 
+    max-width: 1200px !important; /* Esse valor o torna BEM MAIOR (ajuste se quiser mais!) */
+    height: auto !important; /* Mantém a proporção */
+
+    /* 2. Centralização padrão para o translate funcionar legal */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    transform: translate(250px, -100px) !important;
+    
+    transition: transform 0.3s ease, max-width 0.3s ease; 
+}
+.card-personagem .foto-estatica {
+    opacity: 1 !important;
+    z-index: 2 !important;
+}
+
+.card-personagem .foto-animada {
+    opacity: 0 !important;
+    z-index: 1 !important;
+}
+
+.card-personagem:hover .foto-estatica {
+    opacity: 0 !important;
+}
+
+.card-personagem:hover .foto-animada {
+    opacity: 1 !important;
 }
 
 /* Configuração inicial (Apenas a foto parada aparece) */
@@ -210,14 +319,6 @@ body {
   z-index: 1; /* Fica oculta por baixo */
 }
 
-/* Quando o usuário passa o mouse por cima do container */
-.card-personagem:hover .foto-estatica {
-  opacity: 0; /* A foto parada fica invisível */
-}
-
-.card-personagem:hover .foto-animada {
-  opacity: 1; /* A animação (GIF) aparece */
-}
 
 /* ==========================================================================
    6. DECORAÇÕES DO BLOCO MARROM (Direita)
@@ -244,13 +345,83 @@ body {
   width: 100%;
 }
 
-.patinhas-decoracao {
-  width: 90px;
-  height: auto;
-  margin-bottom: 10px;
-}
+/* --- AJUSTE DAS PATINHAS DE DECORAÇÃO --- */
 
+.patinhas-decoracao {
+    /* 1. Define um tamanho legal para elas não ficarem gigantescas nem sumidas */
+    /* Ajuste esse valor se quiser que fiquem maiores ou menores */
+    width: 500px !important; 
+    height: auto !important;
+
+    /* 2. O TRUQUE MÁGICO: empurra as patinhas lá para o fundo do quadrado marrom */
+    margin-top: auto !important;
+
+    /* 3. Adiciona um espacinho em relação à borda de baixo do quadrado */
+    /* 🔴 Se elas colarem na borda de baixo, aumente esse valor */
+    margin-bottom: 30px !important;
+
+    /* Evita que elas percam a proporção */
+    flex-shrink: 0 !important;
+    
+    transition: all 0.3s ease;
+}
 .cachorrinho-ilustra {
   width: 130px;
   height: auto;
+}
+
+
+/* --- CONTAINER DAS REDES SOCIAIS (Seguro contra Overflow Hidden) --- */
+.redes-sociais {
+    display: flex !important;
+    flex-direction: column !important; 
+    gap: 8px !important;             
+    position: absolute !important;
+    top: 15px !important;             
+    right: 45px !important;            
+    z-index: 100 !important;        
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateY(-5px) !important; 
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease !important;
+}
+[class*="bloco"]:hover .redes-sociais {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important; 
+}
+.link-social {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 36px !important; 
+    height: 36px !important;
+    border-radius: 50% !important;
+    background-color: rgba(255, 255, 255, 0.95) !important; 
+    color: #333333 !important;
+    text-decoration: none !important;
+    font-size: 16px !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important; 
+    transition: all 0.2s ease !important;
+}
+.link-social.linkedin:hover {
+    background-color: #0077b5 !important;
+    color: #ffffff !important;
+    transform: scale(1.1) !important;
+}
+
+.link-social.github:hover {
+    background-color: #24292e !important;
+    color: #ffffff !important;
+    transform: scale(1.1) !important;
+}
+.card-personagem {
+    position: relative !important;
+    overflow: visible !important;
+    width: 400px !important;    
+    height: 450px !important;   
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-top: -50px !important;      
 }

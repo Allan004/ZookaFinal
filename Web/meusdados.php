@@ -6,6 +6,7 @@ $pdo = conectar();
 
 $id_login = $_SESSION['usuario_id'] ?? null;
 
+
 if (!$id_login) {
     header("Location: login.php");
     exit;
@@ -18,6 +19,7 @@ if (!$id_login) {
 
 /* 🔥 UPDATE */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $cep = preg_replace('/[^0-9]/', '', $_POST['cep']);
 
     $sql = $pdo->prepare("
         UPDATE clienteweb SET
@@ -41,7 +43,7 @@ $sql->execute([
     $_POST['email'] ?? $usuario['email'],
     $_POST['telefone'] ?? $usuario['telefone'],
     $_POST['nascimento'] ?? $usuario['nascimento'],
-    $_POST['cep'] ?? $usuario['cep'],
+    $cep,
     $_POST['rua'] ?? $usuario['rua'],
     $_POST['numero'] ?? $usuario['numero'],
     $_POST['bairro'] ?? $usuario['bairro'],
@@ -59,6 +61,9 @@ $sql->execute([
 $sql = $pdo->prepare("SELECT * FROM clienteweb WHERE id_login = ?");
 $sql->execute([$id_login]);
 $usuario = $sql->fetch(PDO::FETCH_ASSOC);
+if (!$usuario) {
+    die("Usuário não encontrado no clienteweb. ID recebido: " . $id_login);
+}
 ?>
 
 <!DOCTYPE html>
@@ -138,7 +143,7 @@ $usuario = $sql->fetch(PDO::FETCH_ASSOC);
 
 <div class="scrolling-ticker">
     <div class="ticker-content">
-        <span>Frete grátis</span>
+        <span>Frete grátis</span> 
         <span>Brindes exclusivos</span>
         <span>15% OFF</span>
     </div>
@@ -158,7 +163,6 @@ $usuario = $sql->fetch(PDO::FETCH_ASSOC);
         <nav class="sidebar-links">
             <a href="#" class="active">Meus dados</a>
             <a href="#">Meus pedidos</a>
-            <a href="#">Favoritos</a>
             <a href="logout.php">Sair da conta</a>
         </nav>
 
