@@ -67,20 +67,18 @@
 
 .search-input {
     width: 100%;
-    max-width: 500px;
-    padding: 12px 25px;
-    border-radius: 30px;
-    border: 1px solid #e0e0e0;
-    background-color: var(--bg-search);
+    max-width: 450px;
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
     outline: none;
     font-size: 14px;
     transition: 0.3s;
 }
 
 .search-input:focus {
-    background-color: #fff;
-    border-color: var(--zooka-teal);
-    box-shadow: 0 0 5px rgba(54, 169, 177, 0.2);
+    border-color: #2eaeb0;
+    box-shadow: 0 0 5px rgba(46, 174, 176, 0.2);
 }
 
 /* Menu de Usuário e Carrinho */

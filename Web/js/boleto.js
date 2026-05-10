@@ -1,8 +1,38 @@
 const { jsPDF } = window.jspdf;
 
+document.addEventListener("DOMContentLoaded", renderBarcodeHTML);
+
 document
     .getElementById("baixarPDF")
     .addEventListener("click", gerarPDF);
+
+function renderBarcodeHTML() {
+    const barcodeElement = document.getElementById('barcode');
+    if (!barcodeElement || !barcodeElement.dataset.codigo) return;
+
+    const codigo = barcodeElement.dataset.codigo;
+    const digits = codigo.replace(/\D/g, '').split('').map(Number);
+    const totalBars = 240;
+
+    while (barcodeElement.firstChild) {
+        barcodeElement.removeChild(barcodeElement.firstChild);
+    }
+
+    for (let i = 0; i < totalBars; i += 1) {
+        const digit = Number.isNaN(digits[i % digits.length]) ? 1 : digits[i % digits.length];
+        const bar = document.createElement('div');
+        bar.classList.add('barcode-bar');
+
+        const width = 1.0 + ((digit % 4) * 0.4); // 1px, 1.4px, 1.8px, 2.2px
+        bar.style.width = `${width}px`;
+
+        if (i % 7 === 0) {
+            bar.classList.add('short');
+        }
+
+        barcodeElement.appendChild(bar);
+    }
+}
 
 function gerarPDF() {
 
@@ -36,18 +66,16 @@ function gerarPDF() {
     doc.line(58, 13, 58, 25);
     doc.line(78, 13, 78, 25);
 
+    const codigoBanco = document.getElementById('codigoBanco')?.textContent.trim() || '237-2';
+    const linhaDigitavel = document.getElementById('linhaDigitavel')?.textContent.trim() || '23790.12345 60000.000001 00000.000008 1 00000000000000';
+
     // código banco
     doc.setFontSize(16);
-    doc.text("237-2", 62, 20);
+    doc.text(codigoBanco, 62, 20);
 
     // linha digitável
     doc.setFontSize(12);
-
-    doc.text(
-        "23790.12345 60000.000001 00000.000008 1 00000000000000",
-        82,
-        20
-    );
+    doc.text(linhaDigitavel, 82, 20);
 
     // linha horizontal
     doc.setLineWidth(0.6);
@@ -59,6 +87,15 @@ function gerarPDF() {
 
     y = 28;
 
+    const localPagamento = document.getElementById('localPagamento')?.textContent.trim() || 'Pagável em qualquer banco até o vencimento.';
+    const vencimento = document.getElementById('vencimento')?.textContent.trim() || '00/00/0000';
+    const beneficiario = document.getElementById('beneficiario')?.textContent.trim() || 'Família Zooka LTDA';
+    const agenciaCodigo = document.getElementById('agenciaCodigo')?.textContent.trim() || '0001 / 99999-9';
+    const pagador = document.getElementById('pagador')?.textContent.trim() || 'Cliente Teste';
+    const nossoNumero = document.getElementById('nossoNumero')?.textContent.trim() || '0000000001';
+    const usoBanco = document.getElementById('usoBanco')?.textContent.trim() || 'Carteira Simples';
+    const valorDocumento = document.getElementById('valorDocumento')?.textContent.trim() || 'R$ 0,00';
+
     criarCampo(
         doc,
         10,
@@ -66,7 +103,7 @@ function gerarPDF() {
         140,
         18,
         "Local de pagamento",
-        "Pagável em qualquer banco até o vencimento."
+        localPagamento
     );
 
     criarCampo(
@@ -76,7 +113,7 @@ function gerarPDF() {
         50,
         18,
         "Vencimento",
-        "00/00/0000"
+        vencimento
     );
 
     y += 18;
@@ -88,7 +125,7 @@ function gerarPDF() {
         140,
         18,
         "Beneficiário",
-        "Família Zooka LTDA"
+        beneficiario
     );
 
     criarCampo(
@@ -98,7 +135,7 @@ function gerarPDF() {
         50,
         18,
         "Agência / Código",
-        "0001 / 99999-9"
+        agenciaCodigo
     );
 
     y += 18;
@@ -110,7 +147,7 @@ function gerarPDF() {
         140,
         18,
         "Pagador",
-        "Cliente Teste"
+        pagador
     );
 
     criarCampo(
@@ -120,7 +157,7 @@ function gerarPDF() {
         50,
         18,
         "Nosso Número",
-        "0000000001"
+        nossoNumero
     );
 
     y += 18;
@@ -132,7 +169,7 @@ function gerarPDF() {
         140,
         18,
         "Uso do Banco",
-        "Carteira Simples"
+        usoBanco
     );
 
     criarCampo(
@@ -142,7 +179,7 @@ function gerarPDF() {
         50,
         18,
         "Valor Documento",
-        "R$ 0,00"
+        valorDocumento
     );
 
     y += 26;
@@ -179,7 +216,8 @@ function gerarPDF() {
        CÓDIGO DE BARRAS
     ========================== */
 
-    desenharCodigoBarras(doc, 15, y);
+
+    desenharCodigoBarras(doc, 15, y, linhaDigitavel);
 
     y += 28;
 
@@ -288,29 +326,31 @@ function criarCampoGrande(doc, x, y, w, h, titulo, valor) {
    CÓDIGO DE BARRAS REALISTA
 =================================== */
 
-function desenharCodigoBarras(doc, x, y) {
+function desenharCodigoBarras(doc, x, y, codigo) {
 
-    const padrao = [
-        1,1,2,1,3,1,2,2,1,1,
-        3,2,1,2,2,1,1,3,2,1,
-        1,2,3,1,2,1,1,2,3,2,
-        1,1,2,3,1,2,2,1,3,1,
-        2,2,1,1,3,2,1,2,2,1,
-        1,3,2,1,1,2,3,1,2,1
-    ];
-
+    const digits = codigo.replace(/\D/g, '').split('').map(Number);
     let posX = x;
 
-    for(let i = 0; i < padrao.length; i++){
-
-        const largura = padrao[i] * 0.45;
-
-        const altura = i % 3 === 0 ? 22 : 18;
-
-        doc.setFillColor(0,0,0);
-
-        doc.rect(posX, y, largura, altura, "F");
-
-        posX += largura + 0.35;
+    if (digits.length === 0) {
+        digits.push(1, 2, 1, 3, 1, 2, 1, 1);
     }
+
+    const barCount = Math.min(80, digits.length * 2);
+    for (let i = 0; i < barCount; i += 1) {
+        const digit = digits[i % digits.length];
+        const width = 0.9 + ((digit % 3) * 0.7);
+        const height = 18 - ((i % 5 === 0) ? 2 : 0);
+
+        if (i % 2 === 0) {
+            doc.setFillColor(0, 0, 0);
+            doc.rect(posX, y, width, height, "F");
+        }
+
+        posX += width + 0.35;
+    }
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(0);
+    doc.text(codigo, x, y + 26);
 }
