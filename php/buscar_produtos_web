@@ -4,6 +4,10 @@
 
     function produtos_web($nome,$filtro,$ordenar){
         $pdo=conectar();
+        if (!$pdo) {
+            error_log("Erro: Falha na conexão com o banco de dados");
+            return [];
+        }
         $sql="SELECT * FROM produto WHERE nome LIKE :termo1 AND filtros_produto LIKE :termo2";
         if ($ordenar == "preco") {
             $sql .= " ORDER BY preco ASC";
@@ -24,6 +28,10 @@
     function produto_espefico($id){
 
         $pdo=conectar();
+        if (!$pdo) {
+            error_log("Erro: Falha na conexão com o banco de dados");
+            return null;
+        }
         $sql="SELECT * FROM produto WHERE id=:valor";
         $stmt = $pdo->prepare($sql);
         $valor=$id;

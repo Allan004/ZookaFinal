@@ -446,6 +446,7 @@ body {
     transition: box-shadow 0.3s;
     position: relative;
     background: #fff;
+    caret-color: transparent;
 }
 
 .product-card:hover {
@@ -575,4 +576,9 @@ padding-top: 20px;
 
     text-decoration: none;
     
+}
+
+
+*:focus {
+    outline: none;
 }
