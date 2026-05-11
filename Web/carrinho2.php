@@ -20,13 +20,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (!empty($_POST['idProduto'])) {
-        $idProduto = intval($_POST['idProduto']);
-        if ($idProduto > 0) {
-            adicionar_item_carrinho($idProduto, 1);
-        }
-        header('Location: carrinho2.php');
-        exit;
+    $idProduto = intval($_POST['idProduto']);
+    $quantidade = isset($_POST['quantidade']) ? max(1, intval($_POST['quantidade'])) : 1;
+
+    if ($idProduto > 0) {
+        adicionar_item_carrinho($idProduto, $quantidade);
     }
+
+    header('Location: carrinho2.php');
+    exit;
+}
 
     if (!empty($_POST['atualizar_endereco'])) {
         $dadosEndereco = [

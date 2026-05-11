@@ -54,37 +54,92 @@ function salvar_produto($dados) {
     $descricao = trim($dados['descricao'] ?? '');
     $preco = str_replace([',', ' '], ['.', ''], trim($dados['preco'] ?? ''));
     $estoque = isset($dados['estoque']) ? (int)$dados['estoque'] : 0;
+    $codigo_produto = trim($dados['codigo_produto'] ?? '');
+    $filtros_produto = trim($dados['filtros_produto'] ?? '');
+    $imagens = trim($dados['Imagens'] ?? '');
+
     $errors = [];
 
     if ($nome === '') {
         $errors[] = 'Informe o nome do produto.';
     }
+
     if ($descricao === '') {
         $errors[] = 'Informe a descrição do produto.';
     }
+
     if ($preco === '' || !is_numeric($preco) || (float)$preco < 0) {
         $errors[] = 'Informe um preço válido para o produto.';
     }
+
     if ($estoque < 0) {
         $errors[] = 'A quantidade em estoque não pode ser negativa.';
+    }
+
+    if ($codigo_produto === '') {
+        $errors[] = 'Informe o código do produto.';
+    }
+
+    if ($filtros_produto === '') {
+        $errors[] = 'Informe os filtros do produto.';
+    }
+
+    if ($imagens === '') {
+        $errors[] = 'Informe a imagem do produto.';
+    }
+
+    $pdo = conectar();
+
+    $sqlCodigo = "SELECT id FROM produto WHERE codigo_produto = :codigo";
+    if (!empty($dados['id_produto'])) {
+        $sqlCodigo .= " AND id != :id";
+    }
+
+    $stmtCodigo = $pdo->prepare($sqlCodigo);
+    $stmtCodigo->bindValue(':codigo', $codigo_produto);
+
+    if (!empty($dados['id_produto'])) {
+        $stmtCodigo->bindValue(':id', (int)$dados['id_produto'], PDO::PARAM_INT);
+    }
+
+    $stmtCodigo->execute();
+
+    if ($stmtCodigo->fetch()) {
+        $errors[] = 'Já existe um produto com este código.';
     }
 
     if (!empty($errors)) {
         return ['success' => false, 'errors' => $errors];
     }
 
-    $pdo = conectar();
     if (empty($dados['id_produto'])) {
-        $sql = "INSERT INTO produto (nome, descricao, preco, estoque) VALUES (:nome, :descricao, :preco, :estoque)";
+        $sql = "INSERT INTO produto 
+                (nome, descricao, preco, estoque, codigo_produto, filtros_produto, Imagens, created_at, updated_at) 
+                VALUES 
+                (:nome, :descricao, :preco, :estoque, :codigo_produto, :filtros_produto, :imagens, NOW(), NOW())";
     } else {
-        $sql = "UPDATE produto SET nome = :nome, descricao = :descricao, preco = :preco, estoque = :estoque, updated_at = NOW() WHERE id = :id";
+        $sql = "UPDATE produto SET
+                    nome = :nome,
+                    descricao = :descricao,
+                    preco = :preco,
+                    estoque = :estoque,
+                    codigo_produto = :codigo_produto,
+                    filtros_produto = :filtros_produto,
+                    Imagens = :imagens,
+                    updated_at = NOW()
+                WHERE id = :id";
     }
 
     $stmt = $pdo->prepare($sql);
+
     $stmt->bindValue(':nome', $nome);
     $stmt->bindValue(':descricao', $descricao);
     $stmt->bindValue(':preco', number_format((float)$preco, 2, '.', ''));
     $stmt->bindValue(':estoque', $estoque, PDO::PARAM_INT);
+    $stmt->bindValue(':codigo_produto', $codigo_produto);
+    $stmt->bindValue(':filtros_produto', $filtros_produto);
+    $stmt->bindValue(':imagens', $imagens);
+
     if (!empty($dados['id_produto'])) {
         $stmt->bindValue(':id', (int)$dados['id_produto'], PDO::PARAM_INT);
     }
