@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZookaPet - O melhor para o seu melhor amigo</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="script.js" defer></script>
+    <script src="js/script.js"></script>
 </head>
 <body>
    
