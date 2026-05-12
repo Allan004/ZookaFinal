@@ -5,65 +5,26 @@ require_once "../php/conexao.php";
 $pdo = conectar();
 
 $id_login = $_SESSION['usuario_id'] ?? null;
-
-
-if (!$id_login) {
-    header("Location: login.php");
-    exit;
-}
+$sqlUser = $pdo->prepare("SELECT nome FROM clienteweb WHERE id_login = ?");
+$sqlUser->execute([$id_login]);
+$usuario = $sqlUser->fetch(PDO::FETCH_ASSOC);
 
 if (!$id_login) {
     header("Location: login.php");
     exit;
 }
 
-/* 🔥 UPDATE */
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $cep = preg_replace('/[^0-9]/', '', $_POST['cep']);
+/* BUSCA PEDIDOS */
+$sql = $pdo->prepare("
+    SELECT *
+    FROM pedido_web
+    WHERE id_clienteweb = ?
+    ORDER BY created_at DESC
+");
 
-    $sql = $pdo->prepare("
-        UPDATE clienteweb SET
-            nome = ?,
-            cpf = ?,
-            email = ?,
-            telefone = ?,
-            nascimento = ?,
-            cep = ?,
-            rua = ?,
-            numero = ?,
-            bairro = ?,
-            cidade = ?,
-            estado = ?
-        WHERE id_login = ?
-    ");
-
-$sql->execute([
-    $_POST['nome'] ?? $usuario['nome'],
-    $_POST['cpf'] ?? $usuario['cpf'],
-    $_POST['email'] ?? $usuario['email'],
-    $_POST['telefone'] ?? $usuario['telefone'],
-    $_POST['nascimento'] ?? $usuario['nascimento'],
-    $cep,
-    $_POST['rua'] ?? $usuario['rua'],
-    $_POST['numero'] ?? $usuario['numero'],
-    $_POST['bairro'] ?? $usuario['bairro'],
-    $_POST['cidade'] ?? $usuario['cidade'],
-    $_POST['estado'] ?? $usuario['estado'],
-    $id_login
-]);
-
-    $_SESSION['sucesso'] = "Dados atualizados com sucesso!";
-    header("Location: meusdados.php");
-    exit;
-}
-
-/* 🔥 SELECT (busca dados atualizados) */
-$sql = $pdo->prepare("SELECT * FROM clienteweb WHERE id_login = ?");
 $sql->execute([$id_login]);
-$usuario = $sql->fetch(PDO::FETCH_ASSOC);
-if (!$usuario) {
-    die("Usuário não encontrado no clienteweb. ID recebido: " . $id_login);
-}
+
+$pedidos = $sql->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -71,10 +32,15 @@ if (!$usuario) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meus Dados - ZookaPet</title>
+
+    <title>Meus Pedidos - ZookaPet</title>
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/header.css">
+</head>
+
+<body>
+
 <div class="top-promo">  
     10% OFF na primeira compra com o cupom <strong>BEMVINDOAUAU</strong>
 </div>
@@ -98,18 +64,7 @@ if (!$usuario) {
                     name="filtro"
                     class="search-input"
                     placeholder="o que seu pet precisa hoje?"
-                    value="<?php echo htmlspecialchars($_GET['filtro'] ?? '', ENT_QUOTES); ?>"
                 >
-
-                <?php if (!empty($_GET['ordenacao'])): ?>
-
-                    <input 
-                        type="hidden"
-                        name="ordenacao"
-                        value="<?php echo htmlspecialchars($_GET['ordenacao'], ENT_QUOTES); ?>"
-                    >
-
-                <?php endif; ?>
 
             </form>
 
@@ -148,6 +103,7 @@ if (!$usuario) {
     </div>
 
 </header>
+
 
 <nav class="category-nav">
 <ul>
@@ -258,7 +214,6 @@ if (!$usuario) {
 
 </ul>
 </nav>
-
    <div class="scrolling-ticker">
     <div class="ticker-content">
         <span>Frete grátis</span> <img src="Assets/patinhas1.png" alt="pata">
@@ -272,9 +227,6 @@ if (!$usuario) {
         <span>15% a 25% OFF</span> <img src="Assets/patinhas1.png" alt="pata">
     </div>
 </div>
-
-<!-- CONTEÚDO -->
-
 <section class="area-cliente">
 
     <aside class="menu-cliente">
@@ -285,8 +237,8 @@ if (!$usuario) {
         </div>
 
         <nav class="sidebar-links">
-            <a href="#" class="active">Meus dados</a>
-            <a href="meuspedidoss.php">Meus pedidos</a>
+            <a href="meusdados.php">Meus dados</a>
+            <a href="meuspedidoss.php" class="active">Meus pedidos</a>
             <a href="logout.php">Sair da conta</a>
         </nav>
 
@@ -296,100 +248,268 @@ if (!$usuario) {
 
         <div class="card-dados">
 
-            <h1>Meus Dados</h1>
+            <h1>Meus pedidos</h1>
 
             <p class="subtitulo">
-                Confira ou altere seus dados de cadastro.
+                Confira o histórico dos seus pedidos.
             </p>
 
-            <form class="form-dados" method="POST">
+            <?php if(count($pedidos) > 0): ?>
 
-                <div class="linha-form">
+                <div class="pedidos-container">
 
-                    <div class="grupo">
-                        <label>Nome completo</label>
-                        <input type="text" name="nome" value="<?php echo $usuario['nome']; ?>">
-                    </div>
+                    <?php foreach($pedidos as $pedido): ?>
 
-                    <div class="grupo">
-                        <label>CPF</label>
-                        <input type="text" name="cpf" value="<?php echo $usuario['cpf']; ?>">
-                    </div>
+                        <div class="pedido-card">
+
+                           <div class="pedido-topo">
+
+    <div>
+        <span class="pedido-label">Pedido</span>
+        <h3>#<?php echo $pedido['id_pedido_web']; ?></h3>
+    </div>
+
+    <div>
+        <span class="pedido-label">Data</span>
+
+        <p>
+            <?php echo date('d/m/Y', strtotime($pedido['created_at'])); ?>
+        </p>
+    </div>
+
+    <div>
+        <span class="pedido-label">Total</span>
+
+        <strong class="pedido-total">
+            R$ <?php echo number_format($pedido['total'], 2, ',', '.'); ?>
+        </strong>
+    </div>
+
+</div>
+
+<?php
+
+$itens = $pdo->prepare("
+    SELECT
+        pedido_web_item.*,
+        produto.nome,
+        produto.Imagens
+    FROM pedido_web_item
+
+    INNER JOIN produto
+        ON produto.id = pedido_web_item.id_produto
+
+    WHERE pedido_web_item.id_pedido_web = ?
+");
+
+$itens->execute([$pedido['id_pedido_web']]);
+
+$listaItens = $itens->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
+<button
+    class="btn-detalhes"
+    onclick="abrirModal(<?php echo $pedido['id_pedido_web']; ?>)"
+>
+    Ver detalhes
+</button>
+
+<div
+    class="modal-pedido"
+    id="modal-<?php echo $pedido['id_pedido_web']; ?>"
+>
+
+    <div class="modal-conteudo">
+
+        <span
+            class="fechar-modal"
+            onclick="fecharModal(<?php echo $pedido['id_pedido_web']; ?>)"
+        >
+            ×
+        </span>
+
+<h2>
+    Pedido #<?php echo $pedido['id_pedido_web']; ?>
+</h2>
+
+
+<div class="lista-itens">
+
+        <div class="lista-itens">
+
+            <?php foreach($listaItens as $item): ?>
+
+                <div class="item-pedido">
+
+    <div class="item-esquerda">
+
+       <img
+    src="Assets/imagens_produtos/produto_<?php echo $item['id_produto']; ?>/1.jpg"
+    class="img-item"
+>
+
+        <div>
+
+            <strong>
+                <?php echo $item['nome']; ?>
+            </strong>
+
+            <p>
+                Quantidade:
+                <?php echo $item['quantidade']; ?>
+            </p>
+
+        </div>
+
+    </div>
+
+    <strong>
+        R$
+        <?php echo number_format($item['total_item'], 2, ',', '.'); ?>
+    </strong>
+
+</div>
+            <?php endforeach; ?>
+            </div>
+
+<div class="bloco-info-pedido">
+
+    <h3>Resumo do pedido</h3>
+
+    <div class="resumo-grid">
+
+        <div class="resumo-left">
+
+            <div class="resumo-item">
+                <span>Status</span>
+                <strong><?php echo $pedido['status_pedido']; ?></strong>
+            </div>
+
+            <div class="resumo-item">
+                <span>Data</span>
+                <strong>
+                    <?php echo date('d/m/Y H:i', strtotime($pedido['data_pedido'])); ?>
+                </strong>
+            </div>
+
+            <div class="resumo-item">
+                <span>Entrega</span>
+                <strong><?php echo $pedido['metodo_entrega']; ?></strong>
+            </div>
+
+        </div>
+
+        <div class="resumo-right">
+
+            <div class="linha">
+                <span>Subtotal</span>
+                <strong>R$ <?php echo number_format($pedido['subtotal'], 2, ',', '.'); ?></strong>
+            </div>
+
+            <div class="linha">
+                <span>Frete</span>
+                <strong>R$ <?php echo number_format($pedido['frete'], 2, ',', '.'); ?></strong>
+            </div>
+
+            <div class="linha">
+                <span>Descontos</span>
+                <strong>- R$ <?php echo number_format($pedido['total_descontos'], 2, ',', '.'); ?></strong>
+            </div>
+
+            <div class="total-box">
+                <span>Total</span>
+                <strong>R$ <?php echo number_format($pedido['total'], 2, ',', '.'); ?></strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="endereco-pedido">
+
+    <h3>Endereço de entrega</h3>
+
+    <p>
+        <?php echo $pedido['rua']; ?>,
+        <?php echo $pedido['numero']; ?>
+    </p>
+
+    <p>
+        <?php echo $pedido['bairro']; ?>
+    </p>
+
+    <p>
+        <?php echo $pedido['cidade']; ?> -
+        <?php echo $pedido['estado']; ?>
+    </p>
+
+    <p>
+        CEP: <?php echo $pedido['cep']; ?>
+    </p>
+
+</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+                    <?php endforeach; ?>
 
                 </div>
 
-                <div class="linha-form">
+            <?php else: ?>
 
-                    <div class="grupo">
-                        <label>E-mail</label>
-                        <input type="text" name="email" value="<?php echo $usuario['email']; ?>">
-                    </div>
+                <div class="sem-pedidos">
 
-                    <div class="grupo">
-                        <label>Telefone</label>
-                        <input type="text" name="telefone" value="<?php echo $usuario['telefone']; ?>">
-                    </div>
+                    <h2>Você ainda não possui pedidos.</h2>
+
+                    <a href="index.php" class="btn-salvar">
+                        Comprar agora
+                    </a>
 
                 </div>
 
-                <div class="linha-form">
-
-                    <div class="grupo">
-                        <label>Data de nascimento</label>
-                        <input type="date" name="nascimento" value="<?php echo $usuario['nascimento']; ?>">
-                    </div>
-
-                    <div class="grupo">
-                        <label>CEP</label>
-                        <input type="text" name="cep" value="<?php echo $usuario['cep']; ?>">
-                    </div>
-
-                </div>
-
-                <div class="linha-form">
-
-                    <div class="grupo grupo-maior">
-                        <label>Rua</label>
-                        <input type="text" name="rua" value="<?php echo $usuario['rua']; ?>">
-                    </div>
-
-                    <div class="grupo grupo-pequeno">
-                        <label>Número</label>
-                        <input type="text" name="numero" value="<?php echo $usuario['numero']; ?>">
-                    </div>
-
-                </div>
-
-                <div class="linha-form">
-
-                    <div class="grupo">
-                        <label>Bairro</label>
-                        <input type="text" name="bairro" value="<?php echo $usuario['bairro']; ?>">
-                    </div>
-
-                    <div class="grupo">
-                        <label>Cidade</label>
-                        <input type="text" name="cidade" value="<?php echo $usuario['cidade']; ?>">
-                    </div>
-
-                    <div class="grupo grupo-estado">
-                        <label>Estado</label>
-                        <input type="text" name="estado" value="<?php echo $usuario['estado']; ?>">
-                    </div>
-
-                </div>
-
-                <button type="submit" class="btn-salvar">
-                    Salvar alterações
-                </button>
-
-            </form>
+            <?php endif; ?>
 
         </div>
 
     </main>
 
 </section>
+<script>
 
+function abrirModal(id){
+
+    const modal = document.getElementById('modal-' + id);
+
+    modal.style.display = 'flex';
+}
+
+function fecharModal(id){
+
+    const modal = document.getElementById('modal-' + id);
+
+    modal.style.display = 'none';
+}
+
+window.addEventListener('click', function(e){
+
+    document.querySelectorAll('.modal-pedido').forEach(modal => {
+
+        if(e.target === modal){
+            modal.style.display = 'none';
+        }
+
+    });
+
+});
+
+</script>
 </body>
 </html>

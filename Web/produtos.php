@@ -19,6 +19,7 @@ $produtos=produtos_web($nome,$filtro,$ordenar);
     <title>Zooka PetShop - Produtos <?php echo ucfirst($_GET['categoria'] ?? "Produtos");?></title>
     <link rel="stylesheet" href="css/produtos.css">
     <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/style.css">
   
 </head>
 <body>
@@ -57,8 +58,7 @@ $produtos=produtos_web($nome,$filtro,$ordenar);
         </span>
  
         <div class="dropdown-menu">
-            <a href="#">Meus pedidos</a>
-            <a href="#">Meus pets</a>
+            <a href="meuspedidoss.php">Meus pedidos</a>
             <a href="meusdados.php">Meus dados</a>
             <a href="logout.php">Sair</a>
         </div>
@@ -189,25 +189,6 @@ $produtos=produtos_web($nome,$filtro,$ordenar);
         </ul>
     </li>
  
-    <!-- PROMOÇÕES -->
-    <li class="has-dropdown">
-        <div class="category-item">
-            <img src="Assets/promocoes1.png"> promoções
-        </div>
-        <ul class="submenu">
-            <li><a href="produtos.php?categoria=promocao&filtro=oferta">Ofertas do dia</a></li>
-        </ul>
-    </li>
- 
-    <!-- ASSINATURA -->
-    <li class="has-dropdown">
-        <div class="category-item">
-            <img src="Assets/assinatura1.png"> assinatura
-        </div>
-        <ul class="submenu">
-            <li><a href="produtos.php?categoria=assinatura&filtro=plano">Planos</a></li>
-        </ul>
-    </li>
  
     <!-- ADOÇÃO -->
     <li>

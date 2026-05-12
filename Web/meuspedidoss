@@ -1,0 +1,192 @@
+<?php
+session_start();
+require_once "../php/conexao.php";
+
+$pdo = conectar();
+
+$id_login = $_SESSION['usuario_id'] ?? null;
+
+if (!$id_login) {
+    header("Location: login.php");
+    exit;
+}
+
+/* BUSCA PEDIDOS */
+$sql = $pdo->prepare("
+    SELECT *
+    FROM venda
+    WHERE id_cliente = ?
+    ORDER BY data_venda DESC
+");
+
+$sql->execute([$id_login]);
+
+$pedidos = $sql->fetchAll(PDO::FETCH_ASSOC);
+?>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Pedidos - ZookaPet</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/header.css">
+</head>
+
+<body>
+
+<div class="top-promo">
+    10% OFF na primeira compra com o cupom <strong>BEMVINDOAUAU</strong>
+</div>
+
+<header class="main-header">
+
+    <div class="header-top">
+
+        <div class="logo-container">
+            <a href="index.php" class="logo">
+                <img src="Assets/logo.png" class="banner-topo" alt="Zooka">
+            </a>
+        </div>
+
+        <div class="search-container">
+
+            <form action="produtos.php" method="GET" class="search-form">
+
+                <input
+                    type="text"
+                    name="filtro"
+                    class="search-input"
+                    placeholder="o que seu pet precisa hoje?"
+                >
+
+            </form>
+
+        </div>
+
+        <div class="user-menu">
+
+            <?php if(isset($_SESSION['usuario_nome'])): ?>
+
+                <div class="user-dropdown">
+
+                    <span class="user-name">
+                        Olá, <?php echo $_SESSION['usuario_nome']; ?>!
+                    </span>
+
+                    <div class="dropdown-menu">
+                        <a href="meuspedidoss.php">Meus pedidos</a>
+                        <a href="meusdados.php">Meus dados</a>
+                        <a href="logout.php">Sair</a>
+                    </div>
+
+                </div>
+
+            <?php endif; ?>
+
+            <a href="carrinho2.php" class="btn-continue">🛒</a>
+
+        </div>
+
+    </div>
+
+</header>
+
+<section class="area-cliente">
+
+    <aside class="menu-cliente">
+
+        <div class="cliente-box">
+            <span>Olá,</span>
+            <h3><?php echo $_SESSION['usuario_nome']; ?></h3>
+        </div>
+
+        <nav class="sidebar-links">
+            <a href="meusdados.php">Meus dados</a>
+            <a href="meuspedidoss.php" class="active">Meus pedidos</a>
+            <a href="logout.php">Sair da conta</a>
+        </nav>
+
+    </aside>
+
+    <main class="conteudo-cliente">
+
+        <div class="card-dados">
+
+            <h1>Meus pedidos</h1>
+
+            <p class="subtitulo">
+                Confira o histórico dos seus pedidos.
+            </p>
+
+            <?php if(count($pedidos) > 0): ?>
+
+                <div class="pedidos-container">
+
+                    <?php foreach($pedidos as $pedido): ?>
+
+                        <div class="pedido-card">
+
+                            <div class="pedido-topo">
+
+                                <div>
+                                    <span class="pedido-label">Pedido</span>
+                                    <h3>#<?php echo $pedido['id']; ?></h3>
+                                </div>
+
+                                <div>
+                                    <span class="pedido-label">Data</span>
+                                    <p>
+                                        <?php echo date('d/m/Y', strtotime($pedido['data_venda'])); ?>
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <span class="pedido-label">Status</span>
+
+                                    <span class="status-pedido">
+                                        <?php echo $pedido['status']; ?>
+                                    </span>
+                                </div>
+
+                                <div>
+                                    <span class="pedido-label">Total</span>
+
+                                    <strong class="pedido-total">
+                                        R$ <?php echo number_format($pedido['total'], 2, ',', '.'); ?>
+                                    </strong>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    <?php endforeach; ?>
+
+                </div>
+
+            <?php else: ?>
+
+                <div class="sem-pedidos">
+
+                    <h2>Você ainda não possui pedidos.</h2>
+
+                    <a href="index.php" class="btn-salvar">
+                        Comprar agora
+                    </a>
+
+                </div>
+
+            <?php endif; ?>
+
+        </div>
+
+    </main>
+
+</section>
+
+</body>
+</html>

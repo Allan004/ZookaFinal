@@ -1,6 +1,169 @@
 <?php
 session_start();
 ?>
+<?php
+ 
+if($_POST) {
+    $email = $_POST['email'] ?? '';
+    $nome  = $_POST['nome'] ?? '';
+    $celular = $_POST['celular'] ?? '';
+ 
+    require_once 'PHPMailer/src/PHPMailer.php';
+    require_once 'PHPMailer/src/SMTP.php';
+    require_once 'PHPMailer/src/Exception.php';
+ 
+    $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+ 
+    try {
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'ZookaPetshop@gmail.com';
+        $mail->Password = 'juky tzsz dshp oncx'; // Lembre-se de manter esta senha segura
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = 587;
+        $mail->CharSet = 'UTF-8'; // Garante acentuação correta
+ 
+        $mail->setFrom('ZookaPetshop@gmail.com', 'Zooka Petshop');
+        $mail->addAddress($email);
+ 
+        $mail->isHTML(true);
+    $mail->CharSet = 'UTF-8';
+    $mail->Subject = 'Bem-vindo à Zooka, ' . $nome . '!';
+ 
+    $mail->Body = '
+ 
+<html>
+ 
+<head>
+ 
+<meta charset="UTF-8">
+ 
+<style>
+ 
+body{
+    background:#f4f4f4;
+    padding:30px;
+    font-family:Arial,sans-serif;
+}
+ 
+.container{
+    max-width:600px;
+    margin:auto;
+    background:#ffffff;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+}
+ 
+.banner img{
+    width:100%;
+    display:block;
+}
+ 
+.content{
+    padding:40px;
+    text-align:center;
+}
+ 
+.titulo{
+    color:#ca7e4c;
+    font-size:32px;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+ 
+.texto{
+    color:#666;
+    font-size:16px;
+    line-height:1.7;
+    margin-bottom:30px;
+}
+ 
+.numero{
+    color:#176668;
+    font-weight:bold;
+}
+ 
+.botao{
+    display:inline-block;
+    background:#2eaeb0;
+    color:white !important;
+    text-decoration:none;
+    padding:16px 28px;
+    border-radius:10px;
+    font-weight:bold;
+    font-size:14px;
+}
+ 
+.footer{
+    background:#fafafa;
+    padding:20px;
+    text-align:center;
+    color:#999;
+    font-size:12px;
+    border-top:1px solid #eee;
+}
+ 
+</style>
+ 
+</head>
+ 
+<body>
+ 
+<div class="container">
+ 
+    <div class="banner">
+        <img src="https://i.imgur.com/xwFq8GA.png">
+    </div>
+ 
+    <div class="content">
+ 
+        <div class="titulo">
+            Olá, '.$nome.'!
+        </div>
+ 
+        <div class="texto">
+ 
+            Ficamos muito felizes com seu cadastro 💚
+ 
+            <br><br>
+ 
+            Recebemos seus dados com sucesso e em breve nossa equipe entrará em contato através do número:
+ 
+            <br><br>
+ 
+            <span class="numero">
+                '.$celular.'
+            </span>
+ 
+        </div>
+ 
+ 
+    </div>
+ 
+    <div class="footer">
+        © 2026 Zooka Petshop
+    </div>
+ 
+</div>
+ 
+</body>
+ 
+</html>
+ 
+';
+ 
+$mail->AltBody = "Olá, $nome! Recebemos seu cadastro com sucesso.";
+ 
+    $mail->send();
+        
+ 
+    } catch (Exception $e) {
+        echo "Erro: {$mail->ErrorInfo}";
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -48,8 +211,7 @@ session_start();
         </span>
  
         <div class="dropdown-menu">
-            <a href="#">Meus pedidos</a>
-            <a href="#">Meus pets</a>
+            <a href="meuspedidoss.php">Meus pedidos</a>
             <a href="meusdados.php">Meus dados</a>
             <a href="logout.php">Sair</a>
         </div>
@@ -208,7 +370,7 @@ session_start();
 </div>
 
 <section class="hero-banner">
-    <img src="Assets/zooka2.png" class="banner-media" alt="Banner Pet Shop">
+    <img src="Assets/Zooka2.png" class="banner-media" alt="Banner Pet Shop">
  
     <div class="hero-content">
         <h1>Seu pet merece cuidado, carinho e o melhor todos os dias</h1>
@@ -382,170 +544,7 @@ session_start();
   });
 </script>
  
-<?php
- 
-if($_POST) {
-    $email = $_POST['email'] ?? '';
-    $nome  = $_POST['nome'] ?? '';
-    $celular = $_POST['celular'] ?? '';
- 
-    require_once 'PHPMailer/src/PHPMailer.php';
-    require_once 'PHPMailer/src/SMTP.php';
-    require_once 'PHPMailer/src/Exception.php';
- 
-    $mail = new PHPMailer\PHPMailer\PHPMailer(true);
- 
-    try {
-        $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'ZookaPetshop@gmail.com';
-        $mail->Password = 'juky tzsz dshp oncx'; // Lembre-se de manter esta senha segura
-        $mail->SMTPSecure = 'tls';
-        $mail->Port = 587;
-        $mail->CharSet = 'UTF-8'; // Garante acentuação correta
- 
-        $mail->setFrom('ZookaPetshop@gmail.com', 'Zooka Petshop');
-        $mail->addAddress($email);
- 
-        $mail->isHTML(true);
-    $mail->CharSet = 'UTF-8';
-    $mail->Subject = 'Bem-vindo à Zooka, ' . $nome . '!';
- 
-    $mail->Body = '
- 
-<html>
- 
-<head>
- 
-<meta charset="UTF-8">
- 
-<style>
- 
-body{
-    background:#f4f4f4;
-    padding:30px;
-    font-family:Arial,sans-serif;
-}
- 
-.container{
-    max-width:600px;
-    margin:auto;
-    background:#ffffff;
-    border-radius:18px;
-    overflow:hidden;
-    box-shadow:0 5px 20px rgba(0,0,0,0.08);
-}
- 
-.banner img{
-    width:100%;
-    display:block;
-}
- 
-.content{
-    padding:40px;
-    text-align:center;
-}
- 
-.titulo{
-    color:#ca7e4c;
-    font-size:32px;
-    font-weight:bold;
-    margin-bottom:20px;
-}
- 
-.texto{
-    color:#666;
-    font-size:16px;
-    line-height:1.7;
-    margin-bottom:30px;
-}
- 
-.numero{
-    color:#176668;
-    font-weight:bold;
-}
- 
-.botao{
-    display:inline-block;
-    background:#2eaeb0;
-    color:white !important;
-    text-decoration:none;
-    padding:16px 28px;
-    border-radius:10px;
-    font-weight:bold;
-    font-size:14px;
-}
- 
-.footer{
-    background:#fafafa;
-    padding:20px;
-    text-align:center;
-    color:#999;
-    font-size:12px;
-    border-top:1px solid #eee;
-}
- 
-</style>
- 
-</head>
- 
-<body>
- 
-<div class="container">
- 
-    <div class="banner">
-        <img src="https://i.imgur.com/xwFq8GA.png">
-    </div>
- 
-    <div class="content">
- 
-        <div class="titulo">
-            Olá, '.$nome.'!
-        </div>
- 
-        <div class="texto">
- 
-            Ficamos muito felizes com seu cadastro 💚
- 
-            <br><br>
- 
-            Recebemos seus dados com sucesso e em breve nossa equipe entrará em contato através do número:
- 
-            <br><br>
- 
-            <span class="numero">
-                '.$celular.'
-            </span>
- 
-        </div>
- 
- 
-    </div>
- 
-    <div class="footer">
-        © 2026 Zooka Petshop
-    </div>
- 
-</div>
- 
-</body>
- 
-</html>
- 
-';
- 
-$mail->AltBody = "Olá, $nome! Recebemos seu cadastro com sucesso.";
- 
-    $mail->send();
-        echo "E-mail enviado com sucesso!";
- 
-    } catch (Exception $e) {
-        echo "Erro: {$mail->ErrorInfo}";
-    }
-}
-?>
- 
 
 </body>
+
  

@@ -61,7 +61,7 @@ if (isset($_GET['pedido_finalizado'])) {
     <header class="main-header">
         <div class="header-top">
             <div class="logo-container">
-                <a href="insdex.php" class="logo">
+                <a href="index.php" class="logo">
                     <img src="Assets/logo.png" class="banner-topo" alt="Zooka">
                 </a>
             </div>
@@ -73,9 +73,8 @@ if (isset($_GET['pedido_finalizado'])) {
                     <div class="user-dropdown">
                         <span class="user-name">Olá, <?php echo $_SESSION['usuario_nome']; ?>!</span>
                         <div class="dropdown-menu">
-                            <a href="#">Meus pedidos</a>
-                            <a href="#">Meus pets</a>
-                            <a href="#">Meus dados</a>
+                            <a href="meuspedidoss.php">Meus pedidos</a>
+                            <a href="meusdados.php">Meus dados</a>
                             <a href="logout.php">Sair</a>
                         </div>
                     </div>
@@ -85,40 +84,6 @@ if (isset($_GET['pedido_finalizado'])) {
                 <a href="carrinho2.php" class="btn-continue">🛒</a>
             </div>
         </div>
- 
-      <div class="search-container">
-    <input type="text" class="search-input" placeholder="o que seu pet precisa hoje?">
-</div>
-
-<div class="user-menu">
-
-<?php if(isset($_SESSION['usuario_nome'])): ?>
-
-    <div class="user-dropdown">
-        <span class="user-name">
-            Olá, <?php echo $_SESSION['usuario_nome']; ?>!
-        </span>
-
-        <div class="dropdown-menu">
-            <a href="#">Meus pedidos</a>
-            <a href="meusdados.php">Meus dados</a>
-            <a href="logout.php">Sair</a>
-        </div>
-    </div>
-
-<?php else: ?>
-
-    <a href="login.php" class="user-link">
-        Entrar ou <br>Cadastrar
-    </a>
-
-<?php endif; ?>
-
-<a href="carrinho.php" class="btn-continue">🛒</a>
-
-</div>
- 
-    </div>
 </header>
        
        <nav class="category-nav">
