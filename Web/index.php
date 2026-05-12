@@ -172,6 +172,7 @@ $mail->AltBody = "Olá, $nome! Recebemos seu cadastro com sucesso.";
     <title>ZookaPet - O melhor para o seu melhor amigo</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
     <script src="script.js" defer></script>
    
    
@@ -508,49 +509,18 @@ $mail->AltBody = "Olá, $nome! Recebemos seu cadastro com sucesso.";
     <button type="submit" class="btn-send">enviar</button>
 </form>
  
-    <div class="footer-links-container">
-        <div class="logo-footer">zookapet</div>
-        <div class="footer-grid">
-            <div class="footer-column">
-                <h4>a zookapet</h4>
-                <ul>
-                    <li>bem estar bem</li>
-                    <li>sustentabilidade</li>
-                    <li>nossa história</li>
-                    <li>trabalhe conosco</li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>atendimento</h4>
-                <ul>
-                    <li>encontre a zooka</li>
-                    <li>ajuda e contato</li>
-                    <li>ouvidoria</li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>suporte</h4>
-                <ul>
-                    <li>aviso de privacidade</li>
-                    <li>política de cookies</li>
-                    <li>trocas e devoluções</li>
-                </ul>
-            </div>
+ 
+    <div class="footer-grid">
+        <div class="footer-column">
+            <h4>sobre nós</h4>
+            <ul>
+                 <a href="sobrenos.php">Nossa História</a>
+            </ul>
         </div>
     </div>
 </footer>
-<script type="module">
-  import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@0/dist/web.js'
- 
-  Typebot.initBubble({
-    typebot: "lead-generation-yz0zgkk",
-    theme: {
-      button: { backgroundColor: "#2eaeb0" },
-      chatWindow: { backgroundColor: "#020202" },
-     
-    },
-  });
-</script>
+
+
 <script>
 document.addEventListener('DOMContentLoaded', function(){
 

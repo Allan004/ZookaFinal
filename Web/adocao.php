@@ -23,7 +23,7 @@
         <div class="nav-buttons">
             <a href="queroadotar.php" class="btn-orange">Quero adotar</a>
             <a href="https://www.webdenuncia.sp.gov.br/depa" class="btn-orange" target="_blank" rel="noopener noreferrer">Denuncie</a>
-            <button class="btn-outline">Entrar</button>
+            
         </div>
     </nav>
 </header>
@@ -143,12 +143,12 @@
             <li>Doe itens básicos</li>
             <li>Apadrinhe um animal</li>
         </ul>
-        <button class="btn-orange">Saiba como ajudar</button>
+        <a href="https://www.webdenuncia.sp.gov.br/depa" class="btn-continue">Saiba como Denunviar</a>
     </div>
     <div class="video-container">
         <video autoplay muted loop playsinline poster="Assets/VideoAdocao.mp4">
             <source src="Assets/VideoAdocao.mp4" type="video/mp4">
-            Seu navegador não suporta vídeos.
+           
         </video>
     </div>
 </section>
@@ -156,16 +156,10 @@
 <footer class="main-footer">
     <div class="footer-grid">
         <div class="footer-column">
-            <h4>a zookapet</h4>
-            <ul><li>bem estar bem</li><li>sustentabilidade</li><li>nossa história</li></ul>
-        </div>
-        <div class="footer-column">
-            <h4>atendimento</h4>
-            <ul><li>ajuda e contato</li><li>ouvidoria</li></ul>
-        </div>
-        <div class="footer-column">
-            <h4>suporte</h4>
-            <ul><li>privacidade</li><li>cookies</li><li>trocas</li></ul>
+            <h4>sobre nós</h4>
+            <ul>
+                <li>nossa história</li>
+            </ul>
         </div>
     </div>
 </footer>

@@ -17,26 +17,26 @@ body {
 /* --- 2. NAVBAR --- */
 /* Ajuste da Logo no Topo */
 .banner-topo {
-    height: 60px; /* Define uma altura visível e elegante */
-    width: auto;   /* Mantém a proporção da largura automaticamente */
+    height: 60px;
+    width: auto;
     object-fit: contain;
     padding: 5px 0;
     transition: transform 0.3s ease;
 }
 
-/* Efeito sutil ao passar o mouse (interatividade) */
+/* Efeito sutil ao passar o mouse */
 .banner-topo:hover {
     transform: scale(1.05);
 }
 
-/* Ajuste na Navbar para alinhar a logo */
+/* Ajuste na Navbar */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 5%; /* Reduzi um pouco o padding vertical */
+    padding: 10px 5%;
     background: white;
-    height: 100px; /* Altura fixa para a barra de navegação */
+    height: 100px;
 }
 
 .nav-buttons {
@@ -80,16 +80,13 @@ body {
     color: white;
 }
 
-/* --- 4. HERO / CARROSSEL (AJUSTADO PARA SER MENOR E SEM CORTES) --- */
-/* --- 4. HERO / CARROSSEL (VERSÃO FINAL) --- */
-/* --- 4. HERO / CARROSSEL (VERSÃO BANNER SLIM) --- */
+/* --- 4. HERO / CARROSSEL --- */
 .hero-banner {
-    margin: 15px 2%; /* Quase toda a largura da tela */
+    margin: 15px 2%;
     position: relative;
     border-radius: 10px;
     overflow: hidden;
-    /* Ajuste a altura abaixo: 200px a 250px é o ideal para banners "slim" */
-    height:600px; 
+    height: 600px;
     background: none;
 }
 
@@ -101,7 +98,7 @@ body {
 .slide {
     display: none;
     opacity: 0;
-    transition: opacity 1s ease-in-out; /* Suaviza a troca das imagens */
+    transition: opacity 1s ease-in-out;
 }
 
 .slide.active {
@@ -114,16 +111,15 @@ body {
     height: 100%;
 }
 
-/* O SEGREDO ESTÁ AQUI: */
 .bg-slide {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* 👈 troca aqui */
-    object-position: center; /* opcional, mas recomendado */
+    object-fit: cover;
+    object-position: center;
     filter: none !important;
 }
 
-/* --- Ajuste das Setas para ficarem proporcionais ao banner menor --- */
+/* Setas */
 .prev, .next {
     position: absolute;
     top: 50%;
@@ -149,8 +145,7 @@ body {
 .prev { left: 10px; }
 .next { right: 10px; }
 
-/* Pontinhos discretos */
-/* Container dos indicadores */
+/* Pontinhos */
 .dots {
     position: absolute;
     bottom: 20px;
@@ -160,42 +155,40 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px; /* Espaço entre as bolinhas */
+    gap: 8px;
 }
 
-/* Bolinha padrão (Inativa) */
 .dot {
     width: 12px;
     height: 12px;
-    background: rgba(0, 0, 0, 0.1); /* Cor cinza clara das inativas */
+    background: rgba(0, 0, 0, 0.1);
     border-radius: 50%;
     display: inline-block;
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Transição suave */
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* A Barra de Progresso (Ativa) */
 .dot.active {
-    background: #222; /* Cor preta/grafite da barra ativa */
-    width: 40px;      /* Largura alongada */
-    border-radius: 20px; /* Bordas arredondadas (pílula) */
+    background: #222;
+    width: 40px;
+    border-radius: 20px;
 }
 
-/* Responsividade: Diminuir a altura em telas de celular */
+/* Responsividade */
 @media (max-width: 768px) {
     .hero-banner {
-        height: 200px; /* Menor no celular */
+        height: 200px;
         margin: 10px 2%;
     }
 }
+
 /* --- 5. CARDS DE DESTAQUE --- */
-/* --- 5. CARDS DE DESTAQUE (EVOLUÍDO) --- */
 .highlights {
     display: flex;
     gap: 25px;
-    padding: 40px 5% 60px 5%; /* Aumentei o padding inferior para dar espaço */
+    padding: 40px 5% 60px 5%;
     background: #fdfdfd;
-    margin-top: 20px; /* Espaço entre o carrossel e os cards */
+    margin-top: 20px;
 }
 
 .card {
@@ -205,7 +198,7 @@ body {
     flex: 1;
     box-shadow: 0 8px 25px rgba(0,0,0,0.04);
     transition: all 0.4s ease;
-    border-left: 0px solid #2eaeb0; /* Preparando a borda para o hover */
+    border-left: 0px solid #2eaeb0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -214,8 +207,8 @@ body {
 .card:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 35px rgba(46, 174, 176, 0.1);
-    border-left: 8px solid #2eaeb0; /* Adiciona uma barra lateral no hover */
-    padding-left: 17px; /* Compensa a entrada da borda para não mover o texto bruscamente */
+    border-left: 8px solid #2eaeb0;
+    padding-left: 17px;
 }
 
 .card h3 {
@@ -231,13 +224,12 @@ body {
     font-weight: 400;
 }
 
-/* --- 6. AJUSTE DE ESPAÇAMENTO PARA ESTATÍSTICAS --- */
+/* --- 6. ESTATÍSTICAS --- */
 .stats-section {
-    margin-top: 40px; /* Cria o espaço entre os cards e a faixa de números */
+    margin-top: 40px;
     width: 100%;
 }
 
-/* --- 6. ESTATÍSTICAS --- */
 .stats-banner {
     background-image: url('../Assets/imagenscachorros.png');
     background-attachment: fixed;
@@ -258,16 +250,27 @@ body {
     margin: 0 auto;
 }
 
-.stat-item { text-align: center; color: white; }
-.stat-item h2 { font-size: 48px; font-weight: 800; }
-.unit { color: #FFD700; font-weight: 800; text-transform: uppercase; }
+.stat-item {
+    text-align: center;
+    color: white;
+}
+
+.stat-item h2 {
+    font-size: 48px;
+    font-weight: 800;
+}
+
+.unit {
+    color: #FFD700;
+    font-weight: 800;
+    text-transform: uppercase;
+}
 
 /* --- 7. COMO FUNCIONA --- */
-/* --- 7. COMO FUNCIONA (INTERATIVO) --- */
 .how-it-works {
     padding: 80px 5%;
     text-align: center;
-    background: linear-gradient(to bottom, #fdfdfd, #f4f9f9); /* Fundo suave */
+    background: linear-gradient(to bottom, #fdfdfd, #f4f9f9);
 }
 
 .how-it-works h2 {
@@ -277,7 +280,6 @@ body {
     position: relative;
 }
 
-/* Linha decorativa embaixo do título */
 .how-it-works h2::after {
     content: '';
     width: 60px;
@@ -294,7 +296,8 @@ body {
     display: flex;
     gap: 30px;
     justify-content: center;
-    perspective: 1000px; /* Necessário para efeito 3D suave */
+    perspective: 1000px;
+    counter-reset: step-counter;
 }
 
 .step {
@@ -309,7 +312,6 @@ body {
     cursor: default;
 }
 
-/* Efeito ao passar o mouse no Card */
 .step:hover {
     transform: translateY(-15px) scale(1.02);
     box-shadow: 0 20px 40px rgba(46, 174, 176, 0.15);
@@ -323,7 +325,6 @@ body {
     display: inline-block;
 }
 
-/* Animação do ícone quando passa o mouse no card */
 .step:hover .icon-box {
     transform: scale(1.2) rotate(10deg);
 }
@@ -341,7 +342,6 @@ body {
     line-height: 1.5;
 }
 
-/* Número do passo discreto no fundo */
 .step::before {
     content: counter(step-counter);
     counter-increment: step-counter;
@@ -352,11 +352,6 @@ body {
     font-weight: 800;
     color: rgba(0, 0, 0, 0.03);
     font-style: italic;
-}
-
-/* Inicializador do contador */
-.steps-grid {
-    counter-reset: step-counter;
 }
 
 /* --- 8. AJUDA E VÍDEO --- */
@@ -370,24 +365,19 @@ body {
     border-radius: 25px;
 }
 
-.help-content { flex: 1; }
-.video-container { flex: 1; }
-.video-container video { width: 100%; border-radius: 20px; }
-
-/* --- 9. FOOTER --- */
-.main-footer { padding: 40px 5%; background: #fff; border-top: 1px solid #eee; }
-.footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
-.footer-column ul { list-style: none; }
-.footer-column li { color: #777; margin-top: 8px; cursor: pointer; }
-
-/* --- 10. RESPONSIVIDADE --- */
-@media (max-width: 768px) {
-    .hero-banner { margin: 10px 5%; aspect-ratio: 4 / 3; }
-    .highlights, .steps-grid, .help-section, .stats-container {
-        flex-direction: column;
-        gap: 20px;
-    }
+.help-content {
+    flex: 1;
 }
+
+.video-container {
+    flex: 1;
+}
+
+.video-container video {
+    width: 100%;
+    border-radius: 20px;
+}
+
 /* --- Services & Stats --- */
 .services-section {
     background-color: #d6cfc3;
@@ -442,116 +432,89 @@ body {
     text-align: center;
 }
 
-.stat-box h2 { font-size: 3rem; margin-bottom: 10px; }
-.stat-box p { font-size: 0.8rem; letter-spacing: 2px; }
+.stat-box h2 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
 
-.stat-box.dark { background-color: #262522; color: white; }
-.stat-box.brown { background-color: #7c6a5a; color: white; }
-.stat-box.white { background-color: #f7f7f7; color: #333; }
-.stat-box.light-brown { background-color: #8d7361; color: white; }
+.stat-box p {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+}
 
-/* --- Footer & Contact --- */
-.footer-section {
+.stat-box.dark {
     background-color: #262522;
     color: white;
-    padding-top: 60px;
-    position: relative;
 }
 
-.contact-container h2 {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 50px;
-    letter-spacing: 3px;
+.stat-box.brown {
+    background-color: #7c6a5a;
+    color: white;
 }
 
-.contact-content {
+.stat-box.white {
+    background-color: #f7f7f7;
+    color: #333;
+}
+
+.stat-box.light-brown {
+    background-color: #8d7361;
+    color: white;
+}
+
+/* --- RESPONSIVIDADE GERAL --- */
+@media (max-width: 768px) {
+    .hero-banner {
+        margin: 10px 5%;
+        aspect-ratio: 4 / 3;
+    }
+
+    .highlights,
+    .steps-grid,
+    .help-section,
+    .stats-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+footer {
+    width: 100%;
+    background-color: #fff;
+    border-top: 1px solid #f0f0f0;
+    padding: 60px 0;
+    margin-top: 50px;
+}
+
+.footer-grid {
     display: flex;
     justify-content: center;
-    gap: 100px;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding-bottom: 100px;
-}
-
-.contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    position: relative;
-}
-
-.info-item {
-    display: flex;
-    gap: 15px;
-    font-size: 1.1rem;
-}
-
-.footer-cat {
-    position: absolute;
-    bottom: -100px;
-    left: 0;
-    max-width: 250px;
-}
-
-/* Formulário */
-.contact-form {
-    background-color: white;
-    padding: 30px;
-    border-radius: 5px;
-    width: 400px;
-}
-
-.contact-form form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.contact-form input, .contact-form textarea {
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    outline: none;
-}
-
-.contact-form textarea {
-    height: 120px;
-    border-radius: 15px;
-}
-
-.contact-form button {
-    background-color: #000;
-    color: white;
-    padding: 10px;
-    border-radius: 20px;
-    border: none;
-    cursor: pointer;
-    width: 100px;
-}
-
-/* Footer Bottom (Branco) */
-.footer-bottom {
-    background-color: #f7f3f0;
-    padding: 40px 8%;
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    color: #4a3f35;
+    text-align: center;
 }
 
-.footer-nav {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 5px;
+.footer-column h4 {
+    font-size: 16px;
+    font-weight: 800;
+    color: #333;
+    margin-bottom: 25px;
+    text-transform: lowercase;
 }
 
-.footer-nav a {
-    text-decoration: none;
-    color: #4a3f35;
-    font-weight: 600;
-    font-size: 0.9rem;
+.footer-column ul {
+    list-style: none;
+    padding: 0;
 }
 
-.footer-nav a:first-child { color: #8d7361; } /* Link "Home" em marrom */
+.footer-column li {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.footer-column li:hover {
+    color: #36a9b1;
+}

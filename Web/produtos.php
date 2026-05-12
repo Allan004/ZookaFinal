@@ -20,6 +20,7 @@ $produtos=produtos_web($nome,$filtro,$ordenar);
     <link rel="stylesheet" href="css/produtos.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/footer.css">
   
 </head>
 <body>
@@ -345,37 +346,17 @@ $produtos=produtos_web($nome,$filtro,$ordenar);
             </section>
         </main>
     </div>
-      <div class="footer-links-container">
-        <div class="logo-footer">zookapet</div>
-        <div class="footer-grid">
-            <div class="footer-column">
-                <h4>a zookapet</h4>
-                <ul>
-                    <li>bem estar bem</li>
-                    <li>sustentabilidade</li>
-                    <li>nossa história</li>
-                    <li>trabalhe conosco</li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>atendimento</h4>
-                <ul>
-                    <li>encontre a zooka</li>
-                    <li>ajuda e contato</li>
-                    <li>ouvidoria</li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>suporte</h4>
-                <ul>
-                    <li>aviso de privacidade</li>
-                    <li>política de cookies</li>
-                    <li>trocas e devoluções</li>
-                </ul>
-            </div>
+    <footer class="main-footer">
+    <div class="footer-grid">
+        <div class="footer-column">
+            <h4>sobre nós</h4>
+            <ul>
+                 <a href="sobrenos.php">Nossa História</a>
+            </ul>
         </div>
     </div>
 </footer>
+
 
 
 <script>
