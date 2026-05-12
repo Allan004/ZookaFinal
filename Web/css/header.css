@@ -1,0 +1,425 @@
+/* =========================
+   HEADER COMPLETO
+========================= */
+
+/* TOP PROMO */
+.top-promo {
+    background-color: #fff;
+    text-align: center;
+    padding: 8px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #eee;
+    text-transform: uppercase;
+}
+
+/* HEADER */
+.main-header {
+    background: #fff;
+}
+
+/* TOPO DO HEADER */
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+
+/* LOGO */
+.logo-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.banner-topo {
+    height: 50px;
+    width: auto;
+}
+
+/* BARRA DE PESQUISA */
+.search-container {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    margin: 0 20px;
+}
+
+.search-form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.search-input {
+    width: 100%;
+    max-width: 450px;
+
+    padding: 10px 45px 10px 15px;
+
+    border-radius: 25px;
+    border: 1px solid #ddd;
+    outline: none;
+
+    background-color: #f5f5f5;
+
+    background-image: url('../Assets/lupa.png');
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 20px;
+
+    font-size: 14px;
+}
+
+/* MENU USUÁRIO */
+.user-menu {
+    flex: 1;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    gap: 15px;
+}
+
+/* LINK LOGIN */
+.user-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 36px;
+    padding: 8px 12px;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    color: #333;
+    text-decoration: none;
+
+    border-radius: 6px;
+
+    transition: 0.2s;
+}
+
+.user-link:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: #ca7e4c;
+}
+
+/* DROPDOWN USUÁRIO */
+.user-dropdown {
+    position: relative;
+    cursor: pointer;
+}
+
+/* NOME */
+.user-name {
+    display: block;
+
+    padding: 8px 12px;
+
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+
+    white-space: nowrap;
+
+    transition: 0.2s;
+}
+
+.user-dropdown:hover .user-name {
+    color: #ca7e4c;
+}
+
+/* MENU DROPDOWN */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+
+    display: none;
+    flex-direction: column;
+
+    min-width: 180px;
+
+    background: #fff;
+
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+
+    z-index: 999;
+}
+
+.user-dropdown:hover .dropdown-menu {
+    display: flex;
+}
+
+/* ITENS DROPDOWN */
+.dropdown-menu a {
+    padding: 12px 15px;
+
+    text-decoration: none;
+    color: #555;
+
+    font-size: 13px;
+
+    border-bottom: 1px solid #eee;
+
+    transition: 0.2s;
+}
+
+.dropdown-menu a:hover {
+    background: #f9f9f9;
+    color: #ca7e4c;
+}
+
+/* CARRINHO */
+.btn-continue {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: 40px;
+
+    text-decoration: none;
+
+    border-radius: 50%;
+
+    transition: 0.2s;
+}
+
+.btn-continue:hover {
+    background: rgba(0, 0, 0, 0.05);
+    transform: scale(1.05);
+}
+
+/* NAVBAR */
+.category-nav {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    padding: 10px 20px;
+}
+
+/* MENU */
+.category-nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 25px;
+
+    list-style: none;
+
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ITEM */
+.category-nav li {
+    position: relative;
+}
+
+/* LINK ITEM */
+.category-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: #333;
+    text-decoration: none;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.category-item:hover {
+    color: #ca7e4c;
+}
+
+/* ÍCONES */
+.category-item img {
+    width: 55px;
+    height: 25px;
+
+    object-fit: contain;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: 0.3s ease;
+}
+
+/* MOSTRAR ÍCONE */
+.has-dropdown:hover .category-item img {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* SUBMENU */
+.submenu {
+    display: none;
+
+    position: absolute;
+    top: 100%;
+    left: 0;
+
+    min-width: 230px;
+
+    background: #fff;
+
+    border-top: 3px solid #ca7e4c;
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.08);
+
+    padding: 5px 0;
+
+    list-style: none;
+
+    z-index: 9999;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateY(10px);
+    transition: 0.2s;
+}
+
+/* ABRIR SUBMENU */
+.has-dropdown:hover .submenu {
+    display: block;
+
+    opacity: 1;
+    visibility: visible;
+
+    transform: translateY(0);
+}
+
+/* LINKS SUBMENU */
+.submenu li {
+    width: 100%;
+}
+
+.submenu li a {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 14px 18px;
+
+    color: #555;
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    border-bottom: 1px solid #f0f0f0;
+
+    transition: 0.2s;
+}
+
+.submenu li a:hover {
+    background-color: #f9f9f9;
+    color: #ca7e4c;
+}
+
+.submenu li:last-child a {
+    border-bottom: none;
+}
+
+/* TICKER */
+.scrolling-ticker {
+    background-color: #c37b45;
+
+    color: white;
+
+    overflow: hidden;
+    white-space: nowrap;
+
+    padding: 12px 0;
+
+    display: flex;
+    align-items: center;
+
+    border-top: 1px solid rgba(255,255,255,0.1);
+
+    clear: both;
+    position: relative;
+}
+
+.ticker-content {
+    display: inline-block;
+
+    padding-left: 100%;
+
+    animation: marquee 50s linear infinite;
+}
+
+.ticker-content span {
+    font-size: 14px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    margin: 0 30px;
+}
+
+.ticker-content img {
+    width: 20px;
+    vertical-align: middle;
+}
+
+.scrolling-ticker:hover .ticker-content {
+    animation-play-state: paused;
+}
+
+/* ANIMAÇÃO */
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* RESPONSIVO */
+@media (max-width: 900px) {
+
+    .header-top {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .search-container {
+        width: 100%;
+        margin: 0;
+    }
+
+    .search-input {
+        max-width: 100%;
+    }
+
+    .user-menu {
+        justify-content: center;
+    }
+
+    .category-nav ul {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .category-item img {
+        width: 40px;
+        height: 20px;
+    }
+}

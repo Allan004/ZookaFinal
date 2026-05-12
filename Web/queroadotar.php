@@ -133,7 +133,7 @@
 
             
             <div class="pet-card">
-                <div class="pet-image" style="background-image: url('Assets/adocao/animais8.jpg');"></div>
+                <div class="pet-image" style="background-image: url('Assets/adocao/animais8.png');"></div>
                 <div class="card-info">
                     <p class="ong-name">Amigo Não se Compra</p>
                     <div class="name-row">
@@ -150,7 +150,7 @@
 
 
              <div class="pet-card">
-                <div class="pet-image" style="background-image: url('Assets/adocao/animais9.jpg');"></div>
+                <div class="pet-image" style="background-image: url('Assets/adocao/animais9.png');"></div>
                 <div class="card-info">
                     <p class="ong-name">Amigo Não se Compra</p>
                     <div class="name-row">

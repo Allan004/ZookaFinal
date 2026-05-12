@@ -1,3 +1,7 @@
+/* =========================
+   CONFIGURAÇÕES GERAIS
+========================= */
+
 * {
     margin: 0;
     padding: 0;
@@ -8,308 +12,19 @@
 body {
     background: #f5f5f5;
 }
-/* HEADER PARA COPIAR E COLAR EM TODAS AS OUTRAS  */
-
-/* --- CONFIGURAÇÕES GLOBAIS --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-}
 
 :root {
-    --zooka-teal: #36a9b1;      /* Azul principal */
-    --zooka-orange: #c07b4d;    /* Laranja do Ticker */
+    --zooka-teal: #36a9b1;
+    --zooka-orange: #c07b4d;
     --text-dark: #333;
     --text-light: #777;
     --bg-search: #f1f1f1;
 }
 
-/* --- 1. TOP PROMO (Texto estático no topo) --- */
-.top-promo {
-    background-color: #fff;
-    text-align: center;
-    padding: 10px;
-    font-size: 11px;
-    letter-spacing: 1px;
-    border-bottom: 1px solid #eee;
-    text-transform: uppercase;
-    color: var(--text-dark);
-}
+/* =========================
+   PRODUTO
+========================= */
 
-/* --- 2. HEADER PRINCIPAL --- */
-.main-header {
-    background-color: #fff;
-}
-
-.header-top {
-    display: flex;
-    justify-content: space-between; 
-    align-items: center;            
-    width: 100%;
-    max-width: 100%; 
-    padding: 15px 40px; /* Mantemos o padding padrão */
-    box-sizing: border-box;
-    position: relative; /* ESSENCIAL para a busca se basear no centro total da tela */
-}
-.logo-container {
-    flex: 0.5; /* Ocupa um espaço flexível equivalente ao menu do usuário */
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-/* CORREÇÃO LOGO: Diminuído de 60px para 40px para ficar mais delicado */
-.banner-topo {
-    height: 40px; 
-    width: auto;
-    display: block;
-}
-.search-container {
-    position: absolute;
-    left: 47%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 700px; /* Largura máxima da sua barra de pesquisa */
-    display: flex;
-    justify-content: center;
-    z-index: 2;
-}
-.search-input {
-    width: 100%;
-    max-width: 900px;
-    padding: 12px 25px;
-    border-radius: 30px;
-    border: 1px solid #e0e0e0;
-    background-color: var(--bg-search);
-    outline: none;
-    font-size: 14px;
-    transition: 0.3s;
-}
-
-.search-input:focus {
-    background-color: #fff;
-    border-color: var(--zooka-teal);
-    box-shadow: 0 0 5px rgba(54, 169, 177, 0.2);
-}
-
-.user-menu {
-    /* REMOVIDO o width: 250px para não esmagar o conteúdo */
-    flex: 0.5; /* Mantém o peso flexível menor para dar espaço para a busca */
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 20px;
-    box-sizing: border-box;
-    margin-right: 250px; 
-}
-.user-link, .user-name {
-    font-size: 13px;
-    color: var(--text-dark);
-    text-decoration: none;
-    font-weight: 600;
-    line-height: 1.2;
-}
-
-.user-dropdown {
-    position: relative;
-    cursor: pointer;
-}
-
-.btn-continue {
-    font-size: 22px;
-    text-decoration: none;
-}
-
-/* Dropdown do Usuário (Logado) */
-.user-dropdown:hover .dropdown-menu {
-    display: flex;
-}
-
-.dropdown-menu {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    right: 0;
-    background: #fff;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    border-radius: 8px;
-    min-width: 150px;
-    z-index: 100;
-}
-
-.dropdown-menu a {
-    padding: 10px 15px;
-    font-size: 13px;
-    color: var(--text-dark);
-    text-decoration: none;
-    border-bottom: 1px solid #eee;
-}
-
-.dropdown-menu a:hover {
-    background: #f1f1f1;
-}
-
-/* --- 3. MENU DE CATEGORIAS --- */
-.category-nav {
-    background: #fff;
-    border-bottom: 1px solid #eee;
-    padding: 10px 0; /* Zeramos o padding lateral para não interferir na centralização */
-    width: 100%;
-}
-.category-nav ul {
-    display: flex;
-    justify-content: center; /* Centraliza todos os itens perfeitamente no meio */
-    align-items: center;
-    list-style: none;
-    gap: 30px; /* Espaço uniforme entre cada categoria */
-    
-    max-width: 1400px; /* Mesma largura máxima que usamos no topo para manter a simetria */
-    margin: 0 auto; /* Centraliza a caixa do menu na tela */
-    
-    /* CORREÇÃO DO BUG */
-    padding: 15px 0; 
-}
-
-.category-nav li {
-    position: relative;
-}
-
-.category-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #333;
-    text-decoration: none;
-    cursor: pointer;
-    font-size: 14px;
-    transition: 0.2s;
-}
-
-/* Imagens das Categorias (Efeito hover) */
-.category-item img {
-    width: 55px;
-    height: 25px;
-    object-fit: contain;
-    opacity: 0;
-    visibility: hidden;
-    transition: 0.3s ease;
-}
-
-.has-dropdown:hover .category-item img {
-    opacity: 1;
-    visibility: visible;
-}
-
-.has-dropdown:hover .category-item {
-    color: #ca7e4c;
-}
-/* SUBMENU (Dropdown de produtos) */
-.submenu {
-    display: flex; 
-    flex-direction: column; 
-    align-items: flex-start; /* FORÇA os itens filhos a se alinharem totalmente à esquerda */
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #fff;
-    min-width: 180px; 
-    box-shadow: 0px 8px 20px rgba(0,0,0,0.08);
-    border-top: 3px solid #ca7e4c;
-    padding: 5px 0;
-    list-style: none;
-    transform: translateY(10px);
-    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
-    
-    opacity: 0;
-    visibility: hidden; 
-    pointer-events: none; 
-    z-index: 99;
-}
-/* Ativa o submenu apenas no hover do item pai */
-.has-dropdown:hover .submenu {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto; /* Permite clicar nos links internos ao abrir */
-    transform: translateY(0);
-}
-
-.submenu li {
-    width: 100%;
-    display: block;
-}
- 
-.submenu li a {
-    display: block; 
-    width: 100%;    
-    text-align: left; /* Garante o alinhamento do texto à esquerda */
-    
-    /* Espaçamento: 
-       14px em cima/baixo, 
-       40px na direita (deixando o espaço livre do lado direito), 
-       10px na esquerda (apenas um respiro mínimo para o texto não colar 100% na borda esquerda) */
-    padding: 14px 40px 14px 10px; 
-    
-    color: #555;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 600;
-    border-bottom: 1px solid #f0f0f0;
-    box-sizing: border-box; /* Essencial para que o padding não estoure a largura */
-    white-space: nowrap; 
-}
- 
-.submenu li a:hover {
-    background-color: #f9f9f9;
-    color: #ca7e4c;
-}
-/* --- 4. LETREIRO ANIMADO (SCROLLING TICKER) --- */
-.scrolling-ticker {
-    background-color: var(--zooka-orange);
-    color: white;
-    overflow: hidden;
-    white-space: nowrap;
-    padding: 12px 0;
-    position: relative;
-    z-index: 10; /* Garante que fique abaixo do menu de categorias se necessário */
-}
-
-.ticker-content {
-    display: inline-block;
-    /* CORREÇÃO VELOCIDADE: Mudado de 25s para 15s para ir mais rápido */
-    animation: marquee 15s linear infinite; 
-}
-
-.ticker-content span {
-    font-size: 14px;
-    font-weight: 800;
-    text-transform: uppercase;
-    margin-right: 20px;
-    letter-spacing: 1px;
-}
-
-.ticker-content img {
-    width: 18px;
-    margin-right: 50px;
-    vertical-align: middle;
-}
-
-@keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-
-/* CORREÇÃO HOVER: Pausa o letreiro ao passar o mouse por cima */
-.scrolling-ticker:hover .ticker-content {
-    animation-play-state: paused;
-}
-
-
-/* O HEADER TERMINA AQUI!!!!!!!!!! */
-
-
-
-/* Layout Geral da Seção de Produto */
 .container {
     display: flex;
     justify-content: center;
@@ -319,10 +34,11 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     background-color: #fff;
-    flex:1;
+    flex: 1;
 }
 
-/* --- BLOCO DA GALERIA --- */
+/* GALERIA */
+
 .galeria {
     display: flex;
     gap: 20px;
@@ -337,7 +53,7 @@ body {
 .thumb {
     width: 80px;
     height: 80px;
-    background-color: #f2f2f2; /* Cinza para combinar com o fundo principal */
+    background-color: #f2f2f2;
     border: 2px solid transparent;
     border-radius: 8px;
     cursor: pointer;
@@ -347,18 +63,19 @@ body {
 }
 
 .thumb.active {
-    border-color: #36a9b1; /* Destaque Zooka */
+    border-color: #36a9b1;
 }
 
-/* O Quadrado mais escuro de fundo da imagem */
 .imagem-principal {
     width: 500px;
     height: 500px;
-    background-color: #f2f2f2; 
+    background-color: #f2f2f2;
     border-radius: 15px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     padding: 30px;
     border: 1px solid #eee;
 }
@@ -367,10 +84,11 @@ body {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
-    mix-blend-mode: multiply; /* Remove o fundo branco da foto do produto */
+    mix-blend-mode: multiply;
 }
 
-/* --- BLOCO DE INFORMAÇÕES --- */
+/* INFO */
+
 .info {
     flex: 1;
     max-width: 450px;
@@ -392,6 +110,8 @@ body {
     line-height: 1.2;
 }
 
+/* PREÇO */
+
 .preco {
     margin: 20px 0;
     padding: 15px;
@@ -412,7 +132,8 @@ body {
     font-weight: 800;
 }
 
-/* --- BOTÕES DE VALOR 1 E 2 --- */
+/* PESOS */
+
 .pesos {
     display: flex;
     gap: 12px;
@@ -422,12 +143,15 @@ body {
 .peso {
     min-width: 100px;
     padding: 12px;
+
     border: 1px solid #d1d1d1;
     background-color: #fff;
     border-radius: 8px;
+
     font-size: 13px;
     font-weight: 700;
     color: #555;
+
     cursor: pointer;
     transition: 0.2s;
     text-transform: uppercase;
@@ -439,7 +163,8 @@ body {
     color: #000;
 }
 
-/* --- QUANTIDADE E COMPRA (LADO A LADO) --- */
+/* COMPRA */
+
 .compra-acoes {
     display: flex;
     align-items: center;
@@ -451,18 +176,23 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     border: 1px solid #e0e0e0;
-    border-radius: 50px; /* Formato pílula */
+    border-radius: 50px;
+
     padding: 8px 15px;
     min-width: 110px;
+
     background-color: #fff;
 }
 
 .qtd-btn {
     background: none;
     border: none;
+
     font-size: 20px;
-    color: #36a9b1; /* Azul Zooka */
+    color: #36a9b1;
+
     cursor: pointer;
     font-weight: bold;
 }
@@ -473,19 +203,24 @@ body {
     color: #333;
 }
 
-/* Botão Adicionar à Sacola (Menor e Elegante) */
 .comprar {
     flex: 1;
+
     background-color: #36a9b1;
     color: white;
+
     border: none;
+    border-radius: 50px;
+
     padding: 14px 20px;
-    border-radius: 50px; /* Estilo pílula */
+
     font-size: 14px;
     font-weight: 800;
     text-transform: uppercase;
+
     cursor: pointer;
     transition: 0.3s;
+
     white-space: nowrap;
 }
 
@@ -494,20 +229,25 @@ body {
     transform: translateY(-2px);
 }
 
-/* Responsividade */
+/* RESPONSIVO */
+
 @media (max-width: 900px) {
+
     .container {
         flex-direction: column;
         align-items: center;
         padding: 30px 15px;
     }
+
     .galeria {
         flex-direction: column-reverse;
         align-items: center;
     }
+
     .thumbs {
         flex-direction: row;
     }
+
     .imagem-principal {
         width: 100%;
         height: auto;
@@ -515,12 +255,15 @@ body {
     }
 }
 
-/* Container Geral */
+/* =========================
+   CARACTERÍSTICAS
+========================= */
+
 .caracteristicas-container {
     max-width: 1200px;
     margin: 40px auto;
     padding: 0 20px;
-    clear: both; /* Garante que fique abaixo de elementos flutuantes anteriores */
+    clear: both;
 }
 
 .caracteristicas-container h2 {
@@ -530,7 +273,6 @@ body {
     color: #333;
 }
 
-/* Layout das duas colunas */
 .tabelas-grid {
     display: flex;
     gap: 50px;
@@ -548,7 +290,6 @@ body {
     color: #000;
 }
 
-/* Estilo da Tabela */
 .tabela-especificacoes {
     width: 100%;
     border-collapse: collapse;
@@ -556,10 +297,9 @@ body {
 }
 
 .tabela-especificacoes tr {
-    border-bottom: 1px solid #fff; /* Espaço sutil entre linhas */
+    border-bottom: 1px solid #fff;
 }
 
-/* Efeito Zebrado (Fundo cinza nas linhas ímpares) */
 .tabela-especificacoes tr:nth-child(odd) {
     background-color: #ebebeb;
 }
@@ -569,31 +309,36 @@ body {
     color: #333;
 }
 
-/* Estilo das células da esquerda (Labels) */
 .tabela-especificacoes td.label {
     font-weight: 600;
-    width: 45%; /* Ajuste para o texto não quebrar muito */
+    width: 45%;
 }
 
-/* Estilo das células da direita (Valores) */
 .tabela-especificacoes td.valor {
     font-weight: 400;
 }
 
-/* Responsividade para Celular */
 @media (max-width: 768px) {
+
     .tabelas-grid {
         flex-direction: column;
         gap: 30px;
     }
 }
-/* Container Principal da Descrição */
+
+/* =========================
+   DESCRIÇÃO
+========================= */
+
 .descricao-container {
     max-width: 1200px;
     margin: 40px auto;
+
     padding: 40px 20px;
+
     background-color: #fff;
-    border-top: 1px solid #eee; /* Linha sutil para separar das características */
+    border-top: 1px solid #eee;
+
     clear: both;
 }
 
@@ -604,11 +349,10 @@ body {
     color: #333;
 }
 
-/* Estilo do Texto */
 .descricao-texto {
     font-size: 16px;
     line-height: 1.6;
-    color: #666; /* Tom de cinza conforme a imagem */
+    color: #666;
     max-width: 900px;
 }
 
@@ -616,22 +360,24 @@ body {
     margin-bottom: 20px;
 }
 
-/* Estilo dos divisores tracejados */
 .divisor {
     color: #999;
     margin: 30px 0;
 }
 
-/* Botão "Ver descrição completa" */
 .btn-ver-mais {
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    color: #3483fa; /* Azul padrão de links de e-commerce */
+
+    color: #3483fa;
     text-decoration: none;
+
     font-size: 14px;
     font-weight: 500;
+
     margin-top: 10px;
+
     transition: color 0.2s;
 }
 
@@ -644,20 +390,20 @@ body {
     line-height: 1;
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
+
     .descricao-container {
         padding: 30px 15px;
     }
-    
+
     .descricao-container h2 {
         font-size: 20px;
     }
 }
 
-/* O FOOTER COMEÇA AQUI */
-
-
+/* =========================
+   FOOTER
+========================= */
 
 footer {
     width: 100%;
@@ -670,38 +416,39 @@ footer {
 .footer-links-container {
     max-width: 1200px;
     margin: 0 auto;
+
     padding: 0 20px;
+
     display: flex;
     flex-direction: column;
     gap: 40px;
 }
 
-/* Logo "ZOOKAPET" igual à imagem */
 .logo-footer {
     font-size: 24px;
     font-weight: 900;
-    color: #36a9b1; /* Verde água da Zooka */
-    text-transform: uppercase; /* Tudo em maiúsculo */
+    color: #36a9b1;
+
+    text-transform: uppercase;
     letter-spacing: -1px;
 }
 
-/* Grid com 3 colunas bem espalhadas */
 .footer-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); 
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
 }
 
-/* Títulos das colunas (a zookapet, atendimento, suporte) */
 .footer-column h4 {
     font-size: 16px;
     font-weight: 800;
     color: #333;
+
     margin-bottom: 25px;
-    text-transform: lowercase; /* Mantendo o estilo do seu HTML */
+
+    text-transform: lowercase;
 }
 
-/* Estilo dos links */
 .footer-column ul {
     list-style: none;
     padding: 0;
@@ -709,40 +456,44 @@ footer {
 
 .footer-column li {
     font-size: 14px;
-    color: #666; /* Cor cinza mais suave */
+    color: #666;
+
     margin-bottom: 15px;
+
     cursor: pointer;
     font-weight: 500;
+
     transition: color 0.2s;
 }
 
-/* Efeito Hover */
 .footer-column li:hover {
     color: #36a9b1;
 }
 
-/* Responsividade para celular */
 @media (max-width: 768px) {
+
     .footer-grid {
         grid-template-columns: 1fr;
         text-align: center;
     }
-    
+
     .logo-footer {
         text-align: center;
     }
 }
 
-/* O FOOTER TERMINA AQUI */
+/* =========================
+   CARD PRODUTO
+========================= */
 
-/* CARD CLICÁVEL */
-.product-card{
+.product-card {
     position: relative;
     cursor: pointer;
 }
 
-.add-cart{
+.add-cart {
     all: unset;
+
     position: absolute;
     right: 15px;
     bottom: 15px;
@@ -755,6 +506,7 @@ footer {
     justify-content: center;
 
     border-radius: 50%;
+
     background-color: #36a9b1;
     color: white;
 
@@ -764,18 +516,14 @@ footer {
     cursor: pointer;
 }
 
-.add-cart{
-    font-size: 24px;
-    line-height: 1;
-}
-
-a, a *{
-    text-decoration: none !important;
-}
-
 .add-cart button {
     all: unset;
     cursor: pointer;
     font-size: 20px;
     font-weight: bold;
+}
+
+a,
+a * {
+    text-decoration: none !important;
 }
