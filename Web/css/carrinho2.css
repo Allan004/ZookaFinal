@@ -6,7 +6,7 @@
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Inter', sans-serif;
     background-color: #f7f7f7;
     padding: 30px;
     color: #222;
@@ -137,7 +137,7 @@ body {
 
 .clear-cart a {
     text-decoration: none;
-    color: #0a67ff;
+    color: #2eaeb0;
     font-weight: 500;
 }
 
@@ -168,11 +168,11 @@ body {
 }
 
 .delivery-option:hover {
-    border-color: #0a67ff;
+    border-color: #2eaeb0;
 }
 
 .delivery-option.active {
-    border: 2px solid #0a67ff;
+    border: 2px solid #2eaeb0;
 }
 
 .delivery-left {
@@ -231,7 +231,7 @@ body {
 .address-box a {
     display: inline-block;
     margin-top: 14px;
-    color: #0a67ff;
+    color: #2eaeb0;
     text-decoration: none;
     font-weight: 500;
 }
@@ -541,7 +541,7 @@ body {
 .address-option {
     margin-top: 28px;
 
-    border: 2px solid #0a67ff;
+    border: 2px solid #2eaeb0;
     border-radius: 10px;
 
     padding: 20px;
@@ -564,7 +564,7 @@ body {
 }
 
 .address-title i {
-    color: #0a67ff;
+    color: #2eaeb0;
     font-size: 18px;
 }
 
@@ -598,7 +598,7 @@ body {
     font-size: 18px;
     font-weight: 600;
 
-    color: #0a67ff;
+    color: #2eaeb0;
     cursor: pointer;
 }
 
@@ -740,7 +740,7 @@ body {
 .cep-row a{
     white-space: nowrap;
 
-    color: #0057b8;
+    color: #2eaeb0;
 
     text-decoration: none;
 
@@ -965,7 +965,7 @@ body {
     border: none;
     border-radius: 10px;
 
-    background: #005bbb;
+    background: #2eaeb0;
 
     color: white;
 
@@ -978,7 +978,7 @@ body {
 }
 
 .payment-btn:hover{
-    background: #004999;
+    background: #2eaeb0;
 }
 
 /* BOTÃO MAIS PRODUTOS */
@@ -1201,7 +1201,7 @@ body {
 /* Estilo do botão Confirmar */
 .confirm-address-btn {
     width: 100%;
-    background-color: #1a5fb4; /* Tom de azul do botão */
+    background-color: #2eaeb0; /* Tom de azul do botão */
     color: white;
     padding: 15px;
     border: none;
@@ -1214,10 +1214,14 @@ body {
 }
 
 .confirm-address-btn:hover {
-    background-color: #154d92; /* Azul um pouco mais escuro ao passar o mouse */
+    background-color: #176668; /* Azul um pouco mais escuro ao passar o mouse */
 }
 
 /* Garante que o conteúdo do modal tenha um pouco de espaço no fundo */
 .register-content {
     padding-bottom: 30px;
+}
+
+main.container {
+    margin-top: 20px;
 }

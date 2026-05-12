@@ -418,7 +418,7 @@ if (!$usuario) {
 
                     <div class="grupo grupo-estado">
                         <label>Estado</label>
-                        <input type="text" name="estado" value="<?php echo $usuario['estado']; ?>">
+                        <input type="text" id="uf" name="estado" value="<?php echo $usuario['estado']; ?>">
                     </div>
 
                 </div>
@@ -449,7 +449,7 @@ function mascaraCPF(v) {
 }
 
 if (cpf) {
-  cpf.value = mascaraCPF(cpf.value); // 👈 ESSA LINHA É O SEGREDO
+  cpf.value = mascaraCPF(cpf.value);
 
   cpf.addEventListener('input', function(e){
     e.target.value = mascaraCPF(e.target.value);
@@ -472,7 +472,7 @@ function mascaraTel(v){
 }
 
 if (tel) {
-  tel.value = mascaraTel(tel.value); // 👈 ESSA LINHA AQUI
+  tel.value = mascaraTel(tel.value);
 
   tel.addEventListener('input', function(e){
     e.target.value = mascaraTel(e.target.value);
@@ -489,13 +489,43 @@ function mascaraCEP(v){
 }
 
 if (cep) {
-  cep.value = mascaraCEP(cep.value); // 👈 ESSA LINHA
+  cep.value = mascaraCEP(cep.value);
 
   cep.addEventListener('input', function(e){
     e.target.value = mascaraCEP(e.target.value);
   });
 }
 });
+/* ===== API VIA CEP ===== */
+const cepInput = document.querySelector('input[name="cep"]');
+
+if (cepInput) {
+  cepInput.addEventListener('blur', function () {
+    let cep = cepInput.value.replace(/\D/g, '');
+
+    if (cep.length !== 8) return;
+
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+      .then(res => res.json())
+      .then(data => {
+
+        if (data.erro) {
+          alert("CEP não encontrado!");
+          return;
+        }
+
+        // preencher campos automaticamente
+        document.querySelector('input[name="rua"]').value = data.logradouro || '';
+        document.querySelector('input[name="bairro"]').value = data.bairro || '';
+        document.querySelector('input[name="cidade"]').value = data.localidade || '';
+        document.querySelector('input[name="estado"]').value = data.uf || '';
+
+      })
+      .catch(() => {
+        alert("Erro ao buscar CEP");
+      });
+  });
+}
 </script>
 </body>
 </html>
