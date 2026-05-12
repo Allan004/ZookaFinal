@@ -12,25 +12,47 @@ $pdo = conectar();
 $erro = "";
 $erro_usuario = false;
 $sucesso = "";
+function validarCPF($cpf) {
+    $cpf = preg_replace('/\D/', '', $cpf);
 
+    if (strlen($cpf) != 11) return false;
+
+    // bloqueia CPFs repetidos (11111111111 etc)
+    if (preg_match('/(\d)\1{10}/', $cpf)) return false;
+
+    // valida primeiro dígito
+    for ($t = 9; $t < 11; $t++) {
+        $soma = 0;
+        for ($i = 0; $i < $t; $i++) {
+            $soma += $cpf[$i] * (($t + 1) - $i);
+        }
+        $digito = ((10 * $soma) % 11) % 10;
+
+        if ($cpf[$t] != $digito) return false;
+    }
+
+    return true;
+}
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $nome     = $_POST['nome'] ?? '';
-    $email    = $_POST['email'] ?? '';
-    $usuario = $_POST['usuario'] ?? '';
-    $telefone = $_POST['telefone'] ?? '';
-    $cpf      = $_POST['cpf'] ?? '';
-    $nascimento = $_POST['nascimento'] ?? '';
-    $senha    = trim($_POST['senha'] ?? '');
-    $confirma = trim($_POST['confirma'] ?? '');
-    $cep = $_POST['cep'] ?? '';
+$email = trim(strtolower($_POST['email'] ?? ''));
+$usuario  = $_POST['usuario'] ?? '';
+$nascimento = $_POST['nascimento'] ?? '';
+$senha    = trim($_POST['senha'] ?? '');
+$confirma = trim($_POST['confirma'] ?? '');
 
-    $cpf = preg_replace('/\D/', '', $cpf);
-    $telefone = preg_replace('/\D/', '', $telefone);
-    $cep = preg_replace('/\D/', '', $cep);
-
-    if (empty($nome) || empty($email) || empty($senha) || empty($usuario) || empty($nascimento)) {
+$cpf      = preg_replace('/\D/', '', $_POST['cpf'] ?? '');
+$telefone = preg_replace('/\D/', '', $_POST['telefone'] ?? '');
+$cep      = preg_replace('/\D/', '', $_POST['cep'] ?? '');    
+if (empty($nome) || empty($senha) || empty($usuario) || empty($nascimento)) {
     $erro = "Preencha os campos obrigatórios!";
+
+} elseif (empty($email)) {
+    $erro = "E-mail obrigatório!";
+
+} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $erro = "Digite um e-mail válido!";
 
 } elseif ($senha !== $confirma) {
     $erro = "As senhas não coincidem!";
@@ -42,6 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $erro = "Você precisa aceitar os termos e condições!";
 } elseif (strtotime($nascimento) > strtotime('-18 years')) {
     $erro = "Você precisa ter pelo menos 18 anos para se cadastrar!";
+} elseif (!validarCPF($cpf)) {
+    $erro = "CPF inválido!";
 } else {
             $stmt = $pdo->prepare("SELECT id FROM loginweb WHERE usuario = ?");
             $stmt->execute([$usuario]);
@@ -342,6 +366,44 @@ document.addEventListener('DOMContentLoaded', function(){
       v = v.replace(/^(\d{5})(\d)/, '$1-$2');
       e.target.value = v;
     });
+  }
+
+});
+document.addEventListener('DOMContentLoaded', function(){
+
+  // CPF já preenchido
+  const cpf = document.querySelector('input[name="cpf"]');
+  if (cpf && cpf.value) {
+    let v = cpf.value.replace(/\D/g,'').slice(0,11);
+
+    v = v
+      .replace(/^(\d{3})(\d)/, '$1.$2')
+      .replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3')
+      .replace(/\.(\d{3})(\d)/, '.$1-$2');
+
+    cpf.value = v;
+  }
+
+  // telefone já preenchido
+  const tel = document.querySelector('input[name="telefone"]');
+  if (tel && tel.value) {
+    let v = tel.value.replace(/\D/g,'').slice(0,11);
+
+    if (v.length > 10) {
+      v = v.replace(/^(\d{2})(\d{5})(\d{0,4})$/, '($1) $2-$3');
+    } else {
+      v = v.replace(/^(\d{2})(\d{4})(\d{0,4})$/, '($1) $2-$3');
+    }
+
+    tel.value = v;
+  }
+
+  // cep já preenchido
+  const cep = document.querySelector('input[name="cep"]');
+  if (cep && cep.value) {
+    let v = cep.value.replace(/\D/g,'').slice(0,8);
+    v = v.replace(/^(\d{5})(\d)/, '$1-$2');
+    cep.value = v;
   }
 
 });

@@ -225,7 +225,15 @@ $mail->AltBody = "Olá, $nome! Recebemos seu cadastro com sucesso.";
  
 <?php endif; ?>
  
-<a href="carrinho2.php" class="btn-continue">🛒</a>
+<?php if(isset($_SESSION['usuario_id'])): ?>
+
+    <a href="carrinho2.php" class="btn-continue">🛒</a>
+
+<?php else: ?>
+
+    <a href="login.php" class="btn-continue">🛒</a>
+
+<?php endif; ?>
  
 </div>
  
@@ -542,6 +550,45 @@ $mail->AltBody = "Olá, $nome! Recebemos seu cadastro com sucesso.";
      
     },
   });
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+
+  const tel = document.querySelector('input[name="celular"]');
+
+  function mascaraTel(v){
+    v = v.replace(/\D/g,'').slice(0,11);
+
+    if (v.length > 10) {
+      v = v.replace(/^(\d{2})(\d{5})(\d{0,4})$/, '($1) $2-$3');
+    } else {
+      v = v.replace(/^(\d{2})(\d{4})(\d{0,4})$/, '($1) $2-$3');
+    }
+
+    return v;
+  }
+
+  if (tel) {
+    tel.addEventListener('input', function(e){
+      e.target.value = mascaraTel(e.target.value);
+    });
+  }
+
+});
+const form = document.querySelector('.newsletter-form');
+const email = document.querySelector('input[name="email"]');
+
+if (form) {
+  form.addEventListener('submit', function(e){
+
+    if (!email.value.includes('@')) {
+      e.preventDefault();
+      alert('Digite um e-mail válido com @');
+      email.focus();
+    }
+
+  });
+}
 </script>
  
 

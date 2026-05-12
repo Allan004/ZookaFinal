@@ -5,6 +5,11 @@ require_once "../php/conexao.php";
 $pdo = conectar();
 
 $id_login = $_SESSION['usuario_id'] ?? null;
+$sql = $pdo->prepare("SELECT id FROM clienteweb WHERE id_login = ?");
+$sql->execute([$id_login]);
+$cliente = $sql->fetch(PDO::FETCH_ASSOC);
+
+$id_clienteweb = $cliente['id'] ?? null;
 $sqlUser = $pdo->prepare("SELECT nome FROM clienteweb WHERE id_login = ?");
 $sqlUser->execute([$id_login]);
 $usuario = $sqlUser->fetch(PDO::FETCH_ASSOC);
@@ -22,7 +27,7 @@ $sql = $pdo->prepare("
     ORDER BY created_at DESC
 ");
 
-$sql->execute([$id_login]);
+$sql->execute([$id_clienteweb]);
 
 $pedidos = $sql->fetchAll(PDO::FETCH_ASSOC);
 ?>

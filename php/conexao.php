@@ -4,6 +4,7 @@ function conectar(){
     //$host = "10.37.44.31:3306";
     $host = "127.0.0.1";
     $db = "casaelen";
+    //$db = "zookaheva";
     $usuario = "root";
     $senha = "";
 

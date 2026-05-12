@@ -1,25 +1,53 @@
 <?php
 session_start();
-require_once "../php/conexao.php";
 
+
+
+require_once "../php/conexao.php";
 $pdo = conectar();
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 $id_login = $_SESSION['usuario_id'] ?? null;
 
+if (!$id_login) {
+    header("Location: login.php");
+    exit;
+}
+
+/* 👇 PEGA MENSAGENS DEPOIS DE TUDO */
+$erro = $_SESSION['erro'] ?? null;
+$sucesso = $_SESSION['sucesso'] ?? null;
+
+/* 👇 LIMPA SÓ DEPOIS DE PEGAR */
+unset($_SESSION['erro']);
+unset($_SESSION['sucesso']);
 
 if (!$id_login) {
     header("Location: login.php");
     exit;
 }
 
-if (!$id_login) {
-    header("Location: login.php");
-    exit;
-}
+/* 👇 COLOCA AQUI */
+$sql = $pdo->prepare("SELECT * FROM clienteweb WHERE id_login = ?");
+$sql->execute([$id_login]);
+$usuario = $sql->fetch(PDO::FETCH_ASSOC);
 
-/* 🔥 UPDATE */
+/* UPDATE */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $cep = preg_replace('/[^0-9]/', '', $_POST['cep']);
+
+    $email = trim($_POST['email'] ?? $usuario['email']);
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $_SESSION['erro'] = "E-mail inválido! Use um e-mail válido (ex: nome@site.com)";
+        header("Location: meusdados.php");
+        exit;
+    }
+
+    $cpf = preg_replace('/\D/', '', $_POST['cpf'] ?? '');
+    $telefone = preg_replace('/\D/', '', $_POST['telefone'] ?? '');
+    $cep = preg_replace('/\D/', '', $_POST['cep'] ?? '');
 
     $sql = $pdo->prepare("
         UPDATE clienteweb SET
@@ -37,28 +65,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         WHERE id_login = ?
     ");
 
-$sql->execute([
-    $_POST['nome'] ?? $usuario['nome'],
-    $_POST['cpf'] ?? $usuario['cpf'],
-    $_POST['email'] ?? $usuario['email'],
-    $_POST['telefone'] ?? $usuario['telefone'],
-    $_POST['nascimento'] ?? $usuario['nascimento'],
-    $cep,
-    $_POST['rua'] ?? $usuario['rua'],
-    $_POST['numero'] ?? $usuario['numero'],
-    $_POST['bairro'] ?? $usuario['bairro'],
-    $_POST['cidade'] ?? $usuario['cidade'],
-    $_POST['estado'] ?? $usuario['estado'],
-    $id_login
-]);
+    $sql->execute([
+        $_POST['nome'] ?? $usuario['nome'],
+        $cpf,
+        $email,
+        $telefone,
+        $_POST['nascimento'] ?? $usuario['nascimento'],
+        $cep,
+        $_POST['rua'] ?? $usuario['rua'],
+        $_POST['numero'] ?? $usuario['numero'],
+        $_POST['bairro'] ?? $usuario['bairro'],
+        $_POST['cidade'] ?? $usuario['cidade'],
+        $_POST['estado'] ?? $usuario['estado'],
+        $id_login
+    ]);
 
     $_SESSION['sucesso'] = "Dados atualizados com sucesso!";
     header("Location: meusdados.php");
     exit;
 }
-
-/* 🔥 SELECT (busca dados atualizados) */
-$sql = $pdo->prepare("SELECT * FROM clienteweb WHERE id_login = ?");
+/* busca dados atualizados */
+$sql = $pdo->prepare("
+    SELECT c.*, l.usuario
+    FROM clienteweb c
+    INNER JOIN loginweb l ON l.id = c.id_login
+    WHERE c.id_login = ?
+");
 $sql->execute([$id_login]);
 $usuario = $sql->fetch(PDO::FETCH_ASSOC);
 if (!$usuario) {
@@ -301,28 +333,40 @@ if (!$usuario) {
             <p class="subtitulo">
                 Confira ou altere seus dados de cadastro.
             </p>
+<?php if($erro): ?>
+    <p class="msg-erro"><?= $erro ?></p>
+<?php endif; ?>
+
+<?php if($sucesso): ?>
+    <p class="msg-sucesso"><?= $sucesso ?></p>
+<?php endif; ?>
 
             <form class="form-dados" method="POST">
 
-                <div class="linha-form">
+<div class="linha-form">
 
-                    <div class="grupo">
-                        <label>Nome completo</label>
-                        <input type="text" name="nome" value="<?php echo $usuario['nome']; ?>">
-                    </div>
+    <div class="grupo">
+        <label>Nome completo</label>
+        <input type="text" name="nome" value="<?php echo $usuario['nome']; ?>">
+    </div>
 
-                    <div class="grupo">
-                        <label>CPF</label>
-                        <input type="text" name="cpf" value="<?php echo $usuario['cpf']; ?>">
-                    </div>
+    <div class="grupo">
+        <label>CPF</label>
+        <input type="text" name="cpf" value="<?php echo $usuario['cpf']; ?>" readonly class="cpf-bloqueado" onfocus="this.blur()">
+    </div>
 
-                </div>
+<div class="grupo">
+    <label>Usuário</label>
+    <input type="text" value="<?php echo $usuario['usuario']; ?>" readonly class="cpf-bloqueado">
+</div>
+
+</div>
 
                 <div class="linha-form">
 
                     <div class="grupo">
                         <label>E-mail</label>
-                        <input type="text" name="email" value="<?php echo $usuario['email']; ?>">
+                        <input type="text" name="email" value="<?php echo $usuario['email'] ?? $usuario['email']; ?>">
                     </div>
 
                     <div class="grupo">
@@ -390,6 +434,68 @@ if (!$usuario) {
     </main>
 
 </section>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
 
+  /* CPF */
+const cpf = document.querySelector('input[name="cpf"]');
+
+function mascaraCPF(v) {
+  v = v.replace(/\D/g,'').slice(0,11);
+  v = v.replace(/^(\d{3})(\d)/, '$1.$2');
+  v = v.replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3');
+  v = v.replace(/\.(\d{3})(\d)/, '.$1-$2');
+  return v;
+}
+
+if (cpf) {
+  cpf.value = mascaraCPF(cpf.value); // 👈 ESSA LINHA É O SEGREDO
+
+  cpf.addEventListener('input', function(e){
+    e.target.value = mascaraCPF(e.target.value);
+  });
+}
+
+  /* TELEFONE */
+ const tel = document.querySelector('input[name="telefone"]');
+
+function mascaraTel(v){
+  v = v.replace(/\D/g,'').slice(0,11);
+
+  if (v.length > 10) {
+    v = v.replace(/^(\d{2})(\d{5})(\d{0,4})$/, '($1) $2-$3');
+  } else {
+    v = v.replace(/^(\d{2})(\d{4})(\d{0,4})$/, '($1) $2-$3');
+  }
+
+  return v.trim();
+}
+
+if (tel) {
+  tel.value = mascaraTel(tel.value); // 👈 ESSA LINHA AQUI
+
+  tel.addEventListener('input', function(e){
+    e.target.value = mascaraTel(e.target.value);
+  });
+}
+
+  /* CEP */
+const cep = document.querySelector('input[name="cep"]');
+
+function mascaraCEP(v){
+  v = v.replace(/\D/g,'').slice(0,8);
+  v = v.replace(/^(\d{5})(\d)/, '$1-$2');
+  return v;
+}
+
+if (cep) {
+  cep.value = mascaraCEP(cep.value); // 👈 ESSA LINHA
+
+  cep.addEventListener('input', function(e){
+    e.target.value = mascaraCEP(e.target.value);
+  });
+}
+});
+</script>
 </body>
 </html>

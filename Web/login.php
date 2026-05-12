@@ -718,6 +718,26 @@ document.addEventListener('input', function(e){
 });
 
 </script>
+<script>
+document.addEventListener('input', function(e){
+
+  if(e.target.name !== 'login') return;
+
+  let v = e.target.value;
+
+  if(/[a-zA-Z@]/.test(v)) return;
+
+  v = v.replace(/\D/g,'').slice(0,11);
+
+  v = v
+    .replace(/^(\d{3})(\d)/, '$1.$2')
+    .replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3')
+    .replace(/\.(\d{3})(\d)/, '.$1-$2');
+
+  e.target.value = v;
+
+});
+</script>
 
 </body>
 </html>
