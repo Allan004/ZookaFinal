@@ -10,20 +10,7 @@
 <body>
 
 <div class="container">
-    <aside class="sidebar">
-        <h3>Filtros</h3>
-        <div class="filter-section">
-            <div class="filter-header">Estado* <span>^</span></div>
-            <label><input type="radio" name="estado"> AM</label>
-            <label><input type="radio" name="estado"> BA</label>
-            <label><input type="radio" name="estado"> CE</label>
-            <label><input type="radio" name="estado"> DF</label>
-            <label><input type="radio" name="estado"> ES</label>
-            <a href="#" class="view-more">Ver mais estados ></a>
-        </div>
-        <div class="filter-dropdown">Cidade* <span>v</span></div>
-        <div class="filter-dropdown">ONGs Parceiras <span>v</span></div>
-    </aside>
+ 
 
     <main class="content">
         <h2>Pets disponíveis</h2>
@@ -41,7 +28,7 @@
                         </div>
                     </div>
                     <p class="location">AdoteZooka 24h, Rio de Janeiro</p>
-                    <button class="btn-adopt">Quero adotar</button>
+                  <a href="https://www.amigonaosecompra.com.br/pets/bem-rio-de-janeiro-rio-de-janeiro-macho-6ef65ad5-483e-49ff-9af3-e2481eeef92a" class="btn-adopt">Quero adotar</a>
                 </div>
             </div>
 
@@ -57,7 +44,7 @@
                         </div>
                     </div>
                     <p class="location">AdoteZooka 24h,Belford Roxo, Rio de Janeiro</p>
-                    <button class="btn-adopt">Quero adotar</button>
+                   <a href="https://www.amigonaosecompra.com.br/pets/algodao-rio-de-janeiro-belford-roxo-macho-ecec630d-5fd0-47a3-a7cc-9fe189c0dcf1" class="btn-adopt">Quero adotar</a>
                 </div>
             </div>
 
@@ -73,7 +60,7 @@
                         </div>
                     </div>
                     <p class="location">AdoteZooka 24h, Santo André, São Paulo</p>
-                    <button class="btn-adopt">Quero adotar</button>
+                    <a href="https://www.amigonaosecompra.com.br/pets/suzy-sao-paulo-santo-andre-femea-32670506-e284-4c18-b855-2a05266769ca" class="btn-adopt">Quero adotar</a>
                 </div>
             </div>
 
@@ -89,7 +76,7 @@
                         </div>
                     </div>
                     <p class="location">AdoteZooka 24h, Guarulhos, São Paulo</p>
-                    <button class="btn-adopt">Quero adotar</button>
+                   <a href="https://www.amigonaosecompra.com.br/pets/mina-sao-paulo-guarulhos-femea-607e801a-8d9d-4b31-891d-c167b0131c02" class="btn-adopt">Quero adotar</a>
                 </div>
             </div>
             
@@ -105,7 +92,7 @@
                         </div>
                     </div>
                     <p class="location">AdoteZooka 24h, Guarulhos, São Paulo</p>
-                    <button class="btn-adopt">Quero adotar</button>
+                     <a href="https://adotar.com.br/pe-recife/cao/adocao/pacoca/335477" class="btn-adopt">Quero adotar</a>
                 </div>
             </div>
 
@@ -115,14 +102,14 @@
                 <div class="card-info">
                     <p class="ong-name">Amigo Não se Compra</p>
                     <div class="name-row">
-                        <span class="pet-name">Algodão</span>
+                        <span class="pet-name">Paçoca</span>
                         <div class="icons">
                             <i class="far fa-heart"></i>
                             <i class="fas fa-mars male"></i>
                         </div>
                     </div>
                     <p class="location">AdoteZooka 24h,Belford Roxo, Rio de Janeiro</p>
-                    <button class="btn-adopt">Quero adotar</button>
+                      <a href="" class="btn-adopt">Quero adotar</a>
                 </div>
             </div>
 
@@ -132,14 +119,15 @@
                 <div class="card-info">
                     <p class="ong-name">Amigo Não se Compra</p>
                     <div class="name-row">
-                        <span class="pet-name">Algodão</span>
+                        <span class="pet-name">Luke
+                        </span>
                         <div class="icons">
                             <i class="far fa-heart"></i>
                             <i class="fas fa-mars male"></i>
                         </div>
                     </div>
                     <p class="location">AdoteZooka 24h,Belford Roxo, Rio de Janeiro</p>
-                    <button class="btn-adopt">Quero adotar</button>
+                    <a href="" class="btn-adopt">Quero adotar</a>
                 </div>
             </div>
 
@@ -149,6 +137,23 @@
                 <div class="card-info">
                     <p class="ong-name">Amigo Não se Compra</p>
                     <div class="name-row">
+                        <span class="pet-name">Luke</span>
+                        <div class="icons">
+                            <i class="far fa-heart"></i>
+                            <i class="fas fa-mars male"></i>
+                        </div>
+                    </div>
+                    <p class="location">AdoteZooka 24h,Belford Roxo, Rio de Janeiro</p>
+                   <a href="https://adotar.com.br/pe-recife/gato/adocao/luke/322048" class="btn-adopt">Quero adotar</a>
+                </div>
+            </div>
+
+
+             <div class="pet-card">
+                <div class="pet-image" style="background-image: url('Assets/adocao/animais9.jpg');"></div>
+                <div class="card-info">
+                    <p class="ong-name">Amigo Não se Compra</p>
+                    <div class="name-row">
                         <span class="pet-name">Algodão</span>
                         <div class="icons">
                             <i class="far fa-heart"></i>
@@ -162,85 +167,7 @@
 
 
             
-            <div class="pet-card">
-                <div class="pet-image" style="background-image: url('Assets/adocao/animais13.jpg');"></div>
-                <div class="card-info">
-                    <p class="ong-name">Amigo Não se Compra</p>
-                    <div class="name-row">
-                        <span class="pet-name">Algodão</span>
-                        <div class="icons">
-                            <i class="far fa-heart"></i>
-                            <i class="fas fa-mars male"></i>
-                        </div>
-                    </div>
-                    <p class="location">AdoteZooka 24h,Belford Roxo, Rio de Janeiro</p>
-                    <button class="btn-adopt">Quero adotar</button>
-                </div>
-            </div>
-            
-            <div class="pet-card">
-                <div class="pet-image" style="background-image: url('Assets/adocao/animais14.jpg');"></div>
-                <div class="card-info">
-                    <p class="ong-name">Amigo Não se Compra</p>
-                    <div class="name-row">
-                        <span class="pet-name">Algodão</span>
-                        <div class="icons">
-                            <i class="far fa-heart"></i>
-                            <i class="fas fa-mars male"></i>
-                        </div>
-                    </div>
-                    <p class="location">AdoteZooka 24h,Belford Roxo, Rio de Janeiro</p>
-                    <button class="btn-adopt">Quero adotar</button>
-                </div>
-            </div>
-            
-            <div class="pet-card">
-                <div class="pet-image" style="background-image: url('Assets/adocao/animais15.jpg');"></div>
-                <div class="card-info">
-                    <p class="ong-name">Amigo Não se Compra</p>
-                    <div class="name-row">
-                        <span class="pet-name">Algodão</span>
-                        <div class="icons">
-                            <i class="far fa-heart"></i>
-                            <i class="fas fa-mars male"></i>
-                        </div>
-                    </div>
-                    <p class="location">AdoteZooka 24h,Belford Roxo, Rio de Janeiro</p>
-                    <button class="btn-adopt">Quero adotar</button>
-                </div>
-            </div>
-            
-            <div class="pet-card">
-                <div class="pet-image" style="background-image: url('Assets/adocao/animais16.jpg');"></div>
-                <div class="card-info">
-                    <p class="ong-name">Amigo Não se Compra</p>
-                    <div class="name-row">
-                        <span class="pet-name">Algodão</span>
-                        <div class="icons">
-                            <i class="far fa-heart"></i>
-                            <i class="fas fa-mars male"></i>
-                        </div>
-                    </div>
-                    <p class="location">AdoteZooka 24h,Belford Roxo, Rio de Janeiro</p>
-                    <button class="btn-adopt">Quero adotar</button>
-                </div>
-            </div>
-            
-            <div class="pet-card">
-                <div class="pet-image" style="background-image: url('Assets/adocao/animais22.jpg');"></div>
-                <div class="card-info">
-                    <p class="ong-name">Amigo Não se Compra</p>
-                    <div class="name-row">
-                        <span class="pet-name">Algodão</span>
-                        <div class="icons">
-                            <i class="far fa-heart"></i>
-                            <i class="fas fa-mars male"></i>
-                        </div>
-                    </div>
-                    <p class="location">AdoteZooka 24h,Belford Roxo, Rio de Janeiro</p>
-                    <button class="btn-adopt">Quero adotar</button>
-                </div>
-            </div>
+           
         </div>
     </main>
 </div>

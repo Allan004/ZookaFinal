@@ -26,8 +26,8 @@ $produto=produto_espefico($id_produto);
     <div class="header-top">
        
         <div class="logo-container">
-            <a href="#" class="logo">
-                <img src="Assets/logo.png" class="banner-topo" alt="Zooka">
+            <a href="index.php" class="logo">
+                <img src="Assets/logo.png" class="banner-topo" alt="ZookaPet">
             </a>
         </div>
  
@@ -46,7 +46,6 @@ $produto=produto_espefico($id_produto);
 
         <div class="dropdown-menu">
             <a href="#">Meus pedidos</a>
-            <a href="#">Meus pets</a>
             <a href="#">Meus dados</a>
             <a href="logout.php">Sair</a>
         </div>
@@ -60,7 +59,7 @@ $produto=produto_espefico($id_produto);
 
 <?php endif; ?>
 
-<a href="CarrinhoZooka.html" class="btn-continue">🛒</a>
+<a href="carrinho2.php" class="btn-continue">🛒</a>
 
 </div>
  
