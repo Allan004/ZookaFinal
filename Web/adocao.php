@@ -21,7 +21,7 @@
         </div>
 
         <div class="nav-buttons">
-            <a href="#" class="btn-orange">Quero adotar</a>
+            <a href="queroadotar.php" class="btn-orange">Quero adotar</a>
             <a href="https://www.webdenuncia.sp.gov.br/depa" class="btn-orange" target="_blank" rel="noopener noreferrer">Denuncie</a>
             <button class="btn-outline">Entrar</button>
         </div>
