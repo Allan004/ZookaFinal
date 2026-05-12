@@ -276,28 +276,28 @@ $produto=produto_espefico($id_produto);
             <span class="assinante"><?php  echo 'R$'.$produto['preco']*0.9?></span>
         </div>
 
-        <div class="opcoes-compra">
-    <div class="pesos">
-        <button class="peso active">VALOR 1</button>
-        <button class="peso">VALOR 2</button>
-    </div>
+       <div class="opcoes-compra">
 
     <div class="compra-acoes">
-    <div class="quantidade">
-        <button class="qtd-btn">-</button>
-        <span>1</span>
-        <button class="qtd-btn">+</button>
-    </div>
 
-    <button class="comprar">adicionar à sacola</button>
-</div>
-
-        <div class="estoque">
-            Quer comprar na loja física?<br>
-            <a href="#">Consulte nosso estoque</a>
+        <div class="quantidade">
+            <button type="button" class="qtd-btn" id="menos">-</button>
+            <span id="qtd-numero">1</span>
+            <button type="button" class="qtd-btn" id="mais">+</button>
         </div>
 
+        <form action="carrinho2.php" method="POST" style="margin:0; padding:0; display:contents;">
+            <input type="hidden" name="idProduto" value="<?php echo $produto['id']; ?>">
+            <input type="hidden" name="quantidade" id="quantidadeInput" value="1">
+
+            <button type="submit" class="comprar">
+                adicionar à sacola
+            </button>
+        </form>
+
     </div>
+
+</div>  
 
 </div>
 
@@ -327,13 +327,6 @@ $produto=produto_espefico($id_produto);
         
         <p><?php echo $produto['descricao'] ?></p>
         
-        <p class="divisor">----------Especificações:</p>
-    </div>
-
-    <a href="#" class="btn-ver-mais">
-        Ver descrição completa 
-        <span class="seta-baixo">⌄</span>
-    </a>
 </section>
 
 <!-- e termina aqui viu -->
@@ -401,6 +394,28 @@ thumbs.forEach((thumb) => {
 
     });
 
+});
+
+<!-- SUBSTITUA/APENAS ACRESCENTE NO FINAL DO SCRIPT -->
+const btnMenos = document.getElementById('menos');
+const btnMais = document.getElementById('mais');
+const qtdNumero = document.getElementById('qtd-numero');
+const quantidadeInput = document.getElementById('quantidadeInput');
+
+let quantidade = 1;
+
+btnMais.addEventListener('click', function () {
+    quantidade++;
+    qtdNumero.textContent = quantidade;
+    quantidadeInput.value = quantidade;
+});
+
+btnMenos.addEventListener('click', function () {
+    if (quantidade > 1) {
+        quantidade--;
+        qtdNumero.textContent = quantidade;
+        quantidadeInput.value = quantidade;
+    }
 });
 
 </script>

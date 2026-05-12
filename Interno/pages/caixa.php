@@ -112,6 +112,7 @@ $produtos = buscar_produtos();
 $servicos = buscar_servicos();
 $clientes = buscar_clientes();
 $carrinho = buscar_itens_venda_sessao();
+
 $total = 0;
 foreach ($carrinho as $item) {
     $total += $item['preco'] * $item['quantidade'];
@@ -133,24 +134,28 @@ foreach ($carrinho as $item) {
 <div class="logo"><img src="../Assets/logo_ico.png" class="imagel" alt=""></div>
 <div>Zooka • Sistema Interno</div>
 </div>
+
 <div class="user-area">
-<span>Olá, <?= $_SESSION['usuario'] ?></span>
-<form method="post"><button class="btn" name="logout">Sair</button></form>
+<?php if ($logado): ?>
+<span>Olá, <?= htmlspecialchars($_SESSION['usuario']) ?></span>
+<form method="post" class="form-reset">
+<button class="btn" name="logout">Sair</button>
+</form>
+<?php endif; ?>
 </div>
 </header>
 
 <main class="layout">
 
 <nav>
-      <a class="nav-item " href="../index.php"><span><i class="fa-solid fa-house"></i></span> Início</a>
-      <a class="nav-item" href="clientes_e_pets.php"><span><i class="fa-solid fa-dog"></i></span> Clientes & Pets</a>
-      <a class="nav-item" href="agendamento.php"><span><i class="fa-solid fa-calendar"></i></span> Agendamento</a>
-      <a class="nav-item" href="servicos.php"><span><i class="fa-solid fa-scissors"></i></span> Serviços</a>
-      <a class="nav-item" href="produtos.php"><span><i class="fa-solid fa-bag-shopping"></i></span> Produtos</a>
-      <a class="nav-item" href="estoque.php"><span><i class="fa-solid fa-boxes-stacked"></i></span> Estoque</a>
-      <a class="nav-item active" href="caixa.php"><span><i class="fa-solid fa-money-bill"></i></span> Caixa</a>
-  
-    </nav>
+<a class="nav-item" href="../index.php"><span><i class="fa-solid fa-house"></i></span> Início</a>
+<a class="nav-item" href="clientes_e_pets.php"><span><i class="fa-solid fa-dog"></i></span> Clientes & Pets</a>
+<a class="nav-item" href="agendamento.php"><span><i class="fa-solid fa-calendar"></i></span> Agendamento</a>
+<a class="nav-item" href="servicos.php"><span><i class="fa-solid fa-scissors"></i></span> Serviços</a>
+<a class="nav-item" href="produtos.php"><span><i class="fa-solid fa-bag-shopping"></i></span> Produtos</a>
+<a class="nav-item" href="estoque.php"><span><i class="fa-solid fa-boxes-stacked"></i></span> Estoque</a>
+<a class="nav-item active" href="caixa.php"><span><i class="fa-solid fa-money-bill"></i></span> Caixa</a>
+</nav>
 
 <section class="content">
 
@@ -169,102 +174,122 @@ foreach ($carrinho as $item) {
 <div class="card">
 <h4>Adicionar produto</h4>
 <form method="post">
-  <input type="hidden" name="acao" value="adicionar_produto">
-  <div class="field">
-    <label>Produto</label>
-    <select name="id_produto" required>
-      <option value="">Selecione um produto</option>
-      <?php foreach ($produtos as $produto): ?>
-        <option value="<?= $produto['id'] ?>"><?= htmlspecialchars($produto['nome']) ?> (R$ <?= number_format($produto['preco'],2,',','.') ?>)</option>
-      <?php endforeach; ?>
-    </select>
-  </div>
-  <div class="field">
-    <label>Quantidade</label>
-    <input type="number" name="quantidade" value="1" min="1" required>
-  </div>
-  <button class="btn btn-block" type="submit">Adicionar produto</button>
+<input type="hidden" name="acao" value="adicionar_produto">
+
+<div class="field">
+<label>Produto</label>
+<select name="id_produto" required>
+<option value="">Selecione um produto</option>
+<?php foreach ($produtos as $produto): ?>
+<option value="<?= $produto['id'] ?>">
+<?= htmlspecialchars($produto['nome']) ?> (R$ <?= number_format($produto['preco'],2,',','.') ?>)
+</option>
+<?php endforeach; ?>
+</select>
+</div>
+
+<div class="field">
+<label>Quantidade</label>
+<input type="number" name="quantidade" value="1" min="1" required>
+</div>
+
+<button class="btn btn-block" type="submit">Adicionar produto</button>
 </form>
 </div>
 
 <div class="card">
 <h4>Adicionar por código</h4>
 <form method="post" id="scannerCodigoForm">
-  <input type="hidden" name="acao" value="adicionar_produto_codigo">
-  <div class="field">
-    <label>Código do produto</label>
-    <input type="text" name="codigo_produto" id="codigoProdutoScanner" autocomplete="off" autofocus required>
-  </div>
-  <button class="btn btn-block" type="submit">Adicionar</button>
+<input type="hidden" name="acao" value="adicionar_produto_codigo">
+
+<div class="field">
+<label>Código do produto</label>
+<input type="text" name="codigo_produto" id="codigoProdutoScanner" autocomplete="off" required>
+</div>
+
+<button class="btn btn-block" type="submit">Adicionar</button>
 </form>
 </div>
 
 <div class="card">
 <h4>Adicionar serviço</h4>
 <form method="post">
-  <input type="hidden" name="acao" value="adicionar_servico">
-  <div class="field">
-    <label>Serviço</label>
-    <select name="id_servico" required>
-      <option value="">Selecione um serviço</option>
-      <?php foreach ($servicos as $servico): ?>
-        <option value="<?= $servico['id'] ?>"><?= htmlspecialchars($servico['nome']) ?> (R$ <?= number_format($servico['preco'],2,',','.') ?>)</option>
-      <?php endforeach; ?>
-    </select>
-  </div>
-  <div class="field">
-    <label>Quantidade</label>
-    <input type="number" name="quantidade" value="1" min="1" required>
-  </div>
-  <button class="btn btn-block" type="submit">Adicionar serviço</button>
+<input type="hidden" name="acao" value="adicionar_servico">
+
+<div class="field">
+<label>Serviço</label>
+<select name="id_servico" required>
+<option value="">Selecione um serviço</option>
+<?php foreach ($servicos as $servico): ?>
+<option value="<?= $servico['id'] ?>">
+<?= htmlspecialchars($servico['nome']) ?> (R$ <?= number_format($servico['preco'],2,',','.') ?>)
+</option>
+<?php endforeach; ?>
+</select>
+</div>
+
+<div class="field">
+<label>Quantidade</label>
+<input type="number" name="quantidade" value="1" min="1" required>
+</div>
+
+<button class="btn btn-block" type="submit">Adicionar serviço</button>
 </form>
 </div>
 
 <div class="card">
 <h4>Venda atual</h4>
+
 <?php if (empty($carrinho)): ?>
-  <p>Nenhum item adicionado.</p>
+<p>Nenhum item adicionado.</p>
 <?php else: ?>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Item</th>
-        <th>Qtd</th>
-        <th>Valor</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php foreach ($carrinho as $indice => $item): ?>
-        <tr>
-          <td><?= htmlspecialchars($item['nome']) ?> <?= $item['tipo'] === 'servico' ? '(Serviço)' : '' ?></td>
-          <td><?= (int)$item['quantidade'] ?></td>
-          <td>R$ <?= number_format($item['preco'] * $item['quantidade'], 2, ',', '.') ?></td>
-          <td>
-            <form method="post" style="display:inline-block; margin:0;">
-              <input type="hidden" name="acao" value="remover_item">
-              <input type="hidden" name="indice" value="<?= $indice ?>">
-              <button class="btn btn-sm danger" type="submit">Remover</button>
-            </form>
-          </td>
-        </tr>
-      <?php endforeach; ?>
-    </tbody>
-  </table>
-  <h3 style="margin-top:16px">Total: R$ <?= number_format($total, 2, ',', '.') ?></h3>
-  <form method="post">
-    <input type="hidden" name="acao" value="finalizar_venda">
-    <div class="field">
-      <label>Cliente</label>
-      <select name="id_cliente" required>
-        <option value="">Selecione um cliente</option>
-        <?php foreach ($clientes as $cliente): ?>
-          <option value="<?= $cliente['id'] ?>"><?= htmlspecialchars($cliente['nome']) ?></option>
-        <?php endforeach; ?>
-      </select>
-    </div>
-    <button class="btn btn-block" type="submit">Finalizar venda</button>
-  </form>
+
+<table class="table">
+<thead>
+<tr>
+<th>Item</th>
+<th>Qtd</th>
+<th>Valor</th>
+<th>Ações</th>
+</tr>
+</thead>
+
+<tbody>
+<?php foreach ($carrinho as $indice => $item): ?>
+<tr>
+<td><?= htmlspecialchars($item['nome']) ?> <?= $item['tipo'] === 'servico' ? '(Serviço)' : '' ?></td>
+<td><?= (int)$item['quantidade'] ?></td>
+<td>R$ <?= number_format($item['preco'] * $item['quantidade'], 2, ',', '.') ?></td>
+<td>
+<form method="post" style="display:inline-block; margin:0;">
+<input type="hidden" name="acao" value="remover_item">
+<input type="hidden" name="indice" value="<?= $indice ?>">
+<button class="btn btn-sm danger" type="submit">Remover</button>
+</form>
+</td>
+</tr>
+<?php endforeach; ?>
+</tbody>
+</table>
+
+<h3 style="margin-top:16px">Total: R$ <?= number_format($total, 2, ',', '.') ?></h3>
+
+<form method="post">
+<input type="hidden" name="acao" value="finalizar_venda">
+
+<div class="field">
+<label>Cliente</label>
+<select name="id_cliente" required>
+<option value="">Selecione um cliente</option>
+<?php foreach ($clientes as $cliente): ?>
+<option value="<?= $cliente['id'] ?>"><?= htmlspecialchars($cliente['nome']) ?></option>
+<?php endforeach; ?>
+</select>
+</div>
+
+<button class="btn btn-block" type="submit">Finalizar venda</button>
+</form>
+
 <?php endif; ?>
 </div>
 
@@ -273,5 +298,41 @@ foreach ($carrinho as $item) {
 </section>
 </main>
 </div>
+
+<?php if (!$logado): ?>
+<div class="login-overlay">
+<form method="post" action="/ZookaFinal/php/login.php">
+
+<div class="login-brand">
+<div class="logo logo--primary">Z</div>
+<div>
+<strong>Zooka</strong>
+<div class="muted">Sistema Interno</div>
+</div>
+</div>
+
+<h2>Acesso ao sistema</h2>
+
+<div class="field">
+<label>Usuário</label>
+<input type="text" name="usuario" required>
+</div>
+
+<div class="field">
+<label>Senha</label>
+<input type="password" name="senha" required>
+</div>
+
+<button class="btn btn-block">Entrar</button>
+
+<?php if (isset($_GET['erro'])): ?>
+<div class="login-error">Usuário ou senha inválidos</div>
+<?php endif; ?>
+
+</form>
+</div>
+<?php endif; ?>
+
+<script src="../js/script.js"></script>
 </body>
 </html>

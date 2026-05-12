@@ -21,10 +21,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajustar_estoque'])) {
     } else {
         $total = $acao === 'entrada' ? $quantidade : -$quantidade;
         $resultado = ajustar_estoque($id_produto, $total);
+
         if ($resultado) {
             header('Location: estoque.php?sucesso=estoque');
             exit;
         }
+
         $mensagens[] = 'Erro ao atualizar estoque. Verifique os valores e tente novamente.';
     }
 }
@@ -34,94 +36,145 @@ $produtos = buscar_produtos();
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Estoque • Zooka</title>
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <meta charset="UTF-8">
+    <title>Estoque • Zooka</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
 
 <div id="conteudo" class="<?= !$logado ? 'blur' : '' ?>">
+
 <header>
-  <div class="brand">
-    <div class="logo"><img src="../Assets/logo_ico.png" class="imagel" alt=""></div>
-    <div>Zooka • Sistema Interno</div>
-  </div>
-  <div class="user-area">
-    <span>Olá, <?= $_SESSION['usuario'] ?></span>
-    <form method="post"><button class="btn" name="logout">Sair</button></form>
-  </div>
+    <div class="brand">
+        <div class="logo">
+            <img src="../Assets/logo_ico.png" class="imagel" alt="">
+        </div>
+        <div>Zooka • Sistema Interno</div>
+    </div>
+
+    <div class="user-area">
+        <span>Olá, <?= $_SESSION['usuario'] ?? 'Visitante' ?></span>
+
+        <?php if ($logado): ?>
+        <form method="post">
+            <button class="btn" name="logout">Sair</button>
+        </form>
+        <?php endif; ?>
+    </div>
 </header>
 
 <main class="layout">
-<nav>
-      <a class="nav-item " href="../index.php"><span><i class="fa-solid fa-house"></i></span> Início</a>
-      <a class="nav-item" href="clientes_e_pets.php"><span><i class="fa-solid fa-dog"></i></span> Clientes & Pets</a>
-      <a class="nav-item" href="agendamento.php"><span><i class="fa-solid fa-calendar"></i></span> Agendamento</a>
-      <a class="nav-item" href="servicos.php"><span><i class="fa-solid fa-scissors"></i></span> Serviços</a>
-      <a class="nav-item" href="produtos.php"><span><i class="fa-solid fa-bag-shopping"></i></span> Produtos</a>
-      <a class="nav-item active" href="estoque.php"><span><i class="fa-solid fa-boxes-stacked"></i></span> Estoque</a>
-      <a class="nav-item" href="caixa.php"><span><i class="fa-solid fa-money-bill"></i></span> Caixa</a>
-  
+
+    <nav>
+        <a class="nav-item" href="../index.php"><span><i class="fa-solid fa-house"></i></span> Início</a>
+        <a class="nav-item" href="clientes_e_pets.php"><span><i class="fa-solid fa-dog"></i></span> Clientes & Pets</a>
+        <a class="nav-item" href="agendamento.php"><span><i class="fa-solid fa-calendar"></i></span> Agendamento</a>
+        <a class="nav-item" href="servicos.php"><span><i class="fa-solid fa-scissors"></i></span> Serviços</a>
+        <a class="nav-item" href="produtos.php"><span><i class="fa-solid fa-bag-shopping"></i></span> Produtos</a>
+        <a class="nav-item active" href="estoque.php"><span><i class="fa-solid fa-boxes-stacked"></i></span> Estoque</a>
+        <a class="nav-item" href="caixa.php"><span><i class="fa-solid fa-money-bill"></i></span> Caixa</a>
     </nav>
 
-<section class="content">
+    <section class="content">
 
-<div class="card">
-  <h4>Controle de estoque</h4>
+        <div class="card">
+            <h4>Controle de estoque</h4>
 
-  <?php if (!empty($mensagens)): ?>
-  <div class="alert alert-danger">
-    <ul>
-      <?php foreach ($mensagens as $mensagem): ?>
-        <li><?= htmlspecialchars($mensagem) ?></li>
-      <?php endforeach; ?>
-    </ul>
-  </div>
-  <?php endif; ?>
+            <?php if (!empty($mensagens)): ?>
+            <div class="alert alert-danger">
+                <ul>
+                    <?php foreach ($mensagens as $mensagem): ?>
+                        <li><?= htmlspecialchars($mensagem) ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <?php endif; ?>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Produto</th>
-        <th>Quantidade</th>
-        <th>Status</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php foreach ($produtos as $produto): ?>
-      <tr>
-        <td><?= htmlspecialchars($produto['nome']) ?></td>
-        <td><?= (int)$produto['estoque'] ?></td>
-        <td>
-          <?php if ((int)$produto['estoque'] <= 5): ?>
-            <span class="badge warn">Baixo</span>
-          <?php else: ?>
-            <span class="badge">OK</span>
-          <?php endif; ?>
-        </td>
-        <td>
-          <form method="post" style="display:inline-block; margin:0 8px 0 0;">
-            <input type="hidden" name="id_produto" value="<?= $produto['id'] ?>">
-            <input type="hidden" name="acao" value="entrada">
-            <input type="number" name="quantidade" value="1" min="1" style="width:60px; display:inline-block; margin-right:4px;">
-            <button class="btn btn-sm" name="ajustar_estoque" type="submit">Entrada</button>
-          </form>
-          <form method="post" style="display:inline-block; margin:0;">
-            <input type="hidden" name="id_produto" value="<?= $produto['id'] ?>">
-            <input type="hidden" name="acao" value="saida">
-            <input type="number" name="quantidade" value="1" min="1" style="width:60px; display:inline-block; margin-right:4px;">
-            <button class="btn btn-sm danger" name="ajustar_estoque" type="submit">Saída</button>
-          </form>
-        </td>
-      </tr>
-      <?php endforeach; ?>
-    </tbody>
-  </table>
-</div>
-</section>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Quantidade</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?php foreach ($produtos as $produto): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($produto['nome']) ?></td>
+                        <td><?= (int)$produto['estoque'] ?></td>
+
+                        <td>
+                            <?php if ((int)$produto['estoque'] <= 5): ?>
+                                <span class="badge warn">Baixo</span>
+                            <?php else: ?>
+                                <span class="badge">OK</span>
+                            <?php endif; ?>
+                        </td>
+
+                        <td>
+                            <form method="post" style="display:inline-block; margin:0 8px 0 0;">
+                                <input type="hidden" name="id_produto" value="<?= $produto['id'] ?>">
+                                <input type="hidden" name="acao" value="entrada">
+                                <input type="number" name="quantidade" value="1" min="1" style="width:60px; display:inline-block; margin-right:4px;">
+                                <button class="btn btn-sm" name="ajustar_estoque" type="submit">Entrada</button>
+                            </form>
+
+                            <form method="post" style="display:inline-block; margin:0;">
+                                <input type="hidden" name="id_produto" value="<?= $produto['id'] ?>">
+                                <input type="hidden" name="acao" value="saida">
+                                <input type="number" name="quantidade" value="1" min="1" style="width:60px; display:inline-block; margin-right:4px;">
+                                <button class="btn btn-sm danger" name="ajustar_estoque" type="submit">Saída</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+
+            </table>
+        </div>
+
+    </section>
+
 </main>
 </div>
+
+<?php if (!$logado): ?>
+<div class="login-overlay">
+    <form method="post" action="/ZookaFinal/php/login.php">
+
+        <div class="login-brand">
+            <div class="logo logo--primary">Z</div>
+            <div>
+                <strong>Zooka</strong>
+                <div class="muted">Sistema Interno</div>
+            </div>
+        </div>
+
+        <h2>Acesso ao sistema</h2>
+
+        <div class="field">
+            <label>Usuário</label>
+            <input type="text" name="usuario" required>
+        </div>
+
+        <div class="field">
+            <label>Senha</label>
+            <input type="password" name="senha" required>
+        </div>
+
+        <button class="btn btn-block">Entrar</button>
+
+        <?php if (isset($_GET['erro'])): ?>
+            <div class="login-error">Usuário ou senha inválidos</div>
+        <?php endif; ?>
+
+    </form>
+</div>
+<?php endif; ?>
+
 </body>
 </html>
