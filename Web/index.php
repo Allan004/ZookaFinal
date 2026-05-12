@@ -1,5 +1,7 @@
 <?php
 session_start();
+include "../php/buscar_produtos_web";
+
 ?>
 <?php
  
@@ -391,97 +393,87 @@ $mail->AltBody = "Olá, $nome! Recebemos seu cadastro com sucesso.";
     </div>
 </section>
  
-    <section class="product-shelf">
-    <h2 class="shelf-title">presentes favoritos para surpreender</h2>
-   
-   <div class="carousel-wrapper">
-    <button class="carousel-btn prev">❮</button>
-   
+   <?php
+
+$produto1 = produto_espefico(10);
+$produto2 = produto_espefico(2);
+$produto3 = produto_espefico(3);
+$produto4 = produto_espefico(4);
+
+$produtos_recomendados = [$produto1, $produto2, $produto3, $produto4];
+?>
+
+<section class="product-shelf">
+    <h2 class="shelf-title">Recomendados</h2>
+
     <div class="shelf-container">
-        </div>
- 
-    <button class="carousel-btn next">❯</button>
-</div>
-   
-    <div class="shelf-container">
-        <div class="product-card">
-            <div class="product-image">
-                <img src="Assets/racao (1).png" alt="Ração Golden Special">
-                <span class="wishlist-icon">♡</span>
-            </div>
-            <div class="product-info">
-                <p class="brand">Zooka Food</p>
-                <p class="name">Ração Golden Special Adulto 10,1kg</p>
-                <p class="old-price">R$ 189,90</p>
-                <p class="new-price">R$ 159,90 <span class="discount">-15%</span></p>
-                <p class="installments">ou 3x de R$ 53,30 sem juros</p>
-                <button class="btn-add">adicionar à sacola</button>
-            </div>
-        </div>
- 
-        <div class="product-card">
-            <div class="product-image">
-                <img src="Assets/racao (2).png" alt="Escova Removedora">
-                <span class="wishlist-icon">♡</span>
-            </div>
-            <div class="product-info">
-                <p class="brand">Zooka Care</p>
-                <p class="name">Escova Removedora de Pelos</p>
-                <p class="old-price">R$ 70,00</p>
-                <p class="new-price">R$ 21,00 <span class="discount">-30%</span></p>
-                <p class="installments">ou 2x de R$ 10.50 sem juros</p>
-                <button class="btn-add">adicionar à sacola</button>
-            </div>
-        </div>
- 
-        <div class="product-card">
-            <div class="product-image">
-                <img src="Assets/antipulgas.jpg" alt="Simparic">
-                <span class="wishlist-icon">♡</span>
-            </div>
-           
-            <div class="product-info">
-                <p class="brand">Zooka therapy</p>
-                <p class="name">Antipulgas Simparic 10–20kg</p>
-                <p class="new-price">R$ 113,00</p>
-                <p class="installments">ou 2x de R$ 56,50 sem juros</p>
-                <button class="btn-add">adicionar à sacola</button>
-            </div>
-        </div>
- 
-        <div class="product-card">
-            <div class="product-image">
-                <img src="Assets/racao (2).png" alt="Escova Removedora">
-                <span class="wishlist-icon">♡</span>
-            </div>
-            <div class="product-info">
-                <p class="brand">Zooka Care</p>
-                <p class="name">Escova Removedora de Pelos</p>
-                <p class="old-price">R$ 70,00</p>
-                <p class="new-price">R$ 21,00 <span class="discount">-30%</span></p>
-                <p class="installments">ou 2x de R$ 10.50 sem juros</p>
-                <button class="btn-add">adicionar à sacola</button>
-            </div>
-        </div>
-    </div>
-   
-    <div class="carousel-dots">
-        <span class="dot active"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-    </div>
-</section>
- 
-<section class="video-section">
-    <div class="video-container">
-        <video autoplay muted loop playsinline class="bg-video">
-            <source src="Assets/ZookaWeb.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay">
-            <h2>Momentos que Marcam</h2>
-            <p>Conheça nossa nova linha de bem-estar animal com extratos naturais.</p>
-           
-        </div>
+
+        <?php foreach($produtos_recomendados as $produto): ?>
+            
+            <?php if($produto): ?>
+                <div class="product-card">
+
+                    <div class="product-image">
+                        <img src="Assets/imagens_produtos/produto_<?php echo $produto['id']; ?>/1.jpg" 
+                             alt="<?php echo htmlspecialchars($produto1['nome']); ?>">
+                        <span class="wishlist-icon"></span>
+                    </div>
+
+                    <div class="product-info">
+
+                        <!-- Marca / Código -->
+                        <p class="brand">
+                            <?php echo htmlspecialchars($produto1['codigo_produto']); ?>
+                        </p>
+
+                        <!-- Nome -->
+                        <p class="name">
+                            <?php echo htmlspecialchars($produto['nome']); ?>
+                        </p>
+
+                        <!-- Descrição -->
+                        <p class="description">
+                            <?php echo htmlspecialchars($produto['descricao']); ?>
+                        </p>
+
+                        <!-- Preço -->
+                        <p class="new-price">
+                            R$ <?php echo number_format($produto['preco'], 2, ',', '.'); ?>
+                        </p>
+
+                        <!-- Parcelamento exemplo -->
+                        <p class="installments">
+                            ou 3x de R$ <?php echo number_format($produto['preco']/3, 2, ',', '.'); ?> sem juros
+                        </p>
+
+                        <!-- Botão -->
+                         <?php if(isset($_SESSION['usuario_id'])): ?>
+                        <form action="carrinho2.php" method="POST" style="margin:0; padding:0;">
+                            
+                            <input type="hidden" name="idProduto" value="<?php echo $produto['id']; ?>">
+                            
+                            <input type="hidden" name="quantidade" value="1">
+
+                            <button type="submit" class="btn-add">
+                                adicionar à sacola
+                            </button>
+
+                        </form>
+                        <?php else: ?>
+
+                        <a href="login.php" class="btn-add" style="display:block; text-align:center;">
+                            adicionar à sacola
+                        </a>
+
+                          <?php endif; ?>
+
+                    </div>
+
+                </div>
+            <?php endif; ?>
+
+        <?php endforeach; ?>
+
     </div>
 </section>
  
