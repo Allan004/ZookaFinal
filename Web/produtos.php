@@ -303,7 +303,9 @@ $produtos=produtos_web($nome,$filtro,$ordenar);
                 
                 <div class="products-grid">
                     <?php 
-                    
+                    if (empty($produtos)) {
+                        echo "<p class='no-products'>Nenhum produto encontrado para os filtros selecionados.</p>";
+                    } else {
                     foreach($produtos as $produto){
 
    echo '
@@ -338,6 +340,7 @@ $produtos=produtos_web($nome,$filtro,$ordenar);
 
 </div>
 ';}
+                    }
                     
                     ?>
 
