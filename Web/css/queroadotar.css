@@ -143,3 +143,216 @@ body {
 .btn-adopt:hover {
     background-color: #e68a5a;
 }
+
+
+
+
+
+
+/* MOdal do queroadotar */
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    background-color: #f4f4f4;
+}
+
+.container{
+    width: 100%;
+    padding: 40px;
+}
+
+.content h2{
+    font-size: 40px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* CARDS */
+
+.pet-grid{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: flex-start;
+}
+
+.pet-card{
+    width: 280px;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.pet-card:hover{
+    transform: translateY(-5px);
+}
+
+.pet-image{
+    width: 100%;
+    height: 270px;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+}
+
+.card-info{
+    padding: 18px;
+}
+
+.ong-name{
+    color: #ff8b5e;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.name-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pet-name{
+    font-size: 34px;
+    font-weight: bold;
+    color: #333;
+}
+
+.icons{
+    display: flex;
+    gap: 10px;
+    font-size: 20px;
+}
+
+.male{
+    color: #4a90e2;
+}
+
+.female{
+    color: #ff5f7f;
+}
+
+.location{
+    margin: 15px 0;
+    color: #777;
+    line-height: 1.5;
+}
+
+.btn-adopt{
+    display: inline-block;
+    padding: 12px 20px;
+    background: #f5a26f;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-adopt:hover{
+    background: #eb8c4c;
+}
+
+
+/* MODAL */
+
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content{
+    width: 85%;
+    max-width: 950px;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+
+    display: flex;
+    position: relative;
+}
+
+.modal-left{
+    width: 55%;
+    background: #ddd;
+}
+
+.modal-left img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.modal-right{
+    width: 45%;
+    padding: 35px;
+}
+
+.modal-right h2{
+    font-size: 38px;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+.modal-right p{
+    margin-bottom: 14px;
+    color: #666;
+    line-height: 1.6;
+    font-size: 17px;
+}
+
+.close{
+    position: absolute;
+    top: 15px;
+    right: 20px;
+
+    font-size: 35px;
+    color: #333;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.close:hover{
+    color: red;
+}
+
+
+/* RESPONSIVO */
+
+@media(max-width: 900px){
+
+    .modal-content{
+        flex-direction: column;
+        width: 95%;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .modal-left{
+        width: 100%;
+        height: 300px;
+    }
+
+    .modal-right{
+        width: 100%;
+    }
+
+}
