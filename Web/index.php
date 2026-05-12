@@ -478,7 +478,18 @@ $produtos_recomendados = [$produto1, $produto2, $produto3, $produto4];
 </section>
  
  
- 
+ <section class="video-section">
+    <div class="video-container">
+        <video autoplay muted loop playsinline class="bg-video">
+            <source src="Assets/ZookaWeb.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay">
+            <h2>Momentos que Marcam</h2>
+            <p>Conheça nossa nova linha de bem-estar animal com extratos naturais.</p>
+           
+        </div>
+    </div>
+</section>
  
  
 <footer class="main-footer">
