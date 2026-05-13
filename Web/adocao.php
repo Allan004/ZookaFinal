@@ -144,7 +144,7 @@
             <li>Doe itens básicos</li>
             <li>Apadrinhe um animal</li>
         </ul>
-        <a href="https://www.webdenuncia.sp.gov.br/depa" class="btn-continue">Saiba como Denunviar</a>
+        <a href="https://www.webdenuncia.sp.gov.br/depa" class="btn-continue">Saiba como Denunciar</a>
     </div>
     <div class="video-container">
         <video autoplay muted loop playsinline poster="Assets/VideoAdocao.mp4">
@@ -153,6 +153,81 @@
         </video>
     </div>
 </section>
+
+
+<section class="mural-saudade">
+
+    <div class="titulo-mural">
+        <span class="icone-coracao">♡</span>
+
+        <h2>Mural da Saudade</h2>
+
+        <p>
+            Um espaço sagrado para homenagear os animais que perdeam suas vidas por maus-tratos. Cada história é um lembrete do impacto devastador da crueldade, mas também da importância de nossa missão. Que essas memórias inspirem a mudança e a proteção dos que ainda estão conosco.
+        </p>
+    </div>
+
+    <div class="mural-container">
+
+  
+    
+
+        <div class="cards-mural">
+
+    <div class="card-mural">
+        <img src="Assets/adocao/orelha.png" alt="Luc e Docinho">
+
+        <div class="info-mural">
+            <h3>Caso Orelha  🐾</h3>
+            <span>O cachorro morreu após ser agredido a pauladas na Praia Brava.</span>
+        </div>
+    </div>
+
+    <div class="card-mural">
+        <img src="Assets/adocao/abacate.png" alt="Fred">
+
+        <div class="info-mural">
+            <h3>Abacate 🐾</h3>
+            <span>  Abacate morreu após ser alvejado a tiros em uma do bairro Tocantins, em Toledo, no Oeste do Paraná.</span>
+        </div>
+    </div>
+
+    <div class="card-mural">
+        <img src="Assets/adocao/negao.png" alt="Mel">
+
+        <div class="info-mural">
+            <h3>Negão🐾</h3>
+            <span> Negão foi morto após ser atropelado, o cachorro ficou ferido no pescoço, ainda caminhou até a calçada chorando, mas não resistiu.</span>
+        </div>
+    </div>
+
+    <div class="card-mural">
+        <img src="Assets/adocao/gatinhos.png" alt="Luna">
+
+        <div class="info-mural">
+            <h3>3 gatos 🐾</h3>
+            <span>Três gatos foram vítimas de envenenamento na Vila José Lacerda, na Lapa, nos últimos dias.</span>
+        </div>
+    </div>
+
+    <div class="card-mural">
+        <img src="Assets/adocao/quintal.png" alt="Roi e Tica">
+
+        <div class="info-mural">
+            <h3>Envenenamento da melhor amiga🐾</h3>
+            <span>Homem chora após segurar cahorra morta no colo " MATARAM MINHA MELHOR AMIGA".</span>
+        </div>
+    </div>
+
+</div>
+
+      
+
+    </div>
+
+</section>
+
+
 <footer class="main-footer">
     <div class="footer-grid">
         <div class="footer-column">

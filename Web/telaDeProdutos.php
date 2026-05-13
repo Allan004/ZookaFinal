@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 include "../php/buscar_produtos_web";
 
@@ -41,7 +42,6 @@ $produto=produto_espefico($id_produto);
             <?php endif; ?>
         </form>
       </div>
- 
 <div class="user-menu">
  
 <?php if(isset($_SESSION['usuario_nome'])): ?>
@@ -52,8 +52,7 @@ $produto=produto_espefico($id_produto);
         </span>
  
         <div class="dropdown-menu">
-            <a href="#">Meus pedidos</a>
-            <a href="#">Meus pets</a>
+            <a href="meuspedidoss.php">Meus pedidos</a>
             <a href="meusdados.php">Meus dados</a>
             <a href="logout.php">Sair</a>
         </div>
@@ -67,7 +66,15 @@ $produto=produto_espefico($id_produto);
  
 <?php endif; ?>
  
-<a href="carrinho.php" class="btn-continue">🛒</a>
+<?php if(isset($_SESSION['usuario_id'])): ?>
+
+    <a href="carrinho2.php" class="btn-continue">🛒</a>
+
+<?php else: ?>
+
+    <a href="login.php" class="btn-continue">🛒</a>
+
+<?php endif; ?>
  
 </div>
  
@@ -184,25 +191,7 @@ $produto=produto_espefico($id_produto);
         </ul>
     </li>
  
-    <!-- PROMOÇÕES -->
-    <li class="has-dropdown">
-        <div class="category-item">
-            <img src="Assets/promocoes1.png"> promoções
-        </div>
-        <ul class="submenu">
-            <li><a href="produtos.php?categoria=promocao&filtro=oferta">Ofertas do dia</a></li>
-        </ul>
-    </li>
- 
-    <!-- ASSINATURA -->
-    <li class="has-dropdown">
-        <div class="category-item">
-            <img src="Assets/assinatura1.png"> assinatura
-        </div>
-        <ul class="submenu">
-            <li><a href="produtos.php?categoria=assinatura&filtro=plano">Planos</a></li>
-        </ul>
-    </li>
+  
  
     <!-- ADOÇÃO -->
     <li>
@@ -212,8 +201,7 @@ $produto=produto_espefico($id_produto);
 </li>
  
 </ul>
-        </nav>
-    </header>
+</nav>
  
     <div class="scrolling-ticker">
         <div class="ticker-content">
@@ -338,7 +326,12 @@ $produto=produto_espefico($id_produto);
 </section>
 
 <!-- e termina aqui viu -->
+<<<<<<< HEAD
 <footer class="main-footer">
+=======
+
+ <footer class="main-footer">
+>>>>>>> 873cfa05f41d30c5905115bd988676586364df99
     <div class="footer-grid">
         <div class="footer-column">
             <h4>sobre nós</h4>
@@ -348,6 +341,7 @@ $produto=produto_espefico($id_produto);
         </div>
     </div>
 </footer>
+
 
 <script>
 
