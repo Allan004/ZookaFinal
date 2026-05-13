@@ -43,7 +43,7 @@ function logout(): void
 
 function verifica_baixo_estoque(){
         $pdo=conectar();
-        $comando="SELECT COUNT(*) FROM produto WHERE estoque<10";
+        $comando="SELECT COUNT(*) FROM produto WHERE estoque<5";
         $stmt=$pdo->prepare($comando);
         $stmt->execute();
         $total=$stmt->fetchColumn();
