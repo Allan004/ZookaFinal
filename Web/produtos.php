@@ -73,7 +73,7 @@ $produtos=produtos_web($nome,$filtro,$ordenar);
  
 <?php endif; ?>
  
-<a href="carrinho.php" class="btn-continue">🛒</a>
+<a href="carrinho2.php" class="btn-continue">🛒</a>
  
 </div>
  

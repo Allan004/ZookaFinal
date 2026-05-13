@@ -158,7 +158,8 @@ $valorTotal = $valorProdutosComDesconto + $taxaServico + $freteSelecionado;
  
     </div>
 </header>
-      <nav class="category-nav">
+       
+       <nav class="category-nav">
 <ul>
  
     <!-- CACHORROS -->
@@ -614,9 +615,9 @@ $valorTotal = $valorProdutosComDesconto + $taxaServico + $freteSelecionado;
 
                     </div>
 
-                    <p>Rua dos Anjos</p>
-                    <p>Guarulhos - SP</p>
-                    <p>CEP: 07179-707</p>
+                    <p><?php echo $enderecoCliente['rua']; ?></p>
+                    <p><?php echo $enderecoCliente['bairro']; ?></p>
+                    <p><?php echo $enderecoCliente['cidade']; ?></p>
 
                 </div>
 
