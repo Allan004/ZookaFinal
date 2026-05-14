@@ -6,6 +6,7 @@
     <title>AdoteZooka</title>
 
     <link rel="stylesheet" href="css/adocao.css">
+    <link rel="stylesheet" href="css/footer.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
@@ -153,6 +154,7 @@
     </div>
 </section>
 
+
 <section class="mural-saudade">
 
     <div class="titulo-mural">
@@ -225,12 +227,13 @@
 
 </section>
 
+
 <footer class="main-footer">
     <div class="footer-grid">
         <div class="footer-column">
             <h4>sobre nós</h4>
             <ul>
-                <li>nossa história</li>
+                 <a href="sobrenos.php">Nossa História</a>
             </ul>
         </div>
     </div>

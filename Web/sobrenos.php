@@ -44,7 +44,7 @@
                 <img class="foto-animada" src="Assets\henriquegif.gif" alt="Rapaz careca dando sinal positivo piscando">
             </div>
             <div class="redes-sociais">
-            <a href="https://www.linkedin.com/in/allan-belchior-1a3ab1346/" target="_blank" class="link-social linkedin" title="LinkedIn">
+            <a href="https://www.linkedin.com/in/luiz-henrique-rocha-63a437137/" target="_blank" class="link-social linkedin" title="LinkedIn">
                 <i class="fab fa-linkedin-in"></i>
             </a>
             <a href="https://github.com/henriqueRochas" target="_blank" class="link-social github" title="GitHub">
@@ -102,7 +102,7 @@
                 <img class="foto-animada" src="Assets\vitoriagif.gif" alt="Menina de óculos ajeitando a armação">
             </div>
             <div class="redes-sociais">
-            <a href="https://www.linkedin.com/in/vitoria-macario-raya-1a8231242/" target="_blank" class="link-social linkedin" title="LinkedIn">
+            <a href="https://www.linkedin.com/in/vitoria-campos-614014323/" target="_blank" class="link-social linkedin" title="LinkedIn">
                 <i class="fab fa-linkedin-in"></i>
             </a>
             <a href="https://github.com/vitoriacamposs06" target="_blank" class="link-social github" title="GitHub">

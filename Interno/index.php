@@ -77,7 +77,7 @@ $logado = usuario_logado();
         </div>
         <div class="card">
           <h4>Faturamento (hoje)</h4>
-          <div class="value"><?php echo $faturamento ?></div>
+          <div class="value"><?php echo ($faturamento == "") ? 0 : $faturamento; ?></div>
         </div>
       </div>
 
