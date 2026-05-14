@@ -1,52 +1,153 @@
 footer {
     width: 100%;
-    background-color: #fff;
-    border-top: 1px solid #f0f0f0;
+    background: linear-gradient(
+        180deg,
+        #fff,
+        #f9f9f9
+    );
+
+    border-top: 4px solid #00bcd4;
+
     padding: 60px 0;
+
     margin-top: 50px;
 
     display: flex;
     justify-content: center;
     align-items: center;
+
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
 }
 
 .footer-grid {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
 }
 
 .footer-column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    padding:25px 50px;
+
+    border-radius:20px;
+
+    transition:.4s;
 }
+
+/* efeito ao passar mouse */
+
+.footer-column:hover{
+
+    transform:translateY(-5px);
+
+}
+
 
 .footer-column h4 {
-    font-size: 16px;
-    font-weight: 800;
-    color: #333;
-    margin-bottom: 25px;
-    text-transform: lowercase;
+
+    font-size:18px;
+
+    font-weight:800;
+
+    color:#333;
+
+    margin-bottom:25px;
+
+    text-transform:uppercase;
+
+    position:relative;
+
+    letter-spacing:1px;
 }
+
+
+/* barrinha decorativa */
+
+.footer-column h4::after{
+
+    content:"";
+
+    width:50px;
+
+    height:4px;
+
+    background:#f48120;
+
+    position:absolute;
+
+    left:50%;
+
+    bottom:-10px;
+
+    transform:translateX(-50%);
+
+    border-radius:50px;
+}
+
 
 .footer-column ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+
+    list-style:none;
+
+    padding:0;
+
+    margin:0;
 }
+
 
 .footer-column li {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 15px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: color 0.2s;
+
+    margin-bottom:15px;
 }
 
-.footer-column li:hover {
-    color: #36a9b1;
+
+.footer-column a{
+
+    text-decoration:none;
+
+    color:#666;
+
+    font-size:15px;
+
+    font-weight:500;
+
+    transition:.3s;
+}
+
+
+.footer-column a:hover {
+
+    color:#00bcd4;
+
+    padding-left:6px;
+}
+
+
+/* opcional: ícone pata */
+
+.footer-column a::before{
+
+    content:"🐾 ";
+
+    opacity:.7;
+
+    transition:.3s;
+}
+
+.footer-column a:hover::before{
+
+    opacity:1;
 }

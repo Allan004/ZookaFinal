@@ -1,6 +1,4 @@
-// =============================
-// 🔢 ANIMAÇÃO DE CONTADORES
-// =============================
+
 
 function animateValue(obj, start, end, duration) {
     let startTimestamp = null;
@@ -52,9 +50,7 @@ function initCounters() {
 }
 
 
-// =============================
-// Carousel
-// =============================
+
 
 let slideIndex = 0;
 let slides = [];
@@ -109,9 +105,7 @@ function iniciarCarrossel() {
 }
 
 
-// =============================
-// 🚀 INICIALIZAÇÃO
-// =============================
+
 
 function init() {
     initCounters();

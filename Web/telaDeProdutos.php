@@ -326,8 +326,12 @@ $produto=produto_espefico($id_produto);
 </section>
 
 <!-- e termina aqui viu -->
+<<<<<<< HEAD
+<footer class="main-footer">
+=======
 
  <footer class="main-footer">
+>>>>>>> 873cfa05f41d30c5905115bd988676586364df99
     <div class="footer-grid">
         <div class="footer-column">
             <h4>sobre nós</h4>

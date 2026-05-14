@@ -660,3 +660,40 @@ footer {
         max-width: 320px;
     }
 }
+
+.btn-continue{
+
+    display:inline-block;
+
+    background:#f48120;
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:14px 28px;
+
+    border-radius:30px;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    transition:.3s;
+
+    box-shadow:
+    0 5px 15px rgba(244,129,32,.3);
+
+}
+
+
+.btn-continue:hover{
+
+    background:#e06f0e;
+
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 8px 20px rgba(244,129,32,.45);
+
+}
