@@ -87,23 +87,19 @@ function criar_venda($id_cliente, $itens) {
         $id_venda = $pdo->lastInsertId();
 
         foreach ($itens as $item) {
-            $sqlItem = "INSERT INTO item_venda (id_venda, id_produto, id_servico, quantidade, preco_unitario) VALUES (:id_venda, :id_produto, :id_servico, :quantidade, :preco_unitario)";
-            $stmtItem = $pdo->prepare($sqlItem);
-            $stmtItem->bindValue(':id_venda', (int)$id_venda, PDO::PARAM_INT);
-            $stmtItem->bindValue(':id_produto', isset($item['id_produto']) ? (int)$item['id_produto'] : null, PDO::PARAM_INT);
-            $stmtItem->bindValue(':id_servico', isset($item['id_servico']) ? (int)$item['id_servico'] : null, PDO::PARAM_INT);
-            $stmtItem->bindValue(':quantidade', (int)$item['quantidade'], PDO::PARAM_INT);
-            $stmtItem->bindValue(':preco_unitario', number_format($item['preco'], 2, '.', ''));
-            $stmtItem->execute();
+    $sqlItem = "INSERT INTO item_venda 
+    (id_venda, id_produto, id_servico, quantidade, preco_unitario) 
+    VALUES 
+    (:id_venda, :id_produto, :id_servico, :quantidade, :preco_unitario)";
 
-            if (!empty($item['id_produto'])) {
-                $sqlEstoque = "UPDATE produto SET estoque = estoque - :quantidade, updated_at = NOW() WHERE id = :id";
-                $stmtEstoque = $pdo->prepare($sqlEstoque);
-                $stmtEstoque->bindValue(':quantidade', (int)$item['quantidade'], PDO::PARAM_INT);
-                $stmtEstoque->bindValue(':id', (int)$item['id_produto'], PDO::PARAM_INT);
-                $stmtEstoque->execute();
-            }
-        }
+    $stmtItem = $pdo->prepare($sqlItem);
+    $stmtItem->bindValue(':id_venda', (int)$id_venda, PDO::PARAM_INT);
+    $stmtItem->bindValue(':id_produto', isset($item['id_produto']) ? (int)$item['id_produto'] : null, PDO::PARAM_INT);
+    $stmtItem->bindValue(':id_servico', isset($item['id_servico']) ? (int)$item['id_servico'] : null, PDO::PARAM_INT);
+    $stmtItem->bindValue(':quantidade', (int)$item['quantidade'], PDO::PARAM_INT);
+    $stmtItem->bindValue(':preco_unitario', number_format($item['preco'], 2, '.', ''));
+    $stmtItem->execute();
+}
 
         $pdo->commit();
         limpar_caixa_sessao();
