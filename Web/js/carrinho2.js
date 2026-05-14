@@ -2,204 +2,369 @@
    LÓGICA DO SIDE MODAL (ABRIR / FECHAR)
    ============================================================ */
 
+// Função responsável por abrir e fechar o modal lateral
 function toggleSideModal() {
+
+    // Procura no HTML o elemento que possui o id "sideModalOverlay"
     const modal = document.getElementById('sideModalOverlay');
     
-    // Se o modal estiver invisível ou sem estilo de display, ele abre
+    // Verifica se o modal está escondido ou sem valor definido
     if (modal.style.display === 'none' || modal.style.display === '') {
+
+        // Faz o modal aparecer usando display flex
         modal.style.display = 'flex';
-        // Impede o scroll da página de fundo quando o modal está aberto
+
+        // Bloqueia o scroll da página enquanto o modal estiver aberto
         document.body.style.overflow = 'hidden';
+
     } else {
+
+        // Esconde o modal
         modal.style.display = 'none';
-        // Devolve o scroll para a página de fundo
+
+        // Libera novamente o scroll da página
         document.body.style.overflow = 'auto';
     }
 }
 
-/* FECHAR AO CLICAR FORA (NO OVERLAY) */
+/* ============================================================
+   FECHAR MODAL AO CLICAR FORA
+   ============================================================ */
+
+// Adiciona um evento de clique na janela inteira
 window.addEventListener('click', function(event) {
+
+    // Pega novamente o modal pelo id
     const modal = document.getElementById('sideModalOverlay');
-    // Se o alvo do clique for o fundo escuro e não o conteúdo branco
+
+    // Verifica se o clique foi exatamente no fundo escuro do modal
     if (event.target === modal) {
+
+        // Fecha o modal chamando a função
         toggleSideModal();
     }
 });
 
-/* LÓGICA DAS ABAS (TABS) DO MODAL */
+/* ============================================================
+   LÓGICA DAS ABAS (TABS)
+   ============================================================ */
+
+// Seleciona todos os botões com a classe "tab-btn"
 document.querySelectorAll('.tab-btn').forEach(button => {
+
+    // Adiciona um evento de clique em cada botão
     button.addEventListener('click', () => {
-        // Remove a classe ativa de todos os botões
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-        // Adiciona ao botão clicado
+
+        // Remove a classe "active" de todos os botões
+        document.querySelectorAll('.tab-btn').forEach(btn => 
+            btn.classList.remove('active')
+        );
+
+        // Adiciona a classe "active" apenas no botão clicado
         button.classList.add('active');
         
-        // Aqui você poderia adicionar a lógica para filtrar a lista de lojas
+        // Exibe no console o nome da aba clicada
         console.log("Filtrando lojas por: " + button.innerText);
     });
 });
 
-/* SELEÇÃO DE CARD DE LOJA */
+/* ============================================================
+   SELEÇÃO DE CARD DE LOJA
+   ============================================================ */
+
+// Seleciona todos os cards de loja
 document.querySelectorAll('.store-card').forEach(card => {
+
+    // Adiciona evento de clique em cada card
     card.addEventListener('click', () => {
-        // Remove seleção de todos
-        document.querySelectorAll('.store-card').forEach(c => c.classList.remove('selected'));
-        // Seleciona o clicado
+
+        // Remove a classe "selected" de todos os cards
+        document.querySelectorAll('.store-card').forEach(c => 
+            c.classList.remove('selected')
+        );
+
+        // Adiciona a classe "selected" ao card clicado
         card.classList.add('selected');
         
-        // Dica: Aqui dispararíamos o movimento do mapa para as coordenadas da loja
+        // Exibe mensagem no console
         console.log("Loja selecionada!");
     });
 });
 
 
-// Parte do mapa (Google Maps API)
+/* ============================================================
+   GOOGLE MAPS API
+   ============================================================ */
 
+// Variável global que armazenará o mapa
 let map;
 
+// Função que inicializa o mapa
 function initMap() {
-    // Coordenadas da Zooka Pimentas
+
+    // Coordenadas da loja Zooka Pimentas
     const position = { lat: -23.4542, lng: -46.5340 };
 
-    // Criando o mapa sem exigir Map ID
-    map = new google.maps.Map(document.getElementById("googleMapContainer"), {
-        zoom: 15,
-        center: position,
-        mapTypeControl: false,
-        streetViewControl: false,
-        fullscreenControl: false,
-        // Ao não colocar mapId aqui, usamos o estilo padrão que não bloqueia
-    });
+    // Cria um novo mapa do Google Maps
+    map = new google.maps.Map(
+        
+        // Elemento HTML onde o mapa será renderizado
+        document.getElementById("googleMapContainer"),
 
-    // Marcador padrão (funciona em todas as chaves)
+        // Configurações do mapa
+        {
+            zoom: 15, // nível de zoom
+            center: position, // centro do mapa
+            mapTypeControl: false, // remove botão de tipo de mapa
+            streetViewControl: false, // remove street view
+            fullscreenControl: false // remove botão fullscreen
+        }
+    );
+
+    // Cria um marcador no mapa
     new google.maps.Marker({
+
+        // Posição do marcador
         position: position,
+
+        // Define em qual mapa o marcador será exibido
         map: map,
+
+        // Texto exibido ao passar o mouse
         title: "Zooka Petshop - Pimentas",
+
+        // Animação de queda do marcador
         animation: google.maps.Animation.DROP
     });
 }
 
-// Função para disparar quando o modal abrir
+/* ============================================================
+   AJUSTAR MAPA AO ABRIR MODAL
+   ============================================================ */
+
+// Função que corrige o tamanho do mapa
 function fixMapSize() {
+
+    // Verifica se o mapa existe
     if (map) {
+
+        // Força o Google Maps a recalcular o tamanho
         google.maps.event.trigger(map, "resize");
+
+        // Centraliza novamente o mapa
         map.setCenter({ lat: -23.4542, lng: -46.5340 });
     }
 }
 
+/* ============================================================
+   ABRIR MODAL + CARREGAR MAPA
+   ============================================================ */
+
+// Função para abrir e fechar modal junto com o mapa
 function toggleSideModal() {
+
+    // Seleciona o modal
     const modal = document.getElementById('sideModalOverlay');
     
+    // Verifica se está fechado
     if (modal.style.display === 'none' || modal.style.display === '') {
+
+        // Exibe o modal
         modal.style.display = 'flex';
+
+        // Bloqueia scroll da página
         document.body.style.overflow = 'hidden';
         
-        // ESPERA 300ms (tempo da animação) E CARREGA O MAPA
+        // Espera 300 milissegundos antes de carregar o mapa
         setTimeout(() => {
+
+            // Verifica se a função initMap existe
             if (typeof initMap === "function") {
-                initMap(); // Chama a função que desenha o mapa
+
+                // Inicializa o mapa
+                initMap();
             }
+
         }, 300);
 
     } else {
+
+        // Fecha o modal
         modal.style.display = 'none';
+
+        // Libera scroll novamente
         document.body.style.overflow = 'auto';
     }
 }
 
 
+/* ============================================================
+   MODAL ALTERAR ENDEREÇO
+   ============================================================ */
 
-// alterar endereço modal
+// Seleciona o modal de endereço
+const modal = document.getElementById("addressModal");
 
+// Botão de abrir modal
+const openModal = document.getElementById("openModal");
 
+// Botão de fechar modal
+const closeModal = document.getElementById("closeModal");
 
+// Evento para abrir modal
+openModal.addEventListener("click", (e) => {
 
+    // Impede comportamento padrão do link
+    e.preventDefault();
 
-// alterar endereço modal JS
+    // Adiciona classe active
+    modal.classList.add("active");
+});
 
-    const modal = document.getElementById("addressModal");
-    const openModal = document.getElementById("openModal");
-    const closeModal = document.getElementById("closeModal");
+// Evento para fechar modal
+closeModal.addEventListener("click", () => {
 
-    openModal.addEventListener("click", (e) => {
-        e.preventDefault();
-        modal.classList.add("active");
-    });
+    // Remove classe active
+    modal.classList.remove("active");
+});
 
-    closeModal.addEventListener("click", () => {
+// Fecha modal ao clicar fora
+modal.addEventListener("click", (e) => {
+
+    // Verifica se clicou no fundo
+    if(e.target === modal){
+
+        // Remove classe active
         modal.classList.remove("active");
-    });
-
-    modal.addEventListener("click", (e) => {
-        if(e.target === modal){
-            modal.classList.remove("active");
-        }
-    });
+    }
+});
 
 
+/* ============================================================
+   MODAL CADASTRO
+   ============================================================ */
 
-    // MODAL CADASTRO
-
+// Modal de cadastro
 const registerModal = document.getElementById("registerModal");
+
+// Botão abrir cadastro
 const openRegisterModal = document.getElementById("openRegisterModal");
+
+// Botão fechar cadastro
 const closeRegisterModal = document.getElementById("closeRegisterModal");
 
+// Evento abrir modal cadastro
 openRegisterModal.addEventListener("click", () => {
 
+    // Ativa modal
     registerModal.classList.add("active");
 
 });
 
+// Evento fechar modal cadastro
 closeRegisterModal.addEventListener("click", () => {
 
+    // Remove modal
     registerModal.classList.remove("active");
 
 });
 
+// Fecha modal clicando fora
 registerModal.addEventListener("click", (e) => {
 
+    // Verifica se clicou no fundo
     if(e.target === registerModal){
 
+        // Fecha modal
         registerModal.classList.remove("active");
-
     }
-
 });
 
-// delivery option selection and summary update
+
+/* ============================================================
+   DELIVERY E RESUMO DO PEDIDO
+   ============================================================ */
+
+// Seleciona todas as opções de entrega
 const deliveryOptions = document.querySelectorAll('.delivery-option');
+
+// Elemento onde aparece o valor do frete
 const shippingFee = document.getElementById('shippingFee');
+
+// Elemento do valor total
 const summaryTotal = document.getElementById('summaryTotal');
+
+// Elemento com dados do resumo
 const summaryData = document.getElementById('summaryData');
 
+// Verifica se todos os elementos existem
 if (deliveryOptions.length && shippingFee && summaryTotal && summaryData) {
+
+    // Pega valor da taxa de serviço
     const serviceTax = parseFloat(summaryData.dataset.service) || 0;
+
+    // Pega valor total dos produtos
     const productsTotal = parseFloat(summaryData.dataset.products) || 0;
 
+    // Função que formata números em reais
     function formatBRL(value) {
-        return value.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+        // Converte para formato brasileiro
+        return value.toLocaleString('pt-BR', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
     }
 
+    // Função que atualiza os totais
     function updateTotals(shippingValue) {
+
+        // Soma total dos produtos + taxa + frete
         const totalValue = productsTotal + serviceTax + shippingValue;
-        const displayShipping = shippingValue === 0 ? 'Grátis' : 'R$ ' + formatBRL(shippingValue);
+
+        // Verifica se frete é grátis
+        const displayShipping = shippingValue === 0
+            ? 'Grátis'
+            : 'R$ ' + formatBRL(shippingValue);
+
+        // Atualiza texto do frete
         shippingFee.textContent = displayShipping;
+
+        // Atualiza valor total
         summaryTotal.textContent = 'R$ ' + formatBRL(totalValue);
     }
 
+    // Percorre todas opções de entrega
     deliveryOptions.forEach(option => {
+
+        // Evento ao clicar na opção
         option.addEventListener('click', () => {
-            deliveryOptions.forEach(item => item.classList.remove('active'));
+
+            // Remove classe active de todas
+            deliveryOptions.forEach(item =>
+                item.classList.remove('active')
+            );
+
+            // Adiciona active na selecionada
             option.classList.add('active');
 
+            // Pega preço do frete
             const price = parseFloat(option.dataset.price || '0');
+
+            // Pega método de entrega
             const method = option.dataset.method || 'padrao';
+
+            // Atualiza totais
             updateTotals(price);
 
-            // Update hidden input for form submission
-            const metodoEntregaInput = document.getElementById('metodoEntrega');
+            // Input escondido do formulário
+            const metodoEntregaInput =
+                document.getElementById('metodoEntrega');
+
+            // Verifica se o input existe
             if (metodoEntregaInput) {
+
+                // Atualiza valor do input
                 metodoEntregaInput.value = method;
             }
         });
